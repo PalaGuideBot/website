@@ -1,7 +1,17 @@
 import '../css/app.css'
-import { hydrateRoot } from 'react-dom/client'
+import '@fontsource/inter/100.css'
+import '@fontsource/inter/200.css'
+import '@fontsource/inter/300.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/inter/800.css'
+import '@fontsource/inter/900.css'
+import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { ThemeProvider } from '~/components/theme_provider'
 
 const appName = import.meta.env.VITE_APP_NAME || 'PalaGuideBot'
 
@@ -15,6 +25,11 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    hydrateRoot(el, <App {...props} />)
+    const root = createRoot(el)
+    root.render(
+      <ThemeProvider>
+        <App {...props} />
+      </ThemeProvider>
+    )
   },
 })
