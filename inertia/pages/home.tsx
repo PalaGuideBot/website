@@ -1,15 +1,14 @@
 import { Head } from '@inertiajs/react'
-import ThemeToggler from '~/components/shared/theme_toggler'
+import DefaultLayout from '~/components/layouts/default'
 
 export default function Home() {
   return (
     <>
       <Head title="Accueil" />
 
-      <div className="h-dvh w-full flex gap-2 items-center justify-center">
-        <h1 className="font-bold">PalaGuideBot</h1>
-        <ThemeToggler />
-      </div>
+      <DefaultLayout>
+        <h1 className="text-lg font-semibold">Accueil</h1>
+      </DefaultLayout>
     </>
   )
 }

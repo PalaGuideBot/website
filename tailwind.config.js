@@ -4,7 +4,7 @@ import { wedgesTW } from '@lemonsqueezy/wedges'
 export default {
   content: [
     './inertia/**/*.{js,ts,jsx,tsx}',
-    './resources/**/*.{edge}',
+    './resources/**/*.edge',
     'node_modules/@lemonsqueezy/wedges/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {

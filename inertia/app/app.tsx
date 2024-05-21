@@ -1,3 +1,5 @@
+/// <reference path="../../adonisrc.ts" />
+
 import '../css/app.css'
 import '@fontsource/inter/100.css'
 import '@fontsource/inter/200.css'
