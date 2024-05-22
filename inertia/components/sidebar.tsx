@@ -98,8 +98,8 @@ const LINKS: Record<string, Array<LinkProps>> = {
 export default function Sidebar() {
   const { url } = usePage()
   return (
-    <div className="hidden border-r bg-surface/40 dark:bg-surface/20 md:block">
-      <div className="flex h-full max-h-screen flex-col gap-2">
+    <div className="hidden border-r bg-surface md:block">
+      <div className="flex h-full flex-col gap-2">
         <div className="flex h-14 items-center justify-between gap-2 border-b px-4 lg:h-[60px] lg:px-6">
           <div className="flex items-center gap-2">
             <Link href="/">
@@ -122,9 +122,8 @@ export default function Sidebar() {
                       <Link
                         href={path}
                         className={cn(
-                          'flex items-center gap-2 p-2 rounded-md hover:bg-surface-100 dark:hover:bg-surface/20',
-                          (url === path || url.startsWith(path)) &&
-                            'bg-secondary/80 hover:bg-secondary/80 text-surface dark:text-foreground dark:bg-surface/20'
+                          'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
+                          (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
                         )}
                       >
                         {icon}
