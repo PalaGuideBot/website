@@ -1,7 +1,13 @@
 import { userInfoValidator } from '#core/validators/user_validator'
+import {
+  default as leaderboardCategories,
+  type LeaderboardCategory,
+} from '#leaderboard/content/categories'
+import { validators as leaderboardValidators } from '#leaderboard/validator/leaderbord_validator'
 import env from '#start/env'
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
+import { Infer } from '@vinejs/vine/types'
 import ky, { HTTPError } from 'ky'
 
 const client = ky.create({
@@ -25,6 +31,30 @@ export class ApiService {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception('Invalid user data', {
           code: 'E_USER_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getLeaderboard<T extends LeaderboardCategory>(
+    category: T
+  ): Promise<Infer<(typeof leaderboardValidators)[T]>> {
+    try {
+      if (!leaderboardCategories.includes(category)) {
+        throw new Exception(`Leaderboard category "${category}" don't exists`, {
+          code: 'E_BAD_CATEGORY',
+          status: 400,
+        })
+      }
+      const response = await client.get(category)
+      const data = await response.json()
+      return await leaderboardValidators[category].validate(data)
+    } catch (error: unknown) {
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception(`Invalid leaderboard data for category "${category}"`, {
+          code: 'E_LEADERBOARD_INVALID',
           status: 500,
         })
       }
