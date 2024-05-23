@@ -18,7 +18,7 @@ import { ThemeProvider } from '~/components/theme_provider'
 const appName = import.meta.env.VITE_APP_NAME || 'PalaGuideBot'
 
 createInertiaApp({
-  progress: { color: '#5468FF' },
+  progress: { color: 'hsl(var(--wg-primary))' },
 
   title: (title) => `${title} - ${appName}`,
 
