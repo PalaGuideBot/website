@@ -3,6 +3,7 @@ import {
   BadgeEuroIcon,
   BotIcon,
   DiamondIcon,
+  ExternalLinkIcon,
   GamepadIcon,
   HandCoinsIcon,
   LucideIcon,
@@ -15,6 +16,7 @@ type LinkProps = {
   path: string
   label: string
   icon: React.ReactNode
+  external?: boolean
 }
 
 function createIconLink(Icon: LucideIcon) {
@@ -86,6 +88,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: 'https://status.palaguidebot.fr',
       label: 'Bot',
       icon: createIconLink(BotIcon),
+      external: true,
     },
     {
       path: '/paladium/status',
@@ -117,18 +120,35 @@ export default function Sidebar() {
                   {category}
                 </h2>
                 <ul className="flex flex-col gap-1 mt-2 mb-4">
-                  {links.map(({ path, label, icon }) => (
+                  {links.map(({ path, label, icon, external = false }) => (
                     <li key={path}>
-                      <Link
-                        href={path}
-                        className={cn(
-                          'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
-                          (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
-                        )}
-                      >
-                        {icon}
-                        <span>{label}</span>
-                      </Link>
+                      {external ? (
+                        <a
+                          href={path}
+                          target="_blank"
+                          className={cn(
+                            'relative flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
+                            (url === path || url.startsWith(path)) &&
+                              'bg-primary dark:text-wg-black'
+                          )}
+                        >
+                          {icon}
+                          <span>{label}</span>
+                          <ExternalLinkIcon className="h-4 w-4 absolute right-2" />
+                        </a>
+                      ) : (
+                        <Link
+                          href={path}
+                          className={cn(
+                            'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
+                            (url === path || url.startsWith(path)) &&
+                              'bg-primary dark:text-wg-black'
+                          )}
+                        >
+                          {icon}
+                          <span>{label}</span>
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
