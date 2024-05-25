@@ -143,7 +143,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
         <Card className="flex lg:col-span-2">
           <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
-            {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
+            {Object.entries(lastUserData!.data.jobs).reverse().map(([job, info]) => (
               <PaladiumJob key={job} job={job} info={info} />
             ))}
           </CardContent>
@@ -245,7 +245,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
                   value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
                 }
               />
-              {Object.keys(user.data[0].data.jobs).map((job) => (
+              {Object.keys(user.data[0].data.jobs).reverse().map((job) => (
                 <Line
                   key={job}
                   type="monotone"
