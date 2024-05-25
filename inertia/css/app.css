@@ -5,6 +5,15 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --job-alchemist: #fc64c9;
+    --job-farmer: #ffd101;
+    --job-hunter: #3967ff;
+    --job-miner: #ff3939;
+  }
+}
+
+@layer base {
   * {
     @apply border-surface-200;
   }

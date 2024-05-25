@@ -28,6 +28,12 @@ export default {
         'pixel': ['Pixel Nes'],
         'mc-dungueons': ['Minecraft Dungeons'],
       },
+      colors: {
+        'job-alchemist': 'var(--job-alchemist)',
+        'job-farmer': 'var(--job-farmer)',
+        'job-hunter': 'var(--job-hunter)',
+        'job-miner': 'var(--job-miner)',
+      },
     },
   },
   darkMode: 'class',
