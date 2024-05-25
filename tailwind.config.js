@@ -24,7 +24,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif'],
+        'pixel': ['Pixel Nes'],
+        'mc-dungueons': ['Minecraft Dungeons'],
       },
     },
   },
