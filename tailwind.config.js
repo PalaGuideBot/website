@@ -35,6 +35,15 @@ export default {
         'job-miner': 'var(--job-miner)',
       },
     },
+    animation: {
+      blink: 'blink 1s step-end infinite',
+    },
+    keyframes: {
+      blink: {
+        '0%, 100%': { color: 'inherit' },
+        '50%': { color: 'hsl(var(--wg-destructive))' },
+      },
+    },
   },
   darkMode: 'class',
   plugins: [

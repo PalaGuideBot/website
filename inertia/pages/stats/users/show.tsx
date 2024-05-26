@@ -1,8 +1,8 @@
 import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head, router } from '@inertiajs/react'
+import { Head, router, usePage } from '@inertiajs/react'
 import { Button, ToggleGroup } from '@lemonsqueezy/wedges'
-import { SearchIcon } from 'lucide-react'
+import { SearchIcon, TriangleAlertIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import {
   CartesianGrid,
@@ -37,7 +37,10 @@ import type { Job } from '~/types'
 type UserShowProps = InferPageProps<UsersController, 'show'>
 
 export default function UserShow(props: UserShowProps) {
-  const { user } = props
+  const { user, exampleUser } = props
+  const {
+    props: { error },
+  } = usePage<{ error?: string }>()
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -76,6 +79,38 @@ export default function UserShow(props: UserShowProps) {
               </Button>
             </div>
           </form>
+          {!error && !user && (
+            <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
+              <h2 className="text-sm font-mc-dungueons">Informations</h2>
+              <p>
+                Pour commencer à voir les statistiques, tapez le pseudo d'un joueur sur la barre de
+                recherche au-dessus.
+              </p>
+              <p>
+                Cet outil permet d'afficher les statistiques avancées d'un utilisateur jouant à
+                Paladium. On y retrouve des statistiques telles que l'évolution des niveaux de
+                métier, l'argent, et le temps de jeu.
+              </p>
+              <p>
+                On a également l'historique de sa faction et de son rang. Toutes ces informations
+                seront présentées sous forme d'une page intuitive et facile à lire.
+              </p>
+              {exampleUser && (
+                <>
+                  <p>Un exemple d'utilisateur est disponible juste en dessous.</p>
+                  <h2 className="mt-2 text-sm font-mc-dungueons">Exemple</h2>
+                  <UserDetails user={exampleUser} />
+                </>
+              )}
+            </div>
+          )}
+          {error && !user && (
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <TriangleAlertIcon className="size-20 animate-blink" />
+              <span className="font-pixel animate-blink">Une erreur est survenue</span>
+              <span className="font-bold text-lg text-destructive">{error}</span>
+            </div>
+          )}
           {user && <UserDetails user={user} />}
         </div>
       </DefaultLayout>
@@ -96,7 +131,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
   const lastUserData = sortedUserData.at(0)
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
         <Card className="flex flex-col lg:row-span-2">
           <CardHeader className="border-b">
@@ -236,7 +271,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
           <CardTitle>Historique des données</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <Table>
+          <Table className="text-nowrap">
             <TableHeader>
               <TableRow>
                 <TableHead>Date</TableHead>
@@ -262,7 +297,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </div>
   )
 }
 
