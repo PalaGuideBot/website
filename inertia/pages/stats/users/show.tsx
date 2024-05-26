@@ -128,6 +128,29 @@ const UserDetails = ({ user }: UserDetailsProps) => {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
+  const factionHistory = sortedUserData.reduce(
+    (history: { period: string; faction: string }[], data) => {
+      const { faction, date } = {
+        faction: data.data.faction || 'Wilderness',
+        date: data.date,
+      }
+
+      const lastHistory = history[history.length - 1]
+
+      if (!lastHistory || lastHistory.faction !== faction) {
+        history.push({
+          period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
+          faction: faction,
+        })
+      } else {
+        lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
+      }
+
+      return history
+    },
+    []
+  )
+
   const lastUserData = sortedUserData.at(0)
 
   return (
@@ -266,6 +289,30 @@ const UserDetails = ({ user }: UserDetailsProps) => {
           </ResponsiveContainer>
         </CardContent>
       </Card>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>Historique des factions</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <Table className="text-nowrap">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Période</TableHead>
+                <TableHead>Faction</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {factionHistory.map((entry, index) => (
+                <TableRow key={index}>
+                  <TableCell>{entry.period}</TableCell>
+                  <TableCell>{entry.faction}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader className="border-b">
           <CardTitle>Historique des données</CardTitle>
