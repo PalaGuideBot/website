@@ -101,7 +101,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
 export default function Sidebar() {
   const { url } = usePage()
   return (
-    <div className="hidden border-r bg-surface md:block">
+    <aside className="hidden h-screen sticky top-0 overflow-y-scroll lg:w-[280px] border-r bg-surface md:block">
       <div className="flex h-full flex-col gap-2">
         <div className="flex h-14 items-center justify-between gap-2 border-b px-4 lg:h-[60px] lg:px-6">
           <div className="flex items-center gap-2">
@@ -157,6 +157,6 @@ export default function Sidebar() {
           </nav>
         </div>
       </div>
-    </div>
+    </aside>
   )
 }

@@ -152,37 +152,6 @@ const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
       </div>
       <Card>
-        <CardHeader className="border-b">
-          <CardTitle>Historique des données</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Rank</TableHead>
-                <TableHead>Faction</TableHead>
-                <TableHead>Money</TableHead>
-                <TableHead>Temps de jeu</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {user.data.map((data) => (
-                <TableRow key={data.date}>
-                  <TableCell>{formatDate(data.date, 'PP')}</TableCell>
-                  <TableCell>
-                    <PaladiumRank rank={data.data.rank} className="text-xs" />
-                  </TableCell>
-                  <TableCell>{data.data.faction || 'Wilderness'}</TableCell>
-                  <TableCell>{formatPrice(data.data.money)}</TableCell>
-                  <TableCell>{formatDuration(data.data.timePlayed)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-      <Card>
         <CardHeader className="border-b flex flex-row items-center justify-between py-2">
           <CardTitle>&Eacute;volution des métiers</CardTitle>
           <ToggleGroup
@@ -260,6 +229,37 @@ const UserDetails = ({ user }: UserDetailsProps) => {
                 ))}
             </LineChart>
           </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>Historique des données</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Rank</TableHead>
+                <TableHead>Faction</TableHead>
+                <TableHead>Money</TableHead>
+                <TableHead>Temps de jeu</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {user.data.map((data) => (
+                <TableRow key={data.date}>
+                  <TableCell>{formatDate(data.date, 'PP')}</TableCell>
+                  <TableCell>
+                    <PaladiumRank rank={data.data.rank} className="text-xs" />
+                  </TableCell>
+                  <TableCell>{data.data.faction || 'Wilderness'}</TableCell>
+                  <TableCell>{formatPrice(data.data.money)}</TableCell>
+                  <TableCell>{formatDuration(data.data.timePlayed)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </>
