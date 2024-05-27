@@ -164,7 +164,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
     if (!lastHistory || lastHistory.rank !== rank) {
       history.push({
         period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
-        rank: rank,
+        rank: rank === 'default' ? 'Joueur' : rank,
       })
     } else {
       lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
@@ -234,7 +234,13 @@ const UserDetails = ({ user }: UserDetailsProps) => {
               <li>
                 <InformationLine
                   label="Rank"
-                  value={<PaladiumRank rank={lastUserData!.data.rank} />}
+                  value={
+                    <PaladiumRank
+                      rank={
+                        lastUserData!.data.rank === 'default' ? 'Joueur' : lastUserData!.data.rank
+                      }
+                    />
+                  }
                 />
               </li>
               <li>
