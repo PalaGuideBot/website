@@ -153,6 +153,54 @@ const UserDetails = ({ user }: UserDetailsProps) => {
     []
   )
 
+  const rankHistory = sortedUserData.reduce((history: { period: string; rank: string }[], data) => {
+    const { rank, date } = {
+      rank: data.data.rank,
+      date: data.date,
+    }
+
+    const lastHistory = history[history.length - 1]
+
+    if (!lastHistory || lastHistory.rank !== rank) {
+      history.push({
+        period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
+        rank: rank,
+      })
+    } else {
+      lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
+    }
+
+    return history
+  }, [])
+
+  const timePlayedHistory = sortedUserData
+    .reverse()
+    .reduce((history: { date: string; timePlayed: number; difference: number }[], data) => {
+      const { date } = {
+        date: data.date,
+      }
+
+      const lastHistory = history[history.length - 1]
+
+      if (!lastHistory) {
+        history.push({
+          date: date,
+          timePlayed: data.data.timePlayed,
+          difference: 0,
+        })
+      } else {
+        history.push({
+          date: date,
+          timePlayed: data.data.timePlayed,
+          difference: data.data.timePlayed - lastHistory.timePlayed,
+        })
+      }
+
+      return history
+    }, [])
+
+  sortedUserData.reverse()
+
   const lastUserData = sortedUserData.at(0)
 
   return (
@@ -177,6 +225,12 @@ const UserDetails = ({ user }: UserDetailsProps) => {
           </CardHeader>
           <CardContent className="flex-1 pt-4">
             <ul className="h-full flex flex-col gap-2 justify-around">
+              <li>
+                <InformationLine
+                  label="Première connexion"
+                  value={formatDate(new Date(user.firstJoin), 'PP')}
+                />
+              </li>
               <li>
                 <InformationLine
                   label="Rank"
@@ -297,6 +351,110 @@ const UserDetails = ({ user }: UserDetailsProps) => {
       </Card>
       <Card>
         <CardHeader className="border-b">
+          <CardTitle>&Eacute;volution du temps de jeu</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0 h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart height={200} data={timePlayedHistory}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis dataKey="date" className="text-xs" />
+              <YAxis
+                className="text-xs"
+                tickFormatter={(value) => formatNumber(Number(value))}
+                orientation="right"
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    const { difference, timePlayed } = payload[0].payload
+                    return (
+                      <Card className="bg-background">
+                        <CardContent className="p-4 space-y-2">
+                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="flex flex-col gap-2">
+                            <div className="flex gap-2 items-center">
+                              <span className="text-sm">Temps de jeu: </span>
+                              <span className="text-sm font-bold">
+                                {formatDuration(timePlayed)}
+                              </span>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                              <span className="text-sm">Différence: </span>
+                              <span className="text-sm font-bold">
+                                {formatNumber(difference, {
+                                  notation: 'standard',
+                                  maximumFractionDigits: 2,
+                                })}{' '}
+                                minutes
+                              </span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
+                  return null
+                }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="difference"
+                name="Différence de temps de jeu"
+                stroke="#8884d8"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>&Eacute;volution de l'argent</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0 h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart height={200} data={sortedUserData.toReversed()}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis dataKey="date" className="text-xs" />
+              <YAxis
+                className="text-xs"
+                tickFormatter={(value) => formatPrice(Number(value))}
+                orientation="right"
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <Card className="bg-background">
+                        <CardContent className="p-4 space-y-2">
+                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="flex gap-2 items-center">
+                            <span className="text-sm">Argent: </span>
+                            <span className="text-sm font-bold">
+                              {formatPrice(Number(payload[0].value))}
+                            </span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
+                  return null
+                }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="data.money"
+                name="Argent"
+                stroke="#82ca9d"
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader className="border-b">
           <CardTitle>Classements</CardTitle>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -321,29 +479,58 @@ const UserDetails = ({ user }: UserDetailsProps) => {
             })}
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader className="border-b">
-          <CardTitle>Historique des factions</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table className="text-nowrap">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Période</TableHead>
-                <TableHead>Faction</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {factionHistory.map((entry, index) => (
-                <TableRow key={index}>
-                  <TableCell>{entry.period}</TableCell>
-                  <TableCell>{entry.faction}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap gap-4">
+          <Card className="flex-1 min-w-[300px]">
+            <CardHeader className="border-b">
+              <CardTitle>Historique des factions</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table className="text-nowrap">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Période</TableHead>
+                    <TableHead>Faction</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {factionHistory.map((entry, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{entry.period}</TableCell>
+                      <TableCell>{entry.faction}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+          <Card className="flex-1 min-w-[300px]">
+            <CardHeader className="border-b">
+              <CardTitle>Historique des rangs</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table className="text-nowrap">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Période</TableHead>
+                    <TableHead>Rank</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rankHistory.map((entry, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{entry.period}</TableCell>
+                      <TableCell>
+                        <PaladiumRank rank={entry.rank} className="text-xs" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
       <Card>
         <CardHeader className="border-b">

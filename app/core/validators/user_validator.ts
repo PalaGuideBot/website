@@ -14,11 +14,11 @@ const leaderboardValidator = vine.object({
   egghunt: vine.number(),
   corruption: vine.number(),
   clicker: vine.number(),
+  trixium: vine.number(),
   job_miner: vine.number(),
   job_farmer: vine.number(),
   job_hunter: vine.number(),
   job_alchemist: vine.number(),
-  trixium: vine.number(),
 })
 
 export const userInfoValidator = vine.compile(
