@@ -214,8 +214,12 @@ const UserDetails = ({ user }: UserDetailsProps) => {
           <CardTitle>&Eacute;volution des métiers</CardTitle>
           <ToggleGroup
             type="single"
-            defaultValue={graphType}
-            onValueChange={(value) => setGraphType(value as 'level' | 'xp')}
+            value={graphType}
+            onValueChange={(value) => {
+              if (value.length) {
+                setGraphType(value as 'level' | 'xp')
+              }
+            }}
             size="sm"
             className="!m-0"
           >
