@@ -14,6 +14,7 @@ import LeaderboardEgghunt from '~/assets/leaderboard-icons/egghunt.png'
 import LeaderboardEnd from '~/assets/leaderboard-icons/end.png'
 import LeaderboardKoth from '~/assets/leaderboard-icons/koth.png'
 import LeaderboardMoney from '~/assets/leaderboard-icons/money.png'
+import LeaderboardTrixium from '~/assets/leaderboard-icons/trixium.png'
 
 export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
@@ -43,3 +44,4 @@ export const LeaderboardEgghuntIcon = iconFactory(LeaderboardEgghunt)
 export const LeaderboardEndIcon = iconFactory(LeaderboardEnd)
 export const LeaderboardKothIcon = iconFactory(LeaderboardKoth)
 export const LeaderboardMoneyIcon = iconFactory(LeaderboardMoney)
+export const leaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)

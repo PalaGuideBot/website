@@ -6,6 +6,7 @@ import {
   LeaderboardEndIcon,
   LeaderboardKothIcon,
   LeaderboardMoneyIcon,
+  leaderboardTrixiumIcon,
   SmallAlchemistJobIcon,
   SmallFarmerJobIcon,
   SmallHunterJobIcon,
@@ -24,4 +25,5 @@ export const icons = {
   job_farmer: SmallFarmerJobIcon,
   job_hunter: SmallHunterJobIcon,
   job_alchemist: SmallAlchemistJobIcon,
+  trixium: leaderboardTrixiumIcon,
 } as const
