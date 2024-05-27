@@ -1,4 +1,5 @@
 import type UsersController from '#stats/controllers/users_controller'
+import strings from '@adonisjs/core/helpers/string'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, router, usePage } from '@inertiajs/react'
 import { Button, ToggleGroup } from '@lemonsqueezy/wedges'
@@ -30,6 +31,7 @@ import {
   TableRow,
 } from '~/components/ui/table'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
+import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
@@ -291,6 +293,32 @@ const UserDetails = ({ user }: UserDetailsProps) => {
                 ))}
             </LineChart>
           </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>Classements</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {Object.entries(user.leaderboard)
+            .filter(([key]) => !['corruption'].includes(key))
+            .map(([key, value]) => {
+              const Icon = leaderboardIcons[key as keyof typeof leaderboardIcons]
+              return (
+                <div
+                  key={key}
+                  className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
+                >
+                  {Icon && <Icon className="w-12 invert-0" />}
+                  <div className="flex flex-col gap-2">
+                    <span className="font-pixel">{strings.noCase(key)}</span>
+                    <span className="text-sm text-primary font-mc-dungueons">
+                      # {formatNumber(value, { notation: 'standard' })}
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
         </CardContent>
       </Card>
       <Card>
