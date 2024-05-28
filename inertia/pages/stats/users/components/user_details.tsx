@@ -66,7 +66,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
 
   const rankHistory = sortedUserData.reduce((history: { period: string; rank: string }[], data) => {
     const { rank, date } = {
-      rank: data.data.rank,
+      rank: data.data.rank === 'default' ? 'joueur' : data.data.rank,
       date: data.date,
     }
 
@@ -75,7 +75,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
     if (!lastHistory || lastHistory.rank !== rank) {
       history.push({
         period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
-        rank: rank === 'default' ? 'Joueur' : rank,
+        rank: rank,
       })
     } else {
       lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
@@ -83,6 +83,8 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
 
     return history
   }, [])
+
+  console.log(rankHistory)
 
   const timePlayedHistory = sortedUserData
     .toReversed()
