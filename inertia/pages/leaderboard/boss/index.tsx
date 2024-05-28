@@ -18,6 +18,7 @@ import DefaultLayout from '~/components/layouts/default'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import Input from '~/components/ui/input'
 import { cn } from '~/lib/utils'
+import { formatDate } from '~/lib/date'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
@@ -84,7 +85,25 @@ export default function BossIndex(props: BossIndexProps) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
                   <YAxis orientation="right" />
-                  <Tooltip />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <Card className="bg-background">
+                            <CardContent>
+                              <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                              {payload.map((p) => (
+                                <div key={p.dataKey} className="flex justify-between">
+                                  <div>{p.dataKey}</div>
+                                  <div>{p.value}</div>
+                                </div>
+                              ))}
+                            </CardContent>
+                          </Card>
+                        )
+                      }
+                    }}
+                  />
                   <Legend />
                   {sortedLeaderboard
                     .at(-1)!

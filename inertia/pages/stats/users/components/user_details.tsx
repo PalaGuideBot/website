@@ -84,8 +84,6 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
     return history
   }, [])
 
-  console.log(rankHistory)
-
   const timePlayedHistory = sortedUserData
     .toReversed()
     .reduce((history: { date: string; timePlayed: number; difference: number }[], data) => {
