@@ -475,7 +475,7 @@ const UserDetails = ({ user }: UserDetailsProps) => {
                 >
                   {Icon && <Icon className="w-12 invert-0" />}
                   <div className="flex flex-col gap-2">
-                    <span className="font-pixel">{strings.noCase(key)}</span>
+                    <span className="font-pixel text-xs">{strings.noCase(key)}</span>
                     <span className="text-sm text-primary font-mc-dungueons">
                       # {formatNumber(value, { notation: 'standard' })}
                     </span>
@@ -485,59 +485,56 @@ const UserDetails = ({ user }: UserDetailsProps) => {
             })}
         </CardContent>
       </Card>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap gap-4">
-          <Card className="flex-1 min-w-[300px]">
-            <CardHeader className="border-b">
-              <CardTitle>Historique des factions</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <Table className="text-nowrap">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Période</TableHead>
-                    <TableHead>Faction</TableHead>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader className="border-b">
+            <CardTitle>Historique des factions</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table className="text-nowrap">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Période</TableHead>
+                  <TableHead>Faction</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {factionHistory.map((entry, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{entry.period}</TableCell>
+                    <TableCell>{entry.faction}</TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {factionHistory.map((entry, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{entry.period}</TableCell>
-                      <TableCell>{entry.faction}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-          <Card className="flex-1 min-w-[300px]">
-            <CardHeader className="border-b">
-              <CardTitle>Historique des rangs</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <Table className="text-nowrap">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Période</TableHead>
-                    <TableHead>Rank</TableHead>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="border-b">
+            <CardTitle>Historique des rangs</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table className="text-nowrap">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Période</TableHead>
+                  <TableHead>Rank</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rankHistory.map((entry, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{entry.period}</TableCell>
+                    <TableCell>
+                      <PaladiumRank rank={entry.rank} className="text-xs" />
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {rankHistory.map((entry, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{entry.period}</TableCell>
-                      <TableCell>
-                        <PaladiumRank rank={entry.rank} className="text-xs" />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </div>
-
       <Card>
         <CardHeader className="border-b">
           <CardTitle>Historique des données</CardTitle>
