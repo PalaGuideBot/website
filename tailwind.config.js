@@ -36,12 +36,16 @@ export default {
       },
     },
     animation: {
-      blink: 'blink 1s step-end infinite',
+      'blink': 'blink 1s step-end infinite',
+      'job-progress': 'job-progress 2.5s',
     },
     keyframes: {
-      blink: {
+      'blink': {
         '0%, 100%': { color: 'inherit' },
         '50%': { color: 'hsl(var(--wg-destructive))' },
+      },
+      'job-progress': {
+        from: { 'stroke-dashoffset': '2150' },
       },
     },
   },
