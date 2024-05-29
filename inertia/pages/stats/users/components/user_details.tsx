@@ -254,6 +254,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                   dataKey={`data.jobs.${job}.${graphType}`}
                   name={job}
                   stroke={`var(--job-${job})`}
+                  strokeWidth={3}
                   dot={false}
                 />
               ))}
@@ -314,6 +315,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 dataKey="difference"
                 name="Différence de temps de jeu"
                 stroke="#8884d8"
+                strokeWidth={3}
                 dot={false}
               />
             </LineChart>
@@ -360,6 +362,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 dataKey="data.money"
                 name="Argent"
                 stroke="#82ca9d"
+                strokeWidth={3}
                 dot={false}
               />
             </LineChart>

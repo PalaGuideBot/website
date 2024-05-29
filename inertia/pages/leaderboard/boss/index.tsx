@@ -28,8 +28,9 @@ export default function BossIndex(props: BossIndexProps) {
     page: 1,
     limit: 10,
   })
+
   const sortedLeaderboard = leaderboard.toSorted(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   )
 
   const lastLeaderboard = sortedLeaderboard.at(-1)!
@@ -53,10 +54,10 @@ export default function BossIndex(props: BossIndexProps) {
 
   const createColorSelector = () => {
     const colorList = [
-      '#462255',
+      '#7F0AB0',
       '#36C3F0',
       '#31CC2E',
-      '#DEE12A',
+      '#DF57BC',
       '#F21818',
       '#17B79A',
       '#C78F00',
@@ -140,6 +141,7 @@ export default function BossIndex(props: BossIndexProps) {
                         dataKey={user.username}
                         name={user.username}
                         stroke={`${selectColor()}`}
+                        strokeWidth={3}
                         dot={false}
                       />
                     ))}
