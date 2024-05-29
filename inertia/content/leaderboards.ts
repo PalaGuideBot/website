@@ -27,3 +27,16 @@ export const icons = {
   job_alchemist: SmallAlchemistJobIcon,
   trixium: leaderboardTrixiumIcon,
 } as const
+
+export const graphColors = [
+  '#7F0AB0',
+  '#36C3F0',
+  '#31CC2E',
+  '#DF57BC',
+  '#F21818',
+  '#17B79A',
+  '#C78F00',
+  '#1647C3',
+  '#8555EB',
+  '#E3A062',
+]

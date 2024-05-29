@@ -19,6 +19,7 @@ import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import Input from '~/components/ui/input'
 import { cn } from '~/lib/utils'
 import { formatDate } from '~/lib/date'
+import { graphColors } from '~/content/leaderboards'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
@@ -28,7 +29,6 @@ export default function BossIndex(props: BossIndexProps) {
     page: 1,
     limit: 10,
   })
-
   const sortedLeaderboard = leaderboard.toSorted(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   )
@@ -41,7 +41,7 @@ export default function BossIndex(props: BossIndexProps) {
     return leaderboard.map((data) => {
       return {
         date: data.date,
-        ...data.data.slice((page - 1) * limit, page * limit).reduce(
+        ...data.data.reduce(
           (acc, user) => {
             acc[user.username] = user.value
             return acc
@@ -52,30 +52,9 @@ export default function BossIndex(props: BossIndexProps) {
     })
   }, [page, limit])
 
-  const createColorSelector = () => {
-    const colorList = [
-      '#7F0AB0',
-      '#36C3F0',
-      '#31CC2E',
-      '#DF57BC',
-      '#F21818',
-      '#17B79A',
-      '#C78F00',
-      '#1647C3',
-      '#8555EB',
-      '#E3A062',
-    ]
-
-    let index = 0
-
-    return () => {
-      const color = colorList[index % colorList.length]
-      index++
-      return color
-    }
-  }
-
-  const selectColor = createColorSelector()
+  const usernames = useMemo(() => {
+    return lastLeaderboard.data.slice((page - 1) * limit, page * limit).map((user) => user.username)
+  }, [page, limit])
 
   return (
     <>
@@ -99,29 +78,24 @@ export default function BossIndex(props: BossIndexProps) {
           <Card>
             <CardContent className="p-4 h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={graphData}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
+                <LineChart data={graphData}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis orientation="right" />
+                  <XAxis dataKey="date" className="text-sm" />
+                  <YAxis orientation="right" className="text-sm" />
                   <Tooltip
                     content={({ active, payload, label }) => {
                       if (active && payload && payload.length) {
                         return (
                           <Card className="bg-background">
-                            <CardContent>
+                            <CardContent className="p-4 space-y-2 min-w-52">
                               <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
-                              {payload.map((p) => (
-                                <div key={p.dataKey} className="flex justify-between">
-                                  <div>{p.dataKey}</div>
-                                  <div>{p.value}</div>
+                              {payload.map((p, index) => (
+                                <div key={p.dataKey} className="flex gap-2 items-center text-sm">
+                                  <span className="font-mc-dungueons text-xs">
+                                    # {index + 1 + (page - 1) * limit}
+                                  </span>
+                                  <span>{p.dataKey}</span>
+                                  <span className="font-bold">{p.value}</span>
                                 </div>
                               ))}
                             </CardContent>
@@ -131,20 +105,17 @@ export default function BossIndex(props: BossIndexProps) {
                     }}
                   />
                   <Legend />
-                  {sortedLeaderboard
-                    .at(-1)!
-                    .data.slice((page - 1) * limit, page * limit)
-                    .map((user) => (
-                      <Line
-                        key={user.username}
-                        type="monotone"
-                        dataKey={user.username}
-                        name={user.username}
-                        stroke={`${selectColor()}`}
-                        strokeWidth={3}
-                        dot={false}
-                      />
-                    ))}
+                  {usernames.map((username, index) => (
+                    <Line
+                      key={username}
+                      type="monotone"
+                      dataKey={username}
+                      name={username}
+                      stroke={`${graphColors.at(index % graphColors.length)}`}
+                      strokeWidth={3}
+                      dot={false}
+                    />
+                  ))}
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -152,7 +123,7 @@ export default function BossIndex(props: BossIndexProps) {
               <Pagination
                 page={page}
                 limit={limit}
-                total={sortedLeaderboard.at(-1)!.data.length}
+                total={lastLeaderboard.data.length}
                 onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
               />
             </CardFooter>
