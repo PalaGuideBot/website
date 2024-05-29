@@ -1,4 +1,5 @@
 import { userInfoValidator } from '#core/validators/user_validator'
+import { factionInfoValidator } from '#core/validators/faction_validator'
 import {
   default as leaderboardCategories,
   type LeaderboardCategory,
@@ -31,6 +32,28 @@ export class ApiService {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception('Invalid user data', {
           code: 'E_USER_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getFaction(name: string) {
+    try {
+      const response = await client.get(`faction/${name}`)
+      const data = (await response.json()) as Record<string, unknown>
+      return await factionInfoValidator.validate({ ...data })
+    } catch (error) {
+      if (error instanceof HTTPError && error.response.status === 404) {
+        throw new Exception(`Faction "${name}" not found`, {
+          code: 'E_FACTION_NOT_FOUND',
+          status: 404,
+        })
+      }
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception('Invalid faction data', {
+          code: 'E_FACTION_INVALID',
           status: 500,
         })
       }
