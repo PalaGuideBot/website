@@ -172,11 +172,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
         <Card className="flex lg:col-span-2">
           <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
-            {Object.entries(lastUserData!.data.jobs)
-              .reverse()
-              .map(([job, info]) => (
-                <PaladiumJob key={job} job={job} info={info} />
-              ))}
+            {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
+              <PaladiumJob key={job} job={job} info={info} />
+            ))}
           </CardContent>
         </Card>
       </div>
@@ -249,17 +247,16 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                   value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
                 }
               />
-              {Object.keys(user.data[0].data.jobs)
-                .reverse()
-                .map((job) => (
-                  <Line
-                    key={job}
-                    type="monotone"
-                    dataKey={`data.jobs.${job}.${graphType}`}
-                    name={job}
-                    stroke={`var(--job-${job})`}
-                  />
-                ))}
+              {Object.keys(user.data[0].data.jobs).map((job) => (
+                <Line
+                  key={job}
+                  type="monotone"
+                  dataKey={`data.jobs.${job}.${graphType}`}
+                  name={job}
+                  stroke={`var(--job-${job})`}
+                  dot={false}
+                />
+              ))}
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -317,6 +314,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 dataKey="difference"
                 name="Différence de temps de jeu"
                 stroke="#8884d8"
+                dot={false}
               />
             </LineChart>
           </ResponsiveContainer>

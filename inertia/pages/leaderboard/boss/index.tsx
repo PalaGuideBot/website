@@ -51,6 +51,31 @@ export default function BossIndex(props: BossIndexProps) {
     })
   }, [page, limit])
 
+  const createColorSelector = () => {
+    const colorList = [
+      '#462255',
+      '#36C3F0',
+      '#31CC2E',
+      '#DEE12A',
+      '#F21818',
+      '#17B79A',
+      '#C78F00',
+      '#1647C3',
+      '#8555EB',
+      '#E3A062',
+    ]
+
+    let index = 0
+
+    return () => {
+      const color = colorList[index % colorList.length]
+      index++
+      return color
+    }
+  }
+
+  const selectColor = createColorSelector()
+
   return (
     <>
       <Head title="Leaderboard: Boss" />
@@ -114,7 +139,8 @@ export default function BossIndex(props: BossIndexProps) {
                         type="monotone"
                         dataKey={user.username}
                         name={user.username}
-                        stroke={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                        stroke={`${selectColor()}`}
+                        dot={false}
                       />
                     ))}
                 </LineChart>

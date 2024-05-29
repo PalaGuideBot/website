@@ -32,10 +32,10 @@ export const userInfoValidator = vine.compile(
       vine.object({
         data: vine.object({
           jobs: vine.object({
-            alchemist: jobValidator.clone(),
-            farmer: jobValidator.clone(),
             miner: jobValidator.clone(),
+            farmer: jobValidator.clone(),
             hunter: jobValidator.clone(),
+            alchemist: jobValidator.clone(),
           }),
           faction: vine.string(),
           money: vine.number(),
