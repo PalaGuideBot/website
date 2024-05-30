@@ -1,4 +1,5 @@
 import { wedgesTW } from '@lemonsqueezy/wedges'
+import tailwindCssAnimate from 'tailwindcss-animate'
 
 /** @type {import('@lemonsqueezy/wedges').ThemableColorScale} */
 const primaryColor = {
@@ -51,6 +52,7 @@ export default {
   },
   darkMode: 'class',
   plugins: [
+    tailwindCssAnimate,
     wedgesTW({
       themes: {
         light: {
