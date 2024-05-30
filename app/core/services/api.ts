@@ -42,8 +42,8 @@ export class ApiService {
   async getFaction(name: string) {
     try {
       const response = await client.get(`faction/${name}`)
-      const data = (await response.json()) as Record<string, unknown>
-      return await factionInfoValidator.validate({ ...data })
+      const data = await response.json()
+      return await factionInfoValidator.validate(data)
     } catch (error) {
       if (error instanceof HTTPError && error.response.status === 404) {
         throw new Exception(`Faction "${name}" not found`, {
@@ -73,7 +73,10 @@ export class ApiService {
       }
       const response = await client.get(category)
       const data = await response.json()
-      return await leaderboardValidators[category].validate(data)
+      const validatedData = await leaderboardValidators[category].validate(data)
+      return validatedData.toSorted(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      )
     } catch (error: unknown) {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception(`Invalid leaderboard data for category "${category}"`, {

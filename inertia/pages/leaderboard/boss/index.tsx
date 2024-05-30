@@ -1,9 +1,7 @@
 import type BossController from '#leaderboard/controllers/boss_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
-import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   CartesianGrid,
   Legend,
@@ -16,24 +14,23 @@ import {
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
-import Input from '~/components/ui/input'
-import { cn } from '~/lib/utils'
-import { formatDate } from '~/lib/date'
 import { graphColors } from '~/content/leaderboards'
+import { usePagination } from '~/hooks/use_pagination'
+import { GraphTooltip } from '../components/graph_tooltip'
+import { Pagination } from '../components/pagination'
+import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
 export default function BossIndex(props: BossIndexProps) {
   const { leaderboard } = props
-  const [{ page, limit }, setPagination] = useState<{ page: number; limit: number }>({
-    page: 1,
-    limit: 10,
-  })
-  const sortedLeaderboard = leaderboard.toSorted(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  )
+  const {
+    pagination: { page, limit },
+    pageOffset,
+    setPagination,
+  } = usePagination()
 
-  const lastLeaderboard = sortedLeaderboard.at(-1)!
+  const lastLeaderboard = leaderboard.at(-1)!
 
   const [first, second, third] = lastLeaderboard.data.slice(0, 3)
 
@@ -53,7 +50,7 @@ export default function BossIndex(props: BossIndexProps) {
   }, [page, limit])
 
   const usernames = useMemo(() => {
-    return lastLeaderboard.data.slice((page - 1) * limit, page * limit).map((user) => user.username)
+    return lastLeaderboard.data.slice(pageOffset, page * limit).map((user) => user.username)
   }, [page, limit])
 
   return (
@@ -68,13 +65,7 @@ export default function BossIndex(props: BossIndexProps) {
             <Podium data={second} position="second" />
             <Podium data={third} position="third" />
           </div>
-          <div className="flex gap-2 justify-between items-center">
-            <h2 className="font-pixel">Historique</h2>
-            <div className="relative">
-              <Input placeholder="Rechercher" className="py-1 pl-7" />
-              <SearchIcon className="absolute size-4 top-1/2 left-2 transform -translate-y-1/2" />
-            </div>
-          </div>
+          <h2 className="font-pixel">Historique</h2>
           <Card>
             <CardContent className="p-4 h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -82,28 +73,7 @@ export default function BossIndex(props: BossIndexProps) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" className="text-sm" />
                   <YAxis orientation="right" className="text-sm" />
-                  <Tooltip
-                    content={({ active, payload, label }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <Card className="bg-background">
-                            <CardContent className="p-4 space-y-2 min-w-52">
-                              <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
-                              {payload.map((p, index) => (
-                                <div key={p.dataKey} className="flex gap-2 items-center text-sm">
-                                  <span className="font-mc-dungueons text-xs">
-                                    # {index + 1 + (page - 1) * limit}
-                                  </span>
-                                  <span>{p.dataKey}</span>
-                                  <span className="font-bold">{p.value}</span>
-                                </div>
-                              ))}
-                            </CardContent>
-                          </Card>
-                        )
-                      }
-                    }}
-                  />
+                  <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
                   <Legend />
                   {usernames.map((username, index) => (
                     <Line
@@ -119,7 +89,7 @@ export default function BossIndex(props: BossIndexProps) {
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
-            <CardFooter className="flex justify-end border-t p-2">
+            <CardFooter className="flex justify-center border-t p-2">
               <Pagination
                 page={page}
                 limit={limit}
@@ -142,60 +112,14 @@ const Podium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <div
-      className={cn(
-        'flex flex-col gap-2 items-center border border-b-black/20 border-b-8 rounded-md p-6',
-        position === 'first' && 'bg-primary',
-        position === 'second' && 'bg-wg-green-400',
-        position === 'third' && 'bg-wg-white-400'
-      )}
-    >
+    <PodiumCard position={position}>
       <img
         src={`https://mc-heads.net/avatar/${data.username}/100`}
         alt={`${data.username}'s avatar`}
         className="object-contain"
       />
-      <div className="text-xl font-bold">{data.username}</div>
-      <div className="font-mc-dungueons">{data.value}</div>
-    </div>
-  )
-}
-
-const Pagination = ({
-  page,
-  limit,
-  total,
-  onChange,
-}: {
-  page: number
-  limit: number
-  total: number
-  onChange: (page: number) => void
-}) => {
-  const totalPages = Math.ceil(total / limit)
-
-  return (
-    <div className="flex gap-2">
-      <Button
-        size="sm"
-        variant="outline"
-        className="rounded-md"
-        onClick={() => onChange(page - 1)}
-        disabled={page === 1}
-        isIconOnly
-      >
-        <ChevronLeftIcon className="size-6" />
-      </Button>
-      <Button
-        size="sm"
-        variant="outline"
-        className="rounded-md"
-        onClick={() => onChange(page + 1)}
-        disabled={page === totalPages}
-        isIconOnly
-      >
-        <ChevronRightIcon className="size-6" />
-      </Button>
-    </div>
+      <PodiumCardDescription>{data.username}</PodiumCardDescription>
+      <PodiumCardValue>{data.value}</PodiumCardValue>
+    </PodiumCard>
   )
 }
