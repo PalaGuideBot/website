@@ -8,7 +8,11 @@ export const GraphTooltip = <TValue extends ValueType, TName extends NameType>({
   payload,
   label,
   pageOffset,
-}: TooltipProps<TValue, TName> & { pageOffset?: number }) => {
+  valueFormatter,
+}: TooltipProps<TValue, TName> & {
+  pageOffset?: number
+  valueFormatter?: (value?: TValue) => string
+}) => {
   if (active && payload && payload.length) {
     return (
       <Card className="bg-background">
@@ -20,7 +24,9 @@ export const GraphTooltip = <TValue extends ValueType, TName extends NameType>({
                 <span className="font-mc-dungueons text-xs"># {index + 1 + pageOffset}</span>
               )}
               <span>{p.dataKey}</span>
-              <span className="font-bold">{p.value}</span>
+              <span className="font-bold">
+                {valueFormatter ? valueFormatter(p.value) : p.value}
+              </span>
             </div>
           ))}
         </CardContent>
