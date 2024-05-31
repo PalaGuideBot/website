@@ -19,7 +19,7 @@ import { usePagination } from '~/hooks/use_pagination'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
-import { formatNumber } from '~/lib/utils'
+import { formatNumber, formatPrice } from '~/lib/utils'
 
 type MoneyIndexProps = InferPageProps<MoneyController, 'index'>
 
@@ -82,9 +82,7 @@ export default function MoneyIndex(props: MoneyIndexProps) {
                     content={
                       <GraphTooltip
                         pageOffset={pageOffset}
-                        valueFormatter={(value) =>
-                          formatNumber(Number(value), { notation: 'standard' })
-                        }
+                        valueFormatter={(value) => formatPrice(Number(value))}
                       />
                     }
                   />
