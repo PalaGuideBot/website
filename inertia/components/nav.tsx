@@ -4,12 +4,17 @@ import {
   BadgeEuroIcon,
   BotIcon,
   DiamondIcon,
+  EggIcon,
   ExternalLinkIcon,
   GamepadIcon,
   HandCoinsIcon,
   LucideIcon,
   MenuIcon,
+  ShieldIcon,
+  SkullIcon,
+  SwordsIcon,
   UserIcon,
+  UsersIcon,
 } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
@@ -35,14 +40,14 @@ const LINKS: Record<string, Array<LinkProps>> = {
     {
       path: '/stats/factions',
       label: 'Faction',
-      icon: createIconLink(GamepadIcon),
+      icon: createIconLink(ShieldIcon),
     },
   ],
   Classement: [
     {
       path: '/leaderboard/factions',
       label: 'Factions',
-      icon: createIconLink(GamepadIcon),
+      icon: createIconLink(UsersIcon),
     },
     {
       path: '/leaderboard/money',
@@ -62,7 +67,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
     {
       path: '/leaderboard/boss',
       label: 'Boss',
-      icon: createIconLink(GamepadIcon),
+      icon: createIconLink(SkullIcon),
     },
     /* {
       path: '/leaderboard/chorus',
@@ -72,7 +77,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
     {
       path: '/leaderboard/egghunt',
       label: 'EggHunt',
-      icon: createIconLink(GamepadIcon),
+      icon: createIconLink(EggIcon),
     },
     /* {
       path: '/leaderboard/end',
@@ -82,7 +87,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
     {
       path: '/leaderboard/koth',
       label: 'Koth',
-      icon: createIconLink(GamepadIcon),
+      icon: createIconLink(SwordsIcon),
     },
   ],
   Status: [
