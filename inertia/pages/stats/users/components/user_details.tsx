@@ -1,5 +1,6 @@
 import strings from '@adonisjs/core/helpers/string'
 import { ToggleGroup } from '@lemonsqueezy/wedges'
+import { ProgressBar as LemonProgressBar } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
   Area,
@@ -181,6 +182,14 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardContent>
         </Card>
       </div>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>Succès</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <AchievementsCard achievements={user.achievements} />
+        </CardContent>
+      </Card>
       <Card>
         <CardHeader className="border-b flex flex-row items-center justify-between py-2">
           <CardTitle>&Eacute;volution des métiers</CardTitle>
@@ -507,6 +516,35 @@ const InformationLine = ({
       ) : (
         value
       )}
+    </div>
+  )
+}
+
+const ProgressBar = ({ completionPercentage }: { completionPercentage: number }) => (
+  <div className="inline-block w-full">
+    <LemonProgressBar
+      max={100}
+      value={completionPercentage}
+      helperText={completionPercentage.toFixed(2) + '% complété'}
+    />
+  </div>
+)
+
+type Achievements = {
+  completed: number
+  incomplete: number
+  total: number
+}
+
+const AchievementsCard = ({ achievements }: { achievements: Achievements }) => {
+  const achievementsCompleted = achievements.completed
+  const completionPercentage = (achievementsCompleted / achievements.total) * 100
+
+  return (
+    <div className="w-full rounded overflow-hidden">
+      <div className="px-6 py-4">
+        <ProgressBar completionPercentage={completionPercentage} />
+      </div>
     </div>
   )
 }

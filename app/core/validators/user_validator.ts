@@ -21,6 +21,12 @@ const leaderboardValidator = vine.object({
   job_alchemist: vine.number(),
 })
 
+const achievementsValidator = vine.object({
+  completed: vine.number(),
+  incomplete: vine.number(),
+  total: vine.number(),
+})
+
 export const userInfoValidator = vine.compile(
   vine.object({
     _id: vine.string(),
@@ -28,6 +34,7 @@ export const userInfoValidator = vine.compile(
     username: vine.string(),
     firstJoin: vine.number(),
     leaderboard: leaderboardValidator,
+    achievements: achievementsValidator,
     data: vine.array(
       vine.object({
         data: vine.object({
