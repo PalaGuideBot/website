@@ -2,6 +2,8 @@ import strings from '@adonisjs/core/helpers/string'
 import { ToggleGroup } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -30,6 +32,7 @@ import { formatDate } from '~/lib/date'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import type { UserShowProps } from '../show'
+import LinearGradient from '~/components/shared/linear_gradient'
 
 type UserDetailsProps = {
   user: NonNullable<UserShowProps['user']>
@@ -268,7 +271,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </CardHeader>
         <CardContent className="p-0 h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart height={200} data={timePlayedHistory}>
+            <AreaChart height={200} data={timePlayedHistory}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
               <YAxis
@@ -310,15 +313,19 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 }}
               />
               <Legend />
-              <Line
+              <Area
                 type="monotone"
                 dataKey="difference"
                 name="Différence de temps de jeu"
                 stroke="#8884d8"
+                fill="url(#purple-gradient)"
                 strokeWidth={3}
                 dot={false}
               />
-            </LineChart>
+              <defs>
+                <LinearGradient id="purple-gradient" from="#8884d8" />
+              </defs>
+            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
@@ -328,12 +335,12 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </CardHeader>
         <CardContent className="p-0 h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart height={200} data={sortedUserData.toReversed()}>
+            <AreaChart data={sortedUserData.toReversed()}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
               <YAxis
                 className="text-xs"
-                tickFormatter={(value) => formatPrice(Number(value))}
+                tickFormatter={(value) => formatNumber(Number(value))}
                 orientation="right"
               />
               <Tooltip
@@ -357,15 +364,19 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 }}
               />
               <Legend />
-              <Line
+              <Area
                 type="monotone"
                 dataKey="data.money"
                 name="Argent"
+                fill="url(#green-gradient)"
                 stroke="#82ca9d"
                 strokeWidth={3}
                 dot={false}
               />
-            </LineChart>
+              <defs>
+                <LinearGradient id="green-gradient" from="#82ca9d" />
+              </defs>
+            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
