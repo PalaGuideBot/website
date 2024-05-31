@@ -31,7 +31,7 @@ export default function FactionShow(props: FactionShowProps) {
 
   return (
     <>
-      <Head title={faction?.name} />
+      <Head title={faction?.name || 'Faction'} />
       <DefaultLayout>
         <div className="mx-auto w-full max-w-4xl flex flex-col gap-4">
           <h1 className="text-lg font-medium">Statistiques faction</h1>

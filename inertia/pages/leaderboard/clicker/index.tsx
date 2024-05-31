@@ -20,7 +20,6 @@ import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
 import { formatNumber } from '~/lib/utils'
-import { Tooltip as WedgesTooltip } from '@lemonsqueezy/wedges'
 
 type ClickerIndexProps = InferPageProps<ClickerController, 'index'>
 
