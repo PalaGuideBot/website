@@ -64,21 +64,21 @@ const LINKS: Record<string, Array<LinkProps>> = {
       label: 'Boss',
       icon: createIconLink(GamepadIcon),
     },
-    {
+    /* {
       path: '/leaderboard/chorus',
       label: 'Chorus',
       icon: createIconLink(DiamondIcon),
-    },
+    }, */
     {
       path: '/leaderboard/egghunt',
       label: 'EggHunt',
       icon: createIconLink(GamepadIcon),
     },
-    {
+    /* {
       path: '/leaderboard/end',
       label: 'End',
       icon: createIconLink(DiamondIcon),
-    },
+    }, */
     {
       path: '/leaderboard/koth',
       label: 'Koth',
