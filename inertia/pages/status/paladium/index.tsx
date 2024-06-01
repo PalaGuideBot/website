@@ -2,6 +2,7 @@ import type PaladiumController from '#status/controllers/paladium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
 import DefaultLayout from '~/components/layouts/default'
+import { Page, PageTitle } from '~/components/page'
 
 type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 
@@ -12,10 +13,10 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
     <>
       <Head title="Status Paladium" />
       <DefaultLayout>
-        <div className="mx-auto w-full max-w-4xl flex flex-col gap-4">
-          <h1 className="text-lg font-medium">Status: Paladium</h1>
+        <Page>
+          <PageTitle>Status: Paladium</PageTitle>
           <pre>{JSON.stringify(status, null, 2)}</pre>
-        </div>
+        </Page>
       </DefaultLayout>
     </>
   )

@@ -4,8 +4,9 @@ import { Head, router, usePage } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import { SearchIcon, TriangleAlertIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
-import Input from '~/components/ui/input'
 import DefaultLayout from '~/components/layouts/default'
+import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import Input from '~/components/ui/input'
 import { factionDetails as FactionDetails } from './components/faction_details'
 
 export type FactionShowProps = InferPageProps<FactionsController, 'show'>
@@ -33,8 +34,8 @@ export default function FactionShow(props: FactionShowProps) {
     <>
       <Head title={faction?.name || 'Faction'} />
       <DefaultLayout>
-        <div className="mx-auto w-full max-w-4xl flex flex-col gap-4">
-          <h1 className="text-lg font-medium">Statistiques faction</h1>
+        <Page>
+          <PageTitle>Statistiques faction</PageTitle>
           <form onSubmit={onSubmit}>
             <div className="flex">
               <Input
@@ -56,7 +57,7 @@ export default function FactionShow(props: FactionShowProps) {
           </form>
           {!error && !faction && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
-              <h2 className="text-sm font-mc-dungueons">Informations</h2>
+              <PageSubTitle>Informations</PageSubTitle>
               <p>
                 Pour commencer à voir les statistiques, tapez le nom d'une faction sur la barre de
                 recherche au-dessus.
@@ -64,7 +65,7 @@ export default function FactionShow(props: FactionShowProps) {
               {exampleFaction && (
                 <>
                   <p>Un exemple de faction est disponible juste en dessous.</p>
-                  <h2 className="text-sm font-mc-dungueons">Exemple</h2>
+                  <PageSubTitle>Exemple</PageSubTitle>
                   <FactionDetails faction={exampleFaction} />
                 </>
               )}
@@ -79,7 +80,7 @@ export default function FactionShow(props: FactionShowProps) {
               </div>
             </div>
           )}
-        </div>
+        </Page>
       </DefaultLayout>
     </>
   )

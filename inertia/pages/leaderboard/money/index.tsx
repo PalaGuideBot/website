@@ -13,13 +13,14 @@ import {
   YAxis,
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
+import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { formatNumber, formatPrice } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
-import { formatNumber, formatPrice } from '~/lib/utils'
 
 type MoneyIndexProps = InferPageProps<MoneyController, 'index'>
 
@@ -58,15 +59,15 @@ export default function MoneyIndex(props: MoneyIndexProps) {
     <>
       <Head title="Leaderboard: Money" />
       <DefaultLayout>
-        <div className="mx-auto w-full max-w-4xl flex flex-col gap-4">
-          <h1 className="text-lg font-medium">Leaderboard: Money</h1>
-          <h2 className="font-pixel">Podium</h2>
+        <Page>
+          <PageTitle>Leaderboard: Money</PageTitle>
+          <PageSubTitle>Podium</PageSubTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Podium data={first} position="first" />
             <Podium data={second} position="second" />
             <Podium data={third} position="third" />
           </div>
-          <h2 className="font-pixel">Historique</h2>
+          <PageSubTitle>Historique</PageSubTitle>
           <Card>
             <CardContent className="p-4 h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -112,7 +113,7 @@ export default function MoneyIndex(props: MoneyIndexProps) {
               />
             </CardFooter>
           </Card>
-        </div>
+        </Page>
       </DefaultLayout>
     </>
   )

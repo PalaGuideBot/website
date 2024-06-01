@@ -5,6 +5,7 @@ import { Button } from '@lemonsqueezy/wedges'
 import { SearchIcon, TriangleAlertIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import DefaultLayout from '~/components/layouts/default'
+import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import Input from '~/components/ui/input'
 import { UserDetails } from './components/user_details'
 
@@ -32,8 +33,8 @@ export default function UserShow(props: UserShowProps) {
     <>
       <Head title={user?.username || 'Utilisateur'} />
       <DefaultLayout>
-        <div className="mx-auto w-full max-w-4xl flex flex-col gap-4">
-          <h1 className="text-lg font-medium">Statistiques utilisateur</h1>
+        <Page>
+          <PageTitle>Statistiques utilisateur</PageTitle>
           <form onSubmit={onSubmit}>
             <div className="flex">
               <Input
@@ -55,7 +56,7 @@ export default function UserShow(props: UserShowProps) {
           </form>
           {!error && !user && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
-              <h2 className="text-sm font-mc-dungueons">Informations</h2>
+              <PageSubTitle>Informations</PageSubTitle>
               <p>
                 Pour commencer à voir les statistiques, tapez le pseudo d'un joueur sur la barre de
                 recherche au-dessus.
@@ -72,7 +73,7 @@ export default function UserShow(props: UserShowProps) {
               {exampleUser && (
                 <>
                   <p>Un exemple d'utilisateur est disponible juste en dessous.</p>
-                  <h2 className="mt-2 text-sm font-mc-dungueons">Exemple</h2>
+                  <PageSubTitle>Exemple</PageSubTitle>
                   <UserDetails user={exampleUser} />
                 </>
               )}
@@ -86,7 +87,7 @@ export default function UserShow(props: UserShowProps) {
             </div>
           )}
           {user && <UserDetails user={user} />}
-        </div>
+        </Page>
       </DefaultLayout>
     </>
   )
