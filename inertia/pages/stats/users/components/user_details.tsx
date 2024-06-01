@@ -1,6 +1,5 @@
 import strings from '@adonisjs/core/helpers/string'
-import { ToggleGroup } from '@lemonsqueezy/wedges'
-import { ProgressBar as LemonProgressBar } from '@lemonsqueezy/wedges'
+import { ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
   Area,
@@ -15,6 +14,7 @@ import {
   YAxis,
 } from 'recharts'
 import { ArrowRightIcon } from '~/components/icons'
+import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
@@ -33,7 +33,6 @@ import { formatDate } from '~/lib/date'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import type { UserShowProps } from '../show'
-import LinearGradient from '~/components/shared/linear_gradient'
 
 type UserDetailsProps = {
   user: NonNullable<UserShowProps['user']>
@@ -186,8 +185,8 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         <CardHeader className="border-b">
           <CardTitle>Succès</CardTitle>
         </CardHeader>
-        <CardContent className="p-0">
-          <AchievementsCard achievements={user.achievements} />
+        <CardContent className="pt-4">
+          <AchievementsProgress achievements={user.achievements} />
         </CardContent>
       </Card>
       <Card>
@@ -519,32 +518,20 @@ const InformationLine = ({
     </div>
   )
 }
-
-const ProgressBar = ({ completionPercentage }: { completionPercentage: number }) => (
-  <div className="inline-block w-full">
-    <LemonProgressBar
-      max={100}
-      value={completionPercentage}
-      helperText={completionPercentage.toFixed(2) + '% complété'}
-    />
-  </div>
-)
-
-type Achievements = {
-  completed: number
-  incomplete: number
-  total: number
-}
-
-const AchievementsCard = ({ achievements }: { achievements: Achievements }) => {
-  const achievementsCompleted = achievements.completed
-  const completionPercentage = (achievementsCompleted / achievements.total) * 100
+const AchievementsProgress = ({
+  achievements,
+}: {
+  achievements: UserDetailsProps['user']['achievements']
+}) => {
+  const completionPercentage = (achievements.completed / achievements.total) * 100
 
   return (
-    <div className="w-full rounded overflow-hidden">
-      <div className="px-6 py-4">
-        <ProgressBar completionPercentage={completionPercentage} />
-      </div>
-    </div>
+    <ProgressBar
+      max={100}
+      value={completionPercentage}
+      label="Progression"
+      indicator={completionPercentage.toFixed(2) + '%'}
+      helperText={`${achievements.completed} / ${achievements.total} succès`}
+    />
   )
 }
