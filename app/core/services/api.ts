@@ -1,10 +1,10 @@
-import { userInfoValidator } from '#core/validators/user_validator'
-import { factionInfoValidator } from '#core/validators/faction_validator'
+import { userInfoValidator } from '#stats/validators/user_validator'
+import { factionInfoValidator } from '#stats/validators/faction_validator'
 import {
   default as leaderboardCategories,
   type LeaderboardCategory,
 } from '#leaderboard/content/categories'
-import { validators as leaderboardValidators } from '#leaderboard/validator/leaderbord_validator'
+import { validators as leaderboardValidators } from '#leaderboard/validators/leaderboard_validator'
 import env from '#start/env'
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
