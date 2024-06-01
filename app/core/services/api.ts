@@ -1,11 +1,12 @@
-import { userInfoValidator } from '#stats/validators/user_validator'
-import { factionInfoValidator } from '#stats/validators/faction_validator'
 import {
   default as leaderboardCategories,
   type LeaderboardCategory,
 } from '#leaderboard/content/categories'
 import { validators as leaderboardValidators } from '#leaderboard/validators/leaderboard_validator'
 import env from '#start/env'
+import { factionInfoValidator } from '#stats/validators/faction_validator'
+import { userInfoValidator } from '#stats/validators/user_validator'
+import { paladiumStatusValidator } from '#status/validators/status_validator'
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
 import { Infer } from '@vinejs/vine/types'
@@ -81,6 +82,22 @@ export class ApiService {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception(`Invalid leaderboard data for category "${category}"`, {
           code: 'E_LEADERBOARD_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getPaladiumStatus() {
+    try {
+      const response = await client.get('status')
+      const data = await response.json()
+      return await paladiumStatusValidator.validate(data)
+    } catch (error: unknown) {
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception('Invalid paladium status data', {
+          code: 'E_PALADIUM_STATUS_INVALID',
           status: 500,
         })
       }

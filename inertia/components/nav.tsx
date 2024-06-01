@@ -98,7 +98,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
       external: true,
     },
     {
-      path: '/paladium/status',
+      path: '/status/paladium',
       label: 'Paladium',
       icon: createIconLink(GamepadIcon),
     },
