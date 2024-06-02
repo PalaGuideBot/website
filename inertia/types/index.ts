@@ -24,3 +24,12 @@ export type Rank =
   | 'gamedesigner'
   | 'developpeur'
   | 'developpeursenior'
+
+export type PaladiumStatus =
+  | 'online'
+  | 'offline'
+  | 'maintenance'
+  | 'running'
+  | 'starting'
+  | 'restarting'
+  | 'stopping'

@@ -1,7 +1,7 @@
 import type PaladiumController from '#status/controllers/paladium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
-import { Tabs, Tooltip as WedgesTooltip } from '@lemonsqueezy/wedges'
+import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
 import { EarthIcon, FileCogIcon, UsersIcon } from 'lucide-react'
 import {
   Area,
@@ -17,18 +17,33 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import LinearGradient from '~/components/shared/linear_gradient'
 import { Card, CardContent } from '~/components/ui/card'
-import { eachHourOfDate, formatDate } from '~/lib/date'
+import { formatDate } from '~/lib/date'
 import { formatNumber } from '~/lib/utils'
-import { isSameHour } from 'date-fns'
+import { UptimeIndicator } from '../components/uptime_indicator'
+import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
 type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 
 export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
-  const { status } = props
+  const { todayStatus, last30daysStatus } = props
+
+  const dateInterval = useDateIntervalStore((state) => state.dateInterval)
+  const setDateInterval = useDateIntervalStore((state) => state.setDateInterval)
+
+  let status = []
+
+  switch (dateInterval) {
+    case 'today':
+      status = todayStatus
+      break
+    case 'last-30-days':
+      status = last30daysStatus
+      break
+  }
 
   const globalStatus = status.map((s) => ({
     date: s.timestamp,
-    status: s.data.java.factions.Manashino,
+    status: s.data.java.global.status,
   }))
 
   return (
@@ -37,21 +52,37 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>Status: Paladium</PageTitle>
-          {/* <pre>{JSON.stringify(status[0], null, 1)}</pre> */}
           <p>
             Sur cette page, vous pourrez visualiser le status des différents services de Paladium.
           </p>
           <Tabs defaultValue="global" variant="underlined">
-            <Tabs.List>
-              <Tabs.Trigger before={<EarthIcon className="size-4" />} value="global">
-                Global
-              </Tabs.Trigger>
-              <Tabs.Trigger before={<UsersIcon className="size-4" />} value="factions">
-                Factions
-              </Tabs.Trigger>
-              <Tabs.Trigger before={<FileCogIcon className="size-4" />} value="launcher">
-                Launcher
-              </Tabs.Trigger>
+            <Tabs.List className="flex items-center justify-between gap-2">
+              <div>
+                <Tabs.Trigger before={<EarthIcon className="size-4" />} value="global">
+                  Global
+                </Tabs.Trigger>
+                <Tabs.Trigger before={<UsersIcon className="size-4" />} value="factions">
+                  Factions
+                </Tabs.Trigger>
+                <Tabs.Trigger before={<FileCogIcon className="size-4" />} value="launcher">
+                  Launcher
+                </Tabs.Trigger>
+              </div>
+              <div>
+                <ToggleGroup
+                  type="single"
+                  size="sm"
+                  value={dateInterval}
+                  onValueChange={(value) => {
+                    if (value.length) {
+                      setDateInterval(value as 'last-30-days' | 'today')
+                    }
+                  }}
+                >
+                  <ToggleGroup.Item value="last-30-days">30 derniers jours</ToggleGroup.Item>
+                  <ToggleGroup.Item value="today">Aujourd'hui</ToggleGroup.Item>
+                </ToggleGroup>
+              </div>
             </Tabs.List>
             <Tabs.Content value="global">
               <Card>
@@ -129,56 +160,5 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
         </Page>
       </DefaultLayout>
     </>
-  )
-}
-
-const UptimeIndicator = ({
-  data,
-}: {
-  data: Array<{
-    date: string
-    status:
-      | 'online'
-      | 'offline'
-      | 'maintenance'
-      | 'running'
-      | 'starting'
-      | 'restarting'
-      | 'stopping'
-  }>
-}) => {
-  const groupedByHour = eachHourOfDate(new Date()).map((date) => {
-    return {
-      date: date.toISOString(),
-      status: data.filter((s) => isSameHour(date, s.date)),
-    }
-  })
-
-  return (
-    <div className="h-5 bg-surface rounded-md w-full flex flex-row gap-0.5">
-      {groupedByHour.map(({ date, status }) => {
-        if (status.some((s) => !['online', 'running'].includes(s.status))) {
-          return (
-            <WedgesTooltip
-              color="secondary"
-              side="bottom"
-              content={
-                <ul className="space-y-2 list-disc list-inside">
-                  {status.map((s) => (
-                    <li key={s.date}>
-                      {formatDate(s.date)} - {s.status}
-                    </li>
-                  ))}
-                </ul>
-              }
-            >
-              <span key={date} className="h-full w-full rounded-sm bg-destructive" />
-            </WedgesTooltip>
-          )
-        }
-
-        return <span key={date} className="h-full w-full rounded-sm bg-wg-green" />
-      })}
-    </div>
   )
 }
