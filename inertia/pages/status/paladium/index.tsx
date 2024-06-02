@@ -57,9 +57,8 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
             Les données sont mises à jour toutes les 10 minutes, sous réserve de la disponibilité de
             l'API de Paladium.
           </p>
-          {/* <pre>{JSON.stringify(status[0], null, 1)}</pre> */}
           <Tabs defaultValue="global" variant="underlined">
-            <Tabs.List className="flex items-center justify-between gap-2">
+            <Tabs.List className="flex flex-col-reverse items-start justify-between gap-2 md:flex-wrap-reverse md:flex-row md:items-center">
               <div>
                 <Tabs.Trigger before={<EarthIcon className="size-4" />} value="global">
                   Global
