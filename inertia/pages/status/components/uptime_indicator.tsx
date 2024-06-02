@@ -119,8 +119,8 @@ const UptimeIndicatorTickTooltipContent = ({
           status: s,
         })
       } else {
-        const [, to] = lastHistory.period
-        lastHistory.period = [to, formattedDate]
+        const [from] = lastHistory.period
+        lastHistory.period = [from, formattedDate]
       }
 
       return history
