@@ -12,7 +12,8 @@ export const Pagination = ({
   total: number
   onChange: (page: number) => void
 }) => {
-  const totalPages = Math.ceil(total / limit)
+  const maxPages = 10
+  const totalPages = Math.min(Math.ceil(total / limit), maxPages)
 
   return (
     <div className="flex gap-2">
