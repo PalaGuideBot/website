@@ -175,7 +175,6 @@ const GlobalTab = ({
                     return null
                   }}
                 />
-                <Legend />
                 <Area
                   type="monotone"
                   dataKey="global.players"
@@ -198,6 +197,7 @@ const GlobalTab = ({
                 <defs>
                   <LinearGradient id="primary-gradient" from="hsl(var(--wg-primary))" />
                 </defs>
+                <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '50px' }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
