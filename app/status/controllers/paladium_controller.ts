@@ -1,6 +1,7 @@
 import { ApiService } from '#core/services/api'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
+import { isToday } from 'date-fns'
 
 @inject()
 export default class PaladiumController {
@@ -8,6 +9,7 @@ export default class PaladiumController {
 
   async index({ inertia }: HttpContext) {
     const status = await this.api.getPaladiumStatus()
-    return inertia.render('status/paladium/index', { status })
+    const todayStatus = status.filter((s) => isToday(s.timestamp))
+    return inertia.render('status/paladium/index', { status: todayStatus })
   }
 }
