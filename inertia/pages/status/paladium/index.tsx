@@ -100,7 +100,11 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
                 }))}
               />
             </Tabs.Content>
-            <Tabs.Content value="launcher">Not implemented yet</Tabs.Content>
+            <Tabs.Content value="launcher">
+              <LauncherTab
+                data={status.map((s) => ({ timestamp: s.timestamp, launcher: s.data.launcher }))}
+              />
+            </Tabs.Content>
           </Tabs>
         </Page>
       </DefaultLayout>
@@ -215,6 +219,25 @@ const FactionsTab = ({
               </div>
             )
           })}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+const LauncherTab = ({
+  data,
+}: {
+  data: Array<{ timestamp: string; launcher: { status: PaladiumStatus } }>
+}) => {
+  return (
+    <Card>
+      <CardContent className="pt-4 flex flex-col gap-4">
+        <div className="space-y-2">
+          <PageSubTitle>Uptime</PageSubTitle>
+          <UptimeIndicator
+            data={data.map((s) => ({ date: s.timestamp, status: s.launcher.status }))}
+          />
         </div>
       </CardContent>
     </Card>
