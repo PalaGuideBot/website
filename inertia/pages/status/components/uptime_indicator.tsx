@@ -84,7 +84,7 @@ const UptimeIndicatorTick = ({
         </Tooltip.Trigger>
         <Tooltip.Content content={null} arrow={false} sideOffset={8} color="soft" side="bottom">
           {status.length > 0 ? (
-            <UptimeIndicatorTickTooltipContent status={status} />
+            <UptimeIndicatorTickTooltipContent statusMap={status} />
           ) : (
             <UptimeIndicatorTickTooltipEmptyContent date={date} />
           )}
@@ -95,15 +95,38 @@ const UptimeIndicatorTick = ({
 }
 
 const UptimeIndicatorTickTooltipContent = ({
-  status,
+  statusMap,
 }: {
-  status: UptimeIndicatorProps['data']
+  statusMap: UptimeIndicatorProps['data']
 }) => {
+  const historyStatus = statusMap.reduce(
+    (history: { period: string; status: PaladiumStatus }[], data) => {
+      const { date, status } = {
+        date: data.date,
+        status: data.status,
+      }
+
+      const lastHistory = history[history.length - 1]
+
+      if (!lastHistory || lastHistory.status !== status) {
+        history.push({
+          period: `${formatDate(date)} au ${formatDate(date)}`,
+          status,
+        })
+      } else {
+        lastHistory.period = `${formatDate(date)} au ${lastHistory.period.split(' au ')[1]}`
+      }
+
+      return history
+    },
+    []
+  )
+
   return (
     <ul className="p-2 text-sm space-y-2 list-disc list-inside">
-      {status.map((s, index) => (
-        <li key={s.date + index}>
-          {formatDate(s.date)} - <UptimeIndicatorStatus status={s.status} />
+      {historyStatus.map((s, index) => (
+        <li key={s.period + index}>
+          {s.period} - <UptimeIndicatorStatus status={s.status} />
         </li>
       ))}
     </ul>
