@@ -121,6 +121,13 @@ const GlobalTab = ({
     status: s.global.status,
   }))
 
+  const averagePlayers = data.reduce((sum, entry) => sum + entry.global.players, 0) / data.length
+
+  const dataWithAverage = data.map((entry) => ({
+    ...entry,
+    average: averagePlayers,
+  }))
+
   return (
     <Card>
       <CardContent className="pt-4 flex flex-col gap-4">
@@ -132,7 +139,7 @@ const GlobalTab = ({
           <PageSubTitle>Joueurs</PageSubTitle>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
+              <AreaChart data={dataWithAverage}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
                   dataKey="timestamp"
@@ -145,6 +152,7 @@ const GlobalTab = ({
                     if (active && payload && payload.length) {
                       const {
                         global: { players },
+                        average,
                       } = payload[0].payload
                       return (
                         <Card className="bg-background">
@@ -154,6 +162,10 @@ const GlobalTab = ({
                               <div className="flex gap-2 items-center">
                                 <span className="text-sm">Joueurs: </span>
                                 <span className="text-sm font-bold">{formatNumber(players)}</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className="text-sm">Moyenne: </span>
+                                <span className="text-sm font-bold">{formatNumber(average)}</span>
                               </div>
                             </div>
                           </CardContent>
@@ -171,6 +183,16 @@ const GlobalTab = ({
                   stroke="hsl(var(--wg-primary))"
                   fill="url(#primary-gradient)"
                   strokeWidth={3}
+                  dot={false}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="average"
+                  name="Moyenne"
+                  stroke="hsl(var(--wg-secondary))"
+                  fill="none"
+                  strokeDasharray="5 5"
+                  strokeWidth={2}
                   dot={false}
                 />
                 <defs>
