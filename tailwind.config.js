@@ -39,6 +39,7 @@ export default {
     animation: {
       'blink': 'blink 1s step-end infinite',
       'job-progress': 'job-progress 2.5s',
+      'spin': 'spin 1s linear infinite',
     },
     keyframes: {
       'blink': {
@@ -47,6 +48,10 @@ export default {
       },
       'job-progress': {
         from: { 'stroke-dashoffset': '2150' },
+      },
+      'spin': {
+        from: { transform: 'rotate(0deg)' },
+        to: { transform: 'rotate(360deg)' },
       },
     },
   },

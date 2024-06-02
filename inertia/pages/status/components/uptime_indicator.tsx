@@ -38,7 +38,7 @@ const UptimeIndicatorStatus = ({ status }: { status: PaladiumStatus }) => {
     ),
     starting: <CirclePlayIcon className="h-4 w-4" />,
     restarting: <Loading size="xs" type="dots" color="primary" />,
-    stopping: <CirclePowerIcon className="h-4 w-4" />,
+    stopping: <CirclePowerIcon className="h-4 w-4 animate-blink" />,
   }[status]
 
   return (
@@ -82,9 +82,16 @@ const UptimeIndicatorTick = ({
             )}
           />
         </Tooltip.Trigger>
-        <Tooltip.Content content={null} arrow={false} sideOffset={8} color="soft" side="bottom">
+        <Tooltip.Content
+          className="min-w-72"
+          content={null}
+          arrow={false}
+          sideOffset={8}
+          color="soft"
+          side="bottom"
+        >
           {status.length > 0 ? (
-            <UptimeIndicatorTickTooltipContent statusMap={status} />
+            <UptimeIndicatorTickTooltipContent status={status} />
           ) : (
             <UptimeIndicatorTickTooltipEmptyContent date={date} />
           )}
@@ -95,41 +102,47 @@ const UptimeIndicatorTick = ({
 }
 
 const UptimeIndicatorTickTooltipContent = ({
-  statusMap,
+  status,
 }: {
-  statusMap: UptimeIndicatorProps['data']
+  status: UptimeIndicatorProps['data']
 }) => {
-  const historyStatus = statusMap.reduce(
-    (history: { period: string; status: PaladiumStatus }[], data) => {
-      const { date, status } = {
-        date: data.date,
-        status: data.status,
-      }
+  const historyStatus = status.reduce(
+    (history, data) => {
+      const { date, status: s } = data
 
       const lastHistory = history[history.length - 1]
+      const formattedDate = formatDate(date, 'p')
 
-      if (!lastHistory || lastHistory.status !== status) {
+      if (!lastHistory || lastHistory.status !== s) {
         history.push({
-          period: `${formatDate(date)} au ${formatDate(date)}`,
-          status,
+          period: [formattedDate, formattedDate],
+          status: s,
         })
       } else {
-        lastHistory.period = `${formatDate(date)} au ${lastHistory.period.split(' au ')[1]}`
+        const [, to] = lastHistory.period
+        lastHistory.period = [to, formattedDate]
       }
 
       return history
     },
-    []
+    [] as Array<{ period: [string, string]; status: PaladiumStatus }>
   )
 
   return (
-    <ul className="p-2 text-sm space-y-2 list-disc list-inside">
-      {historyStatus.map((s, index) => (
-        <li key={s.period + index}>
-          {s.period} - <UptimeIndicatorStatus status={s.status} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <h4 className="font-pixel text-xs">{formatDate(status[0].date, 'PP')}</h4>
+      <ul className="p-2 text-sm space-y-2">
+        {historyStatus.map((s, index) => {
+          const [from, to] = s.period
+          return (
+            <li key={s.period.join('') + index} className="flex gap-2 items-center">
+              <UptimeIndicatorStatus status={s.status} />
+              <span>{from === to ? from : `de ${from} à ${to}`}</span>
+            </li>
+          )
+        })}
+      </ul>
+    </>
   )
 }
 
