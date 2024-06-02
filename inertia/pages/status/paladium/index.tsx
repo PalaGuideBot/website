@@ -2,7 +2,7 @@ import type PaladiumController from '#status/controllers/paladium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
 import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
-import { EarthIcon, FileCogIcon, UsersIcon } from 'lucide-react'
+import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import {
   Area,
   AreaChart,
@@ -17,8 +17,10 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import LinearGradient from '~/components/shared/linear_gradient'
 import { Card, CardContent } from '~/components/ui/card'
+import { icons as factionIcons } from '~/content/factions'
 import { formatDate } from '~/lib/date'
 import { formatNumber } from '~/lib/utils'
+import { PaladiumFaction, PaladiumStatus } from '~/types'
 import { UptimeIndicator } from '../components/uptime_indicator'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
@@ -41,11 +43,6 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
       break
   }
 
-  const globalStatus = status.map((s) => ({
-    date: s.timestamp,
-    status: s.data.java.global.status,
-  }))
-
   return (
     <>
       <Head title="Status Paladium" />
@@ -55,6 +52,12 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
           <p>
             Sur cette page, vous pourrez visualiser le status des différents services de Paladium.
           </p>
+          <p className="text-surface-300 text-sm">
+            <TriangleAlertIcon className="size-4 mr-2 inline-block" />
+            Les données sont mises à jour toutes les 10 minutes, sous réserve de la disponibilité de
+            l'API de Paladium.
+          </p>
+          {/* <pre>{JSON.stringify(status[0], null, 1)}</pre> */}
           <Tabs defaultValue="global" variant="underlined">
             <Tabs.List className="flex items-center justify-between gap-2">
               <div>
@@ -85,80 +88,135 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
               </div>
             </Tabs.List>
             <Tabs.Content value="global">
-              <Card>
-                <CardContent className="pt-4 flex flex-col gap-4">
-                  <div className="space-y-2">
-                    <PageSubTitle>Uptime</PageSubTitle>
-                    <UptimeIndicator data={globalStatus} />
-                  </div>
-                  <div className="space-y-2">
-                    <PageSubTitle>Joueurs</PageSubTitle>
-                    <div className="h-64">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={status}>
-                          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                          <XAxis
-                            dataKey="timestamp"
-                            tickFormatter={(value) => formatDate(value, 'dd/MM/yyyy')}
-                            className="text-xs"
-                          />
-                          <YAxis className="text-xs" orientation="right" />
-                          <Tooltip
-                            content={({ active, payload, label }) => {
-                              if (active && payload && payload.length) {
-                                const {
-                                  data: {
-                                    java: {
-                                      global: { players },
-                                    },
-                                  },
-                                } = payload[0].payload
-                                return (
-                                  <Card className="bg-background">
-                                    <CardContent className="p-4 space-y-2">
-                                      <div className="font-pixel text-xs">
-                                        {formatDate(label, 'PPpp')}
-                                      </div>
-                                      <div className="flex flex-col gap-2">
-                                        <div className="flex gap-2 items-center">
-                                          <span className="text-sm">Joueurs: </span>
-                                          <span className="text-sm font-bold">
-                                            {formatNumber(players)}
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-                                )
-                              }
-                              return null
-                            }}
-                          />
-                          <Legend />
-                          <Area
-                            type="monotone"
-                            dataKey="data.java.global.players"
-                            name="Joueurs"
-                            stroke="hsl(var(--wg-primary))"
-                            fill="url(#primary-gradient)"
-                            strokeWidth={3}
-                            dot={false}
-                          />
-                          <defs>
-                            <LinearGradient id="primary-gradient" from="hsl(var(--wg-primary))" />
-                          </defs>
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <GlobalTab
+                data={status.map((s) => ({ timestamp: s.timestamp, global: s.data.java.global }))}
+              />
             </Tabs.Content>
-            <Tabs.Content value="factions">Not implemented yet</Tabs.Content>
+            <Tabs.Content value="factions">
+              <FactionsTab
+                data={status.map((s) => ({
+                  timestamp: s.timestamp,
+                  factions: s.data.java.factions,
+                }))}
+              />
+            </Tabs.Content>
             <Tabs.Content value="launcher">Not implemented yet</Tabs.Content>
           </Tabs>
         </Page>
       </DefaultLayout>
     </>
+  )
+}
+
+const GlobalTab = ({
+  data,
+}: {
+  data: Array<{ timestamp: string; global: { status: PaladiumStatus; players: number } }>
+}) => {
+  const globalStatus = data.map((s) => ({
+    date: s.timestamp,
+    status: s.global.status,
+  }))
+
+  return (
+    <Card>
+      <CardContent className="pt-4 flex flex-col gap-4">
+        <div className="space-y-2">
+          <PageSubTitle>Uptime</PageSubTitle>
+          <UptimeIndicator data={globalStatus} />
+        </div>
+        <div className="space-y-2">
+          <PageSubTitle>Joueurs</PageSubTitle>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                <XAxis
+                  dataKey="timestamp"
+                  tickFormatter={(value) => formatDate(value, 'dd/MM/yyyy')}
+                  className="text-xs"
+                />
+                <YAxis className="text-xs" orientation="right" />
+                <Tooltip
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      const {
+                        global: { players },
+                      } = payload[0].payload
+                      return (
+                        <Card className="bg-background">
+                          <CardContent className="p-4 space-y-2">
+                            <div className="font-pixel text-xs">{formatDate(label, 'PPpp')}</div>
+                            <div className="flex flex-col gap-2">
+                              <div className="flex gap-2 items-center">
+                                <span className="text-sm">Joueurs: </span>
+                                <span className="text-sm font-bold">{formatNumber(players)}</span>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )
+                    }
+                    return null
+                  }}
+                />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="global.players"
+                  name="Joueurs"
+                  stroke="hsl(var(--wg-primary))"
+                  fill="url(#primary-gradient)"
+                  strokeWidth={3}
+                  dot={false}
+                />
+                <defs>
+                  <LinearGradient id="primary-gradient" from="hsl(var(--wg-primary))" />
+                </defs>
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+const FactionsTab = ({
+  data,
+}: {
+  data: Array<{ timestamp: string; factions: Record<string, PaladiumStatus> }>
+}) => {
+  const groupedByFaction = data.reduce(
+    (acc, s) => {
+      Object.entries(s.factions).forEach(([faction, status]) => {
+        if (!acc[faction]) {
+          acc[faction] = []
+        }
+        acc[faction].push({ date: s.timestamp, status })
+      })
+      return acc
+    },
+    {} as Record<string, Array<{ date: string; status: PaladiumStatus }>>
+  )
+  return (
+    <Card>
+      <CardContent className="pt-4 flex flex-col gap-4">
+        <div className="space-y-8">
+          {Object.entries(groupedByFaction).map(([faction, status]) => {
+            const Icon = factionIcons[faction as PaladiumFaction]
+            return (
+              <div key={faction} className="flex items-end justify-center gap-4 pb-2">
+                <Icon className="h-10 w-10" />
+                <div className="space-y-2 flex-grow">
+                  <PageSubTitle>{faction}</PageSubTitle>
+                  <UptimeIndicator data={status} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

@@ -33,3 +33,14 @@ export type PaladiumStatus =
   | 'starting'
   | 'restarting'
   | 'stopping'
+
+export type PaladiumFaction =
+  | 'Soleratl'
+  | 'Muzdan'
+  | 'Manashino'
+  | 'Event'
+  | 'Luccento'
+  | 'Imbali'
+  | 'Keltis'
+  | 'Neolith'
+  | 'Untaa'

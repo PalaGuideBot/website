@@ -1,16 +1,16 @@
 import { Badge, Loading, Tooltip } from '@lemonsqueezy/wedges'
 import {
+  addDays,
   addHours,
-  isFuture,
-  isSameHour,
   addMinutes,
   eachDayOfInterval,
-  startOfDay,
   endOfDay,
+  isFuture,
   isSameDay,
-  addDays,
-  nextDay,
+  isSameHour,
   isToday,
+  nextDay,
+  startOfDay,
 } from 'date-fns'
 import { CirclePlayIcon, CirclePowerIcon, ConstructionIcon, TriangleAlertIcon } from 'lucide-react'
 import { eachHourOfDate, formatDate } from '~/lib/date'
@@ -101,8 +101,8 @@ const UptimeIndicatorTickTooltipContent = ({
 }) => {
   return (
     <ul className="p-2 text-sm space-y-2 list-disc list-inside">
-      {status.map((s) => (
-        <li key={s.date}>
+      {status.map((s, index) => (
+        <li key={s.date + index}>
           {formatDate(s.date)} - <UptimeIndicatorStatus status={s.status} />
         </li>
       ))}
@@ -161,8 +161,8 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
 
   return (
     <div className="h-5 bg-surface rounded-md w-full flex flex-row gap-0.5">
-      {result.map(({ date, status }) => (
-        <UptimeIndicatorTick key={date} date={date} status={status} />
+      {result.map(({ date, status }, index) => (
+        <UptimeIndicatorTick key={date + index} date={date} status={status} />
       ))}
     </div>
   )

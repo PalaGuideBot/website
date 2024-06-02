@@ -16,6 +16,16 @@ import LeaderboardKoth from '~/assets/leaderboard-icons/koth.png'
 import LeaderboardMoney from '~/assets/leaderboard-icons/money.png'
 import LeaderboardTrixium from '~/assets/leaderboard-icons/trixium.png'
 
+import FactionSoleralt from '~/assets/faction-icons/soleratl.png'
+import FactionMuzdan from '~/assets/faction-icons/muzdan.png'
+import FactionManashino from '~/assets/faction-icons/manashino.png'
+import FactionEvent from '~/assets/faction-icons/event.png'
+import FactionLuccento from '~/assets/faction-icons/luccento.png'
+import FactionImbali from '~/assets/faction-icons/imbali.png'
+import FactionKeltis from '~/assets/faction-icons/keltis.png'
+import FactionNeolith from '~/assets/faction-icons/neolith.png'
+import FactionUntaa from '~/assets/faction-icons/untaa.png'
+
 export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 const iconFactory =
@@ -45,3 +55,13 @@ export const LeaderboardEndIcon = iconFactory(LeaderboardEnd)
 export const LeaderboardKothIcon = iconFactory(LeaderboardKoth)
 export const LeaderboardMoneyIcon = iconFactory(LeaderboardMoney)
 export const leaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
+
+export const FactionSoleraltIcon = iconFactory(FactionSoleralt)
+export const FactionMuzdanIcon = iconFactory(FactionMuzdan)
+export const FactionManashinoIcon = iconFactory(FactionManashino)
+export const FactionEventIcon = iconFactory(FactionEvent)
+export const FactionLuccentoIcon = iconFactory(FactionLuccento)
+export const FactionImbaliIcon = iconFactory(FactionImbali)
+export const FactionKeltisIcon = iconFactory(FactionKeltis)
+export const FactionNeolithIcon = iconFactory(FactionNeolith)
+export const FactionUntaaIcon = iconFactory(FactionUntaa)
