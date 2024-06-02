@@ -145,6 +145,8 @@ const GlobalTab = ({
                   dataKey="timestamp"
                   tickFormatter={(value) => formatDate(value, 'dd/MM/yyyy')}
                   className="text-xs"
+                  angle={-45}
+                  textAnchor="end"
                 />
                 <YAxis className="text-xs" orientation="right" />
                 <Tooltip
