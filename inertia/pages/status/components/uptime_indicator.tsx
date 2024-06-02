@@ -177,7 +177,7 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
     case 'today':
       result = eachHourOfDate(new Date()).map((date) => {
         return {
-          date: date.toISOString(),
+          date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
           status: data.filter((s) => isSameHour(date, s.date)),
         }
       })
@@ -188,8 +188,8 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
         end: endOfDay(data[data.length - 1].date),
       }).map((date) => {
         return {
-          date: date.toISOString(),
-          status: data.filter((s) => isSameDay(date, new Date(s.date))),
+          date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
+          status: data.filter((s) => isSameDay(date, s.date)),
         }
       })
       break

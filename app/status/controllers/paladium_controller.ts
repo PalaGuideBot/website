@@ -9,9 +9,9 @@ export default class PaladiumController {
 
   async index({ inertia }: HttpContext) {
     const status = await this.api.getPaladiumStatus()
-    const todayStatus = status.filter((s) => isToday(s.timestamp))
+    const todayStatus = status.filter((s) => isToday(s.date))
     const last30daysStatus = status.filter((s) =>
-      isBefore(s.timestamp, addDays(startOfDay(new Date()), 30))
+      isBefore(s.date, addDays(startOfDay(new Date()), 30))
     )
     return inertia.render('status/paladium/index', { todayStatus, last30daysStatus })
   }

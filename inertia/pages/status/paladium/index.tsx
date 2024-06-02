@@ -87,21 +87,19 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
               </div>
             </Tabs.List>
             <Tabs.Content value="global">
-              <GlobalTab
-                data={status.map((s) => ({ timestamp: s.timestamp, global: s.data.java.global }))}
-              />
+              <GlobalTab data={status.map((s) => ({ date: s.date, global: s.data.java.global }))} />
             </Tabs.Content>
             <Tabs.Content value="factions">
               <FactionsTab
                 data={status.map((s) => ({
-                  timestamp: s.timestamp,
+                  date: s.date,
                   factions: s.data.java.factions,
                 }))}
               />
             </Tabs.Content>
             <Tabs.Content value="launcher">
               <LauncherTab
-                data={status.map((s) => ({ timestamp: s.timestamp, launcher: s.data.launcher }))}
+                data={status.map((s) => ({ date: s.date, launcher: s.data.launcher }))}
               />
             </Tabs.Content>
           </Tabs>
@@ -114,10 +112,10 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
 const GlobalTab = ({
   data,
 }: {
-  data: Array<{ timestamp: string; global: { status: PaladiumStatus; players: number } }>
+  data: Array<{ date: string; global: { status: PaladiumStatus; players: number } }>
 }) => {
   const globalStatus = data.map((s) => ({
-    date: s.timestamp,
+    date: s.date,
     status: s.global.status,
   }))
 
@@ -142,7 +140,7 @@ const GlobalTab = ({
               <AreaChart data={dataWithAverage}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
-                  dataKey="timestamp"
+                  dataKey="date"
                   tickFormatter={(value) => formatDate(value, 'dd/MM/yyyy')}
                   className="text-xs"
                   angle={-45}
@@ -212,7 +210,7 @@ const GlobalTab = ({
 const FactionsTab = ({
   data,
 }: {
-  data: Array<{ timestamp: string; factions: Record<string, PaladiumStatus> }>
+  data: Array<{ date: string; factions: Record<string, PaladiumStatus> }>
 }) => {
   const groupedByFaction = data.reduce(
     (acc, s) => {
@@ -220,7 +218,7 @@ const FactionsTab = ({
         if (!acc[faction]) {
           acc[faction] = []
         }
-        acc[faction].push({ date: s.timestamp, status })
+        acc[faction].push({ date: s.date, status })
       })
       return acc
     },
@@ -251,16 +249,14 @@ const FactionsTab = ({
 const LauncherTab = ({
   data,
 }: {
-  data: Array<{ timestamp: string; launcher: { status: PaladiumStatus } }>
+  data: Array<{ date: string; launcher: { status: PaladiumStatus } }>
 }) => {
   return (
     <Card>
       <CardContent className="pt-4 flex flex-col gap-4">
         <div className="space-y-2">
           <PageSubTitle>Uptime</PageSubTitle>
-          <UptimeIndicator
-            data={data.map((s) => ({ date: s.timestamp, status: s.launcher.status }))}
-          />
+          <UptimeIndicator data={data.map((s) => ({ date: s.date, status: s.launcher.status }))} />
         </div>
       </CardContent>
     </Card>

@@ -18,7 +18,6 @@ export const factionInfoValidator = vine.compile(
     data: vine.array(
       vine.object({
         date: vine.string(),
-        timestamp: vine.number(),
         data: vine.object({
           level: vine.object({
             level: vine.number(),
