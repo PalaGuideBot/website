@@ -30,6 +30,7 @@ import {
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
+import { getSkinUrl } from '~/lib/minecraft'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import type { UserShowProps } from '../show'
@@ -127,7 +128,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
               className="!h-auto max-w-full"
               width="278"
               height="450"
-              skinUrl={`https://mineskin.eu/skin/${user.username}`}
+              skinUrl={getSkinUrl(user.username)}
             />
           </CardContent>
         </Card>

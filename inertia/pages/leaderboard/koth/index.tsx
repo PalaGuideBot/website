@@ -17,6 +17,7 @@ import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { getHeadUrl } from '~/lib/minecraft'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
@@ -116,7 +117,7 @@ const Podium = ({
   return (
     <PodiumCard position={position}>
       <img
-        src={`https://mc-heads.net/avatar/${data.username}/100`}
+        src={getHeadUrl(data.username)}
         alt={`${data.username}'s avatar`}
         className="object-contain"
       />

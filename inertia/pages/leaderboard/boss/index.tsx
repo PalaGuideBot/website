@@ -20,6 +20,7 @@ import { usePagination } from '~/hooks/use_pagination'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
+import { getHeadUrl } from '~/lib/minecraft'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
@@ -115,7 +116,7 @@ const Podium = ({
   return (
     <PodiumCard position={position}>
       <img
-        src={`https://mc-heads.net/avatar/${data.username}/100`}
+        src={getHeadUrl(data.username)}
         alt={`${data.username}'s avatar`}
         className="object-contain"
       />
