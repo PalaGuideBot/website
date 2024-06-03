@@ -1,7 +1,15 @@
 import vine from '@vinejs/vine'
 
-const status = vine.enum(['online', 'offline', 'maintenance'])
-const factionStatus = vine.enum(['running', 'offline', 'starting', 'restarting', 'stopping'])
+const status = vine.enum(['offline', 'online', 'maintenance'])
+const factionStatus = vine.enum([
+  'unknown',
+  'offline',
+  'starting',
+  'running',
+  'restarting',
+  'stopping',
+  'whitelist',
+])
 
 export const paladiumStatusValidator = vine.compile(
   vine.array(
