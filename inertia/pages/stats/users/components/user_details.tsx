@@ -13,7 +13,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { ArrowRightIcon } from '~/components/icons'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
@@ -33,6 +32,7 @@ import { formatDate } from '~/lib/date'
 import { getSkinUrl } from '~/lib/minecraft'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
+import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
 
 type UserDetailsProps = {
@@ -500,25 +500,6 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
   )
 }
 
-const InformationLine = ({
-  label,
-  value,
-}: {
-  label: string
-  value: string | number | React.ReactNode
-}) => {
-  return (
-    <div className="flex gap-2">
-      <span className="font-pixel">{label}</span>
-      <ArrowRightIcon className="w-2" />
-      {typeof value === 'string' || typeof value === 'number' ? (
-        <span className="text-sm font-mc-dungueons">{value}</span>
-      ) : (
-        value
-      )}
-    </div>
-  )
-}
 const AchievementsProgress = ({
   achievements,
 }: {

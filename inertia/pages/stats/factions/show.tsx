@@ -71,13 +71,11 @@ export default function FactionShow(props: FactionShowProps) {
               )}
             </div>
           )}
-          {error && (
-            <div className="flex flex-col gap-2">
-              <h2 className="text-sm font-mc-dungueons">Erreur</h2>
-              <div className="flex gap-2">
-                <TriangleAlertIcon className="size-4 text-yellow-500" />
-                <p>{error}</p>
-              </div>
+          {error && !faction && (
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <TriangleAlertIcon className="size-20 animate-blink" />
+              <span className="font-pixel animate-blink">Une erreur est survenue</span>
+              <span className="font-bold text-lg text-destructive">{error}</span>
             </div>
           )}
         </Page>
