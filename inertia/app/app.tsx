@@ -1,7 +1,7 @@
 /// <reference path="../../adonisrc.ts" />
 
 import '../css/app.css'
-import { createRoot } from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { ThemeProvider } from '~/components/theme_provider'
@@ -18,8 +18,8 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    const root = createRoot(el)
-    root.render(
+    hydrateRoot(
+      el,
       <ThemeProvider>
         <App {...props} />
       </ThemeProvider>
