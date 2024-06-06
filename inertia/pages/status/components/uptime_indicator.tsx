@@ -66,7 +66,7 @@ const UptimeIndicatorTick = ({
     }[dateInterval] ?? false
 
   if (isFutureDate) {
-    return <span className="h-full w-full rounded-sm bg-surface-50" />
+    return <span className="h-full w-full rounded-sm bg-surface-200 dark:bg-surface-50" />
   }
 
   return (

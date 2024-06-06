@@ -56,7 +56,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
         <CardHeader className="border-b">
           <CardTitle>Membres</CardTitle>
         </CardHeader>
-        <CardContent className="pt-4 grid grid-cols-2 gap-4">
+        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
           {faction.players.map((player) => (
             <MemberCard key={player.uuid} player={player} />
           ))}
