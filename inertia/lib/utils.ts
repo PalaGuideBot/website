@@ -26,6 +26,6 @@ export function formatNumber(value: number, options?: Intl.NumberFormatOptions) 
 export function formatDuration(value: number) {
   const days = Math.floor(value / 1440)
   const hours = Math.floor((value % 1440) / 60)
-  const minutes = value % 60
+  const minutes = Math.round(value % 60)
   return `${days ? days + 'j ' : ''}${hours ? hours + 'h ' : ''}${minutes ? minutes + 'm' : ''}`
 }

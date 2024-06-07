@@ -88,33 +88,17 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
     return history
   }, [])
 
-  const timePlayedHistory = sortedUserData
-    .toReversed()
-    .reduce((history: { date: string; timePlayed: number; difference: number }[], data) => {
-      const { date } = {
-        date: data.date,
-      }
-
-      const lastHistory = history[history.length - 1]
-
-      if (!lastHistory) {
-        history.push({
-          date: date,
-          timePlayed: data.data.timePlayed,
-          difference: 0,
-        })
-      } else {
-        history.push({
-          date: date,
-          timePlayed: data.data.timePlayed,
-          difference: data.data.timePlayed - lastHistory.timePlayed,
-        })
-      }
-
-      return history
-    }, [])
-
   const lastUserData = sortedUserData.at(0)
+
+  const averageTimePlayed = () => {
+    const lastTimePlayed = lastUserData!.data.timePlayed
+    const now = new Date()
+    const past = new Date(user.firstJoin)
+    const diffTime = Math.abs(now.getTime() - past.getTime())
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+    return formatDuration(lastTimePlayed / diffDays)
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -170,6 +154,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                   label="Temps de jeu"
                   value={formatDuration(lastUserData!.data.timePlayed)}
                 />
+              </li>
+              <li>
+                <InformationLine label="Moy. temps jeu quotidien" value={averageTimePlayed()} />
               </li>
             </ul>
           </CardContent>
@@ -271,70 +258,6 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 />
               ))}
             </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="border-b">
-          <CardTitle>&Eacute;volution du temps de jeu</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0 h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart height={200} data={timePlayedHistory}>
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-              <XAxis dataKey="date" className="text-xs" />
-              <YAxis
-                className="text-xs"
-                tickFormatter={(value) => formatNumber(Number(value))}
-                orientation="right"
-              />
-              <Tooltip
-                content={({ active, payload, label }) => {
-                  if (active && payload && payload.length) {
-                    const { difference, timePlayed } = payload[0].payload
-                    return (
-                      <Card className="bg-background">
-                        <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
-                          <div className="flex flex-col gap-2">
-                            <div className="flex gap-2 items-center">
-                              <span className="text-sm">Temps de jeu: </span>
-                              <span className="text-sm font-bold">
-                                {formatDuration(timePlayed)}
-                              </span>
-                            </div>
-                            <div className="flex gap-2 items-center">
-                              <span className="text-sm">Différence: </span>
-                              <span className="text-sm font-bold">
-                                {formatNumber(difference, {
-                                  notation: 'standard',
-                                  maximumFractionDigits: 2,
-                                })}{' '}
-                                minutes
-                              </span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )
-                  }
-                  return null
-                }}
-              />
-              <Legend />
-              <Area
-                type="monotone"
-                dataKey="difference"
-                name="Différence de temps de jeu"
-                stroke="#8884d8"
-                fill="url(#purple-gradient)"
-                strokeWidth={3}
-                dot={false}
-              />
-              <defs>
-                <LinearGradient id="purple-gradient" from="#8884d8" />
-              </defs>
-            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
@@ -465,37 +388,6 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardContent>
         </Card>
       </div>
-      <Card>
-        <CardHeader className="border-b">
-          <CardTitle>Historique des données</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table className="text-nowrap">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Rank</TableHead>
-                <TableHead>Faction</TableHead>
-                <TableHead>Money</TableHead>
-                <TableHead>Temps de jeu</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {user.data.map((data) => (
-                <TableRow key={data.date}>
-                  <TableCell>{formatDate(data.date, 'PP')}</TableCell>
-                  <TableCell>
-                    <PaladiumRank rank={data.data.rank} className="text-xs" />
-                  </TableCell>
-                  <TableCell>{data.data.faction || 'Wilderness'}</TableCell>
-                  <TableCell>{formatPrice(data.data.money)}</TableCell>
-                  <TableCell>{formatDuration(data.data.timePlayed)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
     </div>
   )
 }
