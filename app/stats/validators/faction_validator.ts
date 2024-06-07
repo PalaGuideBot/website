@@ -4,6 +4,7 @@ export const factionInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string(),
     name: vine.string(),
+    bgName: vine.string(),
     description: vine.string(),
     createdAt: vine.number(),
     players: vine.array(
@@ -14,7 +15,7 @@ export const factionInfoValidator = vine.compile(
         joinedAt: vine.number(),
       })
     ),
-    emblem: vine.string(),
+    emblemUrl: vine.string(),
     data: vine.array(
       vine.object({
         date: vine.string(),
@@ -23,10 +24,7 @@ export const factionInfoValidator = vine.compile(
             level: vine.number(),
             xp: vine.number(),
           }),
-          elo: vine.object({
-            elo: vine.number(),
-            position: vine.number(),
-          }),
+          elo: vine.number(),
         }),
       })
     ),

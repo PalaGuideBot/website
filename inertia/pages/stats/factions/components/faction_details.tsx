@@ -20,7 +20,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
           </CardHeader>
           <CardContent className="pt-4 flex-1 flex justify-center">
             <img
-              src={faction.emblem}
+              src={faction.emblemUrl}
               alt={`${faction.name}'s emblem`}
               className="object-contain h-auto w-full max-w-56"
             />
