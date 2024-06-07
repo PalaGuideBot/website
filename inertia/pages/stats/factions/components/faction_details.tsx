@@ -4,6 +4,7 @@ import { InformationLine } from '../../components/information_line'
 import { formatDate } from '~/lib/date'
 import { getHeadUrl } from '~/lib/minecraft'
 import { cn } from '~/lib/utils'
+import { Link } from '@inertiajs/react'
 
 type FactionDetailsProps = {
   faction: NonNullable<FactionShowProps['faction']>
@@ -69,23 +70,25 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
 const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['players'][number] }) => {
   const isLeader = player.group.toLowerCase().includes('leader')
   return (
-    <div className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30">
-      <img src={getHeadUrl(player.username)} className="object-contain h-full w-auto" />
-      <div className="flex flex-col justify-between gap-2">
-        <p className="font-pixel text-sm">{player.username}</p>
-        <p className={cn('font-mc-dungueons text-xs', isLeader && 'text-primary')}>
-          {player.group}
-        </p>
-        {!isLeader ? (
-          <p className="dark:text-surface-200 text-md">
-            Membre depuis: {formatDate(new Date(player.joinedAt), 'PP')}
+    <Link href={`/stats/users/${player.username}`}>
+      <div className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30">
+        <img src={getHeadUrl(player.username)} className="object-contain h-full w-auto" />
+        <div className="flex flex-col justify-between gap-2">
+          <p className="font-pixel text-sm">{player.username}</p>
+          <p className={cn('font-mc-dungueons text-xs', isLeader && 'text-primary')}>
+            {player.group}
           </p>
-        ) : (
-          <p>
-            <span className="dark:text-surface-200 text-md">Membre depuis la création</span>
-          </p>
-        )}
+          {!isLeader ? (
+            <p className="dark:text-surface-200 text-md">
+              Membre depuis: {formatDate(new Date(player.joinedAt), 'PP')}
+            </p>
+          ) : (
+            <p>
+              <span className="dark:text-surface-200 text-md">Membre depuis la création</span>
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
