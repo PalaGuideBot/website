@@ -33,6 +33,8 @@ export type PaladiumStatus =
   | 'starting'
   | 'restarting'
   | 'stopping'
+  | 'unknown'
+  | 'whitelist'
 
 export type PaladiumFaction =
   | 'Soleratl'

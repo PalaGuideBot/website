@@ -12,7 +12,14 @@ import {
   nextDay,
   startOfDay,
 } from 'date-fns'
-import { CirclePlayIcon, CirclePowerIcon, ConstructionIcon, TriangleAlertIcon } from 'lucide-react'
+import {
+  CirclePlayIcon,
+  CirclePowerIcon,
+  ConstructionIcon,
+  ListXIcon,
+  ShieldQuestionIcon,
+  TriangleAlertIcon,
+} from 'lucide-react'
 import { eachHourOfDate, formatDate } from '~/lib/date'
 import { cn } from '~/lib/utils'
 import { PaladiumStatus } from '~/types'
@@ -39,6 +46,8 @@ const UptimeIndicatorStatus = ({ status }: { status: PaladiumStatus }) => {
     starting: <CirclePlayIcon className="h-4 w-4" />,
     restarting: <Loading size="xs" type="dots" color="primary" />,
     stopping: <CirclePowerIcon className="h-4 w-4 animate-blink" />,
+    unknown: <ShieldQuestionIcon className="h-4 w-4" />,
+    whitelist: <ListXIcon className="h-4 w-4" />,
   }[status]
 
   return (
@@ -213,6 +222,8 @@ function translateStatus(status: PaladiumStatus) {
     starting: 'Démarrage',
     restarting: 'Redémarrage',
     stopping: 'Arrêt',
+    unknown: 'Inconnu',
+    whitelist: 'Whitelist',
   }
 
   return translations[status] ?? 'Inconnu'
