@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/react'
 import { Tabs } from '@lemonsqueezy/wedges'
 import { ShieldIcon, UserIcon } from 'lucide-react'
 import { useMemo } from 'react'
+import { Link } from '@inertiajs/react'
 import {
   CartesianGrid,
   Legend,
@@ -245,17 +246,19 @@ const PlayerPodium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <PodiumCard position={position}>
-      <img
-        src={getHeadUrl(data.username)}
-        alt={`${data.username}'s avatar`}
-        className="object-contain"
-      />
-      <PodiumCardDescription>{data.username}</PodiumCardDescription>
-      <PodiumCardValue className="border-b-2 border-dashed border-foreground">
-        <span>{formatNumber(data.value)}</span>
-      </PodiumCardValue>
-    </PodiumCard>
+    <Link href={`/stats/users/${data.username}`} className="block">
+      <PodiumCard position={position}>
+        <img
+          src={getHeadUrl(data.username)}
+          alt={`${data.username}'s avatar`}
+          className="object-contain"
+        />
+        <PodiumCardDescription>{data.username}</PodiumCardDescription>
+        <PodiumCardValue className="border-b-2 border-dashed border-foreground">
+          <span>{formatNumber(data.value)}</span>
+        </PodiumCardValue>
+      </PodiumCard>
+    </Link>
   )
 }
 
@@ -267,20 +270,22 @@ const FactionPodium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <PodiumCard position={position}>
-      <img
-        src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
-        alt={`${data.uuid}'s avatar`}
-        className="object-contain h-auto w-[100px]"
-      />
-      <div className="w-full">
-        <PodiumCardDescription className="text-nowrap text-ellipsis overflow-hidden">
-          {data.uuid}
-        </PodiumCardDescription>
-      </div>
-      <PodiumCardValue className="border-b-2 border-dashed border-foreground">
-        <span>{formatNumber(data.value)}</span>
-      </PodiumCardValue>
-    </PodiumCard>
+    <Link href={`/stats/factions/${data.uuid}`} className="block">
+      <PodiumCard position={position}>
+        <img
+          src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
+          alt={`${data.uuid}'s avatar`}
+          className="object-contain h-auto w-[100px]"
+        />
+        <div className="w-full">
+          <PodiumCardDescription className="text-nowrap text-ellipsis overflow-hidden">
+            {data.uuid}
+          </PodiumCardDescription>
+        </div>
+        <PodiumCardValue className="border-b-2 border-dashed border-foreground">
+          <span>{formatNumber(data.value)}</span>
+        </PodiumCardValue>
+      </PodiumCard>
+    </Link>
   )
 }

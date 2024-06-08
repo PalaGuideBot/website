@@ -2,6 +2,7 @@ import type FactionsController from '#leaderboard/controllers/factions_controlle
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
 import { useMemo } from 'react'
+import { Link } from '@inertiajs/react'
 import {
   CartesianGrid,
   Legend,
@@ -32,6 +33,8 @@ export default function FactionsIndex(props: FactionsIndexProps) {
   } = usePagination()
 
   let lastLeaderboard = leaderboard.find((item) => item.data.length > 0)!
+
+  console.log(lastLeaderboard)
 
   const [first, second, third] = lastLeaderboard.data.slice(0, 3)
 
@@ -115,16 +118,18 @@ const Podium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <PodiumCard position={position}>
-      <img
-        src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
-        alt={`${data.name}'s avatar`}
-        className="object-contain"
-        width={150}
-        height={150}
-      />
-      <PodiumCardDescription>{data.name}</PodiumCardDescription>
-      <PodiumCardValue>{data.value}</PodiumCardValue>
-    </PodiumCard>
+    <Link href={`/stats/factions/${data.name}`} className="block">
+      <PodiumCard position={position}>
+        <img
+          src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
+          alt={`${data.name}'s avatar`}
+          className="object-contain"
+          width={150}
+          height={150}
+        />
+        <PodiumCardDescription>{data.name}</PodiumCardDescription>
+        <PodiumCardValue>{data.value}</PodiumCardValue>
+      </PodiumCard>
+    </Link>
   )
 }

@@ -2,6 +2,7 @@ import type BossController from '#leaderboard/controllers/boss_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head } from '@inertiajs/react'
 import { useMemo } from 'react'
+import { Link } from '@inertiajs/react'
 import {
   CartesianGrid,
   Legend,
@@ -114,14 +115,16 @@ const Podium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <PodiumCard position={position}>
-      <img
-        src={getHeadUrl(data.username)}
-        alt={`${data.username}'s avatar`}
-        className="object-contain"
-      />
-      <PodiumCardDescription>{data.username}</PodiumCardDescription>
-      <PodiumCardValue>{data.value}</PodiumCardValue>
-    </PodiumCard>
+    <Link href={`/stats/users/${data.username}`} className="block">
+      <PodiumCard position={position}>
+        <img
+          src={getHeadUrl(data.username)}
+          alt={`${data.username}'s avatar`}
+          className="object-contain"
+        />
+        <PodiumCardDescription>{data.username}</PodiumCardDescription>
+        <PodiumCardValue>{data.value}</PodiumCardValue>
+      </PodiumCard>
+    </Link>
   )
 }

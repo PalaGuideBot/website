@@ -32,7 +32,8 @@ import { formatDate } from '~/lib/date'
 import { getSkinUrl } from '~/lib/minecraft'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
-import { InformationLine } from '../../components/information_line'
+import { InformationLine, InformationLineWithLink } from '../../components/information_line'
+import { Link } from '@inertiajs/react'
 import type { UserShowProps } from '../show'
 
 type UserDetailsProps = {
@@ -141,9 +142,10 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 />
               </li>
               <li>
-                <InformationLine
+                <InformationLineWithLink
                   label="Faction"
                   value={lastUserData!.data.faction || 'Wilderness'}
+                  href={`/stats/factions/${lastUserData!.data.faction}`}
                 />
               </li>
               <li>
@@ -355,7 +357,14 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 {factionHistory.map((entry, index) => (
                   <TableRow key={index}>
                     <TableCell>{entry.period}</TableCell>
-                    <TableCell>{entry.faction}</TableCell>
+                    <TableCell>
+                      <Link
+                        href={`/stats/factions/${entry.faction}`}
+                        className="inline-block bg-background/50 p-1 border rounded-md"
+                      >
+                        {entry.faction}
+                      </Link>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
