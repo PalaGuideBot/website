@@ -32,11 +32,16 @@ export default function FactionsIndex(props: FactionsIndexProps) {
     setPagination,
   } = usePagination()
 
-  let lastLeaderboard = leaderboard.find((item) => item.data.length > 0)!
+  let lastLeaderboard: { data: any[] } | undefined
 
-  console.log(lastLeaderboard)
+  for (let i = leaderboard.length - 1; i >= 0; i--) {
+    if (leaderboard[i].data.length > 0) {
+      lastLeaderboard = leaderboard[i]
+      break
+    }
+  }
 
-  const [first, second, third] = lastLeaderboard.data.slice(0, 3)
+  const [first, second, third] = (lastLeaderboard?.data ?? []).slice(0, 3)
 
   const graphData = useMemo(() => {
     return leaderboard
@@ -56,7 +61,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
   }, [page, limit])
 
   const names = useMemo(() => {
-    return lastLeaderboard.data.slice(pageOffset, page * limit).map((user) => user.name)
+    return lastLeaderboard?.data.slice(pageOffset, page * limit).map((user) => user.name)
   }, [page, limit])
 
   return (
@@ -81,7 +86,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
                   <YAxis orientation="right" className="text-sm" />
                   <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
                   <Legend />
-                  {names.map((name, index) => (
+                  {names?.map((name, index) => (
                     <Line
                       key={name}
                       type="monotone"
@@ -99,7 +104,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
               <Pagination
                 page={page}
                 limit={limit}
-                total={lastLeaderboard.data.length}
+                total={lastLeaderboard?.data.length ?? 0}
                 onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
               />
             </CardFooter>
