@@ -9,7 +9,7 @@ export default function Header() {
       <Link href="/">
         <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
       </Link>
-      <ThemeToggler />
+      <ThemeToggler size="sm" />
     </header>
   )
 }
