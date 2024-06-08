@@ -110,7 +110,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardHeader>
           <CardContent className="pt-4 flex-1 flex justify-center">
             <ReactSkinview3d
-              className="!h-auto max-w-full"
+              className="!h-auto w-full"
               width="278"
               height="450"
               skinUrl={getSkinUrl(user.username)}
