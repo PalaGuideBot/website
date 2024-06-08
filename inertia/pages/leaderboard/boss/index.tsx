@@ -63,7 +63,7 @@ export default function BossIndex(props: BossIndexProps) {
         <Page>
           <PageTitle>Leaderboard: Boss</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
             <Podium data={first} position="first" />
             <Podium data={second} position="second" />
             <Podium data={third} position="third" />

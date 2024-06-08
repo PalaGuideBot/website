@@ -91,7 +91,7 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
   return (
     <div className="flex flex-col gap-4">
       <PageSubTitle>Podium</PageSubTitle>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
         <PlayerPodium data={first} position="first" />
         <PlayerPodium data={second} position="second" />
         <PlayerPodium data={third} position="third" />
@@ -181,7 +181,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   return (
     <div className="flex flex-col gap-4">
       <PageSubTitle>Podium</PageSubTitle>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
         <FactionPodium data={first} position="first" />
         <FactionPodium data={second} position="second" />
         <FactionPodium data={third} position="third" />

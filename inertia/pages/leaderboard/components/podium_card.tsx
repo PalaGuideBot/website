@@ -8,7 +8,7 @@ export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) =
   return (
     <div
       className={cn(
-        'flex flex-col gap-2 items-center border border-b-black/20 border-b-8 rounded-md p-6',
+        'flex flex-col gap-2 items-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6',
         position === 'first' && 'bg-primary',
         position === 'second' && 'bg-wg-green-400',
         position === 'third' && 'bg-wg-white-400',
