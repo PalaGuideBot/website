@@ -78,6 +78,7 @@ export default function FactionShow(props: FactionShowProps) {
               <span className="font-bold text-lg text-destructive">{error}</span>
             </div>
           )}
+          {faction && <FactionDetails faction={faction} />}
         </Page>
       </DefaultLayout>
     </>

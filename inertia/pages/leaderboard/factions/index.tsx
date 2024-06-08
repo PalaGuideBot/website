@@ -31,23 +31,25 @@ export default function FactionsIndex(props: FactionsIndexProps) {
     setPagination,
   } = usePagination()
 
-  const lastLeaderboard = leaderboard.at(-1)!
+  let lastLeaderboard = leaderboard.find((item) => item.data.length > 0)!
 
   const [first, second, third] = lastLeaderboard.data.slice(0, 3)
 
   const graphData = useMemo(() => {
-    return leaderboard.map((data) => {
-      return {
-        date: data.date,
-        ...data.data.reduce(
-          (acc, user) => {
-            acc[user.name] = user.value
-            return acc
-          },
-          {} as Record<string, number>
-        ),
-      }
-    })
+    return leaderboard
+      .filter((value) => value.data.length !== 0)
+      .map((data) => {
+        return {
+          date: data.date,
+          ...data.data.reduce(
+            (acc, user) => {
+              acc[user.name] = user.value
+              return acc
+            },
+            {} as Record<string, number>
+          ),
+        }
+      })
   }, [page, limit])
 
   const names = useMemo(() => {
