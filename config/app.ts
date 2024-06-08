@@ -1,5 +1,4 @@
 import env from '#start/env'
-import app from '@adonisjs/core/services/app'
 import { Secret } from '@adonisjs/core/helpers'
 import { defineConfig } from '@adonisjs/core/http'
 
@@ -24,17 +23,4 @@ export const http = defineConfig({
    * from anywhere inside your application.
    */
   useAsyncLocalStorage: false,
-
-  /**
-   * Manage cookies configuration. The settings for the session id cookie are
-   * defined inside the "config/session.ts" file.
-   */
-  cookie: {
-    domain: '',
-    path: '/',
-    maxAge: '2h',
-    httpOnly: true,
-    secure: app.inProduction,
-    sameSite: 'lax',
-  },
 })

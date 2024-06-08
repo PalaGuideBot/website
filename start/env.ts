@@ -18,13 +18,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   HOST: Env.schema.string({ format: 'host' }),
   LOG_LEVEL: Env.schema.string(),
 
-  /*
-  |----------------------------------------------------------
-  | Variables for configuring session package
-  |----------------------------------------------------------
-  */
-  SESSION_DRIVER: Env.schema.enum(['cookie', 'memory'] as const),
-
   API_URL: Env.schema.string({ format: 'url' }),
   API_KEY: Env.schema.string(),
 })
