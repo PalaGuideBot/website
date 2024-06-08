@@ -40,6 +40,7 @@ export default {
       'blink': 'blink 1s step-end infinite',
       'job-progress': 'job-progress 2.5s',
       'spin': 'spin 1s linear infinite',
+      'glow': 'glow 2s ease-in-out infinite',
     },
     keyframes: {
       'blink': {
@@ -53,6 +54,20 @@ export default {
         from: { transform: 'rotate(0deg)' },
         to: { transform: 'rotate(360deg)' },
       },
+      'glow': {
+        '0%': {
+          textShadow: '0px 0px 0px hsl(var(--wg-primary))',
+        },
+        '60%': {
+          textShadow: '0px 0px 4px hsl(var(--wg-primary))',
+          filter:
+            'var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)',
+        },
+        '100%': { textShadow: '0px 0px 0px hsl(var(--wg-primary))' },
+      },
+    },
+    dropShadow: {
+      glow: ['0px 0px 4px hsl(var(--wg-primary))'],
     },
   },
   darkMode: 'class',
