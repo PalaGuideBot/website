@@ -4,6 +4,7 @@ import {
 } from '#leaderboard/content/categories'
 import { validators as leaderboardValidators } from '#leaderboard/validators/leaderboard_validator'
 import env from '#start/env'
+import { discordStatsValidator } from '#stats/validators/discord_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
 import { userInfoValidator } from '#stats/validators/user_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
@@ -102,6 +103,19 @@ export class ApiService {
         })
       }
       throw error
+    }
+  }
+
+  async getDiscordStatistics() {
+    try {
+      const response = await client.get('bot')
+      const data = await response.json()
+      return await discordStatsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid discord statistics data', {
+        code: 'E_DISCORD_INVALID',
+        status: 500,
+      })
     }
   }
 }

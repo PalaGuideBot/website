@@ -4,4 +4,6 @@ import '#start/routes/stats'
 import '#start/routes/leaderboard'
 import '#start/routes/status'
 
-router.on('/').renderInertia('home')
+const HomeController = () => import('#controllers/home_controller')
+
+router.get('/', [HomeController, 'index'])
