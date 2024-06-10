@@ -165,7 +165,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
         date: data.date,
         ...data.data.reduce(
           (acc, faction) => {
-            acc[faction.uuid] = faction.value
+            acc[faction.name ? faction.name : faction.uuid] = faction.value
             return acc
           },
           {} as Record<string, number>
@@ -175,7 +175,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   }, [page, limit])
 
   const factions = useMemo(() => {
-    return lastLeaderboard.data.slice(pageOffset, page * limit).map((faction) => faction.uuid)
+    return lastLeaderboard.data.slice(pageOffset, page * limit).map((faction) => faction.name)
   }, [page, limit])
 
   return (
@@ -273,15 +273,11 @@ const FactionPodium = ({
     <Link href={`/stats/factions/${data.uuid}`} className="block">
       <PodiumCard position={position}>
         <img
-          src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
+          src={`${data.emblemUrl}`}
           alt={`${data.uuid}'s avatar`}
           className="object-contain h-auto w-[100px]"
         />
-        <div className="w-full">
-          <PodiumCardDescription className="text-nowrap text-ellipsis overflow-hidden">
-            {data.uuid}
-          </PodiumCardDescription>
-        </div>
+        <PodiumCardDescription>{data.name}</PodiumCardDescription>
         <PodiumCardValue className="border-b-2 border-dashed border-foreground">
           <span>{formatNumber(data.value)}</span>
         </PodiumCardValue>

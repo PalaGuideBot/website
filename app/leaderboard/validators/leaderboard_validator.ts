@@ -123,6 +123,8 @@ const trixiumFactionValidator = vine.compile(
         vine.object({
           uuid: vine.string().uuid(),
           value: vine.number(),
+          emblemUrl: vine.string().optional(),
+          name: vine.string().optional(),
         })
       ),
     })
