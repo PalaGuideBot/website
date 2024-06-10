@@ -11,6 +11,7 @@ const factionsValidator = vine.compile(
           name: vine.string(),
           value: vine.number(),
           _id: vine.string(),
+          emblemUrl: vine.string().optional(),
         })
       ),
     })

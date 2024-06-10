@@ -126,7 +126,7 @@ const Podium = ({
     <Link href={`/stats/factions/${data.name}`} className="block">
       <PodiumCard position={position}>
         <img
-          src={`https://i.ibb.co/DMCdBZ7/t-l-chargement-1.png`}
+          src={`${data.emblemUrl}`}
           alt={`${data.name}'s avatar`}
           className="object-contain"
           width={150}
