@@ -159,7 +159,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
         </CardHeader>
         <CardContent className="p-0 h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart height={200} data={level}>
+            <AreaChart data={level}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
               <YAxis

@@ -165,7 +165,8 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
         date: data.date,
         ...data.data.reduce(
           (acc, faction) => {
-            acc[faction.name ? faction.name : faction.uuid] = faction.value
+            acc[faction.name && faction.name !== 'undefined' ? faction.name : faction.uuid] =
+              faction.value
             return acc
           },
           {} as Record<string, number>
@@ -175,7 +176,11 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   }, [page, limit])
 
   const factions = useMemo(() => {
-    return lastLeaderboard.data.slice(pageOffset, page * limit).map((faction) => faction.name)
+    return lastLeaderboard.data
+      .slice(pageOffset, page * limit)
+      .map((faction) =>
+        faction.name && faction.name !== 'undefined' ? faction.name : faction.uuid
+      )
   }, [page, limit])
 
   return (
