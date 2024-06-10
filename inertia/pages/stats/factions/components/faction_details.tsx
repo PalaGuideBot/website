@@ -11,10 +11,8 @@ import { Link } from '@inertiajs/react'
 import {
   Area,
   AreaChart,
-  Line,
   CartesianGrid,
   Legend,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -161,7 +159,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
         </CardHeader>
         <CardContent className="p-0 h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart height={200} data={level}>
+            <AreaChart height={200} data={level}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
               <YAxis
@@ -205,7 +203,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
                   value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
                 }
               />
-              <Line
+              <Area
                 type="monotone"
                 dataKey={graphType === 'level' ? 'level.level' : 'level.xp'}
                 name={graphType === 'level' ? 'Level' : 'XP'}
@@ -217,7 +215,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
               <defs>
                 <LinearGradient id="yellow-gradient" from="#ffb702" />
               </defs>
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
