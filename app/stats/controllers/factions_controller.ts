@@ -13,7 +13,7 @@ export default class FactionsController {
       if (params.name) {
         faction = await this.api.getFaction(params.name)
       } else {
-        exampleFaction = await this.api.getFaction('RareCrew')
+        exampleFaction = await this.api.getFaction('GuideBot')
       }
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Une erreur est survenue'

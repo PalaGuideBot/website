@@ -5,7 +5,10 @@ import { Button } from '@lemonsqueezy/wedges'
 import { DiscordLogoIcon } from '@radix-ui/react-icons'
 import Autoplay from 'embla-carousel-autoplay'
 import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
-import BotPreview from '~/assets/images/bot-preview.png'
+import CardPreview from '~/assets/images/card-preview.png'
+import CraftPreview from '~/assets/images/craft-preview.png'
+import LookupPreview from '~/assets/images/lookup-preview.png'
+import QdfPreview from '~/assets/images/qdf-preview.png'
 import LeaderboardPreview from '~/assets/images/leaderboard-preview.png'
 import StatsPreview from '~/assets/images/stats-preview.png'
 import StatusPreview from '~/assets/images/status-preview.png'
@@ -82,7 +85,24 @@ export default function Home(props: HomePageProps) {
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
             <div className="flex items-center justify-center h-full">
-              <img src={BotPreview} className="object-contain h-auto w-full rounded-md" />
+              <Carousel
+                plugins={[
+                  Autoplay({
+                    delay: CAROUSEL_DELAY,
+                  }),
+                ]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {[CardPreview, CraftPreview, LookupPreview, QdfPreview].map((path, index) => (
+                    <CarouselItem key={index}>
+                      <div className="flex items-center justify-center h-full">
+                        <img src={path} className="object-contain h-auto w-full rounded-md" />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
             <div className="space-y-6">
               <h1 className="text-3xl text-center font-black md:text-4xl lg:text-left xl:text-6xl">
@@ -91,7 +111,8 @@ export default function Home(props: HomePageProps) {
               <p className="leading-6 text-center lg:text-left xl:text-lg">
                 Consultez vos statistiques directement sur{' '}
                 <span className="text-primary font-bold">Discord</span>, et partagez-les avec vos
-                amis.
+                amis. Améloirez votre <span className="text-primary font-bold">Expérience</span> de
+                jeu en temps réel avec nos outils.
               </p>
               <div className="flex gap-2 items-center justify-center w-full">
                 <Card className="w-56">
