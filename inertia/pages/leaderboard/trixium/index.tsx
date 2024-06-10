@@ -270,7 +270,7 @@ const FactionPodium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <Link href={`/stats/factions/${data.uuid}`} className="block">
+    <Link href={`/stats/factions/${data.name}`} className="block">
       <PodiumCard position={position}>
         <img
           src={`${data.emblemUrl}`}
