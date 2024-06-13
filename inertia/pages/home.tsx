@@ -16,6 +16,7 @@ import DefaultLayout from '~/components/layouts/default'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
+import { CreditCard } from '~/components/shared/credit_card'
 
 const CAROUSEL_DELAY = 5000
 
@@ -114,7 +115,7 @@ export default function Home(props: HomePageProps) {
                 amis. Améloirez votre <span className="text-primary font-bold">Expérience</span> de
                 jeu en temps réel avec nos outils.
               </p>
-              <div className="flex gap-2 items-center justify-center w-full">
+              <div className="flex flex-col md:flex-row gap-2 items-center justify-center w-full">
                 <Card className="w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
                     <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
@@ -148,6 +149,7 @@ export default function Home(props: HomePageProps) {
           </div>
         </section>
       </DefaultLayout>
+      <CreditCard className="fixed bottom-0 right-0 rounded-tr-none rounded-b-none border-b-0 border-r-0" />
     </>
   )
 }
