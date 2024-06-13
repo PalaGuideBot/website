@@ -7,12 +7,10 @@ export default function Sidebar() {
     <aside className="hidden h-screen sticky top-0 overflow-y-auto w-72 lg:w-80 border-r bg-surface md:block">
       <div className="flex h-full flex-col gap-2">
         <div className="flex min-h-14 items-center justify-between gap-2 border-b px-4 lg:h-[60px] lg:px-6">
-          <div className="flex items-center gap-2">
-            <Link href="/">
-              <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
-            </Link>
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
             <span className="font-bold">PalaGuideBot</span>
-          </div>
+          </Link>
           <ThemeToggler />
         </div>
         <div className="flex-1">
