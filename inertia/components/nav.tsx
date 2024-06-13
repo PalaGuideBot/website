@@ -11,8 +11,10 @@ import {
   LucideIcon,
   MenuIcon,
   ShieldIcon,
+  ShieldQuestionIcon,
   SkullIcon,
   SwordsIcon,
+  UserCogIcon,
   UserIcon,
   UsersIcon,
 } from 'lucide-react'
@@ -101,6 +103,18 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: '/status/paladium',
       label: 'Paladium',
       icon: createIconLink(GamepadIcon),
+    },
+  ],
+  Informations: [
+    {
+      path: '/privacy',
+      label: 'Politique de confidentialité',
+      icon: createIconLink(ShieldQuestionIcon),
+    },
+    {
+      path: '/terms',
+      label: "Conditions d'utilisation",
+      icon: createIconLink(UserCogIcon),
     },
   ],
 }
