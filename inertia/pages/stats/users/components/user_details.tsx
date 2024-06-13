@@ -1,4 +1,3 @@
-import strings from '@adonisjs/core/helpers/string'
 import { Link } from '@inertiajs/react'
 import { ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
@@ -36,6 +35,7 @@ import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
+import { noCase } from '~/lib/string'
 
 type UserDetailsProps = {
   user: NonNullable<UserShowProps['user']>
@@ -337,7 +337,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 >
                   {Icon && <Icon className="w-12 invert-0" />}
                   <div className="flex flex-col gap-2">
-                    <span className="font-pixel text-xs">{strings.noCase(key)}</span>
+                    <span className="font-pixel text-xs">{noCase(key)}</span>
                     <span className="text-sm text-primary font-mc-dungueons">
                       # {formatNumber(value, { notation: 'standard' })}
                     </span>
