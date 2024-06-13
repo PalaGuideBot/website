@@ -38,4 +38,5 @@ export const icons: Record<Rank, string> = {
   'gamedesigner': gamedesignIcon,
   'developpeur': developpeurIcon,
   'developpeursenior': developpeurIcon,
+  'graphistesenior': graphisteIcon,
 }
