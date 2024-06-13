@@ -70,12 +70,12 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
               <li>
                 <InformationLine label="Effectif" value={`${faction.players.length} joueurs`} />
               </li>
-              <li>
+              {/*<li>
                 <InformationLine label="Level Actuel" value={lastData.data.level.level} />
               </li>
               <li>
                 <InformationLine label="Elo Actuel" value={formatNumber(lastData.data.elo)} />
-              </li>
+              </li>*/}
             </ul>
           </CardContent>
         </Card>
@@ -88,7 +88,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
           </CardContent>
         </Card>
       </div>
-      <Card>
+      {/*<Card>
         <CardHeader className="border-b">
           <CardTitle>&Eacute;volution de l'elo</CardTitle>
         </CardHeader>
@@ -218,7 +218,7 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
             </AreaChart>
           </ResponsiveContainer>
         </CardContent>
-      </Card>
+      </Card>*/}
       <Card>
         <CardHeader className="border-b">
           <CardTitle>Membres</CardTitle>
