@@ -20,4 +20,6 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   API_URL: Env.schema.string({ format: 'url' }),
   API_KEY: Env.schema.string(),
+
+  DISCORD_INVITE_URL: Env.schema.string.optional({ format: 'url' }),
 })

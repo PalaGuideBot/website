@@ -56,7 +56,7 @@ export default function Home(props: HomePageProps) {
                   before={<DiscordLogoIcon className="mr-2" />}
                   asChild
                 >
-                  <a target="_blank" href="https://palaguidebot.fr/discord">
+                  <a target="_blank" href="/discord">
                     Rejoindre
                   </a>
                 </Button>
@@ -117,7 +117,7 @@ export default function Home(props: HomePageProps) {
               <div className="flex gap-2 items-center justify-center w-full">
                 <Card className="w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
-                    <p className="font-black text-lg font-mc-dungueons">
+                    <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
                       {formatNumber(discordStats.bot.servers)}
                     </p>
                     <p className="text-surface-300 text-center">Serveurs</p>
@@ -125,7 +125,7 @@ export default function Home(props: HomePageProps) {
                 </Card>
                 <Card className="w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
-                    <p className="font-black text-lg font-mc-dungueons">
+                    <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
                       {formatNumber(discordStats.bot.users)}
                     </p>
                     <p className="text-surface-300 text-center">Utilisateurs uniques</p>
@@ -139,7 +139,7 @@ export default function Home(props: HomePageProps) {
                   before={<ExternalLinkIcon className="mr-2" />}
                   asChild
                 >
-                  <a target="_blank" href="https://palaguidebot.fr/discord">
+                  <a target="_blank" href="/discord">
                     En savoir plus
                   </a>
                 </Button>
