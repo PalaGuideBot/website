@@ -94,6 +94,10 @@ export default defineConfig({
       pattern: 'inertia/assets/fonts/**',
       reloadServer: false,
     },
+    {
+      pattern: 'inertia/js/**',
+      reloadServer: false,
+    },
   ],
 
   assetsBundler: false,
