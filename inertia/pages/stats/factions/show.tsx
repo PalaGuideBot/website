@@ -8,7 +8,7 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
 import Input from '~/components/ui/input'
-import { factionDetails as FactionDetails } from './components/faction_details'
+import { FactionDetails } from './components/faction_details'
 
 export type FactionShowProps = InferPageProps<FactionsController, 'show'>
 

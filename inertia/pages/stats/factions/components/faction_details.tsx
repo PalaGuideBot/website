@@ -23,7 +23,7 @@ type FactionDetailsProps = {
   faction: NonNullable<FactionShowProps['faction']>
 }
 
-export const factionDetails = ({ faction }: FactionDetailsProps) => {
+export const FactionDetails = ({ faction }: FactionDetailsProps) => {
   const [graphType, setGraphType] = useState<'level' | 'xp'>('level')
   const eloData = faction.data.map((data) => {
     return {
