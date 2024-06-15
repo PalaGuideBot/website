@@ -224,9 +224,11 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
           <CardTitle>Membres</CardTitle>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
-          {faction.players.map((player) => (
-            <MemberCard key={player.uuid} player={player} />
-          ))}
+          {faction.players
+            .sort((a, b) => a.joinedAt - b.joinedAt)
+            .map((player) => (
+              <MemberCard key={player.uuid} player={player} />
+            ))}
         </CardContent>
       </Card>
     </div>
