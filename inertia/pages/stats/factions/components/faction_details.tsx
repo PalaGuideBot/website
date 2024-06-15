@@ -23,7 +23,7 @@ type FactionDetailsProps = {
   faction: NonNullable<FactionShowProps['faction']>
 }
 
-export const factionDetails = ({ faction }: FactionDetailsProps) => {
+export const FactionDetails = ({ faction }: FactionDetailsProps) => {
   const [graphType, setGraphType] = useState<'level' | 'xp'>('level')
   const eloData = faction.data.map((data) => {
     return {
@@ -224,9 +224,11 @@ export const factionDetails = ({ faction }: FactionDetailsProps) => {
           <CardTitle>Membres</CardTitle>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
-          {faction.players.map((player) => (
-            <MemberCard key={player.uuid} player={player} />
-          ))}
+          {faction.players
+            .sort((a, b) => a.joinedAt - b.joinedAt)
+            .map((player) => (
+              <MemberCard key={player.uuid} player={player} />
+            ))}
         </CardContent>
       </Card>
     </div>

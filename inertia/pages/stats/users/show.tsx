@@ -2,10 +2,11 @@ import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, router, usePage } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
-import { SearchIcon, TriangleAlertIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { DisplayError } from '~/components/shared/display_error'
 import Input from '~/components/ui/input'
 import { UserDetails } from './components/user_details'
 
@@ -79,13 +80,7 @@ export default function UserShow(props: UserShowProps) {
               )}
             </div>
           )}
-          {error && !user && (
-            <div className="flex flex-col gap-4 items-center justify-center">
-              <TriangleAlertIcon className="size-20 animate-blink" />
-              <span className="font-pixel animate-blink">Une erreur est survenue</span>
-              <span className="font-bold text-lg text-destructive">{error}</span>
-            </div>
-          )}
+          {error && !user && <DisplayError>{error}</DisplayError>}
           {user && <UserDetails user={user} />}
         </Page>
       </DefaultLayout>

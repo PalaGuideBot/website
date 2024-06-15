@@ -328,6 +328,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {Object.entries(user.leaderboard)
             .filter(([key]) => !['corruption', 'chorus', 'end'].includes(key))
+            .filter(([value]) => value !== '-1' && value !== '0')
             .map(([key, value]) => {
               const Icon = leaderboardIcons[key as keyof typeof leaderboardIcons]
               return (
