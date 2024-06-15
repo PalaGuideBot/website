@@ -1,12 +1,13 @@
-import router from '@adonisjs/core/services/router'
-
 import '#start/routes/leaderboard'
+import '#start/routes/staff'
 import '#start/routes/stats'
 import '#start/routes/status'
+
+import env from '#start/env'
 import { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
+import router from '@adonisjs/core/services/router'
 import { readFile } from 'node:fs/promises'
-import env from '#start/env'
 
 const HomeController = () => import('#controllers/home_controller')
 
