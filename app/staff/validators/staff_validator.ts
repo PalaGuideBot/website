@@ -17,16 +17,22 @@ export const staffStatisticsValidator = vine.compile(
             icon: vine.string().nullable(),
           })
         ),
-        interactionList: vine.array(
-          vine.object({
-            name: vine.string(),
-            interactions: vine.number(),
-          })
-        ),
+        interactionList: vine
+          .array(
+            vine.object({
+              name: vine.string(),
+              interactions: vine.number(),
+            })
+          )
+          .optional(),
       }),
       api: vine.object({
         key: vine.array(
-          vine.object({ key: vine.string(), count: vine.number(), ip: vine.string() })
+          vine.object({
+            key: vine.string().optional(),
+            count: vine.number(),
+            ip: vine.unionOfTypes([vine.string(), vine.number()]),
+          })
         ),
         endpoint: vine.array(
           vine.object({

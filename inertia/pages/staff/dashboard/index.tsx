@@ -1,24 +1,22 @@
-import { Head, router } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
+import type DashboardController from '#staff/controllers/dashboard_controller'
+import { InferPageProps } from '@adonisjs/inertia/types'
+import { Head } from '@inertiajs/react'
+import StaffLayout from '~/components/layouts/staff'
 import { Page, PageTitle } from '~/components/page'
-import { useAuth } from '~/hooks/use_auth'
 
-export default function DashboardIndexPage() {
-  const user = useAuth()!
+type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
+
+export default function DashboardIndexPage(props: DashboardIndexPageProps) {
+  const { stats } = props
   return (
     <>
       <Head title="Tableau de bord" />
-      <main className="h-dvh w-full p-4">
+      <StaffLayout>
         <Page>
           <PageTitle>Tableau de bord</PageTitle>
-          <pre>{JSON.stringify(user, null, 1)}</pre>
-          <div>
-            <Button destructive onClick={() => router.visit('/staff/logout')}>
-              Se déconnecter
-            </Button>
-          </div>
+          <pre>{JSON.stringify(stats, null, 2)}</pre>
         </Page>
-      </main>
+      </StaffLayout>
     </>
   )
 }

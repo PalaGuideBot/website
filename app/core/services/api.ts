@@ -122,10 +122,11 @@ export class ApiService {
 
   async getStaffStatistics() {
     try {
-      const response = await client.get('staff')
+      const response = await client.get('staff/stats')
       const data = await response.json()
       return await staffStatisticsValidator.validate(data)
     } catch (error: unknown) {
+      console.log(error)
       throw new Exception('Invalid staff statistics data', {
         code: 'E_STAFF_INVALID',
         status: 500,
