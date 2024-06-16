@@ -3,7 +3,7 @@ import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class AuthController {
-  authorizedUsers = ['339809990527156224']
+  authorizedUsers = ['339809990527156224', '363402633752477696', '564715397023137793']
 
   login({ inertia }: HttpContext) {
     return inertia.render('staff/login')
