@@ -6,6 +6,7 @@ import {
   DiamondIcon,
   EggIcon,
   ExternalLinkIcon,
+  FileEditIcon,
   GamepadIcon,
   HandCoinsIcon,
   LucideIcon,
@@ -115,6 +116,11 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: '/terms',
       label: "Conditions d'utilisation",
       icon: createIconLink(UserCogIcon),
+    },
+    {
+      path: '/changelogs',
+      label: 'Changelogs',
+      icon: createIconLink(FileEditIcon),
     },
   ],
 }

@@ -1,4 +1,4 @@
-import type HomeController from '#controllers/home_controller'
+import type PageController from '#controllers/page_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
@@ -20,7 +20,7 @@ import { formatNumber } from '~/lib/utils'
 
 const CAROUSEL_DELAY = 5000
 
-type HomePageProps = InferPageProps<HomeController, 'index'>
+type HomePageProps = InferPageProps<PageController, 'home'>
 
 export default function Home(props: HomePageProps) {
   const { discordStats } = props

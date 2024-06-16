@@ -3,32 +3,14 @@ import '#start/routes/staff'
 import '#start/routes/stats'
 import '#start/routes/status'
 
-import env from '#start/env'
-import { HttpContext } from '@adonisjs/core/http'
-import app from '@adonisjs/core/services/app'
 import router from '@adonisjs/core/services/router'
-import { readFile } from 'node:fs/promises'
 
-const HomeController = () => import('#controllers/home_controller')
+const PageController = () => import('#controllers/page_controller')
 
-router.get('/', [HomeController, 'index']).as('home')
-
-router.get('/discord', (ctx: HttpContext) => {
-  const url = env.get('DISCORD_INVITE_URL')
-
-  if (!url) {
-    return ctx.response.redirect().toRoute('home')
-  }
-
-  return ctx.response.redirect(url)
-})
-
-router.get('/privacy', async (ctx: HttpContext) => {
-  const content = await readFile(app.makePath('resources/static/pages/privacy.md'), 'utf-8')
-  return ctx.inertia.render('privacy', { content })
-})
-
-router.get('/terms', async (ctx: HttpContext) => {
-  const content = await readFile(app.makePath('resources/static/pages/terms.md'), 'utf-8')
-  return ctx.inertia.render('terms', { content })
+router.group(() => {
+  router.get('/', [PageController, 'home']).as('home')
+  router.get('/discord', [PageController, 'discord']).as('discord')
+  router.get('/privacy', [PageController, 'privacy']).as('privacy')
+  router.get('/terms', [PageController, 'terms']).as('terms')
+  router.get('/changelogs', [PageController, 'changelogs']).as('changelogs')
 })

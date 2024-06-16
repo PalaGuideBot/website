@@ -1,5 +1,33 @@
 import * as React from 'react'
-import MarkdownPrimitive from 'react-markdown'
+import MarkdownPrimitive, { Components } from 'react-markdown'
+import { cn } from '~/lib/utils'
+
+export const implementedComponents = {
+  h1({ node, className, ...props }) {
+    return <h1 className={cn('text-2xl font-bold pb-2 mb-4 border-b', className)} {...props} />
+  },
+  h2({ node, className, ...props }) {
+    return <h2 className={cn('text-xl font-bold mt-2 mb-2', className)} {...props} />
+  },
+  h3({ node, className, ...props }) {
+    return <h3 className={cn('text-lg font-bold mb-2', className)} {...props} />
+  },
+  h4({ node, className, ...props }) {
+    return <h4 className={cn('text-base font-bold mb-2', className)} {...props} />
+  },
+  p({ node, className, ...props }) {
+    return <p className={cn('mb-4', className)} {...props} />
+  },
+  a({ node, className, ...props }) {
+    return <a className={cn('underline animate-glow', className)} {...props} />
+  },
+  ul({ node, className, ...props }) {
+    return <ul className={cn('list-disc list-inside mb-4 [&>li]:pl-4', className)} {...props} />
+  },
+  code({ node, className, ...props }) {
+    return <code className={cn('bg-surface-100 px-1 rounded-sm', className)} {...props} />
+  },
+} satisfies Components
 
 const Markdown = ({
   components,
@@ -8,24 +36,7 @@ const Markdown = ({
   return (
     <MarkdownPrimitive
       components={{
-        h1({ node, ...props }) {
-          return <h1 className="text-2xl font-bold pb-2 mb-4 border-b" {...props} />
-        },
-        h2({ node, ...props }) {
-          return <h2 className="text-xl font-bold mt-2 mb-2" {...props} />
-        },
-        h3({ node, ...props }) {
-          return <h3 className="text-lg font-bold mb-2" {...props} />
-        },
-        h4({ node, ...props }) {
-          return <h4 className="text-base font-bold mb-2" {...props} />
-        },
-        p({ node, ...props }) {
-          return <p className="mb-4" {...props} />
-        },
-        a({ node, ...props }) {
-          return <a className="underline animate-glow" {...props} />
-        },
+        ...implementedComponents,
         ...components,
       }}
       {...markdownProps}
