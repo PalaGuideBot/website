@@ -91,7 +91,13 @@ export default function ClickerIndex(props: ClickerIndexProps) {
                       />
                     }
                   />
-                  <Legend />
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/stats/users/${value}`}>
+                        {value}
+                      </Link>
+                    )}
+                  />
                   {usernames.map((username, index) => (
                     <Line
                       key={username}

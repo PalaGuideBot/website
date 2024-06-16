@@ -89,7 +89,13 @@ export default function MoneyIndex(props: MoneyIndexProps) {
                       />
                     }
                   />
-                  <Legend />
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/stats/users/${value}`}>
+                        {value}
+                      </Link>
+                    )}
+                  />
                   {usernames.map((username, index) => {
                     return (
                       <Line

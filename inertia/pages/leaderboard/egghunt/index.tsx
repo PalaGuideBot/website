@@ -97,7 +97,13 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
                       />
                     }
                   />
-                  <Legend />
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/stats/users/${value}`}>
+                        {value}
+                      </Link>
+                    )}
+                  />
                   {usernames.map((username, index) => {
                     return (
                       <Line

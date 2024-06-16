@@ -78,7 +78,13 @@ export default function KothIndex(props: KothIndexProps) {
                   <XAxis dataKey="date" className="text-sm" />
                   <YAxis orientation="right" className="text-sm" />
                   <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
-                  <Legend />
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/stats/users/${value}`}>
+                        {value}
+                      </Link>
+                    )}
+                  />
                   {usernames.map((username, index) => (
                     <Line
                       key={username}

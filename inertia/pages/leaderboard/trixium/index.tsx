@@ -118,7 +118,13 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
                   />
                 }
               />
-              <Legend />
+              <Legend
+                formatter={(value) => (
+                  <Link className="hover:underline" href={`/stats/users/${value}`}>
+                    {value}
+                  </Link>
+                )}
+              />
               {usernames.map((username, index) => {
                 return (
                   <Line
@@ -213,7 +219,13 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
                   />
                 }
               />
-              <Legend />
+              <Legend
+                formatter={(value) => (
+                  <Link className="hover:underline" href={`/stats/factions/${value}`}>
+                    {value}
+                  </Link>
+                )}
+              />
               {factions.map((faction, index) => {
                 return (
                   <Line
