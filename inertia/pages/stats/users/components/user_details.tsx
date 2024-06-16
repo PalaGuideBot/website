@@ -31,11 +31,11 @@ import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
 import { getSkinUrl } from '~/lib/minecraft'
+import { noCase } from '~/lib/string'
 import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
-import { noCase } from '~/lib/string'
 
 type UserDetailsProps = {
   user: NonNullable<UserShowProps['user']>
@@ -118,9 +118,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
             />
           </CardContent>
         </Card>
-        <Card className="flex flex-col lg:col-span-2">
+        <Card id="informations" className="flex flex-col lg:col-span-2">
           <CardHeader className="border-b">
-            <CardTitle>Informations</CardTitle>
+            <CardTitle href="#informations">Informations</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pt-4">
             <ul className="h-full flex flex-col gap-2 justify-around">
@@ -178,17 +178,17 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardContent>
         </Card>
       </div>
-      <Card>
+      <Card id="succes">
         <CardHeader className="border-b">
-          <CardTitle>Succès</CardTitle>
+          <CardTitle href="#succes">Succès</CardTitle>
         </CardHeader>
         <CardContent className="pt-4">
           <AchievementsProgress achievements={user.achievements} />
         </CardContent>
       </Card>
-      <Card>
+      <Card id="evolution-des-metiers">
         <CardHeader className="border-b flex flex-row items-center justify-between py-2">
-          <CardTitle>&Eacute;volution des métiers</CardTitle>
+          <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
           <ToggleGroup
             type="single"
             value={graphType}
@@ -270,9 +270,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </ResponsiveContainer>
         </CardContent>
       </Card>
-      <Card>
+      <Card id="evolution-de-l-argent">
         <CardHeader className="border-b">
-          <CardTitle>&Eacute;volution de l'argent</CardTitle>
+          <CardTitle href="#evolution-de-l-argent">&Eacute;volution de l'argent</CardTitle>
         </CardHeader>
         <CardContent className="p-0 h-64">
           <ResponsiveContainer width="100%" height="100%">
@@ -321,9 +321,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </ResponsiveContainer>
         </CardContent>
       </Card>
-      <Card>
+      <Card id="classements">
         <CardHeader className="border-b">
-          <CardTitle>Classements</CardTitle>
+          <CardTitle href="#classements">Classements</CardTitle>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {Object.entries(user.leaderboard)
@@ -349,9 +349,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </CardContent>
       </Card>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card>
+        <Card id="historique-des-factions">
           <CardHeader className="border-b">
-            <CardTitle>Historique des factions</CardTitle>
+            <CardTitle href="#historique-des-factions">Historique des factions</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table className="text-nowrap">
@@ -378,9 +378,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
             </Table>
           </CardContent>
         </Card>
-        <Card>
+        <Card id="historique-des-rangs">
           <CardHeader className="border-b">
-            <CardTitle>Historique des rangs</CardTitle>
+            <CardTitle href="#historique-des-rangs">Historique des rangs</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table className="text-nowrap">

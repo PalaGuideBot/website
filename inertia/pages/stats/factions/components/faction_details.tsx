@@ -55,9 +55,9 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             />
           </CardContent>
         </Card>
-        <Card className="flex flex-col lg:col-span-2">
+        <Card id="informations" className="flex flex-col lg:col-span-2">
           <CardHeader className="border-b">
-            <CardTitle>Informations</CardTitle>
+            <CardTitle href="#informations">Informations</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pt-4">
             <ul className="h-full flex flex-col gap-2 justify-around">
@@ -79,9 +79,9 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             </ul>
           </CardContent>
         </Card>
-        <Card className="flex flex-col lg:col-span-2">
+        <Card id="description" className="flex flex-col lg:col-span-2">
           <CardHeader className="border-b">
-            <CardTitle>Description</CardTitle>
+            <CardTitle href="#description">Description</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pt-4">
             <p>{faction.description.length > 0 ? faction.description : 'Pas de description'}</p>
@@ -219,9 +219,9 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
           </ResponsiveContainer>
         </CardContent>
       </Card>*/}
-      <Card>
+      <Card id="membres">
         <CardHeader className="border-b">
-          <CardTitle>Membres</CardTitle>
+          <CardTitle href="#membres">Membres</CardTitle>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
           {faction.players
