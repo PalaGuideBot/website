@@ -2,4 +2,5 @@
 
 ## 16/06/2024
 
-- Exemple
+- Fix du scroll pour la navigation mobile
+- Lien rapide sur les sections des pages `stats/users` & `stats/factions` (Suggestions: "**Lien rapide**")
