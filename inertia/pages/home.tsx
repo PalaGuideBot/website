@@ -2,21 +2,21 @@ import type HomeController from '#controllers/home_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
-import { DiscordLogoIcon } from '@radix-ui/react-icons'
 import Autoplay from 'embla-carousel-autoplay'
 import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
 import CardPreview from '~/assets/images/card-preview.png'
 import CraftPreview from '~/assets/images/craft-preview.png'
+import LeaderboardPreview from '~/assets/images/leaderboard-preview.png'
 import LookupPreview from '~/assets/images/lookup-preview.png'
 import QdfPreview from '~/assets/images/qdf-preview.png'
-import LeaderboardPreview from '~/assets/images/leaderboard-preview.png'
 import StatsPreview from '~/assets/images/stats-preview.png'
 import StatusPreview from '~/assets/images/status-preview.png'
+import { DiscordIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
+import { CreditCard } from '~/components/shared/credit_card'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
-import { CreditCard } from '~/components/shared/credit_card'
 
 const CAROUSEL_DELAY = 5000
 
@@ -54,7 +54,7 @@ export default function Home(props: HomePageProps) {
                 <Button
                   variant="outline"
                   className="xl:text-lg p-2 group"
-                  before={<DiscordLogoIcon className="mr-2" />}
+                  before={<DiscordIcon className="mr-2" />}
                   asChild
                 >
                   <a target="_blank" href="/discord">
