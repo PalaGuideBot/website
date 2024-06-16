@@ -40,7 +40,7 @@ export default {
       'blink': 'blink 1s step-end infinite',
       'job-progress': 'job-progress 2.5s',
       'spin': 'spin 1s linear infinite',
-      'glow': 'glow 2s ease-in-out infinite',
+      'glow': 'glow 2s cubic-bezier(.05,.5,.95,.5) infinite',
     },
     keyframes: {
       'blink': {

@@ -142,7 +142,7 @@ export function Navigation() {
                     href={path}
                     target="_blank"
                     className={cn(
-                      'relative flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
+                      'relative flex items-center gap-2 p-2 rounded-md hover:bg-surface-200 transition-colors',
                       (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
                     )}
                   >
@@ -154,7 +154,7 @@ export function Navigation() {
                   <Link
                     href={path}
                     className={cn(
-                      'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200',
+                      'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200 transition-colors',
                       (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
                     )}
                   >
