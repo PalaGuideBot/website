@@ -8,6 +8,7 @@ import { discordStatsValidator } from '#stats/validators/discord_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
 import { userInfoValidator } from '#stats/validators/user_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
+import { staffStatisticsValidator } from '#staff/validators/staff_validator'
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
 import { Infer } from '@vinejs/vine/types'
@@ -114,6 +115,19 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid discord statistics data', {
         code: 'E_DISCORD_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getStaffStatistics() {
+    try {
+      const response = await client.get('staff')
+      const data = await response.json()
+      return await staffStatisticsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid staff statistics data', {
+        code: 'E_STAFF_INVALID',
         status: 500,
       })
     }
