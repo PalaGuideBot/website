@@ -1,23 +1,23 @@
 import type TrixiumController from '#leaderboard/controllers/trixium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { Tabs } from '@lemonsqueezy/wedges'
 import { ShieldIcon, UserIcon } from 'lucide-react'
 import { useMemo } from 'react'
-import { Link } from '@inertiajs/react'
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
+  Tooltip as RechartsTooltip,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { getHeadUrl } from '~/lib/minecraft'
@@ -108,7 +108,7 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
                 className="text-sm"
                 tickFormatter={(value) => formatNumber(value)}
               />
-              <Tooltip
+              <RechartsTooltip
                 content={
                   <GraphTooltip
                     pageOffset={pageOffset}
@@ -203,7 +203,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
                 className="text-sm"
                 tickFormatter={(value) => formatNumber(value)}
               />
-              <Tooltip
+              <RechartsTooltip
                 content={
                   <GraphTooltip
                     pageOffset={pageOffset}
@@ -259,9 +259,18 @@ const PlayerPodium = ({
           className="object-contain"
         />
         <PodiumCardDescription>{data.username}</PodiumCardDescription>
-        <PodiumCardValue className="border-b-2 border-dashed border-foreground">
-          <span>{formatNumber(data.value)}</span>
-        </PodiumCardValue>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+                {formatNumber(data.value)}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {formatNumber(data.value, { notation: 'standard' })}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </PodiumCard>
     </Link>
   )
@@ -283,9 +292,18 @@ const FactionPodium = ({
           className="object-contain h-auto w-[100px]"
         />
         <PodiumCardDescription>{data.name}</PodiumCardDescription>
-        <PodiumCardValue className="border-b-2 border-dashed border-foreground">
-          <span>{formatNumber(data.value)}</span>
-        </PodiumCardValue>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+                {formatNumber(data.value)}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {formatNumber(data.value, { notation: 'standard' })}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </PodiumCard>
     </Link>
   )

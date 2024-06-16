@@ -1,21 +1,21 @@
 import type MoneyController from '#leaderboard/controllers/money_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { useMemo } from 'react'
-import { Link } from '@inertiajs/react'
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
+  Tooltip as RechartsTooltip,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { getHeadUrl } from '~/lib/minecraft'
@@ -81,7 +81,7 @@ export default function MoneyIndex(props: MoneyIndexProps) {
                     className="text-sm"
                     tickFormatter={(value) => formatNumber(value)}
                   />
-                  <Tooltip
+                  <RechartsTooltip
                     content={
                       <GraphTooltip
                         pageOffset={pageOffset}
@@ -137,9 +137,16 @@ const Podium = ({
           className="object-contain"
         />
         <PodiumCardDescription>{data.username}</PodiumCardDescription>
-        <PodiumCardValue className="border-b-2 border-dashed border-foreground">
-          <span>{formatNumber(data.value)}</span>
-        </PodiumCardValue>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+                {formatNumber(data.value)}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">{formatPrice(data.value)}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </PodiumCard>
     </Link>
   )
