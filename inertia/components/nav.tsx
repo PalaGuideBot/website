@@ -173,7 +173,7 @@ export function MobileNavigation() {
           <MenuIcon className="size-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent className="overflow-y-auto" side="left">
         <SheetHeader className="pb-4">
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
