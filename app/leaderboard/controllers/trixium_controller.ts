@@ -6,8 +6,8 @@ import { HttpContext } from '@adonisjs/core/http'
 export default class TrixiumController {
   constructor(private api: ApiService) {}
   async index({ inertia }: HttpContext) {
-    const leaderboardFaction = await this.api.getLeaderboard('trixiumFaction')
-    const leaderboardPlayer = await this.api.getLeaderboard('trixiumPlayer')
+    const leaderboardFaction = await this.api.getLeaderboard('trixfaction')
+    const leaderboardPlayer = await this.api.getLeaderboard('trixuser')
     return inertia.render('leaderboard/trixium/index', { leaderboardFaction, leaderboardPlayer })
   }
 }

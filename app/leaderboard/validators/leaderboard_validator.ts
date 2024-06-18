@@ -156,6 +156,6 @@ export const validators = {
   end: endValidator,
   koth: kothValidator,
   money: moneyValidator,
-  trixiumFaction: trixiumFactionValidator,
-  trixiumPlayer: trixiumPlayerValidator,
+  trixfaction: trixiumFactionValidator,
+  trixuser: trixiumPlayerValidator,
 } satisfies Record<LeaderboardCategory, VineValidator<any, any>>

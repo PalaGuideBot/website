@@ -7,8 +7,8 @@ const categories = [
   'end',
   'koth',
   'money',
-  'trixiumFaction',
-  'trixiumPlayer',
+  'trixfaction',
+  'trixuser',
 ] as const
 
 export default categories

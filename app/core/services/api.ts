@@ -22,7 +22,7 @@ const client = ky.create({
 export class ApiService {
   async getUser(username: string) {
     try {
-      const response = await client.get(`user/${username}`)
+      const response = await client.get(`player/${username}`)
       const data = (await response.json()) as Record<string, unknown>
       return await userInfoValidator.validate({ ...data, username })
     } catch (error) {
@@ -44,7 +44,7 @@ export class ApiService {
 
   async getFaction(name: string) {
     try {
-      const response = await client.get(`faction/${name}`)
+      const response = await client.get(`factions/${name}`)
       const data = await response.json()
       return await factionInfoValidator.validate(data)
     } catch (error) {
@@ -74,7 +74,7 @@ export class ApiService {
           status: 400,
         })
       }
-      const response = await client.get(category)
+      const response = await client.get('leaderboard/' + category)
       const data = await response.json()
       const validatedData = await leaderboardValidators[category].validate(data)
       return validatedData.toSorted(
