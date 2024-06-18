@@ -4,7 +4,6 @@ import type { LeaderboardCategory } from '#leaderboard/content/categories'
 const factionsValidator = vine.compile(
   vine.array(
     vine.object({
-      _id: vine.string(),
       date: vine.string(),
       data: vine.array(
         vine.object({
