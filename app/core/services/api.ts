@@ -22,7 +22,7 @@ const client = ky.create({
 export class ApiService {
   async getUser(username: string) {
     try {
-      const response = await client.get(`player/${username}`)
+      const response = await client.get(`players/${username}`)
       const data = (await response.json()) as Record<string, unknown>
       return await userInfoValidator.validate({ ...data, username })
     } catch (error) {
