@@ -109,7 +109,7 @@ export class ApiService {
 
   async getDiscordStatistics() {
     try {
-      const response = await client.get('bot')
+      const response = await client.get('home')
       const data = await response.json()
       return await discordStatsValidator.validate(data)
     } catch (error: unknown) {
