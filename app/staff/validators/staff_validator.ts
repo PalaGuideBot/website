@@ -13,11 +13,11 @@ export const staffStatisticsValidator = vine.compile(
             id: vine.string(),
             name: vine.string(),
             membersCount: vine.number(),
-            interactions: vine.number(),
+            interactionsCount: vine.number(),
             icon: vine.string().nullable(),
           })
         ),
-        interactionList: vine
+        interactionsList: vine
           .array(
             vine.object({
               name: vine.string(),
@@ -27,22 +27,26 @@ export const staffStatisticsValidator = vine.compile(
           .optional(),
       }),
       api: vine.object({
-        key: vine.array(
-          vine.object({
-            key: vine.string().optional(),
-            count: vine.number(),
-            ip: vine.unionOfTypes([vine.string(), vine.number()]),
-          })
-        ),
-        endpoint: vine.array(
-          vine.object({
-            name: vine.string(),
-            count: vine.number(),
-            averageTime: vine.number(),
-            maxTime: vine.number(),
-            minTime: vine.number(),
-          })
-        ),
+        keys: vine
+          .array(
+            vine.object({
+              key: vine.string().optional(),
+              count: vine.number(),
+              ip: vine.unionOfTypes([vine.string(), vine.number()]),
+            })
+          )
+          .optional(),
+        endpoints: vine
+          .array(
+            vine.object({
+              name: vine.string(),
+              count: vine.number(),
+              averageTime: vine.number(),
+              maxTime: vine.number(),
+              minTime: vine.number(),
+            })
+          )
+          .optional(),
       }),
     })
   )
