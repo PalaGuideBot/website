@@ -65,7 +65,7 @@ const StaffHeader = () => {
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Group>
-                  <DropdownMenu.Item onClick={() => () => router.visit('/staff/logout')}>
+                  <DropdownMenu.Item onClick={() => router.visit('/staff/logout')}>
                     <LogOutIcon className="size-4" />
                     <span>Se déconnecter</span>
                   </DropdownMenu.Item>
