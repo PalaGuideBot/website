@@ -1,4 +1,4 @@
-import { Badge, Loading, Tooltip } from '@lemonsqueezy/wedges'
+import { Badge, Loading } from '@lemonsqueezy/wedges'
 import {
   addDays,
   addHours,
@@ -20,6 +20,7 @@ import {
   ShieldQuestionIcon,
   TriangleAlertIcon,
 } from 'lucide-react'
+import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { eachHourOfDate, formatDate } from '~/lib/date'
 import { cn } from '~/lib/utils'
 import { PaladiumStatus } from '~/types'
@@ -79,34 +80,26 @@ const UptimeIndicatorTick = ({
   }
 
   return (
-    <Tooltip.Provider delayDuration={0} skipDelayDuration={0}>
-      <Tooltip.Root>
-        <Tooltip.Trigger>
-          <span
-            className={cn(
-              'h-full w-full rounded-sm outline-1 hover:outline',
-              isInactive && !isFutureDate ? 'bg-destructive' : 'bg-wg-green',
-              status.length === 0 && 'bg-primary',
-              isSameInterval && 'outline'
-            )}
-          />
-        </Tooltip.Trigger>
-        <Tooltip.Content
-          className="min-w-72"
-          content={null}
-          arrow={false}
-          sideOffset={8}
-          color="soft"
-          side="bottom"
-        >
-          {status.length > 0 ? (
-            <UptimeIndicatorTickTooltipContent status={status} />
-          ) : (
-            <UptimeIndicatorTickTooltipEmptyContent date={date} />
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            'data-[state=open]:outline h-full w-full rounded-sm outline-1 hover:outline',
+            isInactive && !isFutureDate ? 'bg-destructive' : 'bg-wg-green',
+            status.length === 0 && 'bg-primary',
+            isSameInterval && 'outline'
           )}
-        </Tooltip.Content>
-      </Tooltip.Root>
-    </Tooltip.Provider>
+        />
+      </PopoverTrigger>
+      <PopoverContent className="min-w-72" side="bottom">
+        {status.length > 0 ? (
+          <UptimeIndicatorTickTooltipContent status={status} />
+        ) : (
+          <UptimeIndicatorTickTooltipEmptyContent date={date} />
+        )}
+      </PopoverContent>
+    </Popover>
   )
 }
 
