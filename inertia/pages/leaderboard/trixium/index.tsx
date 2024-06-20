@@ -313,7 +313,7 @@ const FactionPodium = ({
               </PodiumCardValue>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {formatNumber(data.value, { notation: 'standard' })}
+              {formatNumber(data.value, { compactDisplay: 'long' })}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

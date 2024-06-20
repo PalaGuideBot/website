@@ -151,7 +151,9 @@ const Podium = ({
                 {formatNumber(data.value)}
               </PodiumCardValue>
             </TooltipTrigger>
-            <TooltipContent side="bottom">{formatPrice(data.value)}</TooltipContent>
+            <TooltipContent side="bottom">
+              {formatNumber(data.value, { compactDisplay: 'long' })}
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </PodiumCard>
