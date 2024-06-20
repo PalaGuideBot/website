@@ -1,8 +1,7 @@
 import type BossController from '#leaderboard/controllers/boss_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head } from '@inertiajs/react'
-import { useMemo } from 'react'
 import { Link } from '@inertiajs/react'
+import { useMemo } from 'react'
 import {
   CartesianGrid,
   Legend,
@@ -15,13 +14,14 @@ import {
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { getHeadUrl } from '~/lib/minecraft'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
-import { getHeadUrl } from '~/lib/minecraft'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 

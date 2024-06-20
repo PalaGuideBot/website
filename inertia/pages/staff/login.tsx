@@ -1,7 +1,8 @@
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
 import { DiscordLogoIcon } from '@radix-ui/react-icons'
 import { HomeIcon } from 'lucide-react'
+import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 
 export default function LoginPage() {

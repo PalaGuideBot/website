@@ -1,13 +1,15 @@
 import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head, router, usePage } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import { SearchIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
+import { Head } from '~/components/shared/head'
 import Input from '~/components/ui/input'
+import { getHeadUrl } from '~/lib/minecraft'
 import { UserDetails } from './components/user_details'
 
 export type UserShowProps = InferPageProps<UsersController, 'show'>
@@ -32,7 +34,14 @@ export default function UserShow(props: UserShowProps) {
 
   return (
     <>
-      <Head title={user?.username || 'Utilisateur'} />
+      {user ? (
+        <Head title={user.username}>
+          <meta property="og:image" content={getHeadUrl(user.username)} />
+          <meta name="twitter:image" content={getHeadUrl(user.username)} />
+        </Head>
+      ) : (
+        <Head title="Utilisateur" />
+      )}
       <DefaultLayout>
         <Page>
           <PageTitle>Statistiques utilisateur</PageTitle>

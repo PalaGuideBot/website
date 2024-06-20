@@ -1,6 +1,5 @@
 import type PaladiumController from '#status/controllers/paladium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Head } from '@inertiajs/react'
 import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
 import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import {
@@ -15,6 +14,7 @@ import {
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { Head } from '~/components/shared/head'
 import LinearGradient from '~/components/shared/linear_gradient'
 import { Card, CardContent } from '~/components/ui/card'
 import { icons as factionIcons } from '~/content/factions'

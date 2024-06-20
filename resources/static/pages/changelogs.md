@@ -1,5 +1,9 @@
 # Changelogs
 
+## 21/06/2024
+
+- Ajout des embeds sur toutes les pages
+
 ## 20/06/2024
 
 - Refonte complet de la structuration du bot

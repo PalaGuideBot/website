@@ -1,6 +1,6 @@
-import { Head } from '@inertiajs/react'
 import DefaultLayout from '~/components/layouts/default'
 import { Page } from '~/components/page'
+import { Head } from '~/components/shared/head'
 import { Markdown } from '~/components/ui/markdown'
 
 type PrivacyPageProps = {

@@ -1,8 +1,8 @@
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head } from '@inertiajs/react'
 import StaffLayout from '~/components/layouts/staff'
 import { Page, PageTitle } from '~/components/page'
+import { Head } from '~/components/shared/head'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 

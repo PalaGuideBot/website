@@ -1,6 +1,6 @@
 import type MoneyController from '#leaderboard/controllers/money_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
