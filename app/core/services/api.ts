@@ -122,7 +122,7 @@ export class ApiService {
 
   async getStaffStatistics() {
     try {
-      const response = await client.get('staff/statics')
+      const response = await client.get('staff/statistics')
       const data = await response.json()
       return await staffStatisticsValidator.validate(data)
     } catch (error: unknown) {
