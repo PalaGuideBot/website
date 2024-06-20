@@ -119,7 +119,7 @@ export default function Home(props: HomePageProps) {
                 <Card className="w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
                     <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
-                      {formatNumber(discordStats.bot.servers)}
+                      {formatNumber(discordStats.guildsCount)}
                     </p>
                     <p className="text-surface-300 text-center">Serveurs</p>
                   </CardContent>
@@ -127,7 +127,7 @@ export default function Home(props: HomePageProps) {
                 <Card className="w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
                     <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
-                      {formatNumber(discordStats.bot.users)}
+                      {formatNumber(discordStats.usersCount)}
                     </p>
                     <p className="text-surface-300 text-center">Utilisateurs uniques</p>
                   </CardContent>

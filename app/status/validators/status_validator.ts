@@ -36,9 +36,7 @@ export const paladiumStatusValidator = vine.compile(
           status: status.clone(),
         }),
       }),
-      _id: vine.string(),
       date: vine.string(),
-      __v: vine.number(),
     })
   )
 )

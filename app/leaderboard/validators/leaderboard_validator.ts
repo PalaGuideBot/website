@@ -9,7 +9,6 @@ const factionsValidator = vine.compile(
         vine.object({
           name: vine.string(),
           value: vine.number(),
-          _id: vine.string(),
           emblemUrl: vine.string().optional(),
         })
       ),
@@ -139,7 +138,6 @@ const trixiumPlayerValidator = vine.compile(
         vine.object({
           username: vine.string(),
           value: vine.number(),
-          _id: vine.string(),
         })
       ),
     })

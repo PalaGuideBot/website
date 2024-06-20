@@ -29,7 +29,6 @@ const achievementsValidator = vine.object({
 
 export const userInfoValidator = vine.compile(
   vine.object({
-    _id: vine.string(),
     uuid: vine.string().uuid(),
     username: vine.string(),
     firstJoin: vine.number(),
@@ -50,7 +49,6 @@ export const userInfoValidator = vine.compile(
           timePlayed: vine.number(),
         }),
         date: vine.string(),
-        _id: vine.string(),
       })
     ),
   })
