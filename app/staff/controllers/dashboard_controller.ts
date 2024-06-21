@@ -7,7 +7,8 @@ export default class DashboardController {
   constructor(private api: ApiService) {}
 
   async index({ inertia }: HttpContext) {
-    const stats = await this.api.getStaffStatistics()
+    let stats = await this.api.getStaffStatistics()
+    stats = stats.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     return inertia.render('staff/dashboard/index', { stats })
   }
 }
