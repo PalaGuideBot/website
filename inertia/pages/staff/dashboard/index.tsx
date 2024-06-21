@@ -75,7 +75,6 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
 
 const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
   const [today, yesterday] = data
-  console.log(today, yesterday)
 
   const icons = {
     Serveurs: ServerIcon,
