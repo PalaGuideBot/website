@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Badge, Button, Tabs } from '@lemonsqueezy/wedges'
+import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
 import { CalendarDaysIcon, CodeXmlIcon, PointerIcon, ServerIcon, UsersIcon } from 'lucide-react'
-import { useState } from 'react'
 import {
   Area,
   AreaChart,
@@ -25,7 +25,7 @@ import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
 import { graphColors } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
-import { cn, formatNumber } from '~/lib/utils'
+import { formatNumber } from '~/lib/utils'
 import {
   StatCard,
   StatCardChange,
@@ -73,270 +73,6 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
   )
 }
 
-const EvolutionCard = ({
-  data,
-  icons,
-}: {
-  data: Array<Record<string, string | number>>
-  icons: Record<string, any>
-}) => {
-  const translations = {
-    Serveurs: 'guildsCount',
-    Utilisateurs: 'usersCount',
-    Interactions: 'interactionsCount',
-  }
-
-  const [visibleLines, setVisibleLines] = useState<Record<string, boolean>>({
-    guildsCount: true,
-    usersCount: true,
-    interactionsCount: true,
-  })
-
-  const handleLegendClick = (dataKey: string) => {
-    setVisibleLines({
-      ...visibleLines,
-      [dataKey]: !visibleLines[dataKey],
-    })
-  }
-
-  return (
-    <Card className="bg-backgroud">
-      <CardHeader className="border-b">
-        <CardTitle>&Eacute;volution</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-            <XAxis dataKey="date" className="text-xs" />
-            <YAxis
-              className="text-xs"
-              tickFormatter={(value) => formatNumber(Number(value))}
-              orientation="right"
-            />
-            <Tooltip
-              content={({ active, payload, label }) => {
-                if (active && payload && payload.length) {
-                  return (
-                    <Card className="bg-background/95">
-                      <CardContent className="p-4 space-y-2">
-                        <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
-                        <div className="flex flex-col gap-2">
-                          {payload.map(({ name, value }) => {
-                            const Icon = icons[name as keyof typeof icons]
-                            return (
-                              <div key={name} className="flex gap-2 items-center">
-                                <span className="text-sm">
-                                  <Icon className="size-4 mr-2 inline-block" />
-                                  {name}
-                                </span>
-                                <span className="text-sm font-bold">
-                                  {formatNumber(Number(value), {
-                                    notation: 'standard',
-                                    maximumFractionDigits: 2,
-                                  })}
-                                </span>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )
-                }
-                return null
-              }}
-            />
-            <Legend
-              formatter={(value) => {
-                return (
-                  <Button
-                    type="button"
-                    variant="transparent"
-                    size="sm"
-                    className={cn(
-                      'text-inherit p-0.5',
-                      !visibleLines[translations[value as keyof typeof translations]] &&
-                        'line-through'
-                    )}
-                  >
-                    {value}
-                  </Button>
-                )
-              }}
-              onClick={(e) => handleLegendClick(String(e.dataKey))}
-            />
-            <Area
-              type="monotone"
-              dataKey="guildsCount"
-              name="Serveurs"
-              hide={!visibleLines.guildsCount}
-              fill="url(#guilds-gradient)"
-              stroke={graphColors[3]}
-              strokeWidth={3}
-              dot={false}
-            />
-            <Area
-              type="monotone"
-              dataKey="usersCount"
-              name="Utilisateurs"
-              hide={!visibleLines.usersCount}
-              fill="url(#users-gradient)"
-              stroke={graphColors[1]}
-              strokeWidth={3}
-              dot={false}
-            />
-            <Area
-              type="monotone"
-              dataKey="interactionsCount"
-              name="Interactions"
-              hide={!visibleLines.interactionsCount}
-              fill="url(#interactions-gradient)"
-              stroke={graphColors[9]}
-              strokeWidth={3}
-              dot={false}
-            />
-            <defs>
-              <LinearGradient id="guilds-gradient" from={graphColors[3]} />
-              <LinearGradient id="users-gradient" from={graphColors[1]} />
-              <LinearGradient id="interactions-gradient" from={graphColors[9]} />
-            </defs>
-          </AreaChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
-  )
-}
-
-const InteractionsCard = ({
-  data,
-  interactions,
-}: {
-  data: Array<Record<string, string | number>>
-  interactions: string[]
-}) => {
-  const [visibleInteractions, setVisibleInteractions] = useState(
-    interactions.reduce(
-      (acc, interaction) => {
-        acc[interaction] = true
-        return acc
-      },
-      {} as Record<string, boolean>
-    )
-  )
-
-  const handleLegendClick = (interaction: string) => {
-    setVisibleInteractions({
-      ...visibleInteractions,
-      [interaction]: !visibleInteractions[interaction],
-    })
-  }
-
-  const colors = [
-    '#FF5733',
-    '#33FF57',
-    '#3357FF',
-    '#FF33A6',
-    '#A633FF',
-    '#33FFF0',
-    '#FFC300',
-    '#DAF7A6',
-    '#581845',
-    '#C70039',
-    '#900C3F',
-    '#FF5733',
-    '#FFBD33',
-    '#75FF33',
-    '#33FFBD',
-    '#3375FF',
-  ]
-
-  return (
-    <Card className="bg-backgroud">
-      <CardHeader className="border-b">
-        <CardTitle>Intéractions</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            data={data.filter((cmd) => {
-              return Object.values(cmd).some((value) => Number(value) > 0)
-            })}
-          >
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-            <XAxis dataKey="date" className="text-xs" />
-            <YAxis
-              className="text-xs"
-              tickFormatter={(value) => formatNumber(Number(value))}
-              orientation="right"
-            />
-            <Tooltip
-              content={({ active, payload, label }) => {
-                if (active && payload && payload.length) {
-                  return (
-                    <Card className="bg-background/95">
-                      <CardContent className="p-4 space-y-2">
-                        <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
-                        <div className="flex flex-col gap-2">
-                          {payload.map(({ name, value }) => {
-                            return (
-                              <div key={name} className="flex gap-2 items-center">
-                                <span className="text-sm">{name}</span>
-                                <span className="text-sm font-bold">
-                                  {formatNumber(Number(value), {
-                                    notation: 'standard',
-                                    maximumFractionDigits: 2,
-                                  })}
-                                </span>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )
-                }
-                return null
-              }}
-            />
-            <Legend
-              formatter={(value) => (
-                <Button
-                  type="button"
-                  variant="transparent"
-                  size="sm"
-                  className={cn(
-                    'text-inherit p-0.5',
-                    !visibleInteractions[value] && 'line-through'
-                  )}
-                >
-                  {value}
-                </Button>
-              )}
-              onClick={(e) => handleLegendClick(String(e.dataKey))}
-            />
-            {Array.from(interactions).map((interaction, index) => (
-              <Line
-                key={interaction}
-                type="monotone"
-                dataKey={interaction}
-                name={interaction}
-                hide={!visibleInteractions[interaction]}
-                stroke={colors[index] ?? 'hsl(var(--wg-primary))'}
-                strokeWidth={2}
-                dot={false}
-              />
-            ))}
-            <defs>
-              <LinearGradient id="guilds-gradient" from={graphColors[3]} />
-            </defs>
-          </LineChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
-  )
-}
-
 const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
   const [today, yesterday] = data
 
@@ -363,6 +99,57 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
       ),
     }
   })
+
+  const [activeLines, setActiveLines] = useState<{
+    [key: string]: boolean
+  }>({
+    guildsCount: true,
+    usersCount: true,
+    interactionsCount: true,
+  })
+
+  const [activeInteractions, setActiveInteractions] = useState(
+    interactions.reduce(
+      (acc, interaction) => {
+        acc[interaction] = true
+        return acc
+      },
+      {} as Record<string, boolean>
+    )
+  )
+
+  const handleLegendClick = (dataKey: string) => {
+    setActiveLines((prev) => ({
+      ...prev,
+      [dataKey]: !prev[dataKey],
+    }))
+  }
+
+  const handleInteractionLegendClick = (interaction: string) => {
+    setActiveInteractions((prev) => ({
+      ...prev,
+      [interaction]: !prev[interaction],
+    }))
+  }
+
+  const colors = [
+    '#FF5733',
+    '#33FF57',
+    '#3357FF',
+    '#FF33A6',
+    '#A633FF',
+    '#33FFF0',
+    '#FFC300',
+    '#DAF7A6',
+    '#581845',
+    '#C70039',
+    '#900C3F',
+    '#FF5733',
+    '#FFBD33',
+    '#75FF33',
+    '#33FFBD',
+    '#3375FF',
+  ]
 
   return (
     <div className="flex flex-col gap-4">
@@ -404,23 +191,170 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
           </StatCardContent>
         </StatCard>
       </div>
-      <EvolutionCard
-        data={data
-          .toReversed()
-          .filter((item) => {
-            if (item.guildsCount && item.usersCount && item.interactionsCount) {
-              return Object.values(item).some((value) => Number(value) > 0)
-            }
-          })
-          .map((item) => ({
-            date: item.date,
-            guildsCount: item.guildsCount,
-            usersCount: item.usersCount,
-            interactionsCount: item.interactionsCount,
-          }))}
-        icons={icons}
-      />
-      <InteractionsCard data={interactionsGraphData} interactions={interactions} />
+      <Card className="bg-backgroud">
+        <CardHeader className="border-b">
+          <CardTitle>&Eacute;volution</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 h-96">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={data
+                .toReversed()
+                .filter((item) => {
+                  if (item.guildsCount && item.usersCount && item.interactionsCount) {
+                    return Object.values(item).some((value) => Number(value) > 0)
+                  }
+                })
+                .map((item) => ({
+                  date: item.date,
+                  guildsCount: item.guildsCount,
+                  usersCount: item.usersCount,
+                  interactionsCount: item.interactionsCount,
+                }))}
+            >
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis dataKey="date" className="text-xs" />
+              <YAxis
+                className="text-xs"
+                tickFormatter={(value) => formatNumber(Number(value))}
+                orientation="right"
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <Card className="bg-background/95">
+                        <CardContent className="p-4 space-y-2">
+                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="flex flex-col gap-2">
+                            {payload.map(({ name, value }) => {
+                              const Icon = icons[name as keyof typeof icons]
+                              return (
+                                <div key={name} className="flex gap-2 items-center">
+                                  <span className="text-sm">
+                                    <Icon className="size-4 mr-2 inline-block" />
+                                    {name}
+                                  </span>
+                                  <span className="text-sm font-bold">
+                                    {formatNumber(Number(value), {
+                                      notation: 'standard',
+                                      maximumFractionDigits: 2,
+                                    })}
+                                  </span>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
+                  return null
+                }}
+              />
+              <Legend onClick={(e) => handleLegendClick(e.dataKey?.toString() ?? '')} />
+              <Area
+                type="monotone"
+                dataKey="guildsCount"
+                name="Serveurs"
+                fill={activeLines.guildsCount ? 'url(#guilds-gradient)' : 'none'}
+                stroke={activeLines.guildsCount ? graphColors[3] : 'none'}
+                strokeWidth={3}
+                dot={false}
+              />
+              <Area
+                type="monotone"
+                dataKey="usersCount"
+                name="Utilisateurs"
+                fill={activeLines.usersCount ? 'url(#users-gradient)' : 'none'}
+                stroke={activeLines.usersCount ? graphColors[1] : 'none'}
+                strokeWidth={3}
+                dot={false}
+              />
+              <Area
+                type="monotone"
+                dataKey="interactionsCount"
+                name="Interactions"
+                fill={activeLines.interactionsCount ? 'url(#interactions-gradient)' : 'none'}
+                stroke={activeLines.interactionsCount ? graphColors[9] : 'none'}
+                strokeWidth={3}
+                dot={false}
+              />
+              <defs>
+                <LinearGradient id="guilds-gradient" from={graphColors[3]} />
+                <LinearGradient id="users-gradient" from={graphColors[1]} />
+                <LinearGradient id="interactions-gradient" from={graphColors[9]} />
+              </defs>
+            </AreaChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card className="bg-backgroud">
+        <CardHeader className="border-b">
+          <CardTitle>Intéractions</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 h-96">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={interactionsGraphData.filter((cmd) => {
+                return Object.values(cmd).some((value) => Number(value) > 0)
+              })}
+            >
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis dataKey="date" className="text-xs" />
+              <YAxis
+                className="text-xs"
+                tickFormatter={(value) => formatNumber(Number(value))}
+                orientation="right"
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <Card className="bg-background/95">
+                        <CardContent className="p-4 space-y-2">
+                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="flex flex-col gap-2">
+                            {payload.map(({ name, value }) => {
+                              return (
+                                <div key={name} className="flex gap-2 items-center">
+                                  <span className="text-sm">{name}</span>
+                                  <span className="text-sm font-bold">
+                                    {formatNumber(Number(value), {
+                                      notation: 'standard',
+                                      maximumFractionDigits: 2,
+                                    })}
+                                  </span>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
+                  return null
+                }}
+              />
+              <Legend onClick={(e) => handleInteractionLegendClick(e.dataKey?.toString() ?? '')} />
+              {Array.from(interactions).map((interaction, index) => (
+                <Line
+                  key={interaction}
+                  type="monotone"
+                  dataKey={interaction}
+                  name={interaction}
+                  stroke={activeInteractions[interaction] ? colors[index] : 'none'}
+                  strokeWidth={2}
+                  dot={false}
+                />
+              ))}
+              <defs>
+                <LinearGradient id="guilds-gradient" from={graphColors[3]} />
+              </defs>
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
       <Card className="bg-background">
         <CardHeader className="border-b">
           <CardTitle>Serveurs</CardTitle>
