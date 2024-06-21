@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
@@ -74,6 +75,7 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
 
 const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
   const [today, yesterday] = data
+  console.log(today, yesterday)
 
   const icons = {
     Serveurs: ServerIcon,
@@ -98,6 +100,57 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
       ),
     }
   })
+
+  const [activeLines, setActiveLines] = useState<{
+    [key: string]: boolean
+  }>({
+    guildsCount: true,
+    usersCount: true,
+    interactionsCount: true,
+  })
+
+  const [activeInteractions, setActiveInteractions] = useState(
+    interactions.reduce(
+      (acc, interaction) => {
+        acc[interaction] = true
+        return acc
+      },
+      {} as Record<string, boolean>
+    )
+  )
+
+  const handleLegendClick = (dataKey: string) => {
+    setActiveLines((prev) => ({
+      ...prev,
+      [dataKey]: !prev[dataKey],
+    }))
+  }
+
+  const handleInteractionLegendClick = (interaction: string) => {
+    setActiveInteractions((prev) => ({
+      ...prev,
+      [interaction]: !prev[interaction],
+    }))
+  }
+
+  const colors = [
+    '#FF5733',
+    '#33FF57',
+    '#3357FF',
+    '#FF33A6',
+    '#A633FF',
+    '#33FFF0',
+    '#FFC300',
+    '#DAF7A6',
+    '#581845',
+    '#C70039',
+    '#900C3F',
+    '#FF5733',
+    '#FFBD33',
+    '#75FF33',
+    '#33FFBD',
+    '#3375FF',
+  ]
 
   return (
     <div className="flex flex-col gap-4">
@@ -146,12 +199,19 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         <CardContent className="p-4 h-96">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
-              data={data.toReversed().map((item) => ({
-                date: item.date,
-                guildsCount: item.guildsCount,
-                usersCount: item.usersCount,
-                interactionsCount: item.interactionsCount,
-              }))}
+              data={data
+                .toReversed()
+                .filter((item) => {
+                  if (item.guildsCount && item.usersCount && item.interactionsCount) {
+                    return Object.values(item).some((value) => Number(value) > 0)
+                  }
+                })
+                .map((item) => ({
+                  date: item.date,
+                  guildsCount: item.guildsCount,
+                  usersCount: item.usersCount,
+                  interactionsCount: item.interactionsCount,
+                }))}
             >
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
@@ -193,13 +253,13 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
                   return null
                 }}
               />
-              <Legend />
+              <Legend onClick={(e) => handleLegendClick(e.dataKey?.toString() ?? '')} />
               <Area
                 type="monotone"
                 dataKey="guildsCount"
                 name="Serveurs"
-                fill="url(#guilds-gradient)"
-                stroke={graphColors[3]}
+                fill={activeLines.guildsCount ? 'url(#guilds-gradient)' : 'none'}
+                stroke={activeLines.guildsCount ? graphColors[3] : 'none'}
                 strokeWidth={3}
                 dot={false}
               />
@@ -207,8 +267,8 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
                 type="monotone"
                 dataKey="usersCount"
                 name="Utilisateurs"
-                fill="url(#users-gradient)"
-                stroke={graphColors[1]}
+                fill={activeLines.usersCount ? 'url(#users-gradient)' : 'none'}
+                stroke={activeLines.usersCount ? graphColors[1] : 'none'}
                 strokeWidth={3}
                 dot={false}
               />
@@ -216,8 +276,8 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
                 type="monotone"
                 dataKey="interactionsCount"
                 name="Interactions"
-                fill="url(#interactions-gradient)"
-                stroke={graphColors[9]}
+                fill={activeLines.interactionsCount ? 'url(#interactions-gradient)' : 'none'}
+                stroke={activeLines.interactionsCount ? graphColors[9] : 'none'}
                 strokeWidth={3}
                 dot={false}
               />
@@ -236,7 +296,11 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         </CardHeader>
         <CardContent className="p-4 h-96">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={interactionsGraphData}>
+            <LineChart
+              data={interactionsGraphData.filter((cmd) => {
+                return Object.values(cmd).some((value) => Number(value) > 0)
+              })}
+            >
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis dataKey="date" className="text-xs" />
               <YAxis
@@ -273,14 +337,14 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
                   return null
                 }}
               />
-              <Legend />
-              {Array.from(interactions).map((interaction) => (
+              <Legend onClick={(e) => handleInteractionLegendClick(e.dataKey?.toString() ?? '')} />
+              {Array.from(interactions).map((interaction, index) => (
                 <Line
                   key={interaction}
                   type="monotone"
                   dataKey={interaction}
                   name={interaction}
-                  stroke="hsl(var(--wg-primary))"
+                  stroke={activeInteractions[interaction] ? colors[index] : 'none'}
                   strokeWidth={2}
                   dot={false}
                 />
@@ -300,18 +364,20 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
           <ScrollArea className="h-[570px]">
             <Table>
               <TableBody>
-                {today.guilds.map((guild) => (
-                  <TableRow key={guild.id}>
-                    <TableCell className="flex items-center gap-2">
-                      <Avatar src={guild.icon} alt={`Icône de ${guild.name}`} />
-                      <span>{guild.name}</span>
-                    </TableCell>
-                    <TableCell>
-                      <UsersIcon className="size-4 inline-block mr-2" />
-                      {formatNumber(guild.memberCount, { notation: 'standard' })}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {today.guilds
+                  .sort((a, b) => b.memberCount - a.memberCount)
+                  .map((guild) => (
+                    <TableRow key={guild.id}>
+                      <TableCell className="flex items-center gap-2">
+                        <Avatar src={guild.icon} alt={`Icône de ${guild.name}`} />
+                        <span>{guild.name}</span>
+                      </TableCell>
+                      <TableCell>
+                        <UsersIcon className="size-4 inline-block mr-2" />
+                        {formatNumber(guild.memberCount, { notation: 'standard' })}
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </ScrollArea>
