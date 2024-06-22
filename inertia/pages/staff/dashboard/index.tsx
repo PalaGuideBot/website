@@ -452,10 +452,167 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
   )
 }
 
-const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
+const DBEvolutionCard = ({ data }: { data: Array<Record<string, string | number>> }) => {
+  const translations = {
+    'Unique Players': 'uniquePlayerInDataBase',
+    'Unique Factions': 'uniqueFactionInDataBase',
+  }
+
+  const [visibleLines, setVisibleLines] = useState<Record<string, boolean>>({
+    uniquePlayerInDataBase: true,
+    uniqueFactionInDataBase: true,
+  })
+
+  const handleLegendClick = (dataKey: string) => {
+    setVisibleLines({
+      ...visibleLines,
+      [dataKey]: !visibleLines[dataKey],
+    })
+  }
+
   return (
-    <div>
-      <h1>API</h1>
+    <Card className="bg-backgroud">
+      <CardHeader className="border-b">
+        <CardTitle>&Eacute;volution de la DB</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 h-96">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis dataKey="date" className="text-xs" />
+            <YAxis
+              className="text-xs"
+              tickFormatter={(value) => formatNumber(Number(value))}
+              orientation="right"
+            />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <Card className="bg-background/95">
+                      <CardContent className="p-4 space-y-2">
+                        <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                        <div className="flex flex-col gap-2">
+                          {payload.map(({ name, value }) => {
+                            return (
+                              <div key={name} className="flex gap-2 items-center">
+                                <span className="text-sm">{name}</span>
+                                <span className="text-sm font-bold">
+                                  {formatNumber(Number(value), {
+                                    notation: 'standard',
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                }
+                return null
+              }}
+            />
+            <Legend
+              formatter={(value) => (
+                <Button
+                  type="button"
+                  variant="transparent"
+                  size="sm"
+                  className={cn(
+                    'text-inherit p-0.5',
+                    !visibleLines[translations[value as keyof typeof translations]] &&
+                      'line-through'
+                  )}
+                >
+                  {value}
+                </Button>
+              )}
+              onClick={(e) => handleLegendClick(String(e.dataKey))}
+            />
+            <Area
+              type="monotone"
+              dataKey="uniquePlayerInDataBase"
+              name="Unique Players"
+              hide={!visibleLines.uniquePlayerInDataBase}
+              fill="url(#players-gradient)"
+              stroke={graphColors[3]}
+              strokeWidth={3}
+              dot={false}
+            />
+            <Area
+              type="monotone"
+              dataKey="uniqueFactionInDataBase"
+              name="Unique Factions"
+              hide={!visibleLines.uniqueFactionInDataBase}
+              fill="url(#factions-gradient)"
+              stroke={graphColors[1]}
+              strokeWidth={3}
+              dot={false}
+            />
+            <defs>
+              <LinearGradient id="players-gradient" from={graphColors[3]} />
+              <LinearGradient id="factions-gradient" from={graphColors[1]} />
+            </defs>
+          </AreaChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
+  )
+}
+
+const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
+  const [today, yesterday] = data
+
+  const icons = {
+    Factions: ServerIcon,
+    Players: UsersIcon,
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-3 gap-4">
+        <StatCard>
+          <StatCardHeader>
+            <StatCardTitle>Unique Player</StatCardTitle>
+            <icons.Players className="size-4" />
+          </StatCardHeader>
+          <StatCardContent>
+            <StatCardValue>
+              {formatNumber(today.uniquePlayerInDataBase, { notation: 'standard' })}
+            </StatCardValue>
+            <StatCardChange
+              value={today.uniquePlayerInDataBase}
+              compare={yesterday.uniquePlayerInDataBase}
+            />
+          </StatCardContent>
+        </StatCard>
+        <StatCard>
+          <StatCardHeader>
+            <StatCardTitle>Unique Faction</StatCardTitle>
+            <icons.Factions className="size-4" />
+          </StatCardHeader>
+          <StatCardContent>
+            <StatCardValue>
+              {formatNumber(today.uniqueFactionInDataBase, { notation: 'standard' })}
+            </StatCardValue>
+            <StatCardChange
+              value={today.uniqueFactionInDataBase}
+              compare={yesterday.uniqueFactionInDataBase}
+            />
+          </StatCardContent>
+        </StatCard>
+      </div>
+      <DBEvolutionCard
+        data={data.toReversed().map((item) => {
+          return {
+            date: item.date,
+            uniquePlayerInDataBase: item.uniquePlayerInDataBase,
+            uniqueFactionInDataBase: item.uniqueFactionInDataBase,
+          }
+        })}
+      />
     </div>
   )
 }
