@@ -38,9 +38,6 @@ export default function ChangelogsPage(props: ChangelogsPageProps) {
               li({ node, ...liProps }) {
                 return <li className="text-sm" {...liProps} />
               },
-              img({ node, ...imgProps }) {
-                return <img className="inline w-5 h-5 mr-2 align-middle" {...imgProps} />
-              },
             }}
           >
             {content}
