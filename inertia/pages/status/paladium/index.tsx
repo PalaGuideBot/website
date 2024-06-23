@@ -139,12 +139,12 @@ const GlobalTab = ({
 
   const averagePlayers = data.reduce((sum, entry) => sum + entry.global.players, 0) / data.length
 
-  const dataWithAverage = data
-    .map((entry) => ({
-      ...entry,
-      average: averagePlayers,
-    }))
-    .reverse()
+  const dataWithAverage = data.map((entry) => ({
+    ...entry,
+    average: averagePlayers,
+  }))
+
+  if (dateInterval === 'last-30-days') dataWithAverage.reverse()
 
   return (
     <Card>
