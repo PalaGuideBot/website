@@ -9,6 +9,7 @@ const PageController = () => import('#controllers/page_controller')
 
 router.group(() => {
   router.get('/', [PageController, 'home']).as('home')
+  router.get('/informations', [PageController, 'informations']).as('informations')
   router.get('/discord', [PageController, 'discord']).as('discord')
   router.get('/privacy', [PageController, 'privacy']).as('privacy')
   router.get('/terms', [PageController, 'terms']).as('terms')

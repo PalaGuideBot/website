@@ -37,4 +37,8 @@ export default class PageController {
     const content = await readFile(app.makePath('resources/static/pages/changelogs.md'), 'utf-8')
     return inertia.render('changelogs', { content })
   }
+
+  async informations({ inertia }: HttpContext) {
+    return inertia.render('informations')
+  }
 }

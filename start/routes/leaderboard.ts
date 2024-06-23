@@ -1,3 +1,4 @@
+import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
 const FactionsController = () => import('#leaderboard/controllers/factions_controller')
@@ -12,6 +13,7 @@ const KothController = () => import('#leaderboard/controllers/koth_controller')
 
 router
   .group(() => {
+    router.get('/', ({ inertia }: HttpContext) => inertia.render('leaderboard/index')).as('index')
     router.get('/factions', [FactionsController, 'index']).as('factions.index')
     router.get('/money', [MoneyController, 'index']).as('money.index')
     router.get('/trixium', [TrixiumController, 'index']).as('trixium.index')

@@ -1,5 +1,11 @@
 # Changelogs
 
+## 23/06/2024 *website*
+
+- Ajout des pages `/stats`, `/leaderboard`, `/informations` qui servent de passerelle pour les différentes 
+catégories (Suggestions: "**Page de chemin**")
+- Ajout d'une redirection de la page `/status` vers `/status/paladium` (Suggestions: "**Page de chemin**")
+
 ## 21/06/2024 *website*
 
 - Affichage de badges pour différencier les changelogs du bot et du site web dans les changelogs.

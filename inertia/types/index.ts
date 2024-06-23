@@ -47,3 +47,10 @@ export type PaladiumFaction =
   | 'Keltis'
   | 'Neolith'
   | 'Untaa'
+
+export type Path = {
+  title: string
+  description: string
+  path: string
+  external?: boolean
+}
