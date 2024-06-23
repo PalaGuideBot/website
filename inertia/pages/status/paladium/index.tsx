@@ -139,10 +139,12 @@ const GlobalTab = ({
 
   const averagePlayers = data.reduce((sum, entry) => sum + entry.global.players, 0) / data.length
 
-  const dataWithAverage = data.map((entry) => ({
-    ...entry,
-    average: averagePlayers,
-  }))
+  const dataWithAverage = data
+    .map((entry) => ({
+      ...entry,
+      average: averagePlayers,
+    }))
+    .reverse()
 
   return (
     <Card>
