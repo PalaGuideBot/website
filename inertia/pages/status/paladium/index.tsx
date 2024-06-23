@@ -26,6 +26,12 @@ import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
 type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 
+type Status = {
+  from: string
+  to: string
+  status: PaladiumStatus
+}
+
 export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
   const { todayStatus, last30daysStatus } = props
 
@@ -87,7 +93,13 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
               </div>
             </Tabs.List>
             <Tabs.Content value="global">
-              <GlobalTab data={status.map((s) => ({ date: s.date, global: s.data.java.global }))} />
+              <GlobalTab
+                data={status.map((s) => ({
+                  date: s.date,
+                  hour: s.hour,
+                  global: s.data.java.global,
+                }))}
+              />
             </Tabs.Content>
             <Tabs.Content value="factions">
               <FactionsTab
@@ -112,8 +124,14 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
 const GlobalTab = ({
   data,
 }: {
-  data: Array<{ date: string; global: { status: PaladiumStatus; players: number } }>
+  data: Array<{
+    date: string
+    hour?: string
+    global: { status: Array<Status>; players: number }
+  }>
 }) => {
+  const dateInterval = useDateIntervalStore((state) => state.dateInterval)
+
   const globalStatus = data.map((s) => ({
     date: s.date,
     status: s.global.status,
@@ -140,24 +158,33 @@ const GlobalTab = ({
               <AreaChart data={dataWithAverage}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
-                  dataKey="date"
-                  tickFormatter={(value) => formatDate(value, 'dd/MM/yyyy')}
+                  dataKey={(entry) => `${entry.date} ${entry.hour ?? '00'}:00:00`}
+                  tickFormatter={(value) =>
+                    formatDate(value, dateInterval === 'today' ? 'pp' : 'dd/MM/yyyy')
+                  }
                   className="text-xs"
                   angle={-45}
                   textAnchor="end"
                 />
                 <YAxis className="text-xs" orientation="right" />
                 <Tooltip
-                  content={({ active, payload, label }) => {
+                  content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       const {
+                        date,
+                        hour = '00',
                         global: { players },
                         average,
                       } = payload[0].payload
                       return (
                         <Card className="bg-background">
                           <CardContent className="p-4 space-y-2">
-                            <div className="font-pixel text-xs">{formatDate(label, 'PPpp')}</div>
+                            <div className="font-pixel text-xs">
+                              {formatDate(
+                                `${date} ${hour}:00:00`,
+                                dateInterval === 'today' ? 'PPpp' : 'PP'
+                              )}
+                            </div>
                             <div className="flex flex-col gap-2">
                               <div className="flex gap-2 items-center">
                                 <span className="text-sm">Joueurs: </span>
@@ -210,7 +237,7 @@ const GlobalTab = ({
 const FactionsTab = ({
   data,
 }: {
-  data: Array<{ date: string; factions: Record<string, PaladiumStatus> }>
+  data: Array<{ date: string; factions: Record<string, Array<Status>> }>
 }) => {
   const groupedByFaction = data.reduce(
     (acc, s) => {
@@ -222,7 +249,7 @@ const FactionsTab = ({
       })
       return acc
     },
-    {} as Record<string, Array<{ date: string; status: PaladiumStatus }>>
+    {} as Record<string, Array<{ date: string; status: Array<Status> }>>
   )
   return (
     <Card>
@@ -232,7 +259,7 @@ const FactionsTab = ({
             const Icon = factionIcons[faction as PaladiumFaction]
             return (
               <div key={faction} className="flex items-end justify-center gap-4 pb-2">
-                <Icon className="h-10 w-10" />
+                <Icon className="h-10 w-10 invert-0" />
                 <div className="space-y-2 flex-grow">
                   <PageSubTitle>{faction}</PageSubTitle>
                   <UptimeIndicator data={status} />
@@ -249,7 +276,7 @@ const FactionsTab = ({
 const LauncherTab = ({
   data,
 }: {
-  data: Array<{ date: string; launcher: { status: PaladiumStatus } }>
+  data: Array<{ date: string; launcher: { status: Array<Status> } }>
 }) => {
   return (
     <Card>

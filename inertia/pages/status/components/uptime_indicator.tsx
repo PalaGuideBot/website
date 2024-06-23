@@ -27,7 +27,7 @@ import { PaladiumStatus } from '~/types'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
 type UptimeIndicatorProps = {
-  data: Array<{ date: string; status: PaladiumStatus }>
+  data: Array<{ date: string; status: Array<{ from: string; to: string; status: PaladiumStatus }> }>
 }
 
 const TIME_INTERVAL_IN_MINUTES = 10
@@ -63,7 +63,7 @@ const UptimeIndicatorTick = ({
   status,
 }: {
   date: string
-  status: UptimeIndicatorProps['data']
+  status: UptimeIndicatorProps['data'][number]['status']
 }) => {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
@@ -94,7 +94,7 @@ const UptimeIndicatorTick = ({
       </PopoverTrigger>
       <PopoverContent className="min-w-72" side="bottom">
         {status.length > 0 ? (
-          <UptimeIndicatorTickTooltipContent status={status} />
+          <UptimeIndicatorTickTooltipContent date={date} status={status} />
         ) : (
           <UptimeIndicatorTickTooltipEmptyContent date={date} />
         )}
@@ -104,40 +104,20 @@ const UptimeIndicatorTick = ({
 }
 
 const UptimeIndicatorTickTooltipContent = ({
+  date,
   status,
 }: {
-  status: UptimeIndicatorProps['data']
+  date: string
+  status: UptimeIndicatorProps['data'][number]['status']
 }) => {
-  const historyStatus = status.reduce(
-    (history, data) => {
-      const { date, status: s } = data
-
-      const lastHistory = history[history.length - 1]
-      const formattedDate = formatDate(date, 'p')
-
-      if (!lastHistory || lastHistory.status !== s) {
-        history.push({
-          period: [formattedDate, formattedDate],
-          status: s,
-        })
-      } else {
-        const [from] = lastHistory.period
-        lastHistory.period = [from, formattedDate]
-      }
-
-      return history
-    },
-    [] as Array<{ period: [string, string]; status: PaladiumStatus }>
-  )
-
   return (
     <>
-      <h4 className="font-pixel text-xs">{formatDate(status[0].date, 'PP')}</h4>
+      <h4 className="font-pixel text-xs">{formatDate(date, 'PP')}</h4>
       <ul className="p-2 text-sm space-y-2">
-        {historyStatus.map((s, index) => {
-          const [from, to] = s.period
+        {status.toReversed().map((s, index) => {
+          const { from, to } = s
           return (
-            <li key={s.period.join('') + index} className="flex gap-2 items-center">
+            <li key={[from, to].join('') + index} className="flex gap-2 items-center">
               <UptimeIndicatorStatus status={s.status} />
               <span>{from === to ? from : `de ${from} à ${to}`}</span>
             </li>
@@ -173,25 +153,31 @@ const UptimeIndicatorTickTooltipEmptyContent = ({ date }: { date: string }) => {
 const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
-  let result: Array<{ date: string; status: UptimeIndicatorProps['data'] }> = []
+  let result: Array<{ date: string; status: UptimeIndicatorProps['data'][number]['status'] }> = []
 
   switch (dateInterval) {
     case 'today':
-      result = eachHourOfDate(new Date()).map((date) => {
+      result = eachHourOfDate(data[0].date).map((date) => {
         return {
           date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
-          status: data.filter((s) => isSameHour(date, s.date)),
+          status:
+            data.find((s) =>
+              s.status.some(
+                (status) => isSameHour(date, `${s.date} ${status.from}`)
+                // isSameHour(date, `${s.date} ${status.to}`)
+              )
+            )?.status ?? [],
         }
       })
       break
     case 'last-30-days':
       result = eachDayOfInterval({
         start: addDays(startOfDay(new Date()), -29),
-        end: endOfDay(data[data.length - 1].date),
+        end: endOfDay(data[0].date),
       }).map((date) => {
         return {
           date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
-          status: data.filter((s) => isSameDay(date, s.date)),
+          status: data.filter((s) => isSameDay(date, s.date)).flatMap((s) => s.status),
         }
       })
       break
