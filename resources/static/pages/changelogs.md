@@ -1,5 +1,9 @@
 # Changelogs
 
+## 24/06/2024
+
+- Optimisation de page `/status/paladium` & `/leaderboard/trixium`
+
 ## 23/06/2024 *website*
 
 - Ajout des pages `/stats`, `/leaderboard`, `/informations` qui servent de passerelle pour les différentes 
