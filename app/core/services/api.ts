@@ -77,9 +77,7 @@ export class ApiService {
       const response = await client.get('leaderboard/' + category)
       const data = await response.json()
       const validatedData = await leaderboardValidators[category].validate(data)
-      return validatedData.toSorted(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      )
+      return validatedData
     } catch (error: unknown) {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception(`Invalid leaderboard data for category "${category}"`, {

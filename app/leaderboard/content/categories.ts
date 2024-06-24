@@ -9,6 +9,7 @@ const categories = [
   'money',
   'trixfaction',
   'trixuser',
+  'trixium',
 ] as const
 
 export default categories

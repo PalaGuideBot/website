@@ -114,34 +114,30 @@ const moneyValidator = vine.compile(
   )
 )
 
-const trixiumFactionValidator = vine.compile(
-  vine.array(
-    vine.object({
-      date: vine.string(),
-      data: vine.array(
-        vine.object({
-          uuid: vine.string().uuid(),
-          value: vine.number(),
-          emblemUrl: vine.string().optional(),
-          name: vine.string().optional(),
-        })
-      ),
-    })
-  )
+const trixiumFactionValidator = vine.array(
+  vine.object({
+    date: vine.string(),
+    data: vine.array(
+      vine.object({
+        uuid: vine.string().uuid(),
+        value: vine.number(),
+        emblemUrl: vine.string().optional(),
+        name: vine.string().optional(),
+      })
+    ),
+  })
 )
 
-const trixiumPlayerValidator = vine.compile(
-  vine.array(
-    vine.object({
-      date: vine.string(),
-      data: vine.array(
-        vine.object({
-          username: vine.string(),
-          value: vine.number(),
-        })
-      ),
-    })
-  )
+const trixiumPlayerValidator = vine.array(
+  vine.object({
+    date: vine.string(),
+    data: vine.array(
+      vine.object({
+        username: vine.string(),
+        value: vine.number(),
+      })
+    ),
+  })
 )
 
 export const validators = {
@@ -153,6 +149,12 @@ export const validators = {
   end: endValidator,
   koth: kothValidator,
   money: moneyValidator,
-  trixfaction: trixiumFactionValidator,
-  trixuser: trixiumPlayerValidator,
+  trixfaction: vine.compile(trixiumFactionValidator.clone()),
+  trixuser: vine.compile(trixiumPlayerValidator.clone()),
+  trixium: vine.compile(
+    vine.object({
+      faction: trixiumFactionValidator.clone(),
+      user: trixiumPlayerValidator.clone(),
+    })
+  ),
 } satisfies Record<LeaderboardCategory, VineValidator<any, any>>
