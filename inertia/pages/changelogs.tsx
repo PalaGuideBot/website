@@ -1,3 +1,5 @@
+import { Badge } from '@lemonsqueezy/wedges'
+import { BadgeInfoIcon } from 'lucide-react'
 import DefaultLayout from '~/components/layouts/default'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
@@ -37,6 +39,21 @@ export default function ChangelogsPage(props: ChangelogsPageProps) {
               },
               li({ node, ...liProps }) {
                 return <li className="text-sm" {...liProps} />
+              },
+              p({ node, ...pProps }) {
+                const match = /^-> (?<type>Website|Bot)/.exec(String(pProps.children))
+
+                if (match?.groups) {
+                  return (
+                    <p className="mb-2">
+                      <Badge className="py-0.5" stroke before={<BadgeInfoIcon />}>
+                        {match.groups.type}
+                      </Badge>
+                    </p>
+                  )
+                }
+
+                return implementedComponents.p({ node, className: 'mb-2', ...pProps })
               },
             }}
           >
