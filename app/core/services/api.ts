@@ -91,7 +91,7 @@ export class ApiService {
 
   async getPaladiumStatus() {
     try {
-      const response = await client.get('newstatus')
+      const response = await client.get('status')
       const data = await response.json()
       return await paladiumStatusValidator.validate(data)
     } catch (error: unknown) {
