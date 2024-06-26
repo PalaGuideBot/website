@@ -21,6 +21,7 @@ import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { useSearchParams } from '~/hooks/use_search_params'
 import { getHeadUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
@@ -31,13 +32,20 @@ type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
 export default function TrixiumIndex(props: TrixiumPageProps) {
   const { leaderboardFaction, leaderboardPlayer } = props
+
+  const [searchParams, setSearchParams] = useSearchParams({ tab: 'player' })
+
+  const onChangeTab = (value: string) => {
+    setSearchParams({ tab: value })
+  }
+
   return (
     <>
       <Head title="Leaderboard: Trixium" />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Trixium</PageTitle>
-          <Tabs defaultValue="player" variant="underlined">
+          <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
             <Tabs.List>
               <Tabs.Trigger before={<UserIcon className="size-4" />} value="player">
                 Joueur
