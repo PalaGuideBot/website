@@ -8,7 +8,7 @@ import { useTheme } from './theme_provider'
 
 const Header = () => {
   return (
-    <header className="md:hidden min-h-14 w-full border-b flex gap-4 justify-between items-center px-4 bg-surface">
+    <header className="md:hidden min-h-14 w-full border-b flex gap-4 justify-between items-center px-4 bg-background">
       <MobileNavigation />
       <Link href="/">
         <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
@@ -22,7 +22,7 @@ const StaffHeader = () => {
   const user = useAuth()
   const { theme, setTheme } = useTheme()
   return (
-    <header className="min-h-14 w-full border-b px-4 bg-surface">
+    <header className="min-h-14 w-full border-b px-4 bg-background">
       <div className="max-w-4xl mx-auto flex gap-4 h-full justify-between items-center">
         <Link href="/">
           <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
