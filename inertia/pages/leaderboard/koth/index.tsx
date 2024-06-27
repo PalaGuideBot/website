@@ -62,7 +62,7 @@ export default function KothIndex(props: KothIndexProps) {
       <Head title="Leaderboard: Koth" />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Boss</PageTitle>
+          <PageTitle>Leaderboard: Koth</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
             <Podium data={first} position="first" />

@@ -113,7 +113,7 @@ export default function Home(props: HomePageProps) {
               <p className="leading-6 text-center lg:text-left xl:text-lg">
                 Consultez vos statistiques directement sur{' '}
                 <span className="text-primary font-bold">Discord</span>, et partagez-les avec vos
-                amis. Améloirez votre <span className="text-primary font-bold">Expérience</span> de
+                amis. Améliorez votre <span className="text-primary font-bold">Expérience</span> de
                 jeu en temps réel avec nos outils.
               </p>
               <div className="flex flex-col md:flex-row gap-2 items-center justify-center w-full">
