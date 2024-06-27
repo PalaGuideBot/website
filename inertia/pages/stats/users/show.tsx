@@ -1,15 +1,12 @@
 import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { router, usePage } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
-import { SearchIcon } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { usePage } from '@inertiajs/react'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
-import Input from '~/components/ui/input'
 import { getHeadUrl } from '~/lib/minecraft'
+import { SearchUserForm } from './components/search_user_form'
 import { UserDetails } from './components/user_details'
 
 export type UserShowProps = InferPageProps<UsersController, 'show'>
@@ -19,18 +16,6 @@ export default function UserShow(props: UserShowProps) {
   const {
     props: { error },
   } = usePage<{ error?: string }>()
-  const [isLoading, setIsLoading] = useState(false)
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const username = formData.get('username') as string
-    router.visit(`/stats/users/${username}`, {
-      preserveState: true,
-      onStart: () => setIsLoading(true),
-      onFinish: () => setIsLoading(false),
-    })
-  }
 
   return (
     <>
@@ -45,25 +30,7 @@ export default function UserShow(props: UserShowProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>Statistiques utilisateur</PageTitle>
-          <form onSubmit={onSubmit}>
-            <div className="flex">
-              <Input
-                className="rounded-r-none w-full"
-                placeholder="Pseudo"
-                name="username"
-                defaultValue={user?.username}
-                disabled={isLoading}
-              />
-              <Button
-                variant="tertiary"
-                className="rounded-l-none w-12"
-                disabled={isLoading}
-                isIconOnly
-              >
-                <SearchIcon className="size-4" />
-              </Button>
-            </div>
-          </form>
+          <SearchUserForm defaultValue={user?.username} />
           {!error && !user && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>
