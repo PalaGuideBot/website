@@ -34,7 +34,14 @@ export default function FactionShow(props: FactionShowProps) {
 
   return (
     <>
-      <Head title={faction?.name || 'Faction'} />
+      {faction ? (
+        <Head title={faction.name}>
+          <meta property="og:image" content={faction.emblemUrl} />
+          <meta name="twitter:image" content={faction.emblemUrl} />
+        </Head>
+      ) : (
+        <Head title="Faction" />
+      )}
       <DefaultLayout>
         <Page>
           <PageTitle>Statistiques faction</PageTitle>
