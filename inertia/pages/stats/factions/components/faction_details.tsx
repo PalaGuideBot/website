@@ -240,7 +240,11 @@ const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['player
   return (
     <Link href={`/stats/users/${player.username}`}>
       <div className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30">
-        <img src={getHeadUrl(player.username)} className="object-contain h-full w-auto" />
+        <img
+          src={getHeadUrl(player.username)}
+          alt={`${player.username}'s avatar`}
+          className="object-contain h-full w-auto"
+        />
         <div className="flex flex-col justify-between gap-2">
           <p className="font-pixel text-sm">{player.username}</p>
           <p className={cn('font-mc-dungueons text-xs', isLeader && 'text-primary')}>

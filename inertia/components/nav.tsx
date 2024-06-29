@@ -142,8 +142,9 @@ export function Navigation() {
                     href={path}
                     target="_blank"
                     className={cn(
-                      'relative flex items-center gap-2 p-2 rounded-md hover:bg-surface-200 transition-colors',
-                      (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
+                      'relative flex items-center gap-2 p-2 rounded-md hover:bg-surface-100 transition-colors',
+                      (url === path || url.startsWith(path)) &&
+                        'bg-primary text-wg-black hover:text-foreground'
                     )}
                   >
                     {icon}
@@ -154,8 +155,9 @@ export function Navigation() {
                   <Link
                     href={path}
                     className={cn(
-                      'flex items-center gap-2 p-2 rounded-md hover:bg-surface-200 transition-colors',
-                      (url === path || url.startsWith(path)) && 'bg-primary dark:text-wg-black'
+                      'flex items-center gap-2 p-2 rounded-md hover:bg-surface-100 transition-colors',
+                      (url === path || url.startsWith(path)) &&
+                        'bg-primary text-wg-black hover:text-foreground'
                     )}
                   >
                     {icon}

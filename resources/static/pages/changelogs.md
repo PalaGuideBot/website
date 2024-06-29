@@ -1,5 +1,10 @@
 # Changelogs
 
+## 29/06/2024
+
+-> Website
+- Amélioration de l'accesibilité sur l'ensemble des pages
+
 ## 24/06/2024
 
 -> Website

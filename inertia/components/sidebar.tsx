@@ -8,7 +8,7 @@ export default function Sidebar() {
       <div className="flex h-full flex-col">
         <div className="flex min-h-14 items-center justify-between gap-2 border-b px-4 lg:h-[60px] lg:px-6">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
+            <img src="/logo.png" alt="Logo" className="h-6 lg:h-8 w-full object-contain" />
             <span className="font-bold">PalaGuideBot</span>
           </Link>
           <ThemeToggler />

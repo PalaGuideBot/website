@@ -11,7 +11,7 @@ const Header = () => {
     <header className="md:hidden min-h-14 w-full border-b flex gap-4 justify-between items-center px-4 bg-background">
       <MobileNavigation />
       <Link href="/">
-        <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
+        <img src="/logo.png" alt="Logo" className="h-6 lg:h-8 w-full object-contain" />
       </Link>
       <ThemeToggler size="sm" />
     </header>

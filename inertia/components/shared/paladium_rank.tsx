@@ -15,7 +15,7 @@ const PaladiumRank = ({ rank, className }: PaladiumRankProps) => {
   return (
     <div className="flex items-center">
       <span className={cn('font-mc-dungueons text-sm', className)}>{rank}</span>
-      {rankIcon && <img src={rankIcon} className={cn(iconSize, 'ml-2')} />}
+      {rankIcon && <img src={rankIcon} alt={`${rank}'s icon`} className={cn(iconSize, 'ml-2')} />}
     </div>
   )
 }

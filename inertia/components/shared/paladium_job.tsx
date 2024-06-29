@@ -25,7 +25,7 @@ const PaladiumJob = ({ job, info }: PaladiumJobProps) => {
       <div className="relative flex items-center justify-center">
         <div className="relative">
           <JobProgress className="absolute -top-[5px] scale-[0.64]" job={job} info={info} />
-          <img src={jobIcon} className="relative h-auto w-full max-w-32" />
+          <img src={jobIcon} alt={`${job}'s icon`} className="relative h-auto w-full max-w-32" />
         </div>
         <div
           className={cn(

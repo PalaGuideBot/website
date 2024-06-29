@@ -73,10 +73,14 @@ export default function Home(props: HomePageProps) {
               className="w-full"
             >
               <CarouselContent>
-                {[StatsPreview, LeaderboardPreview, StatusPreview].map((path, index) => (
-                  <CarouselItem key={index}>
+                {[StatsPreview, LeaderboardPreview, StatusPreview].map((path) => (
+                  <CarouselItem key={path}>
                     <div className="flex items-center justify-center h-full">
-                      <img src={path} className="object-contain h-auto w-full rounded-md" />
+                      <img
+                        src={path}
+                        alt="Preview image"
+                        className="object-contain h-auto w-full rounded-md"
+                      />
                     </div>
                   </CarouselItem>
                 ))}
@@ -96,10 +100,14 @@ export default function Home(props: HomePageProps) {
                 className="w-full"
               >
                 <CarouselContent>
-                  {[CardPreview, CraftPreview, LookupPreview, QdfPreview].map((path, index) => (
-                    <CarouselItem key={index}>
+                  {[CardPreview, CraftPreview, LookupPreview, QdfPreview].map((path) => (
+                    <CarouselItem key={path}>
                       <div className="flex items-center justify-center h-full">
-                        <img src={path} className="object-contain h-auto w-full rounded-md" />
+                        <img
+                          src={path}
+                          alt="Preview image"
+                          className="object-contain h-auto w-full rounded-md"
+                        />
                       </div>
                     </CarouselItem>
                   ))}
