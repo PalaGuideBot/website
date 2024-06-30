@@ -60,4 +60,8 @@ export type ServerUsageInfo = {
   pid: number
   memory: string
   cpu: string
+  status: string
+  created_at: string
+  uptime: number
+  date: string
 }

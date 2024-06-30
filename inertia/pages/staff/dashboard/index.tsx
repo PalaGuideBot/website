@@ -3,13 +3,16 @@ import { InferPageProps } from '@adonisjs/inertia/types'
 import { Avatar, Badge, Loading, Tabs } from '@lemonsqueezy/wedges'
 import {
   CalendarDaysIcon,
+  CirclePowerIcon,
   CodeXmlIcon,
   CpuIcon,
+  HashIcon,
   InfoIcon,
   MemoryStickIcon,
   PointerIcon,
   ServerIcon,
   SwordsIcon,
+  TimerIcon,
   UsersIcon,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -20,7 +23,7 @@ import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
-import { formatDate } from '~/lib/date'
+import { formatDate, formatDistance } from '~/lib/date'
 import { transmit } from '~/lib/transmit'
 import { formatNumber } from '~/lib/utils'
 import { ServerUsageInfo } from '~/types'
@@ -359,14 +362,28 @@ const UsageTab = () => {
             <ServerUsageCard key={item.pid}>
               <ServerUsageCardHeader>
                 <ServerUsageCardTitle>{item.name}</ServerUsageCardTitle>
-                <span className="text-xs">PID: {item.pid}</span>
+                <Badge shape="pill" stroke before={<CirclePowerIcon />}>
+                  {item.status}
+                </Badge>
               </ServerUsageCardHeader>
-              <ServerUsageCardContent>
+              <ServerUsageCardContent className="space-y-1">
                 <ServerUsageCardValue before={<CpuIcon className="size-4" />}>
-                  {item.cpu}
+                  CPU: {item.cpu}
                 </ServerUsageCardValue>
                 <ServerUsageCardValue before={<MemoryStickIcon className="size-4" />}>
-                  {item.memory}
+                  RAM: {item.memory}
+                </ServerUsageCardValue>
+                <ServerUsageCardValue
+                  className="font-normal"
+                  before={<HashIcon className="size-4" />}
+                >
+                  PID: {item.pid}
+                </ServerUsageCardValue>
+                <ServerUsageCardValue
+                  className="font-normal"
+                  before={<TimerIcon className="size-4" />}
+                >
+                  UPTIME: {formatDistance(item.uptime, item.date)}
                 </ServerUsageCardValue>
               </ServerUsageCardContent>
             </ServerUsageCard>

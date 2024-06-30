@@ -1,5 +1,11 @@
+import {
+  eachHourOfInterval,
+  endOfDay,
+  format as f,
+  formatDistanceStrict,
+  startOfDay,
+} from 'date-fns'
 import { fr } from 'date-fns/locale'
-import { format as f, startOfDay, endOfDay, eachHourOfInterval } from 'date-fns'
 
 export function formatDate(date: string | Date, format: string = 'PPpp') {
   return f(date, format, { locale: fr })
@@ -10,4 +16,9 @@ export function eachHourOfDate(date: string | Date) {
     start: startOfDay(date),
     end: endOfDay(date),
   })
+}
+
+export function formatDistance(...args: Parameters<typeof formatDistanceStrict>) {
+  let [date, baseDate, options] = args
+  return formatDistanceStrict(date, baseDate, { locale: fr, ...options })
 }

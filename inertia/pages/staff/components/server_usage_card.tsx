@@ -20,7 +20,7 @@ const ServerUsageCardHeader = ({
 }
 
 const ServerUsageCardTitle = ({ className, ...props }: React.ComponentProps<typeof CardTitle>) => {
-  return <CardTitle className={cn('text-sm font-medium uppercase', className)} {...props} />
+  return <CardTitle className={cn('font-bold uppercase', className)} {...props} />
 }
 
 const ServerUsageCardContent = CardContent
@@ -36,7 +36,10 @@ const ServerUsageCardValue = ({
   ...props
 }: ServerUsageCardValueProps) => {
   return (
-    <div className={cn('font-bold', before && 'flex items-center gap-2', className)} {...props}>
+    <div
+      className={cn('font-bold text-sm', before && 'flex items-center gap-2', className)}
+      {...props}
+    >
       {before}
       {children}
     </div>
