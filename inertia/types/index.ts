@@ -54,3 +54,10 @@ export type Path = {
   path: string
   external?: boolean
 }
+
+export type ServerUsageInfo = {
+  name: string
+  pid: number
+  memory: string
+  cpu: string
+}

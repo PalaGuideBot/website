@@ -1,14 +1,18 @@
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
+import { Avatar, Badge, Loading, Tabs } from '@lemonsqueezy/wedges'
 import {
   CalendarDaysIcon,
   CodeXmlIcon,
+  CpuIcon,
+  InfoIcon,
+  MemoryStickIcon,
   PointerIcon,
   ServerIcon,
   SwordsIcon,
   UsersIcon,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { DiscordIcon } from '~/components/icons'
 import StaffLayout from '~/components/layouts/staff'
 import { Page, PageTitle } from '~/components/page'
@@ -17,7 +21,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
 import { formatDate } from '~/lib/date'
+import { transmit } from '~/lib/transmit'
 import { formatNumber } from '~/lib/utils'
+import { ServerUsageInfo } from '~/types'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
 import {
   ApiStatsEndpointsCard,
@@ -26,6 +32,13 @@ import {
 import { ApiStatsKeysCard, type ApiStatsKeysCardProps } from '../components/api_stats_keys_card'
 import { DiscordEvolutionCard } from '../components/discord_evolution_card'
 import { DiscordInteractionsCard } from '../components/discord_interactions_card'
+import {
+  ServerUsageCard,
+  ServerUsageCardContent,
+  ServerUsageCardHeader,
+  ServerUsageCardTitle,
+  ServerUsageCardValue,
+} from '../components/server_usage_card'
 import {
   StatCard,
   StatCardChange,
@@ -40,6 +53,7 @@ type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 export default function DashboardIndexPage(props: DashboardIndexPageProps) {
   const { stats } = props
   const lastDate = stats.at(0)?.date ?? new Date()
+
   return (
     <>
       <Head title="Tableau de bord" />
@@ -55,6 +69,9 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
                 <Tabs.Trigger before={<CodeXmlIcon className="size-4" />} value="api">
                   API
                 </Tabs.Trigger>
+                <Tabs.Trigger before={<ServerIcon className="size-4" />} value="usage">
+                  Usage
+                </Tabs.Trigger>
               </div>
               <Badge before={<CalendarDaysIcon />} stroke>
                 {formatDate(lastDate, 'PP')}
@@ -65,6 +82,9 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
             </Tabs.Content>
             <Tabs.Content value="api">
               <ApiTab data={stats} />
+            </Tabs.Content>
+            <Tabs.Content value="usage">
+              <UsageTab />
             </Tabs.Content>
           </Tabs>
         </Page>
@@ -290,6 +310,69 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
       />
       <ApiStatsKeysCard data={keysGraphData} keys={keys} />
       <ApiStatsEndpointsCard data={endpointsGraphData} endpoints={endpoints} />
+    </div>
+  )
+}
+
+const UsageTab = () => {
+  const [data, setData] = useState<ServerUsageInfo[]>([])
+  const [isSubscribed, setIsSubscribed] = useState(false)
+
+  useEffect(() => {
+    const subscription = transmit.subscription('staff/ws')
+
+    const unsbscribe = subscription.onMessage<ServerUsageInfo[]>((message) => {
+      setData(message)
+    })
+
+    const create = async () => {
+      setIsSubscribed(false)
+      await subscription.create()
+      setIsSubscribed(true)
+    }
+
+    create()
+
+    return () => {
+      unsbscribe()
+      subscription.delete()
+    }
+  }, [])
+
+  return (
+    <div className="flex flex-col gap-4">
+      {!isSubscribed && (
+        <div className="h-64 flex flex-col items-center justify-center gap-4">
+          <Loading className="size-16" />
+          <span>Connexion en cours...</span>
+        </div>
+      )}
+      {data.length === 0 && isSubscribed && (
+        <div className="h-64 flex flex-col items-center justify-center gap-4">
+          <InfoIcon className="size-16" />
+          Aucune donnée disponible pour le moment.
+        </div>
+      )}
+      {data.length !== 0 && isSubscribed && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {data.map((item) => (
+            <ServerUsageCard key={item.pid}>
+              <ServerUsageCardHeader>
+                <ServerUsageCardTitle>{item.name}</ServerUsageCardTitle>
+                <span className="text-xs">PID: {item.pid}</span>
+              </ServerUsageCardHeader>
+              <ServerUsageCardContent>
+                <ServerUsageCardValue before={<CpuIcon className="size-4" />}>
+                  {item.cpu}
+                </ServerUsageCardValue>
+                <ServerUsageCardValue before={<MemoryStickIcon className="size-4" />}>
+                  {item.memory}
+                </ServerUsageCardValue>
+              </ServerUsageCardContent>
+            </ServerUsageCard>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

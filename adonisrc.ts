@@ -37,6 +37,8 @@ export default defineConfig({
     () => import('@adonisjs/inertia/inertia_provider'),
     () => import('@adonisjs/ally/ally_provider'),
     () => import('@adonisjs/session/session_provider'),
+    () => import('@adonisjs/transmit/transmit_provider'),
+    () => import('#staff/providers/socket_provider'),
   ],
 
   /*
