@@ -51,6 +51,7 @@ import {
   StatCardValue,
 } from '../components/stat_card'
 import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
+import { UsageHistoryCpuCard } from '../components/usage_history_cpu_card'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
@@ -365,6 +366,24 @@ const UsageTab = () => {
     [data, services]
   )
 
+  const historyCpuGraphData = useMemo(
+    () =>
+      Object.entries(Object.groupBy(data, (item) => item.date)).map(([date, items]) => {
+        return {
+          date: date,
+          ...services.reduce(
+            (acc, service) => {
+              const target = items?.find((item) => item.name === service)
+              acc[service] = target?.cpu ?? 0
+              return acc
+            },
+            {} as Record<string, number>
+          ),
+        }
+      }),
+    [data, services]
+  )
+
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -410,6 +429,7 @@ const UsageTab = () => {
           ))}
       </div>
       <UsageHistoryRamCard data={historyRamGraphData} services={services} />
+      <UsageHistoryCpuCard data={historyCpuGraphData} services={services} />
     </div>
   )
 }
