@@ -1,13 +1,12 @@
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Badge, Loading, Tabs } from '@lemonsqueezy/wedges'
+import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
 import {
   CalendarDaysIcon,
   CirclePowerIcon,
   CodeXmlIcon,
   CpuIcon,
   HashIcon,
-  InfoIcon,
   MemoryStickIcon,
   PointerIcon,
   ServerIcon,
@@ -15,13 +14,14 @@ import {
   TimerIcon,
   UsersIcon,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { DiscordIcon } from '~/components/icons'
 import StaffLayout from '~/components/layouts/staff'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
+import { Skeleton } from '~/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
 import { formatDate, formatDistance } from '~/lib/date'
 import { transmit } from '~/lib/transmit'
@@ -50,6 +50,7 @@ import {
   StatCardTitle,
   StatCardValue,
 } from '../components/stat_card'
+import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
@@ -319,13 +320,15 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
 
 const UsageTab = () => {
   const [data, setData] = useState<ServerUsageInfo[]>([])
+  const [lastData, setLastData] = useState<ServerUsageInfo[]>([])
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
     const subscription = transmit.subscription('staff/ws')
 
     const unsbscribe = subscription.onMessage<ServerUsageInfo[]>((message) => {
-      setData(message)
+      setData((prev) => [...prev, ...message])
+      setLastData(message)
     })
 
     const create = async () => {
@@ -342,23 +345,34 @@ const UsageTab = () => {
     }
   }, [])
 
+  const services = useMemo(() => Array.from(new Set(data.flatMap((item) => item.name))), [data])
+
+  const historyRamGraphData = useMemo(
+    () =>
+      Object.entries(Object.groupBy(data, (item) => item.date)).map(([date, items]) => {
+        return {
+          date: date,
+          ...services.reduce(
+            (acc, service) => {
+              const target = items?.find((item) => item.name === service)
+              acc[service] = target?.memory ?? 0
+              return acc
+            },
+            {} as Record<string, number>
+          ),
+        }
+      }),
+    [data, services]
+  )
+
   return (
     <div className="flex flex-col gap-4">
-      {!isSubscribed && (
-        <div className="h-64 flex flex-col items-center justify-center gap-4">
-          <Loading className="size-16" />
-          <span>Connexion en cours...</span>
-        </div>
-      )}
-      {data.length === 0 && isSubscribed && (
-        <div className="h-64 flex flex-col items-center justify-center gap-4">
-          <InfoIcon className="size-16" />
-          Aucune donnée disponible pour le moment.
-        </div>
-      )}
-      {data.length !== 0 && isSubscribed && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {data.map((item) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {(data.length === 0 || !isSubscribed) &&
+          Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="w-full h-40" />)}
+        {data.length !== 0 &&
+          isSubscribed &&
+          lastData.map((item) => (
             <ServerUsageCard key={item.pid}>
               <ServerUsageCardHeader>
                 <ServerUsageCardTitle>{item.name}</ServerUsageCardTitle>
@@ -371,7 +385,13 @@ const UsageTab = () => {
                   CPU: {item.cpu}
                 </ServerUsageCardValue>
                 <ServerUsageCardValue before={<MemoryStickIcon className="size-4" />}>
-                  RAM: {item.memory}
+                  RAM:{' '}
+                  {formatNumber(item.memory, {
+                    notation: 'standard',
+                    maximumFractionDigits: 2,
+                    unit: 'megabyte',
+                    style: 'unit',
+                  })}
                 </ServerUsageCardValue>
                 <ServerUsageCardValue
                   className="font-normal"
@@ -388,8 +408,8 @@ const UsageTab = () => {
               </ServerUsageCardContent>
             </ServerUsageCard>
           ))}
-        </div>
-      )}
+      </div>
+      <UsageHistoryRamCard data={historyRamGraphData} services={services} />
     </div>
   )
 }

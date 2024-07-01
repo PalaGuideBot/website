@@ -58,8 +58,8 @@ export type Path = {
 export type ServerUsageInfo = {
   name: string
   pid: number
-  memory: string
-  cpu: string
+  memory: number
+  cpu: number
   status: string
   created_at: string
   uptime: number

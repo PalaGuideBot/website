@@ -41,6 +41,7 @@ export default {
       'job-progress': 'job-progress 2.5s',
       'spin': 'spin 1s linear infinite',
       'glow': 'glow 2s cubic-bezier(.05,.5,.95,.5) infinite',
+      'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
     },
     keyframes: {
       'blink': {
@@ -64,6 +65,14 @@ export default {
             'var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)',
         },
         '100%': { textShadow: '0px 0px 0px hsl(var(--wg-primary))' },
+      },
+      'pulse': {
+        '0%, 100%': {
+          opacity: 1,
+        },
+        '50%': {
+          opacity: 0.5,
+        },
       },
     },
     dropShadow: {
