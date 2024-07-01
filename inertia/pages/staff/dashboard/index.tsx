@@ -382,7 +382,7 @@ const UsageTab = () => {
               </ServerUsageCardHeader>
               <ServerUsageCardContent className="space-y-1">
                 <ServerUsageCardValue before={<CpuIcon className="size-4" />}>
-                  CPU: {item.cpu}
+                  CPU: {item.cpu} %
                 </ServerUsageCardValue>
                 <ServerUsageCardValue before={<MemoryStickIcon className="size-4" />}>
                   RAM:{' '}
