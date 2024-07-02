@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Fetch all branches from the remote repository
+
+git fetch -a
+
+# Pull the latest changes from the remote repository
+
+git pull
+
 # Vérifie si npm est installé
 if ! command -v npm &> /dev/null
 then
@@ -32,5 +40,8 @@ fi
 # Copie le fichier .env dans le dossier build
 echo "Copying .env to build directory..."
 cp .env build/
+
+# Restart the WEBSITE application using pm2
+pm2 restart website
 
 echo "Script completed successfully."
