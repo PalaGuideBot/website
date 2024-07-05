@@ -51,10 +51,10 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
 
   return (
     <>
-      <Head title="Status Paladium" />
+      <Head title="Statut Paladium" />
       <DefaultLayout>
         <Page>
-          <PageTitle>Status: Paladium</PageTitle>
+          <PageTitle>Statut: Paladium</PageTitle>
           <p>
             Sur cette page, vous pourrez visualiser le status des différents services de Paladium.
           </p>

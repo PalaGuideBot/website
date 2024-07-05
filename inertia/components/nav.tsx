@@ -46,7 +46,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
       icon: createIconLink(ShieldIcon),
     },
   ],
-  Classement: [
+  Classements: [
     {
       path: '/leaderboard/factions',
       label: 'Factions',
@@ -93,7 +93,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
       icon: createIconLink(SwordsIcon),
     },
   ],
-  Status: [
+  Statut: [
     {
       path: 'https://status.palaguidebot.fr',
       label: 'Bot',

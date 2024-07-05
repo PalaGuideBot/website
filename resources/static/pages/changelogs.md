@@ -1,5 +1,10 @@
 # Changelogs
 
+# 05/07/2024
+
+-> Website
+- Traductions de mots anglais en français
+
 ## 29/06/2024
 
 -> Website
