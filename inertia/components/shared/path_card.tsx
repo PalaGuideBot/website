@@ -12,7 +12,7 @@ const PathCard = ({ className, ...props }: React.ComponentProps<typeof Card>) =>
   return (
     <Card
       className={cn(
-        'bg-background relative min-h-40 border-foreground border-2 transition-all duration-75 hover:outline hover:bg-surface',
+        'bg-background relative min-h-28 border-foreground transition-all duration-75 outline-primary outline-2 hover:outline hover:drop-shadow-glow hover:border-primary',
         className
       )}
       {...props}
