@@ -209,11 +209,11 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   return (
     <div className="flex flex-col gap-4">
       <PageSubTitle>Podium</PageSubTitle>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+      <PodiumCardWrapper>
         <FactionPodium data={first} position="first" />
         <FactionPodium data={second} position="second" compare={first.value} />
         <FactionPodium data={third} position="third" compare={first.value} />
-      </div>
+      </PodiumCardWrapper>
       <PageSubTitle>Historique</PageSubTitle>
       <Card>
         <CardContent className="p-4 h-[500px]">
@@ -282,32 +282,28 @@ const PlayerPodium = ({
   compare?: number
 }) => {
   return (
-    <Link href={`/stats/users/${data.username}`} className="block">
-      <PodiumCard position={position}>
-        <img
-          src={getHeadUrl(data.username)}
-          alt={`${data.username}'s avatar`}
-          className="object-contain"
-        />
-        <PodiumCardDescription>{data.username}</PodiumCardDescription>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger>
-              <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-0"
-                after={<LeaderboardTrixiumIcon />}
-              >
-                {formatNumber(data.value)}
-              </PodiumCardValue>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
-      </PodiumCard>
-    </Link>
+    <PodiumCard position={position}>
+      <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      <PodiumCardDescription href={`/stats/users/${data.username}`}>
+        {data.username}
+      </PodiumCardDescription>
+      <TooltipProvider delayDuration={100}>
+        <Tooltip>
+          <TooltipTrigger>
+            <PodiumCardValue
+              className="border-b-2 border-dashed border-foreground hover:border-b-0"
+              after={<LeaderboardTrixiumIcon />}
+            >
+              {formatNumber(data.value)}
+            </PodiumCardValue>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+    </PodiumCard>
   )
 }
 
