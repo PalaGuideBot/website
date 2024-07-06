@@ -26,7 +26,13 @@ import { getHeadUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
-import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
+import {
+  PodiumCard,
+  PodiumCardDescription,
+  PodiumCardImage,
+  PodiumCardValue,
+  PodiumCardWrapper,
+} from '../components/podium_card'
 
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
@@ -100,11 +106,11 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
   return (
     <div className="flex flex-col gap-4">
       <PageSubTitle>Podium</PageSubTitle>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+      <PodiumCardWrapper>
         <PlayerPodium data={first} position="first" />
         <PlayerPodium data={second} position="second" />
         <PlayerPodium data={third} position="third" />
-      </div>
+      </PodiumCardWrapper>
       <PageSubTitle>Historique</PageSubTitle>
       <Card>
         <CardContent className="p-4 h-[500px]">
@@ -305,27 +311,23 @@ const FactionPodium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <Link href={`/stats/factions/${data.name}`} className="block">
-      <PodiumCard position={position}>
-        <img
-          src={`${data.emblemUrl}`}
-          alt={`${data.uuid}'s avatar`}
-          className="object-contain h-auto w-[100px]"
-        />
-        <PodiumCardDescription>{data.name}</PodiumCardDescription>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger>
-              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
-                {formatNumber(data.value)}
-              </PodiumCardValue>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              {formatNumber(data.value, { compactDisplay: 'long' })}
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </PodiumCard>
-    </Link>
+    <PodiumCard position={position}>
+      <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.uuid}'s avatar`} />
+      <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+        {data.name}
+      </PodiumCardDescription>
+      <TooltipProvider delayDuration={100}>
+        <Tooltip>
+          <TooltipTrigger className="z-[2]">
+            <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+              {formatNumber(data.value)}
+            </PodiumCardValue>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {formatNumber(data.value, { compactDisplay: 'long' })}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </PodiumCard>
   )
 }

@@ -20,7 +20,13 @@ import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
-import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
+import {
+  PodiumCard,
+  PodiumCardDescription,
+  PodiumCardImage,
+  PodiumCardValue,
+  PodiumCardWrapper,
+} from '../components/podium_card'
 
 type FactionsIndexProps = InferPageProps<FactionsController, 'index'>
 
@@ -71,11 +77,11 @@ export default function FactionsIndex(props: FactionsIndexProps) {
         <Page>
           <PageTitle>Leaderboard: Factions</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+          <PodiumCardWrapper>
             <Podium data={first} position="first" />
             <Podium data={second} position="second" />
             <Podium data={third} position="third" />
-          </div>
+          </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
           <Card>
             <CardContent className="p-4 h-[500px]">
@@ -129,18 +135,12 @@ const Podium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <Link href={`/stats/factions/${data.name}`} className="block">
-      <PodiumCard position={position}>
-        <img
-          src={`${data.emblemUrl}`}
-          alt={`${data.name}'s avatar`}
-          className="object-contain"
-          width={150}
-          height={150}
-        />
-        <PodiumCardDescription>{data.name}</PodiumCardDescription>
-        <PodiumCardValue>{data.value}</PodiumCardValue>
-      </PodiumCard>
-    </Link>
+    <PodiumCard position={position}>
+      <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.name}'s avatar`} />
+      <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+        {data.name}
+      </PodiumCardDescription>
+      <PodiumCardValue>{data.value}</PodiumCardValue>
+    </PodiumCard>
   )
 }

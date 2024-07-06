@@ -1,4 +1,20 @@
+import { Link } from '@inertiajs/react'
 import { cn } from '~/lib/utils'
+
+export const PodiumCardWrapper = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div
+      className={cn(
+        'flex flex-wrap md:grid grid-cols-1 md:grid-cols-3 gap-4 items-end justify-center',
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
 export interface PodiumCardProps extends React.HTMLAttributes<HTMLDivElement> {
   position: 'first' | 'second' | 'third'
@@ -8,7 +24,7 @@ export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) =
   return (
     <div
       className={cn(
-        'flex flex-col gap-2 items-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6',
+        'relative flex flex-col gap-2 items-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6 max-w-80 w-full',
         position === 'first' && 'bg-primary',
         position === 'second' && 'bg-wg-white-400',
         position === 'third' && 'bg-destructive-900',
@@ -19,11 +35,46 @@ export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) =
   )
 }
 
+export const PodiumCardImage = ({
+  className,
+  height = 150,
+  width = 150,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  return (
+    <img
+      className={cn('object-contain w-1/2 h-full', className)}
+      height={height}
+      width={width}
+      {...props}
+    />
+  )
+}
+
+interface PodiumCardDescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
+  href?: string
+}
+
 export const PodiumCardDescription = ({
   className,
+  href,
+  children,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  return <div className={cn('text-xl font-bold', className)} {...props} />
+}: PodiumCardDescriptionProps) => {
+  return (
+    <div className={cn('text-xl font-bold', className)} {...props}>
+      {href ? (
+        <Link
+          href={href}
+          className='before:absolute before:inset-0 before:content-[""] before:z-[1]'
+        >
+          {children}
+        </Link>
+      ) : (
+        children
+      )}
+    </div>
+  )
 }
 
 export const PodiumCardValue = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {

@@ -21,7 +21,13 @@ import { usePagination } from '~/hooks/use_pagination'
 import { getHeadUrl } from '~/lib/minecraft'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
-import { PodiumCard, PodiumCardDescription, PodiumCardValue } from '../components/podium_card'
+import {
+  PodiumCard,
+  PodiumCardDescription,
+  PodiumCardImage,
+  PodiumCardValue,
+  PodiumCardWrapper,
+} from '../components/podium_card'
 
 type KothIndexProps = InferPageProps<KothController, 'index'>
 
@@ -64,11 +70,11 @@ export default function KothIndex(props: KothIndexProps) {
         <Page>
           <PageTitle>Leaderboard: Koth</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+          <PodiumCardWrapper>
             <Podium data={first} position="first" />
             <Podium data={second} position="second" />
             <Podium data={third} position="third" />
-          </div>
+          </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
           <Card>
             <CardContent className="p-4 h-[500px]">
@@ -122,16 +128,12 @@ const Podium = ({
   position: 'first' | 'second' | 'third'
 }) => {
   return (
-    <Link href={`/stats/users/${data.username}`} className="block">
-      <PodiumCard position={position}>
-        <img
-          src={getHeadUrl(data.username)}
-          alt={`${data.username}'s avatar`}
-          className="object-contain"
-        />
-        <PodiumCardDescription>{data.username}</PodiumCardDescription>
-        <PodiumCardValue>{data.value}</PodiumCardValue>
-      </PodiumCard>
-    </Link>
+    <PodiumCard position={position}>
+      <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      <PodiumCardDescription href={`/stats/users/${data.username}`}>
+        {data.username}
+      </PodiumCardDescription>
+      <PodiumCardValue>{data.value}</PodiumCardValue>
+    </PodiumCard>
   )
 }
