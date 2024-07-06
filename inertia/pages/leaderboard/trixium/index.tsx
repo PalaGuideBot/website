@@ -49,7 +49,7 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Trixium" />
+      <Head descriptors={[{ title: 'Leaderboard: Trixium' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Trixium</PageTitle>

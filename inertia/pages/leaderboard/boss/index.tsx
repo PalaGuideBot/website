@@ -66,7 +66,7 @@ export default function BossIndex(props: BossIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Boss" />
+      <Head descriptors={[{ title: 'Leaderboard: Boss' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Boss</PageTitle>

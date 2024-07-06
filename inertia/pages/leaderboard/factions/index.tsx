@@ -73,7 +73,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Factions" />
+      <Head descriptors={[{ title: 'Leaderboard: Factions' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Factions</PageTitle>

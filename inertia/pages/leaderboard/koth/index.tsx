@@ -67,7 +67,7 @@ export default function KothIndex(props: KothIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Koth" />
+      <Head descriptors={[{ title: 'Leaderboard: Koth' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Koth</PageTitle>

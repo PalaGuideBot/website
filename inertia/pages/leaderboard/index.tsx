@@ -53,7 +53,7 @@ export default function LeaderboardIndexPage() {
 
   return (
     <>
-      <Head title="Leaderboard" />
+      <Head descriptors={[{ title: 'Leaderboard' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard</PageTitle>

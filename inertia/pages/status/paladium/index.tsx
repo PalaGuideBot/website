@@ -51,7 +51,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
 
   return (
     <>
-      <Head title="Statut Paladium" />
+      <Head descriptors={[{ title: 'Statut: Paladium' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Statut: Paladium</PageTitle>

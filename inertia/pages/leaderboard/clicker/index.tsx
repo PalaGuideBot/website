@@ -67,7 +67,7 @@ export default function ClickerIndex(props: ClickerIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Clicker" />
+      <Head descriptors={[{ title: 'Leaderboard: Clicker' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Clicker</PageTitle>

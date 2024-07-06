@@ -31,7 +31,7 @@ export default function InformationsPage() {
 
   return (
     <>
-      <Head title="Informations" />
+      <Head descriptors={[{ title: 'Informations' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Informations</PageTitle>

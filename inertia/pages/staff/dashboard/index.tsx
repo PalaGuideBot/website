@@ -61,7 +61,7 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
 
   return (
     <>
-      <Head title="Tableau de bord" />
+      <Head descriptors={[{ title: 'Tableau de bord' }]} />
       <StaffLayout>
         <Page>
           <PageTitle>Tableau de bord</PageTitle>

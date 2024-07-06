@@ -19,12 +19,15 @@ export default function FactionShow(props: FactionShowProps) {
   return (
     <>
       {faction ? (
-        <Head title={faction.name}>
-          <meta property="og:image" content={faction.emblemUrl} />
-          <meta name="twitter:image" content={faction.emblemUrl} />
-        </Head>
+        <Head
+          descriptors={[
+            { title: faction.name },
+            { name: 'og:image', content: faction.emblemUrl },
+            { name: 'twitter:image', content: faction.emblemUrl },
+          ]}
+        />
       ) : (
-        <Head title="Faction" />
+        <Head descriptors={[{ title: 'Faction' }]} />
       )}
       <DefaultLayout>
         <Page>

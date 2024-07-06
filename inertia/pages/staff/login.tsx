@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 export default function LoginPage() {
   return (
     <>
-      <Head title="Connexion" />
+      <Head descriptors={[{ title: 'Connexion' }]} />
       <main className="h-dvh ww-full flex items-center justify-center px-4">
         <Card className="w-96">
           <CardHeader className="border-b flex flex-row justify-between items-center">

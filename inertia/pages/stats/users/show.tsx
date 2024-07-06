@@ -20,12 +20,15 @@ export default function UserShow(props: UserShowProps) {
   return (
     <>
       {user ? (
-        <Head title={user.username}>
-          <meta property="og:image" content={getHeadUrl(user.username)} />
-          <meta name="twitter:image" content={getHeadUrl(user.username)} />
-        </Head>
+        <Head
+          descriptors={[
+            { title: user.username },
+            { name: 'og:image', content: getHeadUrl(user.username) },
+            { name: 'twitter:image', content: getHeadUrl(user.username) },
+          ]}
+        />
       ) : (
-        <Head title="Utilisateur" />
+        <Head descriptors={[{ title: 'Utilisateur' }]} />
       )}
       <DefaultLayout>
         <Page>

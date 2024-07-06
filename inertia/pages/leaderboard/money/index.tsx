@@ -67,7 +67,7 @@ export default function MoneyIndex(props: MoneyIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Money" />
+      <Head descriptors={[{ title: 'Leaderboard: Money' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Money</PageTitle>

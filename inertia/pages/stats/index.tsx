@@ -26,7 +26,7 @@ export default function StatsIndexPage() {
 
   return (
     <>
-      <Head title="Statistiques" />
+      <Head descriptors={[{ title: 'Statistiques' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Statistiques</PageTitle>

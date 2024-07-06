@@ -15,7 +15,7 @@ export default function ChangelogsPage(props: ChangelogsPageProps) {
 
   return (
     <>
-      <Head title="Changelogs" />
+      <Head descriptors={[{ title: 'Changelogs' }]} />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown

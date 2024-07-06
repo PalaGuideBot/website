@@ -66,7 +66,7 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
 
   return (
     <>
-      <Head title="Leaderboard: Egghunt" />
+      <Head descriptors={[{ title: 'Leaderboard: EggHunt' }]} />
       <DefaultLayout>
         <Page>
           <PageTitle>Leaderboard: Egghunt</PageTitle>

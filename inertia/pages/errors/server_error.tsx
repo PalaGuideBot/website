@@ -1,5 +1,5 @@
-import { Head } from '@inertiajs/react'
 import { DisplayError } from '~/components/shared/display_error'
+import { Head } from '~/components/shared/head'
 
 type ServerErrorProps = {
   error: {
@@ -14,7 +14,7 @@ export default function ServerError(props: ServerErrorProps) {
 
   return (
     <>
-      <Head title="Erreur" />
+      <Head descriptors={[{ title: 'Erreur' }]} />
       <div className="h-dvh w-full flex flex-col items-center justify-center">
         <DisplayError>
           {error.code} - {error.message}

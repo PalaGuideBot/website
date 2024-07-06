@@ -7,7 +7,7 @@ export default function ChorusIndex(props: InferPageProps<ChorusController, 'ind
   const { leaderboard } = props
   return (
     <>
-      <Head title="Leaderboard: Chorus" />
+      <Head descriptors={[{ title: 'Leaderboard: Chorus' }]} />
       <DefaultLayout>
         <pre>{JSON.stringify(leaderboard, null, 1)}</pre>
       </DefaultLayout>
