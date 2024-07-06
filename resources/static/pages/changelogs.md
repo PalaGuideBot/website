@@ -1,6 +1,6 @@
 # Changelogs
 
-# 06/07/2024
+## 06/07/2024
 
 -> Website
 - Traductions de mots anglais en français
