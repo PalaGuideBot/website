@@ -4,6 +4,7 @@
 
 -> Website
 - Traductions de mots anglais en français
+- Amélioration de l'UI des liens sur les pages `/stats`, `/leaderboard` & `/informations` (Suggestions: "**Page de chemin**" #2)
 - Ajout des unités de valeur & d'icônes sur les podiums de classements (Suggestions: "**Classement, grandeur de la quantité**")
 - Ajout d'une comparaison par rapport au premier sur les podiums (Suggestions: "**Podium, % par rapport au premier**")
 
