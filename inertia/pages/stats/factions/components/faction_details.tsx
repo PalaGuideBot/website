@@ -1,13 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import type { FactionShowProps } from '../show'
-import { useState } from 'react'
-import { ToggleGroup } from '@lemonsqueezy/wedges'
-import { InformationLine } from '../../components/information_line'
-import LinearGradient from '~/components/shared/linear_gradient'
-import { formatDate } from '~/lib/date'
-import { getHeadUrl } from '~/lib/minecraft'
-import { cn, formatNumber } from '~/lib/utils'
 import { Link } from '@inertiajs/react'
+import { ToggleGroup } from '@lemonsqueezy/wedges'
+import { DateTime } from 'luxon'
+import { useState } from 'react'
 import {
   Area,
   AreaChart,
@@ -18,6 +12,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import LinearGradient from '~/components/shared/linear_gradient'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { formatDate } from '~/lib/date'
+import { getHeadUrl } from '~/lib/minecraft'
+import { cn, formatNumber } from '~/lib/utils'
+import { InformationLine } from '../../components/information_line'
+import type { FactionShowProps } from '../show'
 
 type FactionDetailsProps = {
   faction: NonNullable<FactionShowProps['faction']>
@@ -64,7 +65,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
               <li>
                 <InformationLine
                   label="Date de création"
-                  value={formatDate(new Date(faction.createdAt), 'PP')}
+                  value={formatDate(new Date(faction.createdAt), DateTime.DATE_MED)}
                 />
               </li>
               <li>
@@ -108,7 +109,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
                     return (
                       <Card className="bg-background">
                         <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
                           <div className="flex gap-2 items-center">
                             <span className="text-sm">Elo: </span>
                             <span className="text-sm font-bold">
@@ -174,7 +175,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
                     return (
                       <Card className="bg-background">
                         <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
                           <div className="flex flex-col gap-2">
                             {payload.map(({ name, value }) => {
                               return (
@@ -252,7 +253,7 @@ const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['player
           </p>
           {!isLeader ? (
             <p className="dark:text-surface-200 text-md">
-              Membre depuis: {formatDate(new Date(player.joinedAt), 'PP')}
+              Membre depuis: {formatDate(new Date(player.joinedAt), DateTime.DATE_MED)}
             </p>
           ) : (
             <p>

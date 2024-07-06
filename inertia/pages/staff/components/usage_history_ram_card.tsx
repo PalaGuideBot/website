@@ -1,4 +1,5 @@
 import { Button } from '@lemonsqueezy/wedges'
+import { DateTime } from 'luxon'
 import { useEffect, useState } from 'react'
 import {
   CartesianGrid,
@@ -58,7 +59,7 @@ const UsageHistoryRamCard = ({ data, services }: UsageHistoryRamCardProps) => {
             <XAxis
               dataKey="date"
               className="text-xs"
-              tickFormatter={(value) => formatDate(value, 'pp')}
+              tickFormatter={(value) => formatDate(value, DateTime.TIME_WITH_SECONDS)}
             />
             <YAxis
               className="text-xs"

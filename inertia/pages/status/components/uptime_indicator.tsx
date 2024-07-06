@@ -1,18 +1,5 @@
 import { Badge, Loading } from '@lemonsqueezy/wedges'
 import {
-  addDays,
-  addHours,
-  addMinutes,
-  eachDayOfInterval,
-  endOfDay,
-  isFuture,
-  isSameDay,
-  isSameHour,
-  isToday,
-  nextDay,
-  startOfDay,
-} from 'date-fns'
-import {
   CirclePlayIcon,
   CirclePowerIcon,
   ConstructionIcon,
@@ -20,8 +7,9 @@ import {
   ShieldQuestionIcon,
   TriangleAlertIcon,
 } from 'lucide-react'
+import { DateTime } from 'luxon'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import { eachHourOfDate, formatDate } from '~/lib/date'
+import { eachDayOfInterval, eachHourOfDate, formatDate } from '~/lib/date'
 import { cn } from '~/lib/utils'
 import { PaladiumStatus } from '~/types'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
@@ -68,11 +56,11 @@ const UptimeIndicatorTick = ({
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
   const isInactive = status.some((s) => !['online', 'running'].includes(s.status))
-  const isFutureDate = isFuture(date)
+  const isFutureDate = DateTime.fromISO(date).diffNow().milliseconds > 0
   const isSameInterval =
     {
-      'last-30-days': isToday(date),
-      'today': isSameHour(date, new Date()),
+      'last-30-days': DateTime.fromISO(date).hasSame(DateTime.now(), 'day'),
+      'today': DateTime.fromISO(date).hasSame(DateTime.now(), 'hour'),
     }[dateInterval] ?? false
 
   if (isFutureDate) {
@@ -112,7 +100,7 @@ const UptimeIndicatorTickTooltipContent = ({
 }) => {
   return (
     <>
-      <h4 className="font-pixel text-xs">{formatDate(date, 'PP')}</h4>
+      <h4 className="font-pixel text-xs">{formatDate(date, DateTime.DATE_FULL)}</h4>
       <ul className="p-2 text-sm space-y-2">
         {status.toReversed().map((s, index) => {
           const { from, to } = s
@@ -133,9 +121,18 @@ const UptimeIndicatorTickTooltipEmptyContent = ({ date }: { date: string }) => {
 
   const endDate =
     {
-      'last-30-days': addMinutes(nextDay(date, 0), -TIME_INTERVAL_IN_MINUTES),
-      'today': addMinutes(addHours(date, 1), -TIME_INTERVAL_IN_MINUTES),
-    }[dateInterval] ?? endOfDay(date)
+      'last-30-days': DateTime.fromISO(date)
+        .plus({ days: 1 })
+        .startOf('day')
+        .minus({ minutes: TIME_INTERVAL_IN_MINUTES })
+        .toISO()!,
+      'today': DateTime.fromISO(date)
+        .plus({
+          hours: 1,
+        })
+        .minus({ minutes: TIME_INTERVAL_IN_MINUTES })
+        .toISO()!,
+    }[dateInterval] ?? DateTime.fromISO(date).endOf('day').toISO()!
 
   return (
     <div className="text-sm space-y-2 p-2">
@@ -159,12 +156,11 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
     case 'today':
       result = eachHourOfDate(data[0].date).map((date) => {
         return {
-          date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
+          date: date,
           status:
             data.find((s) =>
-              s.status.some(
-                (status) => isSameHour(date, `${s.date} ${status.from}`)
-                // isSameHour(date, `${s.date} ${status.to}`)
+              s.status.some((status) =>
+                DateTime.fromISO(date).hasSame(DateTime.fromSQL(`${s.date} ${status.from}`), 'hour')
               )
             )?.status ?? [],
         }
@@ -172,12 +168,14 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
       break
     case 'last-30-days':
       result = eachDayOfInterval({
-        start: addDays(startOfDay(new Date()), -29),
-        end: endOfDay(data[0].date),
+        start: DateTime.now().startOf('day').minus({ days: 29 }),
+        end: DateTime.fromISO(data[0].date).endOf('day'),
       }).map((date) => {
         return {
-          date: formatDate(date, 'yyyy-MM-dd HH:mm:ss'),
-          status: data.filter((s) => isSameDay(date, s.date)).flatMap((s) => s.status),
+          date: date,
+          status: data
+            .filter((s) => DateTime.fromISO(date).hasSame(DateTime.fromISO(s.date), 'day'))
+            .flatMap((s) => s.status),
         }
       })
       break

@@ -1,24 +1,35 @@
-import {
-  eachHourOfInterval,
-  endOfDay,
-  format as f,
-  formatDistanceStrict,
-  startOfDay,
-} from 'date-fns'
-import { fr } from 'date-fns/locale'
+import { DateInput, DateTime, DateTimeFormatOptions, Interval, Settings } from 'luxon'
 
-export function formatDate(date: string | Date, format: string = 'PPpp') {
-  return f(date, format, { locale: fr })
+Settings.defaultLocale = 'fr'
+Settings.defaultZone = 'Europe/Paris'
+
+export function formatDate(
+  date: string | Date,
+  format: DateTimeFormatOptions | string = DateTime.DATETIME_MED_WITH_SECONDS
+) {
+  const instance = date instanceof Date ? DateTime.fromJSDate(date) : DateTime.fromISO(date)
+
+  if (typeof format === 'string') {
+    return instance.toFormat(format)
+  }
+
+  return instance.toLocaleString(format)!
 }
 
 export function eachHourOfDate(date: string | Date) {
-  return eachHourOfInterval({
-    start: startOfDay(date),
-    end: endOfDay(date),
-  })
+  const instance = date instanceof Date ? DateTime.fromJSDate(date) : DateTime.fromISO(date)
+
+  return Interval.fromDateTimes(instance.startOf('day'), instance.endOf('day'))
+    .splitBy({ hours: 1 })
+    .map((interval) => interval.start!.toISO())
 }
 
-export function formatDistance(...args: Parameters<typeof formatDistanceStrict>) {
-  let [date, baseDate, options] = args
-  return formatDistanceStrict(date, baseDate, { locale: fr, ...options })
+export function eachDayOfInterval({ start, end }: { start: DateInput; end: DateInput }) {
+  return Interval.fromDateTimes(start, end)
+    .splitBy({ days: 1 })
+    .map((i) => i.start!.toISO())
+}
+
+export function formatDistance(from: DateInput, to: DateInput) {
+  return Interval.fromDateTimes(from, to).toDuration().toFormat('hh:mm:ss')
 }

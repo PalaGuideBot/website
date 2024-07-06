@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
+import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
   Area,
@@ -58,11 +59,11 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
 
       if (!lastHistory || lastHistory.faction !== faction) {
         history.push({
-          period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
+          period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
           faction: faction,
         })
       } else {
-        lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
+        lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
       }
 
       return history
@@ -80,11 +81,11 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
 
     if (!lastHistory || lastHistory.rank !== rank) {
       history.push({
-        period: `${formatDate(date, 'PP')} au ${formatDate(date, 'PP')}`,
+        period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
         rank: rank,
       })
     } else {
-      lastHistory.period = `${formatDate(date, 'PP')} au ${lastHistory.period.split(' au ')[1]}`
+      lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
     }
 
     return history
@@ -127,7 +128,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
               <li>
                 <InformationLine
                   label="Première connexion"
-                  value={formatDate(new Date(user.firstJoin), 'PP')}
+                  value={formatDate(new Date(user.firstJoin), DateTime.DATE_MED)}
                 />
               </li>
               <li>
@@ -221,7 +222,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                     return (
                       <Card className="bg-background">
                         <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="font-pixel text-xs">
+                            {formatDate(label, DateTime.DATE_MED)}
+                          </div>
                           <div className="flex flex-col gap-2">
                             {payload.map(({ name, value }) => {
                               const Icon = smallJobIcons[name as Job]
@@ -290,7 +293,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                     return (
                       <Card className="bg-background">
                         <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                          <div className="font-pixel text-xs">
+                            {formatDate(label, DateTime.DATE_MED)}
+                          </div>
                           <div className="flex gap-2 items-center">
                             <span className="text-sm">Argent: </span>
                             <span className="text-sm font-bold">

@@ -14,6 +14,7 @@ import {
   TimerIcon,
   UsersIcon,
 } from 'lucide-react'
+import { DateTime } from 'luxon'
 import { useEffect, useMemo, useState } from 'react'
 import { DiscordIcon } from '~/components/icons'
 import StaffLayout from '~/components/layouts/staff'
@@ -50,8 +51,8 @@ import {
   StatCardTitle,
   StatCardValue,
 } from '../components/stat_card'
-import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
 import { UsageHistoryCpuCard } from '../components/usage_history_cpu_card'
+import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
@@ -79,7 +80,7 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
                 </Tabs.Trigger>
               </div>
               <Badge before={<CalendarDaysIcon />} stroke>
-                {formatDate(lastDate, 'PP')}
+                {formatDate(lastDate, DateTime.DATE_MED)}
               </Badge>
             </Tabs.List>
             <Tabs.Content value="discord">
@@ -422,7 +423,8 @@ const UsageTab = () => {
                   className="font-normal"
                   before={<TimerIcon className="size-4" />}
                 >
-                  UPTIME: {formatDistance(item.uptime, item.date)}
+                  UPTIME:{' '}
+                  {formatDistance(DateTime.fromMillis(item.uptime), DateTime.fromISO(item.date))}
                 </ServerUsageCardValue>
               </ServerUsageCardContent>
             </ServerUsageCard>

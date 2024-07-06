@@ -1,4 +1,5 @@
 import { Button, ToggleGroup } from '@lemonsqueezy/wedges'
+import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
   CartesianGrid,
@@ -158,7 +159,9 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
                   return (
                     <Card className="bg-background/95">
                       <CardContent className="p-4 space-y-2">
-                        <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+                        <div className="font-pixel text-xs">
+                          {formatDate(label, DateTime.DATE_MED)}
+                        </div>
                         <div className="flex flex-col gap-2">
                           {payload
                             .toSorted((a, b) => Number(b.value) - Number(a.value))

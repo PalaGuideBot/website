@@ -2,6 +2,7 @@ import type PaladiumController from '#status/controllers/paladium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
 import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
+import { DateTime } from 'luxon'
 import {
   Area,
   AreaChart,
@@ -160,9 +161,12 @@ const GlobalTab = ({
               <AreaChart data={dataWithAverage}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
-                  dataKey={(entry) => `${entry.date} ${entry.hour ?? '00'}:00:00`}
+                  dataKey={(entry) => `${entry.date}T${entry.hour ?? '00'}:00:00Z`}
                   tickFormatter={(value) =>
-                    formatDate(value, dateInterval === 'today' ? 'pp' : 'dd/MM/yyyy')
+                    formatDate(
+                      value,
+                      dateInterval === 'today' ? DateTime.TIME_WITH_SECONDS : DateTime.DATE_SHORT
+                    )
                   }
                   className="text-xs"
                   angle={-45}
@@ -183,8 +187,10 @@ const GlobalTab = ({
                           <CardContent className="p-4 space-y-2">
                             <div className="font-pixel text-xs">
                               {formatDate(
-                                `${date} ${hour}:00:00`,
-                                dateInterval === 'today' ? 'PPpp' : 'PP'
+                                `${date}T${hour}:00:00Z`,
+                                dateInterval === 'today'
+                                  ? DateTime.DATETIME_MED_WITH_SECONDS
+                                  : DateTime.DATE_FULL
                               )}
                             </div>
                             <div className="flex flex-col gap-2">

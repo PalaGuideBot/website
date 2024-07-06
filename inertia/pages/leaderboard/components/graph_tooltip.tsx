@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { TooltipProps } from 'recharts'
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
 import { Card, CardContent } from '~/components/ui/card'
@@ -17,7 +18,7 @@ export const GraphTooltip = <TValue extends ValueType, TName extends NameType>({
     return (
       <Card className="bg-background">
         <CardContent className="p-4 space-y-2 min-w-52">
-          <div className="font-pixel text-xs">{formatDate(label, 'PP')}</div>
+          <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
           {payload
             .toSorted((a, b) => Number(b.value) - Number(a.value))
             .map((p, index) => (
