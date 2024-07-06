@@ -28,6 +28,7 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
+import { LeaderboardKothIcon } from '~/components/icons'
 
 type KothIndexProps = InferPageProps<KothController, 'index'>
 
@@ -133,7 +134,7 @@ const Podium = ({
       <PodiumCardDescription href={`/stats/users/${data.username}`}>
         {data.username}
       </PodiumCardDescription>
-      <PodiumCardValue>{data.value}</PodiumCardValue>
+      <PodiumCardValue after={<LeaderboardKothIcon />}>{data.value}</PodiumCardValue>
     </PodiumCard>
   )
 }

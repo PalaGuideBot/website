@@ -140,7 +140,9 @@ const Podium = ({
       <PodiumCardDescription href={`/stats/factions/${data.name}`}>
         {data.name}
       </PodiumCardDescription>
-      <PodiumCardValue>{data.value}</PodiumCardValue>
+      <PodiumCardValue>
+        {data.value} <span>Elo</span>
+      </PodiumCardValue>
     </PodiumCard>
   )
 }

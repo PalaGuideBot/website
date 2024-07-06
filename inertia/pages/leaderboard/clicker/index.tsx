@@ -155,7 +155,7 @@ const Podium = ({
             </PodiumCardValue>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            {formatNumber(data.value, { compactDisplay: 'long' })}
+            {formatNumber(data.value, { compactDisplay: 'long' })} <span>de clicks</span>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

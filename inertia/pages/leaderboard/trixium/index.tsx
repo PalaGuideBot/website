@@ -33,6 +33,7 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
+import { LeaderboardTrixiumIcon } from '~/components/icons'
 
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
@@ -289,12 +290,15 @@ const PlayerPodium = ({
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger>
-              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+              <PodiumCardValue
+                className="border-b-2 border-dashed border-foreground hover:border-b-0"
+                after={<LeaderboardTrixiumIcon />}
+              >
                 {formatNumber(data.value)}
               </PodiumCardValue>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {formatNumber(data.value, { notation: 'standard' })}
+              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -319,12 +323,15 @@ const FactionPodium = ({
       <TooltipProvider delayDuration={100}>
         <Tooltip>
           <TooltipTrigger className="z-[2]">
-            <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+            <PodiumCardValue
+              className="border-b-2 border-dashed border-foreground hover:border-b-0"
+              after={<LeaderboardTrixiumIcon />}
+            >
               {formatNumber(data.value)}
             </PodiumCardValue>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            {formatNumber(data.value, { compactDisplay: 'long' })}
+            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

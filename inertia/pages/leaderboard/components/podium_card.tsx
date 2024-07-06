@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react'
+import React from 'react'
 import { cn } from '~/lib/utils'
 
 export const PodiumCardWrapper = ({
@@ -77,6 +78,23 @@ export const PodiumCardDescription = ({
   )
 }
 
-export const PodiumCardValue = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
-  return <div className={cn('font-mc-dungueons', className)} {...props} />
+interface PodiumCardValueProps extends React.HTMLAttributes<HTMLDivElement> {
+  after?: React.ReactNode
+}
+
+export const PodiumCardValue = ({ className, children, after, ...props }: PodiumCardValueProps) => {
+  console.log(after)
+  return (
+    <div
+      className={cn(
+        'font-mc-dungueons',
+        after && 'flex items-center gap-1 justify-center',
+        className
+      )}
+      {...props}
+    >
+      {children}
+      {after}
+    </div>
+  )
 }

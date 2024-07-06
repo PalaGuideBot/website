@@ -5,13 +5,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatPrice(value: number) {
-  return new Intl.NumberFormat('fr-FR', {
+export function formatPrice(value: number, options?: Intl.NumberFormatOptions) {
+  options = {
     style: 'currency',
     currency: 'USD',
     currencyDisplay: 'narrowSymbol',
     maximumFractionDigits: 0,
-  }).format(value)
+    ...options,
+  }
+  return new Intl.NumberFormat('fr-FR', options).format(value)
 }
 
 export function formatNumber(value: number, options?: Intl.NumberFormatOptions) {

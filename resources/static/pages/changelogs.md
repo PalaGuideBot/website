@@ -1,9 +1,10 @@
 # Changelogs
 
-# 05/07/2024
+# 06/07/2024
 
 -> Website
 - Traductions de mots anglais en français
+- Ajout des unités de valeur & d'icônes sur les podiums de classements (Suggestions: "**Classement, grandeur de la quantité**")
 
 ## 29/06/2024
 

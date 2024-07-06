@@ -6,7 +6,7 @@ import {
   LeaderboardEndIcon,
   LeaderboardKothIcon,
   LeaderboardMoneyIcon,
-  leaderboardTrixiumIcon,
+  LeaderboardTrixiumIcon,
   SmallAlchemistJobIcon,
   SmallFarmerJobIcon,
   SmallHunterJobIcon,
@@ -25,7 +25,7 @@ export const icons = {
   job_farmer: SmallFarmerJobIcon,
   job_hunter: SmallHunterJobIcon,
   job_alchemist: SmallAlchemistJobIcon,
-  trixium: leaderboardTrixiumIcon,
+  trixium: LeaderboardTrixiumIcon,
 } as const
 
 export const graphColors = [

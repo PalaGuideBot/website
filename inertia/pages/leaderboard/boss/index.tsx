@@ -28,6 +28,7 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
+import { BossIcon } from '~/components/icons'
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
@@ -132,7 +133,7 @@ const Podium = ({
       <PodiumCardDescription href={`/stats/users/${data.username}`}>
         {data.username}
       </PodiumCardDescription>
-      <PodiumCardValue>{data.value}</PodiumCardValue>
+      <PodiumCardValue after={<BossIcon className="h-5 w-auto" />}>{data.value}</PodiumCardValue>
     </PodiumCard>
   )
 }

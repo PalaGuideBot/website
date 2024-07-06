@@ -1,6 +1,7 @@
 import { cn } from '~/lib/utils'
 
 import ArrowRight from '~/assets/icons/arrow-right.png'
+import Boss from '~/assets/icons/boss.png'
 
 import SmallAlchemistJob from '~/assets/job-icons/alchemist-small.png'
 import SmallFarmerJob from '~/assets/job-icons/farmer-small.png'
@@ -43,6 +44,7 @@ const iconFactory =
   }
 
 export const ArrowRightIcon = iconFactory(ArrowRight)
+export const BossIcon = iconFactory(Boss)
 
 export const SmallAlchemistJobIcon = iconFactory(SmallAlchemistJob)
 export const SmallFarmerJobIcon = iconFactory(SmallFarmerJob)
@@ -56,7 +58,7 @@ export const LeaderboardEgghuntIcon = iconFactory(LeaderboardEgghunt)
 export const LeaderboardEndIcon = iconFactory(LeaderboardEnd)
 export const LeaderboardKothIcon = iconFactory(LeaderboardKoth)
 export const LeaderboardMoneyIcon = iconFactory(LeaderboardMoney)
-export const leaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
+export const LeaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
 
 export const FactionSoleraltIcon = iconFactory(FactionSoleralt)
 export const FactionMuzdanIcon = iconFactory(FactionMuzdan)
