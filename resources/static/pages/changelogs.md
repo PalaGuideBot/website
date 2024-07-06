@@ -5,6 +5,7 @@
 -> Website
 - Traductions de mots anglais en français
 - Ajout des unités de valeur & d'icônes sur les podiums de classements (Suggestions: "**Classement, grandeur de la quantité**")
+- Ajout d'une comparaison par rapport au premier sur les podiums (Suggestions: "**Podium, % par rapport au premier**")
 
 ## 29/06/2024
 

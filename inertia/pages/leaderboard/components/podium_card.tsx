@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
-import { cn } from '~/lib/utils'
+import { cn, formatNumber } from '~/lib/utils'
 
 export const PodiumCardWrapper = ({
   className,
@@ -25,7 +25,7 @@ export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) =
   return (
     <div
       className={cn(
-        'relative flex flex-col gap-2 items-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6 max-w-80 w-full',
+        'relative flex flex-col gap-2 items-center justify-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6 max-w-80 w-full group',
         position === 'first' && 'bg-primary',
         position === 'second' && 'bg-wg-white-400',
         position === 'third' && 'bg-destructive-900',
@@ -44,7 +44,7 @@ export const PodiumCardImage = ({
 }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
     <img
-      className={cn('object-contain w-1/2 h-full', className)}
+      className={cn('object-contain w-1/2 h-full mt-2', className)}
       height={height}
       width={width}
       {...props}
@@ -95,6 +95,36 @@ export const PodiumCardValue = ({ className, children, after, ...props }: Podium
     >
       {children}
       {after}
+    </div>
+  )
+}
+
+interface PodiumCardCompareProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: number
+  compare: number
+}
+
+export const PodiumCardCompare = ({
+  value,
+  compare,
+  className,
+  ...props
+}: PodiumCardCompareProps) => {
+  const percentage = (compare - value) / compare
+  return (
+    <div
+      className={cn(
+        'text-xs font-bold absolute top-0 right-0 p-2 transition-opacity opacity-0 group-hover:opacity-100',
+        className
+      )}
+      {...props}
+    >
+      {'#1 < '}
+      {formatNumber(percentage, {
+        style: 'percent',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      })}
     </div>
   )
 }

@@ -28,6 +28,7 @@ import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
   PodiumCard,
+  PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
   PodiumCardValue,
@@ -109,8 +110,8 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
       <PageSubTitle>Podium</PageSubTitle>
       <PodiumCardWrapper>
         <PlayerPodium data={first} position="first" />
-        <PlayerPodium data={second} position="second" />
-        <PlayerPodium data={third} position="third" />
+        <PlayerPodium data={second} position="second" compare={first.value} />
+        <PlayerPodium data={third} position="third" compare={first.value} />
       </PodiumCardWrapper>
       <PageSubTitle>Historique</PageSubTitle>
       <Card>
@@ -210,8 +211,8 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
       <PageSubTitle>Podium</PageSubTitle>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
         <FactionPodium data={first} position="first" />
-        <FactionPodium data={second} position="second" />
-        <FactionPodium data={third} position="third" />
+        <FactionPodium data={second} position="second" compare={first.value} />
+        <FactionPodium data={third} position="third" compare={first.value} />
       </div>
       <PageSubTitle>Historique</PageSubTitle>
       <Card>
@@ -274,9 +275,11 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
 const PlayerPodium = ({
   data,
   position,
+  compare,
 }: {
   data: TrixiumPageProps['leaderboardPlayer'][number]['data'][number]
   position: 'first' | 'second' | 'third'
+  compare?: number
 }) => {
   return (
     <Link href={`/stats/users/${data.username}`} className="block">
@@ -302,6 +305,7 @@ const PlayerPodium = ({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
       </PodiumCard>
     </Link>
   )
@@ -310,9 +314,11 @@ const PlayerPodium = ({
 const FactionPodium = ({
   data,
   position,
+  compare,
 }: {
   data: TrixiumPageProps['leaderboardFaction'][number]['data'][number]
   position: 'first' | 'second' | 'third'
+  compare?: number
 }) => {
   return (
     <PodiumCard position={position}>
@@ -335,6 +341,7 @@ const FactionPodium = ({
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
     </PodiumCard>
   )
 }

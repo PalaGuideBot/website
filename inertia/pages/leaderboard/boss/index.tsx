@@ -23,6 +23,7 @@ import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
   PodiumCard,
+  PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
   PodiumCardValue,
@@ -72,8 +73,8 @@ export default function BossIndex(props: BossIndexProps) {
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />
-            <Podium data={second} position="second" />
-            <Podium data={third} position="third" />
+            <Podium data={second} position="second" compare={first.value} />
+            <Podium data={third} position="third" compare={first.value} />
           </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
           <Card>
@@ -123,9 +124,11 @@ export default function BossIndex(props: BossIndexProps) {
 const Podium = ({
   data,
   position,
+  compare,
 }: {
   data: BossIndexProps['leaderboard'][number]['data'][number]
   position: 'first' | 'second' | 'third'
+  compare?: number
 }) => {
   return (
     <PodiumCard position={position}>
@@ -134,6 +137,7 @@ const Podium = ({
         {data.username}
       </PodiumCardDescription>
       <PodiumCardValue after={<BossIcon className="h-5 w-auto" />}>{data.value}</PodiumCardValue>
+      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
     </PodiumCard>
   )
 }

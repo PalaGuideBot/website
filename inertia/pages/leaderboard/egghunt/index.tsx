@@ -24,6 +24,7 @@ import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
   PodiumCard,
+  PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
   PodiumCardValue,
@@ -72,8 +73,8 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />
-            <Podium data={second} position="second" />
-            <Podium data={third} position="third" />
+            <Podium data={second} position="second" compare={first.value} />
+            <Podium data={third} position="third" compare={first.value} />
           </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
           <Card>
@@ -144,9 +145,11 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
 const Podium = ({
   data,
   position,
+  compare,
 }: {
   data: EgghuntIndexProps['leaderboard'][number]['data'][number]
   position: 'first' | 'second' | 'third'
+  compare?: number
 }) => {
   return (
     <PodiumCard position={position}>
@@ -163,6 +166,7 @@ const Podium = ({
           })}
         </span>
       </PodiumCardValue>
+      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
     </PodiumCard>
   )
 }
