@@ -11,4 +11,5 @@ router
   })
   .middleware(middleware.guest())
 
+router.get('/profile', [AuthController, 'profile']).as('auth.profile').middleware(middleware.auth())
 router.get('/logout', [AuthController, 'logout']).as('auth.logout')

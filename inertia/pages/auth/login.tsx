@@ -20,14 +20,6 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-col gap-2 max-w-96">
           {code && <Alert color="error">{translateCode(code)}</Alert>}
-          <Button
-            before={<DiscordLogoIcon className="mr-1 size-5" />}
-            className="p-2"
-            variant="outline"
-            asChild
-          >
-            <a href="/auth/redirect">Se connecter</a>
-          </Button>
           <Card className="bg-background">
             <CardHeader className="border-b">
               <CardTitle>Informations</CardTitle>
@@ -42,6 +34,14 @@ export default function LoginPage() {
               </Button>
             </CardContent>
           </Card>
+          <Button
+            before={<DiscordLogoIcon className="mr-1 size-5" />}
+            className="p-2"
+            variant="outline"
+            asChild
+          >
+            <a href="/auth/redirect">Se connecter</a>
+          </Button>
           <Button variant="link" asChild>
             <Link href="/">Retour à l'accueil</Link>
           </Button>

@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
-import { LogInIcon, VaultIcon } from 'lucide-react'
+import { LockKeyholeIcon, LogInIcon } from 'lucide-react'
 import ThemeToggler from '~/components/shared/theme_toggler'
 import { useAuth } from '~/hooks/use_auth'
 import { Navigation } from './nav'
@@ -42,7 +42,7 @@ const SidebarFooter = () => {
                 <TooltipTrigger asChild>
                   <Button isIconOnly variant="outline" asChild>
                     <Link href="/staff">
-                      <VaultIcon className="size-4" />
+                      <LockKeyholeIcon className="size-4" />
                     </Link>
                   </Button>
                 </TooltipTrigger>

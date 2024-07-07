@@ -1,15 +1,14 @@
-import { ApiService } from '#core/services/api'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
-import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
-@inject()
 export default class AuthController {
-  constructor(private api: ApiService) {}
+  profile({ inertia }: HttpContext) {
+    return inertia.render('auth/profile')
+  }
 
   login({ inertia }: HttpContext) {
-    return inertia.render('login')
+    return inertia.render('auth/login')
   }
 
   logout({ session, response }: HttpContext) {
@@ -45,16 +44,6 @@ export default class AuthController {
     const user = await discord.user()
 
     const validatedUser = await this.#validateUser(user)
-
-    try {
-      await this.api.checkDiscordAccountLinked(validatedUser.id)
-    } catch (error: unknown) {
-      if (error instanceof Exception && error.code === 'E_DISCORD_ACCOUNT_LINK_INVALID') {
-        return response.redirect().toRoute('auth.login', [], { qs: { code: error.code } })
-      }
-
-      throw error
-    }
 
     session.put('user', validatedUser)
     session.regenerate()

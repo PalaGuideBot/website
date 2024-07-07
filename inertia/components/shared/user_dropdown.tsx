@@ -1,7 +1,7 @@
 import type { DiscordUser } from '#app/types'
 import { Link, router } from '@inertiajs/react'
 import { Avatar, DropdownMenu } from '@lemonsqueezy/wedges'
-import { ChevronDownIcon, HomeIcon, LogOutIcon, MoonIcon, SunIcon } from 'lucide-react'
+import { ChevronDownIcon, HomeIcon, LogOutIcon, MoonIcon, SunIcon, UserIcon } from 'lucide-react'
 import { useTheme } from '../theme_provider'
 
 const UserDropdown = ({
@@ -38,6 +38,12 @@ const UserDropdown = ({
             <Link href="/">
               <HomeIcon className="size-4" />
               <span>Retour à l'accueil</span>
+            </Link>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item asChild>
+            <Link href="/profile">
+              <UserIcon className="size-4" />
+              <span>Profil</span>
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Item onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
