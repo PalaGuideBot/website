@@ -3,8 +3,8 @@ import { usePage } from '@inertiajs/react'
 
 export const useAuth = () => {
   const {
-    props: { auth },
-  } = usePage<{ auth?: DiscordUser }>()
+    props: { auth, staff = false },
+  } = usePage<{ auth?: DiscordUser; staff?: boolean }>()
 
-  return auth
+  return auth ? { ...auth, staff } : undefined
 }

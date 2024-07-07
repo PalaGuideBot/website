@@ -1,14 +1,15 @@
+import { minecraftAccountLink } from '#core/validators/minecraft_valiadator'
 import {
   default as leaderboardCategories,
   type LeaderboardCategory,
 } from '#leaderboard/content/categories'
 import { validators as leaderboardValidators } from '#leaderboard/validators/leaderboard_validator'
+import { staffStatisticsValidator } from '#staff/validators/staff_validator'
 import env from '#start/env'
 import { discordStatsValidator } from '#stats/validators/discord_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
 import { userInfoValidator } from '#stats/validators/user_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
-import { staffStatisticsValidator } from '#staff/validators/staff_validator'
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
 import { Infer } from '@vinejs/vine/types'
@@ -127,6 +128,25 @@ export class ApiService {
       console.log(error)
       throw new Exception('Invalid staff statistics data', {
         code: 'E_STAFF_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async checkDiscordAccountLinked(id: string) {
+    try {
+      const response = await client.get(`minecraft/link/discord/${id}`)
+      const data = await response.json()
+      return await minecraftAccountLink.validate(data)
+    } catch (error: unknown) {
+      if (error instanceof HTTPError && error.response.status === 400) {
+        throw new Exception('Discord account not linked', {
+          code: 'E_DISCORD_NOT_LINKED',
+          status: 400,
+        })
+      }
+      throw new Exception('Invalid link data', {
+        code: 'E_DISCORD_ACCOUNT_LINK_INVALID',
         status: 500,
       })
     }

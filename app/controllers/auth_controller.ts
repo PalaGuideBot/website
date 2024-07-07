@@ -1,19 +1,22 @@
+import { ApiService } from '#core/services/api'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
+import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
+@inject()
 export default class AuthController {
-  authorizedUsers = ['339809990527156224', '363402633752477696', '564715397023137793']
+  constructor(private api: ApiService) {}
 
   login({ inertia }: HttpContext) {
-    return inertia.render('staff/login')
+    return inertia.render('login')
   }
 
   logout({ session, response }: HttpContext) {
     session.clear()
     session.regenerate()
 
-    return response.redirect().toRoute('staff.login')
+    return response.redirect().toRoute('home')
   }
 
   async redirect({ ally }: HttpContext) {
@@ -43,14 +46,20 @@ export default class AuthController {
 
     const validatedUser = await this.#validateUser(user)
 
-    if (!this.authorizedUsers.includes(validatedUser.id)) {
-      throw new Exception("Vous n'avez pas le droit d'accéder à cette application", { status: 403 })
+    try {
+      await this.api.checkDiscordAccountLinked(validatedUser.id)
+    } catch (error: unknown) {
+      if (error instanceof Exception && error.code === 'E_DISCORD_ACCOUNT_LINK_INVALID') {
+        return response.redirect().toRoute('auth.login', [], { qs: { code: error.code } })
+      }
+
+      throw error
     }
 
     session.put('user', validatedUser)
     session.regenerate()
 
-    return response.redirect().toRoute('staff.dashboard')
+    return response.redirect().toRoute('home')
   }
 
   async #validateUser(data: any) {

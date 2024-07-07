@@ -1,4 +1,5 @@
 import router from '@adonisjs/core/services/router'
+
 const PaladiumController = () => import('#status/controllers/paladium_controller')
 
 router
