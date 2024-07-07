@@ -140,12 +140,18 @@ const GlobalTab = ({
 
   const averagePlayers = data.reduce((sum, entry) => sum + entry.global.players, 0) / data.length
 
-  const dataWithAverage = data.map((entry) => ({
-    ...entry,
-    average: averagePlayers,
-  }))
+  const dataWithAverage =
+    dateInterval === 'last-30-days'
+      ? data.toReversed().map((entry) => ({
+          ...entry,
+          average: averagePlayers,
+        }))
+      : data.map((entry) => ({
+          ...entry,
+          average: averagePlayers,
+        }))
 
-  if (dateInterval === 'last-30-days') dataWithAverage.reverse()
+  console.log(dataWithAverage)
 
   return (
     <Card>
@@ -182,12 +188,14 @@ const GlobalTab = ({
                         global: { players },
                         average,
                       } = payload[0].payload
+
+                      console.log(payload[0].payload)
                       return (
                         <Card className="bg-background">
                           <CardContent className="p-4 space-y-2">
                             <div className="font-pixel text-xs">
                               {formatDate(
-                                `${date}T${hour}:00:00Z`,
+                                DateTime.fromSQL(`${date} ${hour}:00:00`).toISO()!,
                                 dateInterval === 'today'
                                   ? DateTime.DATETIME_MED_WITH_SECONDS
                                   : DateTime.DATE_FULL
