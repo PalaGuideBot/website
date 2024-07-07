@@ -83,7 +83,6 @@ interface PodiumCardValueProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const PodiumCardValue = ({ className, children, after, ...props }: PodiumCardValueProps) => {
-  console.log(after)
   return (
     <div
       className={cn(

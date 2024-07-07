@@ -151,8 +151,6 @@ const GlobalTab = ({
           average: averagePlayers,
         }))
 
-  console.log(dataWithAverage)
-
   return (
     <Card>
       <CardContent className="pt-4 flex flex-col gap-4">
@@ -189,7 +187,6 @@ const GlobalTab = ({
                         average,
                       } = payload[0].payload
 
-                      console.log(payload[0].payload)
                       return (
                         <Card className="bg-background">
                           <CardContent className="p-4 space-y-2">
