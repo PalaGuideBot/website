@@ -1,4 +1,7 @@
-import { minecraftAccountLink } from '#core/validators/minecraft_valiadator'
+import {
+  minecraftAccountLinkValidator,
+  minecraftTokenLinkValidator,
+} from '#core/validators/minecraft_valiadator'
 import {
   default as leaderboardCategories,
   type LeaderboardCategory,
@@ -133,11 +136,33 @@ export class ApiService {
     }
   }
 
-  async checkDiscordAccountLinked(id: string) {
+  async generateDiscordTokenLink(id: string) {
     try {
-      const response = await client.get(`minecraft/link/discord/${id}`)
+      const response = await client.post('minecraft/link/generateToken', {
+        body: JSON.stringify({ discordId: id }),
+        headers: { 'Content-Type': 'application/json' },
+      })
       const data = await response.json()
-      return await minecraftAccountLink.validate(data)
+      return await minecraftTokenLinkValidator.validate(data)
+    } catch (error: unknown) {
+      if (error instanceof HTTPError && error.response.status === 400) {
+        throw new Exception('Discord account already linked', {
+          code: 'E_DISCORD_ALREADY_LINKED',
+          status: 400,
+        })
+      }
+      throw new Exception('Invalid link data', {
+        code: 'E_DISCORD_ACCOUNT_LINK_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getMinecraftAccountLinked(discordId: string) {
+    try {
+      const response = await client.get(`minecraft/link/discord/${discordId}`)
+      const data = await response.json()
+      return await minecraftAccountLinkValidator.validate(data)
     } catch (error: unknown) {
       if (error instanceof HTTPError && error.response.status === 400) {
         throw new Exception('Discord account not linked', {
@@ -149,6 +174,20 @@ export class ApiService {
         code: 'E_DISCORD_ACCOUNT_LINK_INVALID',
         status: 500,
       })
+    }
+  }
+
+  async unlinkMinecraftAccount(discordId: string) {
+    try {
+      await client.delete(`minecraft/link/discord/${discordId}`)
+    } catch (error: unknown) {
+      if (error instanceof HTTPError && error.response.status === 400) {
+        throw new Exception('Discord account not linked', {
+          code: 'E_DISCORD_NOT_LINKED',
+          status: 400,
+        })
+      }
+      throw error
     }
   }
 }

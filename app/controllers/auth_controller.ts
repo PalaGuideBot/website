@@ -1,10 +1,20 @@
+import { ApiService } from '#core/services/api'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
+import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
+@inject()
 export default class AuthController {
-  profile({ inertia }: HttpContext) {
-    return inertia.render('auth/profile')
+  constructor(private api: ApiService) {}
+
+  async profile({ inertia, auth }: HttpContext) {
+    let minecraftAccount = null
+    try {
+      minecraftAccount = await this.api.getMinecraftAccountLinked(auth!.user.id)
+    } catch {}
+
+    return inertia.render('auth/profile', { minecraftAccount })
   }
 
   login({ inertia }: HttpContext) {

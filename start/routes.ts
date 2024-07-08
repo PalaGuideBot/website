@@ -1,5 +1,6 @@
 import '#start/routes/auth'
 import '#start/routes/leaderboard'
+import '#start/routes/minecraft'
 import '#start/routes/staff'
 import '#start/routes/stats'
 import '#start/routes/status'

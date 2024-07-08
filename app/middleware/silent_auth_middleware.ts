@@ -16,14 +16,26 @@ export default class SilentAuthMiddleware {
       user = await discordUserValidator.validate(ctx.session.get('user'))
     } catch {}
 
-    if ('inertia' in ctx && user) {
-      ctx.inertia.share({ auth: user })
+    if (user) {
+      const staff = DiscordIdMiddleware.ids.includes(user.id)
 
-      if (DiscordIdMiddleware.ids.includes(user.id)) {
-        ctx.inertia.share({ staff: true })
+      if ('inertia' in ctx) {
+        ctx.inertia.share({ auth: user })
+        staff && ctx.inertia.share({ staff })
       }
+
+      ctx.auth = { user, staff }
     }
 
     return next()
+  }
+}
+
+declare module '@adonisjs/core/http' {
+  export interface HttpContext {
+    auth?: {
+      user: DiscordUser
+      staff: boolean
+    }
   }
 }

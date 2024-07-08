@@ -1,14 +1,22 @@
 import type AuthController from '#controllers/auth_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Button } from '@lemonsqueezy/wedges'
+import { router } from '@inertiajs/react'
+import { Alert, Button } from '@lemonsqueezy/wedges'
 import * as Tabs from '@radix-ui/react-tabs'
+import { CheckIcon, CopyIcon, UnlinkIcon } from 'lucide-react'
+import { useState } from 'react'
 import DefaultLayout from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
+import { client } from '~/lib/client'
+import { getHeadUrl } from '~/lib/minecraft'
 
 type ProfilePageProps = InferPageProps<AuthController, 'profile'>
 
 export default function ProfilePage(props: ProfilePageProps) {
+  const { minecraftAccount } = props
+
   const tabs: Array<{ id: string; label: string }> = [
     {
       id: 'minecraft',
@@ -45,7 +53,7 @@ export default function ProfilePage(props: ProfilePageProps) {
             </Tabs.List>
             <div>
               <Tabs.Content value="minecraft" className="grid gap-4">
-                <MinecraftTab />
+                <MinecraftTab account={minecraftAccount} />
               </Tabs.Content>
               <Tabs.Content value="soon" className="grid gap-4">
                 <Card className="bg-background">
@@ -63,7 +71,29 @@ export default function ProfilePage(props: ProfilePageProps) {
   )
 }
 
-const MinecraftTab = () => {
+const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccount'] }) => {
+  const [token, setToken] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
+
+  const [, copy] = useCopyToClipboard()
+
+  const generateToken = async () => {
+    const response = await client.post('minecraft/link/generate-token').json<{ token: string }>()
+    setToken(response.token)
+  }
+
+  const unlinkAccount = async () => {
+    await client.delete('minecraft/unlink')
+    router.reload()
+  }
+
+  const handleCopy = (text: string) => {
+    copy(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
   return (
     <>
       <Card className="bg-background">
@@ -74,9 +104,58 @@ const MinecraftTab = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <Button size="sm" variant="tertiary">
-            Générer un code
-          </Button>
+          {account && (
+            <>
+              <Alert color="success">Votre compte est lié.</Alert>
+              <Card>
+                <CardContent className="p-2">
+                  <div className="flex flex-row gap-2 items-center">
+                    <img
+                      src={getHeadUrl(account.UUID)}
+                      alt={`${account.UUID}'s head`}
+                      className="w-16 h-auto object-contain rounded-sm"
+                    />
+                    <div className="flex-1 flex flex-row items-center justify-between">
+                      <div>
+                        <p className="text-lg font-bold">No name</p>
+                        <p className="text-sm">{account.UUID}</p>
+                      </div>
+                      <Button
+                        before={<UnlinkIcon />}
+                        size="sm"
+                        variant="link"
+                        className="no-underline hover:underline"
+                        onClick={unlinkAccount}
+                      >
+                        Dissocier
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+          {!account && token && (
+            <>
+              <p className="text-sm">Code de liaison</p>
+              <div className="flex items-center gap-2">
+                <p className="text-lg font-bold">{token}</p>
+                <Button
+                  isIconOnly
+                  variant={copied ? 'primary' : 'tertiary'}
+                  onClick={() => handleCopy(token)}
+                  className="transition-all"
+                >
+                  {copied ? <CheckIcon className="size-4" /> : <CopyIcon className="size-4" />}
+                </Button>
+              </div>
+            </>
+          )}
+          {!account && !token && (
+            <Button size="sm" variant="tertiary" onClick={generateToken}>
+              Générer un code
+            </Button>
+          )}
         </CardContent>
       </Card>
     </>
