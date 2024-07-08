@@ -1,6 +1,7 @@
 import { ExceptionHandler, HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
+import { errors } from '@adonisjs/shield'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -36,6 +37,9 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof errors.E_BAD_CSRF_TOKEN) {
+      return ctx.response.status(error.status).send({ message: error.message })
+    }
     return super.handle(error, ctx)
   }
 
