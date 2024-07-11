@@ -1,6 +1,7 @@
 import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { usePage } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
+import { Alert, Button } from '@lemonsqueezy/wedges'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
@@ -12,7 +13,9 @@ import { UserDetails } from './components/user_details'
 export type UserShowProps = InferPageProps<UsersController, 'show'>
 
 export default function UserShow(props: UserShowProps) {
-  const { user, exampleUser } = props
+  const { targetUser, exampleUser, authUser, isLinked } = props
+
+  const user = targetUser || authUser
   const {
     props: { error },
   } = usePage<{ error?: string }>()
@@ -30,8 +33,34 @@ export default function UserShow(props: UserShowProps) {
       ) : (
         <Head descriptors={[{ title: 'Utilisateur' }]} />
       )}
-      <DefaultLayout>
-        <Page>
+      <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
+        {!authUser && exampleUser && !isLinked && (
+          <Alert
+            className="rounded-none min-h-[60px] border-b"
+            closable
+            after={
+              <Button variant="transparent" className="text-primary text-nowrap" size="sm" asChild>
+                <Link href="/profile">Associer un compte</Link>
+              </Button>
+            }
+          >
+            Associez votre compte Minecraft pour afficher vos statistiques par défaut.
+          </Alert>
+        )}
+        {!authUser && exampleUser && isLinked && (
+          <Alert
+            className="rounded-none min-h-[60px] border-b"
+            closable
+            after={
+              <Button variant="transparent" className="text-primary text-nowrap" size="sm" asChild>
+                <Link href="/profile">Changer de compte</Link>
+              </Button>
+            }
+          >
+            Aucune statistique disponible pour le compte Minecraft associé à votre compte.
+          </Alert>
+        )}
+        <Page className="p-4 lg:p-6">
           <PageTitle>Statistiques utilisateur</PageTitle>
           <SearchUserForm defaultValue={user?.username} />
           {!error && !user && (

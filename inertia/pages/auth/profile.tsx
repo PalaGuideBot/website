@@ -22,10 +22,6 @@ export default function ProfilePage(props: ProfilePageProps) {
       id: 'minecraft',
       label: 'Minecraft',
     },
-    {
-      id: 'soon',
-      label: 'En construction...',
-    },
   ]
 
   return (
@@ -54,14 +50,6 @@ export default function ProfilePage(props: ProfilePageProps) {
             <div>
               <Tabs.Content value="minecraft" className="grid gap-4">
                 <MinecraftTab account={minecraftAccount} />
-              </Tabs.Content>
-              <Tabs.Content value="soon" className="grid gap-4">
-                <Card className="bg-background">
-                  <CardHeader>
-                    <CardTitle>En construction...</CardTitle>
-                    <CardDescription>Cette page est en cours de construction.</CardDescription>
-                  </CardHeader>
-                </Card>
               </Tabs.Content>
             </div>
           </Tabs.Root>
@@ -112,12 +100,12 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                   <div className="flex flex-row gap-2 items-center">
                     <img
                       src={getHeadUrl(account.UUID)}
-                      alt={`${account.UUID}'s head`}
+                      alt={`${account.username}'s head`}
                       className="w-16 h-auto object-contain rounded-sm"
                     />
                     <div className="flex-1 flex flex-row items-center justify-between">
                       <div>
-                        <p className="text-lg font-bold">No name</p>
+                        <p className="text-lg font-bold">{account.username}</p>
                         <p className="text-sm">{account.UUID}</p>
                       </div>
                       <Button
@@ -142,11 +130,15 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                 <p className="text-lg font-bold">{token}</p>
                 <Button
                   isIconOnly
-                  variant={copied ? 'primary' : 'tertiary'}
+                  variant="tertiary"
                   onClick={() => handleCopy(token)}
                   className="transition-all"
                 >
-                  {copied ? <CheckIcon className="size-4" /> : <CopyIcon className="size-4" />}
+                  {copied ? (
+                    <CheckIcon className="size-4 text-wg-green" />
+                  ) : (
+                    <CopyIcon className="size-4" />
+                  )}
                 </Button>
               </div>
             </>

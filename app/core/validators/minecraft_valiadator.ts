@@ -4,6 +4,7 @@ export const minecraftAccountLinkValidator = vine.compile(
   vine.object({
     message: vine.string(),
     UUID: vine.string().uuid(),
+    username: vine.string(),
   })
 )
 

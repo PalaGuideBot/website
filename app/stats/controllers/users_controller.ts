@@ -1,24 +1,41 @@
 import { ApiService } from '#core/services/api'
 import { inject } from '@adonisjs/core'
+import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
 @inject()
 export default class UsersController {
   constructor(private api: ApiService) {}
 
-  async show({ inertia, params }: HttpContext) {
-    let user = null
+  async show({ inertia, params, auth }: HttpContext) {
+    let targetUser = null
     let exampleUser = null
+    let authUser = null
+    let isLinked = true
+
+    try {
+      if (auth?.user && !params.username) {
+        const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
+        authUser = await this.api.getUser(profile.username)
+      }
+    } catch (error: unknown) {
+      if (error instanceof Exception && error.code === 'E_DISCORD_NOT_LINKED') {
+        isLinked = false
+      }
+    }
+
     try {
       if (params.username) {
-        user = await this.api.getUser(params.username)
-      } else {
+        targetUser = await this.api.getUser(params.username)
+      }
+
+      if (!authUser && !params.username) {
         exampleUser = await this.api.getUser('PalaGuideBot')
       }
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Une erreur est survenue'
       inertia.share({ error: message })
     }
-    return inertia.render('stats/users/show', { user, exampleUser })
+    return inertia.render('stats/users/show', { targetUser, exampleUser, authUser, isLinked })
   }
 }
