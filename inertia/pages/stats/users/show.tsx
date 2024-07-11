@@ -9,6 +9,7 @@ import { Head } from '~/components/shared/head'
 import { getHeadUrl } from '~/lib/minecraft'
 import { SearchUserForm } from './components/search_user_form'
 import { UserDetails } from './components/user_details'
+import { useAuth } from '~/hooks/use_auth'
 
 export type UserShowProps = InferPageProps<UsersController, 'show'>
 
@@ -19,6 +20,7 @@ export default function UserShow(props: UserShowProps) {
   const {
     props: { error },
   } = usePage<{ error?: string }>()
+  const auth = useAuth()
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function UserShow(props: UserShowProps) {
         <Head descriptors={[{ title: 'Utilisateur' }]} />
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
-        {!authUser && exampleUser && !isLinked && (
+        {auth && !authUser && exampleUser && !isLinked && (
           <Alert
             className="rounded-none min-h-[60px] border-b"
             closable

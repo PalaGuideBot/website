@@ -11,18 +11,15 @@ export default class UsersController {
     let targetUser = null
     let exampleUser = null
     let authUser = null
-    let isLinked = true
+    let isLinked = false
 
     try {
       if (auth?.user && !params.username) {
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
         authUser = await this.api.getUser(profile.username)
+        isLinked = true
       }
-    } catch (error: unknown) {
-      if (error instanceof Exception && error.code === 'E_DISCORD_NOT_LINKED') {
-        isLinked = false
-      }
-    }
+    } catch {}
 
     try {
       if (params.username) {
