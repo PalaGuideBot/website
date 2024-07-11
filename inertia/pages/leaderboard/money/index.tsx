@@ -67,10 +67,10 @@ export default function MoneyIndex(props: MoneyIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Money' }]} />
+      <Head descriptors={[{ title: 'Classement: Money' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Money</PageTitle>
+          <PageTitle>Classement: Money</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />

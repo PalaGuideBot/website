@@ -67,10 +67,10 @@ export default function ClickerIndex(props: ClickerIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Clicker' }]} />
+      <Head descriptors={[{ title: 'Classement: Clicker' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Clicker</PageTitle>
+          <PageTitle>Classement: Clicker</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />

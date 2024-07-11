@@ -66,10 +66,10 @@ export default function BossIndex(props: BossIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Boss' }]} />
+      <Head descriptors={[{ title: 'Classement: Boss' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Boss</PageTitle>
+          <PageTitle>Classement: Boss</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />

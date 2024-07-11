@@ -67,10 +67,10 @@ export default function KothIndex(props: KothIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Koth' }]} />
+      <Head descriptors={[{ title: 'Classement: Koth' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Koth</PageTitle>
+          <PageTitle>Classement: Koth</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />

@@ -73,10 +73,10 @@ export default function FactionsIndex(props: FactionsIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Factions' }]} />
+      <Head descriptors={[{ title: 'Classement: Factions' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Factions</PageTitle>
+          <PageTitle>Classement: Factions</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />

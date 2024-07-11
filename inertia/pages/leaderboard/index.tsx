@@ -53,10 +53,10 @@ export default function LeaderboardIndexPage() {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard' }]} />
+      <Head descriptors={[{ title: 'Classements' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard</PageTitle>
+          <PageTitle>Classements</PageTitle>
           <PathCardWrapper>
             {paths.map((path) => (
               <PathCard key={path.path}>

@@ -1,5 +1,10 @@
 # Changelogs
 
+## 11/07/2024
+
+-> Website
+- Traduction de `Leaderboard` en `Classement` (Suggestion)
+
 ## 06/07/2024
 
 -> Website

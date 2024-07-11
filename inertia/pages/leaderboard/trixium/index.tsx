@@ -49,10 +49,10 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: Trixium' }]} />
+      <Head descriptors={[{ title: 'Classement: Trixium' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Trixium</PageTitle>
+          <PageTitle>Classement: Trixium</PageTitle>
           <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
             <Tabs.List>
               <Tabs.Trigger before={<UserIcon className="size-4" />} value="player">

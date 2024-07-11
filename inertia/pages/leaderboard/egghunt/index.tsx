@@ -66,10 +66,10 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: EggHunt' }]} />
+      <Head descriptors={[{ title: 'Classement: EggHunt' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Leaderboard: Egghunt</PageTitle>
+          <PageTitle>Classement: Egghunt</PageTitle>
           <PageSubTitle>Podium</PageSubTitle>
           <PodiumCardWrapper>
             <Podium data={first} position="first" />
