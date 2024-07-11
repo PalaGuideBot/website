@@ -289,7 +289,7 @@ const PlayerPodium = ({
       </PodiumCardDescription>
       <TooltipProvider delayDuration={100}>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger className="z-[2]">
             <PodiumCardValue
               className="border-b-2 border-dashed border-foreground hover:border-b-0"
               after={<LeaderboardTrixiumIcon />}
