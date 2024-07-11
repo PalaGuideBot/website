@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
-import { DiscordLogoIcon } from '@radix-ui/react-icons'
+import { DiscordIcon } from '~/components/icons'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { useSearchParams } from '~/hooks/use_search_params'
@@ -22,29 +22,35 @@ export default function LoginPage() {
           {code && <Alert color="error">{translateCode(code)}</Alert>}
           <Card className="bg-background">
             <CardHeader className="border-b">
-              <CardTitle>Informations</CardTitle>
+              <CardTitle>Connexion</CardTitle>
             </CardHeader>
             <CardContent className="p-4">
-              <p className="text-sm pb-2">
-                Votre compte Discord doit être lié à votre compte Minecraft.
+              <p className="text-sm pb-4">
+                En vous connectant, vous acceptez nos{' '}
+                <Button variant="link" asChild>
+                  <Link href="/terms">conditions d'utilisations</Link>
+                </Button>{' '}
+                et vous avez pris connaissances de notre{' '}
+                <Button variant="link" asChild>
+                  <Link href="/privacy">politique de confidentialité</Link>
+                </Button>
+                .
               </p>
-              <p className="text-sm">Pour cela, accédez à notre guide :</p>
-              <Button variant="link" asChild>
-                <Link href="/link">Voir le guide</Link>
-              </Button>
+              <div className="flex flex-col gap-2 justify-center">
+                <Button
+                  before={<DiscordIcon className="mr-1 size-5" />}
+                  className="p-2"
+                  variant="outline"
+                  asChild
+                >
+                  <a href="/auth/redirect">Se connecter</a>
+                </Button>
+                <Button variant="link" asChild>
+                  <Link href="/">Retour à l'accueil</Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
-          <Button
-            before={<DiscordLogoIcon className="mr-1 size-5" />}
-            className="p-2"
-            variant="outline"
-            asChild
-          >
-            <a href="/auth/redirect">Se connecter</a>
-          </Button>
-          <Button variant="link" asChild>
-            <Link href="/">Retour à l'accueil</Link>
-          </Button>
         </div>
       </main>
     </>

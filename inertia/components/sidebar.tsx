@@ -11,7 +11,7 @@ export default function Sidebar() {
   return (
     <aside className="hidden h-screen sticky top-0 w-72 lg:w-80 border-r bg-background md:flex flex-col">
       <div className="flex flex-col">
-        <div className="flex min-h-14 items-center justify-between gap-2 border-b px-4 lg:h-[60px] lg:px-6">
+        <div className="flex min-h-[60px] items-center justify-between gap-2 border-b px-4 lg:px-6">
           <Link href="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Logo" className="h-6 lg:h-8 w-full object-contain" />
             <span className="font-bold">PalaGuideBot</span>
