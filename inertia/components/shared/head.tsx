@@ -9,6 +9,29 @@ type MetaDescriptor =
   | { tagName: 'meta' | 'link'; [name: string]: string }
   | { [name: string]: unknown }
 
+const keywords = [
+  'minecraft',
+  'paladium',
+  'paladium-pvp',
+  'paladium stats',
+  'statistiques',
+  'classement',
+  'factions',
+  'joueurs',
+  'statut',
+  'suivi',
+  'stats',
+  'top factions',
+  'leaderboard',
+  'statut serveurs',
+  'analyse',
+  'rang',
+  'trixium',
+  'palaguidebot',
+  'bot',
+  'discord',
+]
+
 const Head = ({
   children,
   descriptors = [],
@@ -21,6 +44,8 @@ const Head = ({
 
   const defaultDescriptors: MetaDescriptor[] = [
     { title: title },
+    { name: 'subject', content: 'Guide pour le serveur Minecraft Paladium' },
+    { name: 'url', content: 'https://palaguidebot.fr' },
     { name: 'description', content: description },
     { name: 'og:description', content: description },
     { name: 'og:url', content: 'https://palaguidebot.fr' },
@@ -30,6 +55,8 @@ const Head = ({
     { name: 'twitter:domain', content: 'palaguidebot.fr' },
     { name: 'twitter:url', content: 'https://palaguidebot.fr' },
     { name: 'twitter:title', content: title },
+    { name: 'theme-color', content: '#FFB702' },
+    { name: 'keywords', content: keywords.join(', ') },
   ].filter((descriptor) => {
     if ('name' in descriptor) {
       return !descriptors.some((d) => 'name' in d && d.name === descriptor.name)
@@ -93,4 +120,4 @@ function isValidMetaTag(tagName: unknown): tagName is 'meta' | 'link' {
   return typeof tagName === 'string' && /^(meta|link)$/.test(tagName)
 }
 
-export { Head }
+export { Head, keywords }
