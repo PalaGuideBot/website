@@ -41,7 +41,7 @@ export default function UserShow(props: UserShowProps) {
             className="rounded-none min-h-[60px] border-b"
             closable
             after={
-              <Button variant="transparent" className="text-primary text-nowrap" size="sm" asChild>
+              <Button variant="tertiary" className="px-4 text-nowrap" size="sm" asChild>
                 <Link href="/profile">Associer un compte</Link>
               </Button>
             }
@@ -54,7 +54,7 @@ export default function UserShow(props: UserShowProps) {
             className="rounded-none min-h-[60px] border-b"
             closable
             after={
-              <Button variant="transparent" className="text-primary text-nowrap" size="sm" asChild>
+              <Button variant="tertiary" className="px-4 text-nowrap" size="sm" asChild>
                 <Link href="/profile">Changer de compte</Link>
               </Button>
             }
