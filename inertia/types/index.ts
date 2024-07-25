@@ -22,6 +22,7 @@ export type Rank =
   | 'création'
   | 'redacteur'
   | 'gamedesigner'
+  | 'developpeurjunior'
   | 'developpeur'
   | 'developpeursenior'
   | 'graphistesenior'
