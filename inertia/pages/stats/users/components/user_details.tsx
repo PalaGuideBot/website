@@ -39,7 +39,7 @@ import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
 
 type UserDetailsProps = {
-  user: NonNullable<UserShowProps['user']>
+  user: NonNullable<UserShowProps['exampleUser']>
 }
 
 export const UserDetails = ({ user }: UserDetailsProps) => {
@@ -134,13 +134,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
               <li>
                 <InformationLine
                   label="Rank"
-                  value={
-                    <PaladiumRank
-                      rank={
-                        lastUserData!.data.rank === 'default' ? 'Joueur' : lastUserData!.data.rank
-                      }
-                    />
-                  }
+                  value={<PaladiumRank rank={lastUserData!.data.rank} />}
                 />
               </li>
               <li>

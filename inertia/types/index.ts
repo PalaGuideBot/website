@@ -1,6 +1,7 @@
 export type Job = 'alchemist' | 'farmer' | 'hunter' | 'miner'
 
 export type Rank =
+  | 'default'
   | 'titan'
   | 'paladin'
   | 'endium'
