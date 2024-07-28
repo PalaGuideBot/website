@@ -3,7 +3,6 @@ import { InferPageProps } from '@adonisjs/inertia/types'
 import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
 import {
   CalendarDaysIcon,
-  CirclePowerIcon,
   CodeXmlIcon,
   CpuIcon,
   HashIcon,
@@ -38,6 +37,7 @@ import { DiscordEvolutionCard } from '../components/discord_evolution_card'
 import { DiscordInteractionsCard } from '../components/discord_interactions_card'
 import {
   ServerUsageCard,
+  ServerUsageCardBadge,
   ServerUsageCardContent,
   ServerUsageCardHeader,
   ServerUsageCardTitle,
@@ -396,9 +396,7 @@ const UsageTab = () => {
             <ServerUsageCard key={item.pid}>
               <ServerUsageCardHeader>
                 <ServerUsageCardTitle>{item.name}</ServerUsageCardTitle>
-                <Badge shape="pill" stroke before={<CirclePowerIcon />}>
-                  {item.status}
-                </Badge>
+                <ServerUsageCardBadge status={item.status} />
               </ServerUsageCardHeader>
               <ServerUsageCardContent className="space-y-1">
                 <ServerUsageCardValue before={<CpuIcon className="size-4" />}>

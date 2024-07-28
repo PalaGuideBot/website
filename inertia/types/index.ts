@@ -56,12 +56,14 @@ export type Path = {
   external?: boolean
 }
 
+type PM2Status = 'online' | 'stopping' | 'stopped' | 'launching' | 'errored' | 'one-launch-status'
+
 export type ServerUsageInfo = {
   name: string
   pid: number
   memory: number
   cpu: number
-  status: string
+  status: PM2Status
   created_at: string
   uptime: number
   date: string
