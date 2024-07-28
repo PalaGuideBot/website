@@ -1,6 +1,5 @@
 import { ApiService } from '#core/services/api'
 import { inject } from '@adonisjs/core'
-import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
 @inject()
@@ -16,8 +15,8 @@ export default class UsersController {
     try {
       if (auth?.user && !params.username) {
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
-        authUser = await this.api.getUser(profile.username)
         isLinked = true
+        authUser = await this.api.getUser(profile.username)
       }
     } catch {}
 
