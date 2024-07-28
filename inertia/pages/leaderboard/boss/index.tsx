@@ -136,7 +136,9 @@ const Podium = ({
       <PodiumCardDescription href={`/stats/users/${data.username}`}>
         {data.username}
       </PodiumCardDescription>
-      <PodiumCardValue after={<BossIcon className="h-5 w-auto" />}>{data.value}</PodiumCardValue>
+      <PodiumCardValue after={<BossIcon className="h-5 w-auto invert dark:invert-0" />}>
+        {data.value}
+      </PodiumCardValue>
       {compare && <PodiumCardCompare value={data.value} compare={compare} />}
     </PodiumCard>
   )

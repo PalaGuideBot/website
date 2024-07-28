@@ -272,7 +272,7 @@ const FactionsTab = ({
             const Icon = factionIcons[faction as PaladiumFaction]
             return (
               <div key={faction} className="flex items-end justify-center gap-4 pb-2">
-                <Icon className="h-10 w-10 invert-0" />
+                <Icon className="h-10 w-10" />
                 <div className="space-y-2 flex-grow">
                   <PageSubTitle>{faction}</PageSubTitle>
                   <UptimeIndicator data={status} />

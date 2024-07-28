@@ -11,7 +11,7 @@ const InformationLine = ({
   return (
     <div className="flex gap-2">
       <span className="font-pixel">{label}</span>
-      <ArrowRightIcon className="w-2" />
+      <ArrowRightIcon className="w-2 invert dark:invert-0" />
       {typeof value === 'string' || typeof value === 'number' ? (
         <span className="text-sm font-mc-dungueons">{value}</span>
       ) : (

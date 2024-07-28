@@ -335,7 +335,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                   key={key}
                   className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
                 >
-                  {Icon && <Icon className="w-12 invert-0" />}
+                  {Icon && <Icon className="w-12" />}
                   <div className="flex flex-col gap-2">
                     <span className="font-pixel text-xs">{noCase(key)}</span>
                     <span className="text-sm text-primary font-mc-dungueons">

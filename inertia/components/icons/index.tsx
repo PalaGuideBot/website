@@ -37,7 +37,7 @@ const iconFactory =
       <img
         src={src}
         alt="Icon image"
-        className={cn('inline-block w-4 h-auto object-contain invert dark:invert-0', className)}
+        className={cn('inline-block w-4 h-auto object-contain', className)}
         {...props}
       />
     )
