@@ -21,7 +21,7 @@ const PaladiumJob = ({ job, info }: PaladiumJobProps) => {
 
   return (
     <div className="flex flex-col gap-4 items-center">
-      <span className="font-pixel text-xs">{job}</span>
+      <span className="font-pixel">{job}</span>
       <div className="relative flex items-center justify-center">
         <div className="relative">
           <JobProgress className="absolute -top-[5px] scale-[0.64]" job={job} info={info} />
