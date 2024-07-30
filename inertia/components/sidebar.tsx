@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
-import { LockKeyholeIcon, LogInIcon } from 'lucide-react'
+import { LogInIcon } from 'lucide-react'
+
 import ThemeToggler from '~/components/shared/theme_toggler'
 import { useAuth } from '~/hooks/use_auth'
 import { Navigation } from './nav'
@@ -34,28 +35,10 @@ const SidebarFooter = () => {
   return (
     <div className="flex items-center justify-between w-full h-full p-4 gap-2">
       {user ? (
-        <>
-          <UserDropdown user={user} align="start" side="top" />
-          {user.staff === true && (
-            <TooltipProvider>
-              <Tooltip delayDuration={200}>
-                <TooltipTrigger asChild>
-                  <Button isIconOnly variant="outline" asChild>
-                    <Link href="/staff">
-                      <LockKeyholeIcon className="size-4" />
-                    </Link>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <span>Staff</span>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </>
+        <UserDropdown user={user} align="start" side="top" />
       ) : (
         <>
-          <p className="text-sm">Non connecté</p>
+          <p className="text-xs text-surface-500">Non connecté</p>
           <TooltipProvider>
             <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
