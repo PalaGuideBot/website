@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
+
 import { DiscordIcon } from '~/components/icons'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
@@ -24,16 +25,16 @@ export default function LoginPage() {
             <CardHeader className="border-b">
               <CardTitle>Connexion</CardTitle>
             </CardHeader>
-            <CardContent className="p-4">
+            <CardContent className="flex flex-col p-4 justify-between min-h-[200px]">
               <p className="text-sm pb-4">
                 En vous connectant, vous acceptez nos{' '}
-                <Button variant="link" asChild>
-                  <Link href="/terms">conditions d'utilisations</Link>
-                </Button>{' '}
+                <Link href="/terms" className="text-primary hover:underline">
+                  conditions d'utilisations
+                </Link>{' '}
                 et vous avez pris connaissances de notre{' '}
-                <Button variant="link" asChild>
-                  <Link href="/privacy">politique de confidentialité</Link>
-                </Button>
+                <Link href="/privacy" className="text-primary hover:underline">
+                  politique de confidentialité
+                </Link>
                 .
               </p>
               <div className="flex flex-col gap-2 justify-center">
