@@ -95,7 +95,7 @@ export class ApiService {
 
   async getPaladiumStatus() {
     try {
-      const response = await client.get('status')
+      const response = await client.get('status', { timeout: 50000 })
       const data = await response.json()
       return await paladiumStatusValidator.validate(data)
     } catch (error: unknown) {
