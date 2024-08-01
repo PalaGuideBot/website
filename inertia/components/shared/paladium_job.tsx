@@ -24,7 +24,11 @@ const PaladiumJob = ({ job, info }: PaladiumJobProps) => {
       <span className="font-pixel">{job}</span>
       <div className="relative flex items-center justify-center">
         <div className="relative">
-          <JobProgress className="absolute -top-[5px] scale-[0.64]" job={job} info={info} />
+          <JobProgress
+            className="absolute inset-0 h-full w-full p-[17%] pb-[13%]"
+            job={job}
+            info={info}
+          />
           <img src={jobIcon} alt={`${job}'s icon`} className="relative h-auto w-full max-w-32" />
         </div>
         <div
@@ -51,7 +55,7 @@ const JobProgress = ({ job, info, ...props }: JobProgressProps) => {
         className="animate-job-progress"
         d="M333.5 25.9808 L333.5 25.9808 L643.987 205.24 V563.76 L333.5 743.019 L23.0132 563.76 V205.24 Z"
         stroke={`var(--job-${job})`}
-        strokeWidth="45"
+        strokeWidth="60"
         strokeDasharray="2150"
         strokeDashoffset={2150 - (2150 * info.level) / 100}
         strokeLinecap="round"
