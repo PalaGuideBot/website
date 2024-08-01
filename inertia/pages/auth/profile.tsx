@@ -105,8 +105,8 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                     />
                     <div className="flex-1 flex flex-row items-center justify-between">
                       <div>
-                        <p className="text-lg font-bold">{account.username}</p>
-                        <p className="text-sm">{account.UUID}</p>
+                        <p className="text-lg font-bold w-fit">{account.username}</p>
+                        <p className="hidden sm:block text-sm">{account.UUID}</p>
                       </div>
                       <Button
                         before={<UnlinkIcon />}
