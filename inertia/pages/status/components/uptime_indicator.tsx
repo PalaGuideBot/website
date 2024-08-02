@@ -150,11 +150,13 @@ const UptimeIndicatorTickTooltipEmptyContent = ({ date }: { date: string }) => {
 const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
+  const firstDate = data.at(0)?.date ?? DateTime.now().toSQLDate()
+
   let result: Array<{ date: string; status: UptimeIndicatorProps['data'][number]['status'] }> = []
 
   switch (dateInterval) {
     case 'today':
-      result = eachHourOfDate(data[0].date).map((date) => {
+      result = eachHourOfDate(firstDate).map((date) => {
         return {
           date: date,
           status:
@@ -169,7 +171,7 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
     case 'last-30-days':
       result = eachDayOfInterval({
         start: DateTime.now().startOf('day').minus({ days: 29 }),
-        end: DateTime.fromISO(data[0].date).endOf('day'),
+        end: DateTime.fromISO(firstDate).endOf('day'),
       }).map((date) => {
         return {
           date: date,
