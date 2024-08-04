@@ -1,5 +1,6 @@
 import { HeartFilledIcon } from '@radix-ui/react-icons'
 
+import { ShibaInfestation } from '~/components/easteregg/shiba_infestation'
 import { ZeluckConfetti } from '~/components/easteregg/zeluck_confetti'
 import { Card, CardContent } from '~/components/ui/card'
 import { cn } from '~/lib/utils'
@@ -17,7 +18,7 @@ const CreditCard = ({
           <a className="text-primary" href="https://riveur.com" target="_blank">
             Riveur
           </a>
-          , <span className="text-primary">Tonykun</span>, <ZeluckConfetti />
+          , <ShibaInfestation />, <ZeluckConfetti />
         </p>
       </CardContent>
     </Card>
