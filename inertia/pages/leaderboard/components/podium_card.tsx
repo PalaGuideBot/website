@@ -1,5 +1,10 @@
 import { Link } from '@inertiajs/react'
+import { motion, Variant } from 'framer-motion'
 import React from 'react'
+import { RunningAnimation } from 'skinview3d'
+
+import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { getSkinUrl } from '~/lib/minecraft'
 import { cn, formatNumber } from '~/lib/utils'
 
 export const PodiumCardWrapper = ({
@@ -36,18 +41,64 @@ export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) =
   )
 }
 
-export const PodiumCardImage = ({
-  className,
-  height = 150,
-  width = 150,
-  ...props
-}: React.ImgHTMLAttributes<HTMLImageElement>) => {
+export const PodiumCardImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, height = 150, width = 150, ...props }, ref) => {
   return (
     <img
+      ref={ref}
       className={cn('object-contain w-1/2 h-full mt-2', className)}
       height={height}
       width={width}
       {...props}
+    />
+  )
+})
+
+PodiumCardImage.displayName = 'PodiumCardImage'
+
+export const MotionPodiumCardImage = motion(PodiumCardImage)
+
+export const podiumCardImageAnimations: Record<string, Variant> = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: [0, 1],
+    y: [-8, 0],
+    transition: {
+      duration: 0.2,
+    },
+  },
+}
+
+interface PodiumCardSkinProps {
+  className?: string
+  width?: number | string
+  height?: number | string
+  username: string
+}
+
+export const PodiumCardSkin = ({
+  className,
+  width = '150',
+  height = '150',
+  username,
+}: PodiumCardSkinProps) => {
+  return (
+    <ReactSkinview3d
+      className={cn('!h-auto w-full', className)}
+      width={width}
+      height={height}
+      skinUrl={getSkinUrl(username)}
+      onReady={({ viewer }) => {
+        viewer.animation = new RunningAnimation()
+        viewer.animation.speed = 1.5
+        viewer.playerWrapper.rotateY(Math.random() * 180)
+        viewer.autoRotate = true
+        viewer.autoRotateSpeed = 2
+      }}
     />
   )
 }

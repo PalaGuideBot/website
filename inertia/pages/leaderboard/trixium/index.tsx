@@ -1,4 +1,3 @@
-import type TrixiumController from '#leaderboard/controllers/trixium_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { Tabs } from '@lemonsqueezy/wedges'
@@ -14,6 +13,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
+import type TrixiumController from '#leaderboard/controllers/trixium_controller'
+import { AnimatePresence } from 'framer-motion'
+import { LeaderboardTrixiumIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
@@ -27,14 +30,17 @@ import { formatNumber } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
+  MotionPodiumCardImage,
   PodiumCard,
   PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
+  podiumCardImageAnimations,
+  PodiumCardSkin,
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
-import { LeaderboardTrixiumIcon } from '~/components/icons'
+import { usePuzzleStore } from '../stores/use_puzzle_store'
 
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
@@ -82,6 +88,8 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
     setPagination,
   } = usePagination()
 
+  const puzzle = usePuzzleStore()
+
   const lastLeaderboard = leaderboard.at(-1)!
 
   const [first, second, third] = lastLeaderboard.data.slice(0, 3)
@@ -104,6 +112,11 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
   const usernames = useMemo(() => {
     return lastLeaderboard.data.slice(pageOffset, page * limit).map((user) => user.username)
   }, [page, limit])
+
+  const onChangePage = (p: number) => {
+    puzzle.next(p > page ? 'right' : 'left')
+    setPagination((prev) => ({ ...prev, page: p }))
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -163,7 +176,7 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
             page={page}
             limit={limit}
             total={lastLeaderboard.data.length}
-            onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
+            onChange={onChangePage}
           />
         </CardFooter>
       </Card>
@@ -281,9 +294,22 @@ const PlayerPodium = ({
   position: 'first' | 'second' | 'third'
   compare?: number
 }) => {
+  const puzzle = usePuzzleStore()
+
   return (
     <PodiumCard position={position}>
-      <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      {puzzle.resolved && <PodiumCardSkin username={data.username} />}
+      <AnimatePresence mode="popLayout">
+        {!puzzle.resolved && (
+          <MotionPodiumCardImage
+            initial="initial"
+            animate="animate"
+            variants={podiumCardImageAnimations}
+            src={getHeadUrl(data.username)}
+            alt={`${data.username}'s avatar`}
+          />
+        )}
+      </AnimatePresence>
       <PodiumCardDescription href={`/stats/users/${data.username}`}>
         {data.username}
       </PodiumCardDescription>
