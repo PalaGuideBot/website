@@ -27,6 +27,7 @@ import { paladiumStatusValidator } from '#status/validators/status_validator'
 const client = ky.create({
   prefixUrl: env.get('API_URL'),
   headers: { Authorization: `Bearer ${env.get('API_KEY')}`, Accept: 'application/json' },
+  timeout: 50000,
 })
 
 export class ApiService {
@@ -124,7 +125,7 @@ export class ApiService {
 
   async getPaladiumStatus() {
     try {
-      const response = await client.get('status/paladium', { timeout: 50000 })
+      const response = await client.get('status/paladium')
       const data = await response.json()
       return paladiumStatusValidator.validate(data)
     } catch (error: unknown) {
