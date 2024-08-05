@@ -320,7 +320,7 @@ const UsageTab = () => {
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
-    const subscription = transmit.subscription('staff/ws')
+    const subscription = transmit.subscription('usage/ws')
 
     const unsbscribe = subscription.onMessage<ServerUsageInfo[]>((message) => {
       setData((prev) => [...prev, ...message])

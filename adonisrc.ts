@@ -38,7 +38,7 @@ export default defineConfig({
     () => import('@adonisjs/ally/ally_provider'),
     () => import('@adonisjs/session/session_provider'),
     () => import('@adonisjs/transmit/transmit_provider'),
-    () => import('#staff/providers/socket_provider'),
+    () => import('#core/providers/socket_provider'),
   ],
 
   /*
@@ -49,7 +49,11 @@ export default defineConfig({
   | List of modules to import before starting the application.
   |
   */
-  preloads: [() => import('#start/routes'), () => import('#start/kernel')],
+  preloads: [
+    () => import('#start/routes'),
+    () => import('#start/kernel'),
+    () => import('#start/socket'),
+  ],
 
   /*
   |--------------------------------------------------------------------------
