@@ -1,15 +1,16 @@
-import { ApiService } from '#core/services/api'
-import env from '#start/env'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 import { readFile } from 'node:fs/promises'
 
+import { ApiService } from '#core/services/api'
+import env from '#start/env'
+
 @inject()
 export default class PageController {
   constructor(private api: ApiService) {}
   async home({ inertia }: HttpContext) {
-    const discordStats = await this.api.getDiscordStatistics()
+    const discordStats = await this.api.getBotStatistics()
     return inertia.render('home', { discordStats })
   }
 

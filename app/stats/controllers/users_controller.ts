@@ -16,17 +16,17 @@ export default class UsersController {
       if (auth?.user && !params.username) {
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
         isLinked = true
-        authUser = await this.api.getUser(profile.username)
+        authUser = await this.api.getPlayer(profile.username)
       }
     } catch {}
 
     try {
       if (params.username) {
-        targetUser = await this.api.getUser(params.username)
+        targetUser = await this.api.getPlayer(params.username)
       }
 
       if (!authUser && !params.username) {
-        exampleUser = await this.api.getUser('PalaGuideBot')
+        exampleUser = await this.api.getPlayer('PalaGuideBot')
       }
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Une erreur est survenue'

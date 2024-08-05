@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine'
 
-export const staffStatisticsValidator = vine.compile(
+export const usageStatisticsValidator = vine.compile(
   vine.array(
     vine.object({
       date: vine.string(),
@@ -37,8 +37,8 @@ export const staffStatisticsValidator = vine.compile(
           ip: vine.number(),
         })
       ),
-      uniquePlayerInDataBase: vine.number(),
-      uniqueFactionInDataBase: vine.number(),
+      playerCount: vine.number(),
+      factionCount: vine.number(),
     })
   )
 )

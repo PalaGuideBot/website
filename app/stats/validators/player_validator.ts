@@ -27,7 +27,7 @@ const achievementsValidator = vine.object({
   total: vine.number(),
 })
 
-export const userInfoValidator = vine.compile(
+export const playerInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string().uuid(),
     username: vine.string(),
