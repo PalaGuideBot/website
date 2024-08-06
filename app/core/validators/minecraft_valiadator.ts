@@ -12,5 +12,6 @@ export const minecraftTokenLinkValidator = vine.compile(
   vine.object({
     token: vine.string(),
     message: vine.string(),
+    expiredAt: vine.number(),
   })
 )
