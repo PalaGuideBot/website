@@ -1,5 +1,21 @@
 # Changelogs
 
+## 06/08/2024
+
+-> Website
+- Refonte complète de l'API
+- Changement des images de présentation du bot
+- Correction des métiers en mode blanc
+- Correction de bugs divers
+- Ajout d'un système de login via Discord
+- Ajout d'un dashboard pour de futurs ajouts
+- Ajout d'un système de lien entre son compte Minecraft et Discord
+- Ajout de divers Easter Eggs
+- Ajout de meta tags (Suggestions : "**Ajouter plus de metadata dans le head**")
+
+-> Bot
+- Changement de la bannière sous les commandes
+
 ## 11/07/2024
 
 -> Website
