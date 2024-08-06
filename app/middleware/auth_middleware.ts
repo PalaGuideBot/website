@@ -1,4 +1,4 @@
-import { DiscordUser } from '#app/types'
+//import { DiscordUser } from '#app/types'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
@@ -14,10 +14,10 @@ export default class AuthMiddleware {
   redirectTo = '/login'
 
   async handle(ctx: HttpContext, next: NextFn) {
-    let user: DiscordUser | null = null
+    //let user: DiscordUser | null = null
 
     try {
-      user = await discordUserValidator.validate(ctx.session.get('user'))
+      await discordUserValidator.validate(ctx.session.get('user'))
     } catch {
       return ctx.response.redirect(this.redirectTo)
     }
