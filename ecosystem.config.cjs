@@ -2,7 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'website',
-      script: './build/bin/server.js',
+      script: 'npm',
+      args: ['cd', './build', '&&', 'node', 'bin/server.js'],
     },
   ],
 }
