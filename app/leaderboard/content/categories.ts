@@ -7,11 +7,11 @@ const categories = [
   'end',
   'koth',
   'money',
-  'trixfaction',
-  'trixuser',
-  'trixium',
 ] as const
 
-export default categories
+const trixiumCategories = ['faction', 'player'] as const
+
+export { categories, trixiumCategories }
 
 export type LeaderboardCategory = (typeof categories)[number]
+export type LeaderboardTrixiumCategory = (typeof trixiumCategories)[number]

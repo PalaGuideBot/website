@@ -99,14 +99,14 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                 <CardContent className="p-2">
                   <div className="flex flex-row gap-2 items-center">
                     <img
-                      src={getHeadUrl(account.UUID)}
+                      src={getHeadUrl(account.uuid)}
                       alt={`${account.username}'s head`}
                       className="w-16 h-auto object-contain rounded-sm"
                     />
                     <div className="flex-1 flex flex-row items-center justify-between">
                       <div>
                         <p className="text-lg font-bold w-fit">{account.username}</p>
-                        <p className="hidden sm:block text-sm">{account.UUID}</p>
+                        <p className="hidden sm:block text-sm">{account.uuid}</p>
                       </div>
                       <Button
                         before={<UnlinkIcon />}

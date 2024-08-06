@@ -21,13 +21,13 @@ export type ApiDatabaseEvolutionCardProps = { data: Array<Record<string, string 
 
 const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
   const translations = {
-    'Joueurs uniques': 'uniquePlayerInDataBase',
-    'Factions uniques': 'uniqueFactionInDataBase',
+    'Joueurs uniques': 'playerCount',
+    'Factions uniques': 'factionCount',
   }
 
   const [visibleLines, setVisibleLines] = useState<Record<string, boolean>>({
-    uniquePlayerInDataBase: true,
-    uniqueFactionInDataBase: true,
+    playerCount: true,
+    factionCount: true,
   })
 
   const handleLegendClick = (dataKey: string) => {
@@ -104,9 +104,9 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
             />
             <Area
               type="monotone"
-              dataKey="uniquePlayerInDataBase"
+              dataKey="playerCount"
               name="Joueurs uniques"
-              hide={!visibleLines.uniquePlayerInDataBase}
+              hide={!visibleLines.playerCount}
               fill="url(#players-gradient)"
               stroke={graphColors[3]}
               strokeWidth={3}
@@ -114,9 +114,9 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
             />
             <Area
               type="monotone"
-              dataKey="uniqueFactionInDataBase"
+              dataKey="factionCount"
               name="Factions uniques"
-              hide={!visibleLines.uniqueFactionInDataBase}
+              hide={!visibleLines.factionCount}
               fill="url(#factions-gradient)"
               stroke={graphColors[1]}
               strokeWidth={3}

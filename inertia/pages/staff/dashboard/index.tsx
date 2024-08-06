@@ -281,12 +281,9 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
           </StatCardHeader>
           <StatCardContent>
             <StatCardValue>
-              {formatNumber(today.uniquePlayerInDataBase, { notation: 'standard' })}
+              {formatNumber(today.playerCount, { notation: 'standard' })}
             </StatCardValue>
-            <StatCardChange
-              value={today.uniquePlayerInDataBase}
-              compare={yesterday.uniquePlayerInDataBase}
-            />
+            <StatCardChange value={today.playerCount} compare={yesterday.playerCount} />
           </StatCardContent>
         </StatCard>
         <StatCard>
@@ -296,12 +293,9 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
           </StatCardHeader>
           <StatCardContent>
             <StatCardValue>
-              {formatNumber(today.uniqueFactionInDataBase, { notation: 'standard' })}
+              {formatNumber(today.factionCount, { notation: 'standard' })}
             </StatCardValue>
-            <StatCardChange
-              value={today.uniqueFactionInDataBase}
-              compare={yesterday.uniqueFactionInDataBase}
-            />
+            <StatCardChange value={today.factionCount} compare={yesterday.factionCount} />
           </StatCardContent>
         </StatCard>
       </div>
@@ -309,8 +303,8 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         data={data.toReversed().map((item) => {
           return {
             date: item.date,
-            uniquePlayerInDataBase: item.uniquePlayerInDataBase,
-            uniqueFactionInDataBase: item.uniqueFactionInDataBase,
+            playerCount: item.playerCount,
+            factionCount: item.factionCount,
           }
         })}
       />
@@ -326,7 +320,7 @@ const UsageTab = () => {
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
-    const subscription = transmit.subscription('staff/ws')
+    const subscription = transmit.subscription('usage/ws')
 
     const unsbscribe = subscription.onMessage<ServerUsageInfo[]>((message) => {
       setData((prev) => [...prev, ...message])
