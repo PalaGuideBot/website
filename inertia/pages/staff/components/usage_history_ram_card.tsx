@@ -45,7 +45,17 @@ const UsageHistoryRamCard = ({ data, services }: UsageHistoryRamCardProps) => {
     })
   }
 
-  const colors = ['#FF5733', '#33FF57', '#3357FF']
+  const colors = [
+    '#FF5733',
+    '#33FF57',
+    '#3357FF',
+    '#FF33A6',
+    '#A633FF',
+    '#33FFF0',
+    '#FFC300',
+    '#DAF7A6',
+    '#581845',
+  ]
 
   return (
     <Card className="bg-backgroud">
