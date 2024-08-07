@@ -12,7 +12,7 @@ const leaderboardValidator = vine.object({
   koth: vine.number(),
   chorus: vine.number(),
   egghunt: vine.number(),
-  corruption: vine.number(),
+  //corruption: vine.number(),
   clicker: vine.number(),
   trixium: vine.number(),
   job_miner: vine.number(),
