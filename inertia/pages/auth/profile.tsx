@@ -1,12 +1,14 @@
-import type AuthController from '#controllers/auth_controller'
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { router } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
 import * as Tabs from '@radix-ui/react-tabs'
 import { CheckIcon, CopyIcon, UnlinkIcon } from 'lucide-react'
 import { useState } from 'react'
+
+import type AuthController from '#controllers/auth_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
+import { LinkSteps } from '~/components/shared/link_steps'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 import { client } from '~/lib/client'
@@ -141,6 +143,8 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                   )}
                 </Button>
               </div>
+              <p className="text-sm pt-4">Comment lier son compte ?</p>
+              <LinkSteps />
             </>
           )}
           {!account && !token && (

@@ -1,0 +1,99 @@
+import { router } from '@inertiajs/react'
+import { Badge, Button } from '@lemonsqueezy/wedges'
+
+import Step1Image from '~/assets/images/link-steps/step-1.png'
+import Step2Image from '~/assets/images/link-steps/step-2.png'
+import Step3Image from '~/assets/images/link-steps/step-3.png'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
+
+const SERVER_IP = 'play.palaguidebot.fr'
+
+const Step1 = () => {
+  const [, copy] = useCopyToClipboard()
+
+  return (
+    <Card className="flex flex-col bg-background lg:col-span-6">
+      <CardHeader className="border-b text-center">
+        <CardTitle>Etape 1</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
+        <p className="text-sm">Rejoignez notre serveur (+1.8):</p>
+        <p>
+          <Badge className="w-fit px-1.5" stroke>
+            {SERVER_IP}
+          </Badge>
+          <Button variant="link" onClick={() => copy(SERVER_IP)}>
+            Copier
+          </Button>
+        </p>
+        <img
+          src={Step1Image}
+          alt="Etape 1"
+          className="w-full h-auto object-contain rounded-md border"
+        />
+      </CardContent>
+    </Card>
+  )
+}
+
+const Step2 = () => {
+  return (
+    <Card className="flex flex-col bg-background lg:col-span-6">
+      <CardHeader className="border-b text-center">
+        <CardTitle>Etape 2</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
+        <p className="text-sm">
+          Tapez la commande{' '}
+          <Badge className="w-fit px-1.5" stroke>
+            /link
+          </Badge>{' '}
+          avec votre code.
+        </p>
+        <img
+          src={Step2Image}
+          alt="Etape 2"
+          className="w-full h-auto object-contain rounded-md border"
+        />
+      </CardContent>
+    </Card>
+  )
+}
+
+const Step3 = () => {
+  return (
+    <Card className="flex flex-col bg-background lg:col-start-4 lg:col-end-10">
+      <CardHeader className="border-b text-center">
+        <CardTitle>Etape 3</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
+        <p className="text-sm">
+          <Button variant="link" onClick={() => router.reload()}>
+            Actualisez
+          </Button>{' '}
+          cette page pour voir le résultat.
+        </p>
+        <img
+          src={Step3Image}
+          alt="Etape 3"
+          className="w-full h-auto object-contain rounded-md border"
+        />
+      </CardContent>
+    </Card>
+  )
+}
+
+const LinkSteps = () => {
+  const steps = [Step1, Step2, Step3]
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:place-content-center">
+      {steps.map((Step, index) => (
+        <Step key={index} />
+      ))}
+    </div>
+  )
+}
+
+export { LinkSteps }

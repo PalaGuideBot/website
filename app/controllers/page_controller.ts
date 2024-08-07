@@ -42,9 +42,4 @@ export default class PageController {
   async informations({ inertia }: HttpContext) {
     return inertia.render('informations')
   }
-
-  async link({ inertia }: HttpContext) {
-    const content = await readFile(app.makePath('resources/static/pages/link.md'), 'utf-8')
-    return inertia.render('link', { content })
-  }
 }
