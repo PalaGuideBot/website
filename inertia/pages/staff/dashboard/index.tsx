@@ -50,6 +50,7 @@ import {
   StatCardHeader,
   StatCardTitle,
   StatCardValue,
+  StatAverage,
 } from '../components/stat_card'
 import { UsageHistoryCpuCard } from '../components/usage_history_cpu_card'
 import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
@@ -139,6 +140,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
               {formatNumber(today.guildsCount, { notation: 'standard' })}
             </StatCardValue>
             <StatCardChange value={today.guildsCount} compare={yesterday.guildsCount} />
+            <StatAverage value={data.map((item) => item.guildsCount)} />
           </StatCardContent>
         </StatCard>
         <StatCard>
@@ -151,6 +153,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
               {formatNumber(today.usersCount, { notation: 'standard' })}
             </StatCardValue>
             <StatCardChange value={today.usersCount} compare={yesterday.usersCount} />
+            <StatAverage value={data.map((item) => item.usersCount)} />
           </StatCardContent>
         </StatCard>
         <StatCard>
@@ -163,6 +166,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
               {formatNumber(today.interactionsCount, { notation: 'standard' })}
             </StatCardValue>
             <StatCardChange value={today.interactionsCount} compare={yesterday.interactionsCount} />
+            <StatAverage value={data.map((item) => item.interactionsCount)} />
           </StatCardContent>
         </StatCard>
       </div>
@@ -284,6 +288,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
               {formatNumber(today.playerCount, { notation: 'standard' })}
             </StatCardValue>
             <StatCardChange value={today.playerCount} compare={yesterday.playerCount} />
+            <StatAverage value={data.map((item) => item.playerCount)} />
           </StatCardContent>
         </StatCard>
         <StatCard>
@@ -296,6 +301,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
               {formatNumber(today.factionCount, { notation: 'standard' })}
             </StatCardValue>
             <StatCardChange value={today.factionCount} compare={yesterday.factionCount} />
+            <StatAverage value={data.map((item) => item.factionCount)} />
           </StatCardContent>
         </StatCard>
       </div>
