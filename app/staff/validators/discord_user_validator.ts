@@ -7,6 +7,5 @@ export const discordUserValidator = vine.compile(
     globalName: vine.string(),
     nickName: vine.string(),
     avatarUrl: vine.string().url(),
-    email: vine.string().email(),
   })
 )
