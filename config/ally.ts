@@ -6,6 +6,7 @@ const allyConfig = defineConfig({
     clientId: env.get('DISCORD_CLIENT_ID'),
     clientSecret: env.get('DISCORD_CLIENT_SECRET'),
     callbackUrl: '',
+    scopes: ['identify'],
   }),
 })
 
