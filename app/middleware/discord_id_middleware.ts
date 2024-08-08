@@ -12,7 +12,13 @@ export default class DiscordIdMiddleware {
   /**
    * IDs of the authorized users
    */
-  static ids = ['339809990527156224', '363402633752477696', '564715397023137793']
+  static ids = [
+    '339809990527156224',
+    '363402633752477696',
+    '564715397023137793',
+    '535585192107048960',
+    '512045813191409681',
+  ]
 
   async handle(ctx: HttpContext, next: NextFn) {
     let user: DiscordUser | null = null
