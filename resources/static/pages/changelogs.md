@@ -1,5 +1,11 @@
 # Changelogs
 
+## 07/08/2024
+
+-> Website
+- Ajout d'une explication sur la façon de lier son compte Minecraft
+- Suppression de la récupération du mail lors de la connexion via Discord
+
 ## 06/08/2024
 
 -> Website
