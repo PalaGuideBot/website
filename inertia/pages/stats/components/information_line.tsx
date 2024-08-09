@@ -9,11 +9,11 @@ const InformationLine = ({
   value: string | number | React.ReactNode
 }) => {
   return (
-    <div className="flex gap-2">
-      <span className="font-pixel">{label}</span>
+    <div className="flex gap-2 items-center">
+      <span className="font-pixel text-xs xs:text-base text-pretty">{label}</span>
       <ArrowRightIcon className="w-2 invert dark:invert-0" />
       {typeof value === 'string' || typeof value === 'number' ? (
-        <span className="text-sm font-mc-dungueons">{value}</span>
+        <span className="text-xs sm:text-sm font-mc-dungueons">{value}</span>
       ) : (
         value
       )}
