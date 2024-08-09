@@ -1,5 +1,12 @@
 # Changelogs
 
+## 09/08/2024
+
+-> Website
+- Ajout de la liste d'amis sur la page de statistiques utilisateur (`/stats/users`)
+- Refonte du podium sur les pages de classements
+- Amélioration du responsive sur la page de statistiques utilisateur (`/stats/users`)
+
 ## 07/08/2024
 
 -> Website
