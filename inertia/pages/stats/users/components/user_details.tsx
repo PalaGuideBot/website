@@ -14,6 +14,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
 import { GlowText } from '~/components/glow_text'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
@@ -31,9 +32,9 @@ import {
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
-import { getSkinUrl } from '~/lib/minecraft'
+import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
-import { formatDuration, formatNumber, formatPrice } from '~/lib/utils'
+import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
@@ -100,7 +101,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
     const diffTime = Math.abs(now.getTime() - past.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-    return formatDuration(lastTimePlayed / diffDays)
+    const duration = formatDuration(lastTimePlayed / diffDays)
+
+    return duration.length ? duration : '-'
   }
 
   return (
@@ -181,7 +184,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           <AchievementsProgress achievements={user.achievements} />
         </CardContent>
       </Card>
-      <FriendCard friend={user.friends} />
+      <FriendsCard friends={user.friends} />
       <Card id="evolution-des-metiers">
         <CardHeader className="border-b flex flex-row items-center justify-between py-2">
           <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
@@ -426,36 +429,42 @@ const AchievementsProgress = ({
   )
 }
 
-const FriendCard = ({ friend }: any) => {
-  if (!friend || friend.length === 0) return null
-  else {
-    return (
-      <Card id="amis">
-        <CardHeader className="border-b">
-          <CardTitle href="#amis">Amis [{friend.length}]</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {friend.map((friendItem: any, index: any) => (
+const FriendsCard = ({ friends }: { friends: UserDetailsProps['user']['friends'] }) => {
+  return (
+    <Card id="amis">
+      <CardHeader className="border-b">
+        <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
+      </CardHeader>
+      <CardContent
+        className={cn(
+          'pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4',
+          friends.length === 0 && 'sm:grid-cols-1'
+        )}
+      >
+        {friends.length === 0 && (
+          <div className="h-20 w-full flex items-center justify-center">
+            Vous n'avez pas d'amis, ajoutez-en pour les voir ici.
+          </div>
+        )}
+        {friends.length !== 0 &&
+          friends.map((friend) => (
             <Link
-              key={index}
-              href={`/stats/users/${friendItem.username}`}
-              className="flex items-center gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
+              key={friend.uuid}
+              href={`/stats/users/${friend.username}`}
+              className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
             >
               <img
-                src={'https://mc-heads.net/avatar/' + friendItem.username + '/100'}
-                alt={`${friendItem.username} avatar`}
-                className="w-12 h-12 rounded"
+                src={getHeadUrl(friend.username)}
+                alt={`${friend.username} avatar`}
+                className="size-12 rounded-sm"
               />
-              <div className="flex flex-col gap-1">
-                <span className="text-sm font-mc-dungueons">{friendItem.username}</span>
-                <span className="text-xs text-primary">
-                  <PaladiumRank rank={friendItem.rank} className="text-[12px]" />
-                </span>
+              <div className="flex flex-col gap-2">
+                <span className="font-pixel text-xs">{friend.username}</span>
+                <PaladiumRank rank={friend.rank} className="text-xs text-primary" />
               </div>
             </Link>
           ))}
-        </CardContent>
-      </Card>
-    )
-  }
+      </CardContent>
+    </Card>
+  )
 }

@@ -42,7 +42,7 @@ export const playerInfoValidator = vine.compile(
     firstJoin: vine.number(),
     leaderboard: leaderboardValidator,
     achievements: achievementsValidator,
-    friends: friendsValidator.optional(),
+    friends: friendsValidator,
     data: vine.array(
       vine.object({
         data: vine.object({
