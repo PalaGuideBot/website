@@ -1,6 +1,5 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { AnimatePresence } from 'framer-motion'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -26,11 +25,11 @@ import { formatNumber, formatPrice } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
-  MotionPodiumCardImage,
   PodiumCard,
   PodiumCardCompare,
   PodiumCardDescription,
-  podiumCardImageAnimations,
+  PodiumCardImage,
+  PodiumCardPedestal,
   PodiumCardSkin,
   PodiumCardValue,
   PodiumCardWrapper,
@@ -161,33 +160,27 @@ const Podium = ({
   return (
     <PodiumCard position={position}>
       {puzzle.resolved && <PodiumCardSkin username={data.username} />}
-      <AnimatePresence mode="popLayout">
-        {!puzzle.resolved && (
-          <MotionPodiumCardImage
-            initial="initial"
-            animate="animate"
-            variants={podiumCardImageAnimations}
-            src={getHeadUrl(data.username)}
-            alt={`${data.username}'s avatar`}
-          />
-        )}
-      </AnimatePresence>
-      <PodiumCardDescription href={`/stats/users/${data.username}`}>
-        {data.username}
-      </PodiumCardDescription>
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger className="z-[2]">
-            <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
-              {formatPrice(data.value, { notation: 'compact' })}
-            </PodiumCardValue>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">
-            {formatPrice(data.value, { compactDisplay: 'long' })}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      {!puzzle.resolved && (
+        <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      )}
+      <PodiumCardPedestal>
+        <PodiumCardDescription href={`/stats/users/${data.username}`}>
+          {data.username}
+        </PodiumCardDescription>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger className="z-[2]">
+              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-transparent">
+                {formatPrice(data.value, { notation: 'compact' })}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {formatPrice(data.value, { compactDisplay: 'long' })}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      </PodiumCardPedestal>
     </PodiumCard>
   )
 }

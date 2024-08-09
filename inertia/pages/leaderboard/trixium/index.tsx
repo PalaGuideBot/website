@@ -15,7 +15,6 @@ import {
 } from 'recharts'
 
 import type TrixiumController from '#leaderboard/controllers/trixium_controller'
-import { AnimatePresence } from 'framer-motion'
 import { LeaderboardTrixiumIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
@@ -30,12 +29,11 @@ import { formatNumber } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
-  MotionPodiumCardImage,
   PodiumCard,
   PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
-  podiumCardImageAnimations,
+  PodiumCardPedestal,
   PodiumCardSkin,
   PodiumCardValue,
   PodiumCardWrapper,
@@ -299,36 +297,30 @@ const PlayerPodium = ({
   return (
     <PodiumCard position={position}>
       {puzzle.resolved && <PodiumCardSkin username={data.username} />}
-      <AnimatePresence mode="popLayout">
-        {!puzzle.resolved && (
-          <MotionPodiumCardImage
-            initial="initial"
-            animate="animate"
-            variants={podiumCardImageAnimations}
-            src={getHeadUrl(data.username)}
-            alt={`${data.username}'s avatar`}
-          />
-        )}
-      </AnimatePresence>
-      <PodiumCardDescription href={`/stats/users/${data.username}`}>
-        {data.username}
-      </PodiumCardDescription>
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger className="z-[2]">
-            <PodiumCardValue
-              className="border-b-2 border-dashed border-foreground hover:border-b-0"
-              after={<LeaderboardTrixiumIcon />}
-            >
-              {formatNumber(data.value)}
-            </PodiumCardValue>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">
-            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      {!puzzle.resolved && (
+        <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      )}
+      <PodiumCardPedestal>
+        <PodiumCardDescription href={`/stats/users/${data.username}`}>
+          {data.username}
+        </PodiumCardDescription>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger className="z-[2]">
+              <PodiumCardValue
+                className="border-b-2 border-dashed border-foreground hover:border-b-0"
+                after={<LeaderboardTrixiumIcon />}
+              >
+                {formatNumber(data.value)}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      </PodiumCardPedestal>
     </PodiumCard>
   )
 }
@@ -345,25 +337,27 @@ const FactionPodium = ({
   return (
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.uuid}'s avatar`} />
-      <PodiumCardDescription href={`/stats/factions/${data.name}`}>
-        {data.name}
-      </PodiumCardDescription>
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger className="z-[2]">
-            <PodiumCardValue
-              className="border-b-2 border-dashed border-foreground hover:border-b-0"
-              after={<LeaderboardTrixiumIcon />}
-            >
-              {formatNumber(data.value)}
-            </PodiumCardValue>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">
-            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      <PodiumCardPedestal>
+        <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+          {data.name}
+        </PodiumCardDescription>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger className="z-[2]">
+              <PodiumCardValue
+                className="border-b-2 border-dashed border-foreground hover:border-b-0"
+                after={<LeaderboardTrixiumIcon />}
+              >
+                {formatNumber(data.value)}
+              </PodiumCardValue>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      </PodiumCardPedestal>
     </PodiumCard>
   )
 }

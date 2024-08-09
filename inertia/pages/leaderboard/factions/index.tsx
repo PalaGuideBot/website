@@ -25,6 +25,7 @@ import {
   PodiumCardCompare,
   PodiumCardDescription,
   PodiumCardImage,
+  PodiumCardPedestal,
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
@@ -140,13 +141,15 @@ const Podium = ({
   return (
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.name}'s avatar`} />
-      <PodiumCardDescription href={`/stats/factions/${data.name}`}>
-        {data.name}
-      </PodiumCardDescription>
-      <PodiumCardValue>
-        {data.value} <span>Elo</span>
-      </PodiumCardValue>
-      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      <PodiumCardPedestal>
+        <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+          {data.name}
+        </PodiumCardDescription>
+        <PodiumCardValue>
+          {data.value} <span>Elo</span>
+        </PodiumCardValue>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      </PodiumCardPedestal>
     </PodiumCard>
   )
 }

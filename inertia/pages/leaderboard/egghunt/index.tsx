@@ -1,6 +1,5 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { AnimatePresence } from 'framer-motion'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -25,11 +24,11 @@ import { formatNumber } from '~/lib/utils'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
-  MotionPodiumCardImage,
   PodiumCard,
   PodiumCardCompare,
   PodiumCardDescription,
-  podiumCardImageAnimations,
+  PodiumCardImage,
+  PodiumCardPedestal,
   PodiumCardSkin,
   PodiumCardValue,
   PodiumCardWrapper,
@@ -168,30 +167,24 @@ const Podium = ({
   return (
     <PodiumCard position={position}>
       {puzzle.resolved && <PodiumCardSkin username={data.username} />}
-      <AnimatePresence mode="popLayout">
-        {!puzzle.resolved && (
-          <MotionPodiumCardImage
-            initial="initial"
-            animate="animate"
-            variants={podiumCardImageAnimations}
-            src={getHeadUrl(data.username)}
-            alt={`${data.username}'s avatar`}
-          />
-        )}
-      </AnimatePresence>
-      <PodiumCardDescription href={`/stats/users/${data.username}`}>
-        {data.username}
-      </PodiumCardDescription>
-      <PodiumCardValue>
-        <span>
-          {formatNumber(data.value, {
-            style: 'unit',
-            unit: 'minute',
-            unitDisplay: 'short',
-          })}
-        </span>
-      </PodiumCardValue>
-      {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      {!puzzle.resolved && (
+        <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
+      )}
+      <PodiumCardPedestal>
+        <PodiumCardDescription href={`/stats/users/${data.username}`}>
+          {data.username}
+        </PodiumCardDescription>
+        <PodiumCardValue>
+          <span>
+            {formatNumber(data.value, {
+              style: 'unit',
+              unit: 'minute',
+              unitDisplay: 'short',
+            })}
+          </span>
+        </PodiumCardValue>
+        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+      </PodiumCardPedestal>
     </PodiumCard>
   )
 }

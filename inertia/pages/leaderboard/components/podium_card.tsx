@@ -1,11 +1,25 @@
 import { Link } from '@inertiajs/react'
-import { motion, Variant } from 'framer-motion'
+import { HTMLMotionProps, motion, Variant } from 'framer-motion'
 import React from 'react'
 import { RunningAnimation } from 'skinview3d'
 
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { getSkinUrl } from '~/lib/minecraft'
 import { cn, formatNumber } from '~/lib/utils'
+
+type PodiumCardContextValue = {
+  position: 'first' | 'second' | 'third'
+}
+
+export const PodiumCardContext = React.createContext<PodiumCardContextValue | undefined>(undefined)
+
+const usePodiumCardContext = () => {
+  const context = React.useContext(PodiumCardContext)
+  if (context === undefined) {
+    throw new Error('usePodiumCardContext must be used within a PodiumCardContext.Provider')
+  }
+  return context
+}
 
 export const PodiumCardWrapper = ({
   className,
@@ -14,7 +28,7 @@ export const PodiumCardWrapper = ({
   return (
     <div
       className={cn(
-        'flex flex-wrap md:grid grid-cols-1 md:grid-cols-3 gap-4 items-end justify-center',
+        'grid grid-cols-1 grid-rows-3 md:grid-rows-1 md:grid-cols-3 min-h-[378px] gap-1 items-end justify-center',
         className
       )}
       {...props}
@@ -28,18 +42,57 @@ export interface PodiumCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const PodiumCard = ({ position, className, ...props }: PodiumCardProps) => {
   return (
-    <div
-      className={cn(
-        'relative flex flex-col gap-2 items-center justify-center border border-b-black/20 border-b-8 hover:border-b-0 transition-all rounded-md p-6 max-w-80 w-full group',
-        position === 'first' && 'bg-primary',
-        position === 'second' && 'bg-wg-white-400',
-        position === 'third' && 'bg-destructive-900',
-        className
-      )}
-      {...props}
-    />
+    <PodiumCardContext.Provider value={{ position }}>
+      <div
+        className={cn(
+          'flex flex-row gap-2 md:gap-0 md:flex-col md:items-center',
+          position === 'first' && 'md:order-2',
+          position === 'second' && 'md:order-1',
+          position === 'third' && 'md:order-3',
+          className
+        )}
+        {...props}
+      />
+    </PodiumCardContext.Provider>
   )
 }
+
+export interface PodiumCardPedestalProps extends HTMLMotionProps<'div'> {}
+
+export const PodiumCardPedestal = React.forwardRef<HTMLDivElement, PodiumCardPedestalProps>(
+  ({ className, ...props }: PodiumCardPedestalProps, ref) => {
+    const { position } = usePodiumCardContext()
+
+    const delays = {
+      first: 0.4,
+      second: 0.2,
+      third: 0,
+    }
+
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ height: 'var(--podium-pedestal-initial-height)' }}
+        animate={{
+          height: 'var(--podium-pedestal-height)',
+          transition: { delay: delays[position], duration: 0.5 },
+        }}
+        className={cn(
+          'relative flex flex-col gap-2 items-center justify-center bg-surface border border-l-8 md:border-l md:border-t-8 p-2 w-full rounded-md md:rounded-b-none overflow-hidden group',
+          '[--podium-pedestal-height:auto] [--podium-pedestal-initial-height:auto] md:[--podium-pedestal-initial-height:100px]',
+          position === 'first' &&
+            'border-l-primary md:border-l-inherit md:border-t-primary md:[--podium-pedestal-height:250px]',
+          position === 'second' &&
+            'border-l-wg-gray md:border-l-inherit md:border-t-wg-gray md:[--podium-pedestal-height:200px]',
+          position === 'third' &&
+            'border-l-destructive-800 md:border-l-inherit md:border-t-destructive-800 md:[--podium-pedestal-height:150px]',
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
 
 export const PodiumCardImage = React.forwardRef<
   HTMLImageElement,
@@ -48,7 +101,7 @@ export const PodiumCardImage = React.forwardRef<
   return (
     <img
       ref={ref}
-      className={cn('object-contain w-1/2 h-full mt-2', className)}
+      className={cn('object-contain w-1/2 max-w-32 h-full', className)}
       height={height}
       width={width}
       {...props}
@@ -57,21 +110,6 @@ export const PodiumCardImage = React.forwardRef<
 })
 
 PodiumCardImage.displayName = 'PodiumCardImage'
-
-export const MotionPodiumCardImage = motion(PodiumCardImage)
-
-export const podiumCardImageAnimations: Record<string, Variant> = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: [0, 1],
-    y: [-8, 0],
-    transition: {
-      duration: 0.2,
-    },
-  },
-}
 
 interface PodiumCardSkinProps {
   className?: string
@@ -82,8 +120,8 @@ interface PodiumCardSkinProps {
 
 export const PodiumCardSkin = ({
   className,
-  width = '150',
-  height = '150',
+  width = '100',
+  height = '128',
   username,
 }: PodiumCardSkinProps) => {
   return (
@@ -92,6 +130,7 @@ export const PodiumCardSkin = ({
       width={width}
       height={height}
       skinUrl={getSkinUrl(username)}
+      options={{ enableControls: false }}
       onReady={({ viewer }) => {
         viewer.animation = new RunningAnimation()
         viewer.animation.speed = 1.5
