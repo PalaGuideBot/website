@@ -27,6 +27,14 @@ const achievementsValidator = vine.object({
   total: vine.number(),
 })
 
+const friendsValidator = vine.array(
+  vine.object({
+    uuid: vine.string().uuid(),
+    username: vine.string(),
+    rank: vine.string(),
+  })
+)
+
 export const playerInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string().uuid(),
@@ -34,6 +42,7 @@ export const playerInfoValidator = vine.compile(
     firstJoin: vine.number(),
     leaderboard: leaderboardValidator,
     achievements: achievementsValidator,
+    friends: friendsValidator.optional(),
     data: vine.array(
       vine.object({
         data: vine.object({

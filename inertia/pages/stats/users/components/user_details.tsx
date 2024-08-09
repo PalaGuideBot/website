@@ -181,6 +181,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           <AchievementsProgress achievements={user.achievements} />
         </CardContent>
       </Card>
+      <FriendCard friend={user.friends} />
       <Card id="evolution-des-metiers">
         <CardHeader className="border-b flex flex-row items-center justify-between py-2">
           <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
@@ -423,4 +424,38 @@ const AchievementsProgress = ({
       helperText={`${achievements.completed} / ${achievements.total} succès`}
     />
   )
+}
+
+const FriendCard = ({ friend }: any) => {
+  if (!friend || friend.length === 0) return null
+  else {
+    return (
+      <Card id="amis">
+        <CardHeader className="border-b">
+          <CardTitle href="#amis">Amis [{friend.length}]</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {friend.map((friendItem: any, index: any) => (
+            <Link
+              key={index}
+              href={`/stats/users/${friendItem.username}`}
+              className="flex items-center gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
+            >
+              <img
+                src={'https://mc-heads.net/avatar/' + friendItem.username + '/100'}
+                alt={`${friendItem.username} avatar`}
+                className="w-12 h-12 rounded"
+              />
+              <div className="flex flex-col gap-1">
+                <span className="text-sm font-mc-dungueons">{friendItem.username}</span>
+                <span className="text-xs text-primary">
+                  <PaladiumRank rank={friendItem.rank} className="text-[12px]" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </CardContent>
+      </Card>
+    )
+  }
 }
