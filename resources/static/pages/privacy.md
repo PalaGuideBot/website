@@ -19,7 +19,7 @@ Les données collectées sont uniquement utilisées pour le fonctionnement et l'
 Nous ne partageons aucune donnée collectée avec des tiers ou des fournisseurs. Toutes les données restent strictement internes à l'application.
 
 ## Cookies
-Nous utilisons des cookies pour l'authentification du personnel. Ces cookies sont exclusivement utilisés pour permettre aux membres du personnel de se connecter. Ils n'ont aucun impact sur les utilisateurs ordinaires et ne sont pas utilisés pour collecter des données personnelles ou suivre les utilisateurs.
+Nous utilisons des cookies pour l'authentification du personnel et des utilisateurs. Ces cookies sont exclusivement utilisés pour permettre aux membres du personnel et aux utilisateurs de se connecter. Ils ne sont pas utilisés pour collecter des données personnelles ou suivre les utilisateurs.
 
 ## Durée de conservation des Données
 
