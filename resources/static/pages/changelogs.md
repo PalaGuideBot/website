@@ -1,5 +1,10 @@
 # Changelogs
 
+# 10/08/2024
+
+-> Website
+- Augmentation de la durée de la session une fois connecté
+
 ## 09/08/2024
 
 -> Website
