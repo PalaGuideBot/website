@@ -234,7 +234,7 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
               <Line
                 key={key}
                 type="monotone"
-                dataKey={`${key}.${graphType}`}
+                dataKey={(item) => item[key][graphType]}
                 name={key}
                 hide={!visibleEndpoints[key]}
                 stroke={colors[index] ?? 'hsl(var(--wg-primary))'}
