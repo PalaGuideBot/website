@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
-import { ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
+import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
+import { ChevronDown } from 'lucide-react'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
@@ -21,6 +22,7 @@ import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import {
   Table,
   TableBody,
@@ -430,41 +432,52 @@ const AchievementsProgress = ({
 }
 
 const FriendsCard = ({ friends }: { friends: UserDetailsProps['user']['friends'] }) => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Card id="amis">
-      <CardHeader className="border-b">
-        <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
-      </CardHeader>
-      <CardContent
-        className={cn(
-          'pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4',
-          friends.length === 0 && 'sm:grid-cols-1'
-        )}
-      >
-        {friends.length === 0 && (
-          <div className="h-20 w-full flex items-center justify-center">
-            Vous n'avez pas d'amis, ajoutez-en pour les voir ici.
-          </div>
-        )}
-        {friends.length !== 0 &&
-          friends.map((friend) => (
-            <Link
-              key={friend.uuid}
-              href={`/stats/users/${friend.username}`}
-              className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
-            >
-              <img
-                src={getHeadUrl(friend.username)}
-                alt={`${friend.username} avatar`}
-                className="size-12 rounded-sm"
-              />
-              <div className="flex flex-col gap-2">
-                <span className="font-pixel text-xs">{friend.username}</span>
-                <PaladiumRank rank={friend.rank} className="text-xs text-primary" />
-              </div>
-            </Link>
-          ))}
-      </CardContent>
-    </Card>
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <Card id="amis">
+        <CardHeader
+          className={cn('flex flex-row justify-between items-center', open && 'border-b')}
+        >
+          <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
+          <CollapsibleTrigger asChild>
+            <Button variant="outline" size="xs-icon" isIconOnly>
+              <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
+            </Button>
+          </CollapsibleTrigger>
+        </CardHeader>
+        <CollapsibleContent>
+          <CardContent
+            className={cn(
+              'pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4',
+              friends.length === 0 && 'sm:grid-cols-1'
+            )}
+          >
+            {friends.length === 0 && (
+              <div className="h-20 w-full flex items-center justify-center">Aucun ami trouvé</div>
+            )}
+            {friends.length !== 0 &&
+              friends.map((friend) => (
+                <Link
+                  key={friend.uuid}
+                  href={`/stats/users/${friend.username}`}
+                  className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
+                >
+                  <img
+                    src={getHeadUrl(friend.username)}
+                    alt={`${friend.username} avatar`}
+                    className="size-12 rounded-sm"
+                  />
+                  <div className="flex flex-col gap-2">
+                    <span className="font-pixel text-xs">{friend.username}</span>
+                    <PaladiumRank rank={friend.rank} className="text-xs text-primary" />
+                  </div>
+                </Link>
+              ))}
+          </CardContent>
+        </CollapsibleContent>
+      </Card>
+    </Collapsible>
   )
 }
