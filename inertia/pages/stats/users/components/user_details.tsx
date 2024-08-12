@@ -22,6 +22,7 @@ import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { PetViewer } from '~/components/three/pet'
+import { MountViewer } from '~/components/three/mount'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import {
@@ -198,6 +199,40 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 </li>
                 <li>
                   <InformationLine label="Nombre de Skills" value={'500'} />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      <Card id="mount">
+        <CardHeader className="border-b">
+          <CardTitle href="#mount">Mount</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4">
+          <div className="flex flex-row gap-4">
+            <div className="w-1/2">
+              <MountViewer model={'dancarok'} />
+            </div>
+            <div className="w-1/2 flex flex-col justify-center">
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <InformationLine label="Type" value={'dancarok'} />
+                </li>
+                <li>
+                  <InformationLine label="Name" value={'tonyrok'} />
+                </li>
+                <li>
+                  <InformationLine label="Damage" value={'50/100'} />
+                </li>
+                <li>
+                  <InformationLine label="Food" value={'50/100'} />
+                </li>
+                <li>
+                  <InformationLine label="SharedXp" value={'50/100'} />
+                </li>
+                <li>
+                  <InformationLine label="Xp" value={'100'} />
                 </li>
               </ul>
             </div>
