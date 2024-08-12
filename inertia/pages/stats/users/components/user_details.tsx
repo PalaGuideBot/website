@@ -21,6 +21,7 @@ import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { PetViewer } from '~/components/three/pet'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import {
@@ -178,6 +179,31 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardContent>
         </Card>
       </div>
+      <Card id="pet">
+        <CardHeader className="border-b">
+          <CardTitle href="#pet">Pet</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4">
+          <div className="flex flex-row gap-4">
+            <div className="w-1/2">
+              <PetViewer model={'cat'} />
+            </div>
+            <div className="w-1/2 flex flex-col justify-center">
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <InformationLine label="Name" value={'cat'} />
+                </li>
+                <li>
+                  <InformationLine label="Hapiness" value={'100/200'} />
+                </li>
+                <li>
+                  <InformationLine label="Nombre de Skills" value={'500'} />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       <Card id="succes">
         <CardHeader className="border-b">
           <CardTitle href="#succes">Succès</CardTitle>
