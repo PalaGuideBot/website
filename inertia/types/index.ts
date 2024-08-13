@@ -71,3 +71,16 @@ export type ServerUsageInfo = {
   uptime: number
   date: string
 }
+
+export type MountType = 'dancarok' | 'ravirok' | 'tedarok'
+
+export type PetType =
+  | 'cat'
+  | 'dog'
+  | 'feng_uang'
+  | 'kapio_koi'
+  | 'mini_golem'
+  | 'pet_blobfish'
+  | 'pet_dragon_chinois'
+  | 'rabbit'
+  | 'soucoupe'

@@ -180,65 +180,55 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
           </CardContent>
         </Card>
       </div>
-      <Card id="pet">
-        <CardHeader className="border-b">
-          <CardTitle href="#pet">Pet</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <div className="flex flex-row gap-4">
-            <div className="w-1/2">
-              <PetViewer model={'cat'} />
-            </div>
-            <div className="w-1/2 flex flex-col justify-center">
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <InformationLine label="Name" value={'cat'} />
-                </li>
-                <li>
-                  <InformationLine label="Hapiness" value={'100/200'} />
-                </li>
-                <li>
-                  <InformationLine label="Nombre de Skills" value={'500'} />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card id="mount">
-        <CardHeader className="border-b">
-          <CardTitle href="#mount">Mount</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <div className="flex flex-row gap-4">
-            <div className="w-1/2">
-              <MountViewer model={'dancarok'} />
-            </div>
-            <div className="w-1/2 flex flex-col justify-center">
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <InformationLine label="Type" value={'dancarok'} />
-                </li>
-                <li>
-                  <InformationLine label="Name" value={'tonyrok'} />
-                </li>
-                <li>
-                  <InformationLine label="Damage" value={'50/100'} />
-                </li>
-                <li>
-                  <InformationLine label="Food" value={'50/100'} />
-                </li>
-                <li>
-                  <InformationLine label="SharedXp" value={'50/100'} />
-                </li>
-                <li>
-                  <InformationLine label="Xp" value={'100'} />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card id="mount">
+          <CardHeader className="border-b">
+            <CardTitle href="#mount">Mount</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 flex flex-col">
+            <MountViewer model={'dancarok'} />
+            <ul className="flex flex-col gap-2">
+              <li>
+                <InformationLine label="Name" value={'tonyrok'} />
+              </li>
+              <li>
+                <InformationLine label="Type" value={'dancarok'} />
+              </li>
+              <li>
+                <InformationLine label="Damage" value={'50/100'} />
+              </li>
+              <li>
+                <InformationLine label="Food" value={'50/100'} />
+              </li>
+              <li>
+                <InformationLine label="SharedXp" value={'50/100'} />
+              </li>
+              <li>
+                <InformationLine label="Xp" value={'100'} />
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+        <Card id="pet">
+          <CardHeader className="border-b">
+            <CardTitle href="#pet">Pet</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 flex flex-col">
+            <PetViewer model={'cat'} />
+            <ul className="flex flex-col gap-2">
+              <li>
+                <InformationLine label="Name" value={'cat'} />
+              </li>
+              <li>
+                <InformationLine label="Hapiness" value={'100/200'} />
+              </li>
+              <li>
+                <InformationLine label="Nombre de Skills" value={'500'} />
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
       <Card id="succes">
         <CardHeader className="border-b">
           <CardTitle href="#succes">Succès</CardTitle>
