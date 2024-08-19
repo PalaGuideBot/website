@@ -83,4 +83,4 @@ export type PetType =
   | 'pet_blobfish'
   | 'pet_dragon_chinois'
   | 'rabbit'
-  | 'soucoupe'
+  | 'pet_ufo'
