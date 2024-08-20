@@ -1,14 +1,15 @@
 import { Link } from '@inertiajs/react'
-import { ToggleGroup, Button, DropdownMenu } from '@lemonsqueezy/wedges'
+import { Button, DropdownMenu, ToggleGroup } from '@lemonsqueezy/wedges'
 import {
-  ChevronDown,
   ArrowDownAZ,
-  CalendarArrowUp,
+  ArrowDownUpIcon,
   CalendarArrowDown,
+  CalendarArrowUp,
   ChartNoAxesGantt,
+  ChevronDown,
 } from 'lucide-react'
 import { DateTime } from 'luxon'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Area,
   AreaChart,
@@ -19,6 +20,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
 import LinearGradient from '~/components/shared/linear_gradient'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
@@ -33,17 +35,42 @@ type FactionDetailsProps = {
 
 export const FactionDetails = ({ faction }: FactionDetailsProps) => {
   const [graphType, setGraphType] = useState<'level' | 'xp'>('level')
-  const [sortedMembers, setSortedMembers] = useState<'alpha' | 'desc' | 'asc' | 'rang'>('asc')
-  const sortedOptions = [
+  const [sortMembersType, setSortMembersType] = useState<'alpha' | 'desc' | 'asc' | 'rang'>('asc')
+
+  const sortOptions = [
     { value: 'alpha', label: 'Ordre alphabétique', icon: ArrowDownAZ },
     { value: 'desc', label: 'Date décroissante', icon: CalendarArrowUp },
     { value: 'asc', label: 'Date croissante', icon: CalendarArrowDown },
     { value: 'rang', label: 'Grade', icon: ChartNoAxesGantt },
-  ]
+  ] as const
 
-  const unselectedOptions = sortedOptions.filter((option) => option.value !== sortedMembers)
+  const unselectedSortOptions = useMemo(() => {
+    return sortOptions.filter((option) => option.value !== sortMembersType)
+  }, [sortMembersType])
 
-  const [openSorted, setOpenSorted] = useState(false)
+  const filteredMembers = useMemo(() => {
+    return faction.players.sort((a, b) => {
+      switch (sortMembersType) {
+        case 'asc':
+          return a.joinedAt - b.joinedAt
+        case 'desc':
+          return b.joinedAt - a.joinedAt
+        case 'rang':
+          const isALeader = a.group.toLowerCase().includes('leader')
+          const isBLeader = b.group.toLowerCase().includes('leader')
+
+          if (isALeader && !isBLeader) {
+            return -1
+          }
+          if (!isALeader && isBLeader) {
+            return 1
+          }
+          return a.group.localeCompare(b.group)
+        default:
+          return a.username.localeCompare(b.username)
+      }
+    })
+  }, [sortMembersType])
 
   const eloData = faction.data.map((data) => {
     return {
@@ -246,26 +273,21 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             <DropdownMenu.Trigger asChild>
               <Button
                 variant="outline"
-                className="!m-0 w-50 flex items-center justify-between"
+                className="!m-0 w-50 flex items-center justify-between group"
                 size="sm"
+                before={<ArrowDownUpIcon className="size-4" />}
                 after={
-                  <ChevronDown
-                    className={cn('size-4 transition-transform', openSorted && 'rotate-180')}
-                  />
+                  <ChevronDown className="size-4 transition-transform group-data-[state=open]:rotate-180" />
                 }
               >
-                Trier par
-                {' ' + sortedOptions.find((option) => option.value === sortedMembers)?.label}
+                <span>{sortOptions.find((option) => option.value === sortMembersType)?.label}</span>
               </Button>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align="end">
-              {unselectedOptions.map((option) => (
+            <DropdownMenu.Content align="start">
+              {unselectedSortOptions.map((option) => (
                 <DropdownMenu.Item
                   key={option.value}
-                  onClick={() => {
-                    setSortedMembers(option.value as 'alpha' | 'desc' | 'asc' | 'rang')
-                    setOpenSorted(false)
-                  }}
+                  onClick={() => setSortMembersType(option.value)}
                 >
                   <option.icon className="size-4 mr-2" />
                   {option.label}
@@ -292,27 +314,9 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
           </ToggleGroup>*/}
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
-          {faction.players
-            .sort((a, b) => {
-              if (sortedMembers === 'asc') {
-                return a.joinedAt - b.joinedAt
-              } else if (sortedMembers === 'desc') {
-                return b.joinedAt - a.joinedAt
-              } else if (sortedMembers === 'rang') {
-                const isALeader = a.group.toLowerCase().includes('leader')
-                const isBLeader = b.group.toLowerCase().includes('leader')
-
-                if (isALeader && !isBLeader) return -1
-                if (!isALeader && isBLeader) return 1
-
-                return a.group.localeCompare(b.group)
-              } else {
-                return a.username.localeCompare(b.username)
-              }
-            })
-            .map((player) => (
-              <MemberCard key={player.username} player={player} />
-            ))}
+          {filteredMembers.map((player) => (
+            <MemberCard key={player.username} player={player} />
+          ))}
         </CardContent>
       </Card>
     </div>
