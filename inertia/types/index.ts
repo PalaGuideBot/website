@@ -5,6 +5,7 @@ export type Rank =
   | 'titan'
   | 'paladin'
   | 'endium'
+  | 'legende'
   | 'trixium'
   | 'trixium+'
   | 'youtuber'
