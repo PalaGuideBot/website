@@ -11,75 +11,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
 import { cn, formatNumber } from '~/lib/utils'
-
-/* [
-    {
-      "name": "database",
-      "count": 115,
-      "averageTime": 0.6434782608695652,
-      "maxTime": 3,
-      "minTime": 0
-    },
-    {
-      "name": "factions",
-      "count": 56,
-      "averageTime": 509.19642857142856,
-      "maxTime": 966,
-      "minTime": 373
-    },
-    {
-      "name": "leaderboard",
-      "count": 172,
-      "averageTime": 124.77325581395348,
-      "maxTime": 911,
-      "minTime": 21
-    },
-    {
-      "name": "players",
-      "count": 175,
-      "averageTime": 239.18285714285713,
-      "maxTime": 1920,
-      "minTime": 4
-    },
-    {
-      "name": "status",
-      "count": 20,
-      "averageTime": 152.65,
-      "maxTime": 226,
-      "minTime": 135
-    },
-    {
-      "name": "staff",
-      "count": 19,
-      "averageTime": 26.05263157894737,
-      "maxTime": 46,
-      "minTime": 13
-    },
-    {
-      "name": "bot",
-      "count": 35,
-      "averageTime": 13.314285714285715,
-      "maxTime": 31,
-      "minTime": 6
-    },
-    {
-      "name": "update",
-      "count": 5,
-      "averageTime": 543.4,
-      "maxTime": 649,
-      "minTime": 482
-    },
-    {
-      "name": "home",
-      "count": 22,
-      "averageTime": 17.454545454545453,
-      "maxTime": 31,
-      "minTime": 8
-    }
-  ] */
 
 export type ApiStatsEndpointsCardProps = {
   data: Array<
@@ -228,7 +163,7 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
                   {value}
                 </Button>
               )}
-              onClick={(e) => handleLegendClick(String(e.dataKey))}
+              onClick={(payload) => handleLegendClick(payload.value)}
             />
             {endpoints.map((key, index) => (
               <Line
