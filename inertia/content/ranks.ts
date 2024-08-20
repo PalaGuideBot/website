@@ -12,6 +12,7 @@ import titanIcon from '~/assets/rank-icons/titan.png'
 import trixiumPlusIcon from '~/assets/rank-icons/trixium-plus.png'
 import trixiumIcon from '~/assets/rank-icons/trixium.png'
 import youtuberIcon from '~/assets/rank-icons/youtuber.png'
+import adminIcon from '~/assets/rank-icons/admin.png'
 import type { Rank } from '~/types'
 
 const icons: Record<Rank, string | null> = {
@@ -42,6 +43,7 @@ const icons: Record<Rank, string | null> = {
   'developpeur': developpeurIcon,
   'developpeursenior': developpeurIcon,
   'graphistesenior': graphisteIcon,
+  'responsable': adminIcon,
 }
 
 const translations: Record<Rank, string> = {
@@ -72,6 +74,7 @@ const translations: Record<Rank, string> = {
   'developpeur': 'Développeur',
   'developpeursenior': 'Développeur Senior',
   'graphistesenior': 'Graphiste Senior',
+  'responsable': 'Responsable',
 }
 
 export function rankToIcon(rank: Rank) {
