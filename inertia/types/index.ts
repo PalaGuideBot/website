@@ -79,7 +79,7 @@ export type PetType =
   | 'dog'
   | 'feng_uang'
   | 'kapio_koi'
-  | 'mini_golem'
+  | 'pet_mini_golem'
   | 'pet_blobfish'
   | 'pet_dragon_chinois'
   | 'rabbit'
