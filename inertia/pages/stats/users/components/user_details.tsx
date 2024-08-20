@@ -345,7 +345,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                   <div className="flex flex-col gap-2">
                     <span className="font-pixel text-xs">{noCase(key)}</span>
                     <span className="text-sm text-primary font-mc-dungueons">
-                      # {formatNumber(value, { notation: 'standard' })}
+                      {value !== -1
+                        ? `# ${formatNumber(value, { notation: 'standard' })}`
+                        : 'Non classé'}
                     </span>
                   </div>
                 </div>
@@ -438,11 +440,11 @@ const FriendsCard = ({ friends }: { friends: UserDetailsProps['user']['friends']
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card id="amis">
         <CardHeader
-          className={cn('flex flex-row justify-between items-center', open && 'border-b')}
+          className={cn('flex flex-row justify-between items-center py-2', open && 'border-b')}
         >
           <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" size="xs-icon" isIconOnly>
+            <Button variant="outline" className="!m-0" isIconOnly>
               <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
             </Button>
           </CollapsibleTrigger>
