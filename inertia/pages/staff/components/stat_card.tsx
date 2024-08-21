@@ -59,26 +59,4 @@ const StatCardChange = ({
   )
 }
 
-const StatAverage = ({ value }: { value: number[] }) => {
-  if (value.length === 0 || value.every((v) => v === 0)) {
-    return (
-      <p className="text-xs text-surface-400">Aucune donnée disponible pour calculer la moyenne</p>
-    )
-  } else {
-    return (
-      <p className="text-xs text-surface-400">
-        <span className="text-surface-600 text-wg-green">≈ 0</span> gagner par jour
-      </p>
-    )
-  }
-}
-
-export {
-  StatCard,
-  StatCardHeader,
-  StatCardTitle,
-  StatCardContent,
-  StatCardValue,
-  StatCardChange,
-  StatAverage,
-}
+export { StatCard, StatCardHeader, StatCardTitle, StatCardContent, StatCardValue, StatCardChange }
