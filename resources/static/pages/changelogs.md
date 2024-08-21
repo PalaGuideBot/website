@@ -1,5 +1,15 @@
 # Changelogs
 
+## 21/08/2024
+
+-> Website
+- Liaison de notre API avec celle de Paladium en utilisant leur nouveau système d'authentification.
+- Ajout des rangs manquants à la liste des rangs indexés (/stats/users).
+- Mise en place d'un système de filtre pour les membres des factions (/stats/factions).
+
+-> Bot
+- Liaison du bot avec l'API de Paladium en utilisant leur nouveau système d'authentification.
+
 ## 10/08/2024
 
 -> Website
