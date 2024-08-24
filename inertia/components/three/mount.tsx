@@ -2,8 +2,8 @@ import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React from 'react'
 
+import { MountType } from '~/content/mounts'
 import { cn } from '~/lib/utils'
-import type { MountType } from '~/types'
 
 const Mount = ({ model }: { model: MountType }) => {
   const { scene } = useGLTF(`/mount-model/${model}.gltf`)

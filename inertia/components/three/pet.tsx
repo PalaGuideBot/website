@@ -2,8 +2,8 @@ import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React from 'react'
 
+import { PetType } from '~/content/pets'
 import { cn } from '~/lib/utils'
-import type { PetType } from '~/types'
 
 const PetModel = ({ model }: { model: PetType }) => {
   const { scene } = useGLTF(`/pet-model/${model}.gltf`)
