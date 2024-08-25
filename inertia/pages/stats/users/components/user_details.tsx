@@ -17,10 +17,13 @@ import {
 } from 'recharts'
 
 import { GlowText } from '~/components/glow_text'
+import { ArrowRightIcon } from '~/components/icons'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { MountViewer } from '~/components/three/mount'
+import { PetViewer } from '~/components/three/pet'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import {
@@ -33,6 +36,8 @@ import {
 } from '~/components/ui/table'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
+import { getMountNameByType } from '~/content/mounts'
+import { getPet } from '~/content/pets'
 import { formatDate } from '~/lib/date'
 import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
@@ -175,6 +180,56 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
             {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
               <PaladiumJob key={job} job={job} info={info} />
             ))}
+          </CardContent>
+        </Card>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card className="flex flex-col" id="monture">
+          <CardHeader className="border-b">
+            <CardTitle href="#monture">Monture</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 flex flex-1 flex-col justify-center">
+            {user.mount && (
+              <>
+                <MountViewer model={getMountNameByType(user.mount.mountType)} />
+                <ul className="flex flex-col gap-2">
+                  <li>
+                    <InformationLine label="Name" value={user.mount.name} />
+                  </li>
+                  <li>
+                    <InformationLine label="Xp" value={user.mount.xp} />
+                  </li>
+                  <li>
+                    <FoodProgress mount={user.mount} />
+                  </li>
+                </ul>
+              </>
+            )}
+            {!user.mount && <p className="text-center">Aucune monture trouvée</p>}
+          </CardContent>
+        </Card>
+        <Card className="flex flex-col" id="animal">
+          <CardHeader className="border-b">
+            <CardTitle href="#animal">Animal</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 flex flex-1 flex-col">
+            {user.pet && (
+              <>
+                <PetViewer model={getPet(user.pet.currentSkin)} />
+                <ul className="flex flex-col gap-2">
+                  <li>
+                    <InformationLine label="Skin" value={getPet(user.pet.currentSkin)} />
+                  </li>
+                  <li>
+                    <InformationLine label="Nombre de skills" value={user.pet.skills.length} />
+                  </li>
+                  <li>
+                    <HappinessProgress pet={user.pet} />
+                  </li>
+                </ul>
+              </>
+            )}
+            {!user.pet && <p className="text-center">Aucun animal trouvé</p>}
           </CardContent>
         </Card>
       </div>
@@ -412,6 +467,46 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
       </div>
     </div>
+  )
+}
+
+const HappinessProgress = ({ pet }: { pet: NonNullable<UserDetailsProps['user']['pet']> }) => {
+  const { happiness } = pet
+  const happinessPercent = (happiness / 200) * 100
+
+  return (
+    <ProgressBar
+      max={100}
+      indicator={happinessPercent.toFixed(2) + '%'}
+      label={
+        <div className="flex gap-2 items-center">
+          <span className="font-pixel text-xs xs:text-base text-pretty">Happiness</span>
+          <ArrowRightIcon className="w-2 invert dark:invert-0" />
+        </div>
+      }
+      value={happinessPercent}
+      variant="inline"
+    />
+  )
+}
+
+const FoodProgress = ({ mount }: { mount: NonNullable<UserDetailsProps['user']['mount']> }) => {
+  const { food } = mount
+  const foodPercent = food / 100
+
+  return (
+    <ProgressBar
+      max={100}
+      indicator={foodPercent.toFixed(2) + '%'}
+      label={
+        <div className="flex gap-2 items-center">
+          <span className="font-pixel text-xs xs:text-base text-pretty">Food</span>
+          <ArrowRightIcon className="w-2 invert dark:invert-0" />
+        </div>
+      }
+      value={foodPercent}
+      variant="inline"
+    />
   )
 }
 

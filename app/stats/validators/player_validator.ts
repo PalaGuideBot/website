@@ -35,6 +35,27 @@ const friendsValidator = vine.array(
   })
 )
 
+const mountValidator = vine.object({
+  mountType: vine.number(),
+  name: vine.string(),
+  damage: vine.number(),
+  food: vine.number(),
+  sharedXpPercent: vine.number(),
+  xp: vine.number(),
+})
+
+const petValidator = vine.object({
+  currentSkin: vine.string(),
+  happiness: vine.number(),
+  skills: vine.array(
+    vine.object({
+      id: vine.string(),
+      lastChange: vine.number(),
+      nextUse: vine.number(),
+    })
+  ),
+})
+
 export const playerInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string().uuid(),
@@ -43,6 +64,8 @@ export const playerInfoValidator = vine.compile(
     leaderboard: leaderboardValidator,
     achievements: achievementsValidator,
     friends: friendsValidator,
+    mount: mountValidator.optional().nullable(),
+    pet: petValidator.optional().nullable(),
     data: vine.array(
       vine.object({
         data: vine.object({
