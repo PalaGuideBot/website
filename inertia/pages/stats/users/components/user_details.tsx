@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { ChevronDown } from 'lucide-react'
+import { ArrowRightIcon } from '~/components/icons'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
@@ -196,25 +197,10 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                     <InformationLine label="Name" value={user.mount.name} />
                   </li>
                   <li>
-                    <InformationLine
-                      label="Type"
-                      value={getMountNameByType(user.mount.mountType)}
-                    />
-                  </li>
-                  <li>
-                    <InformationLine label="Damage" value={`${user.mount.damage}/100`} />
-                  </li>
-                  <li>
-                    <InformationLine label="Food" value={user.mount.food} />
-                  </li>
-                  <li>
-                    <InformationLine
-                      label="Shared Xp"
-                      value={`${user.mount.sharedXpPercent}/100`}
-                    />
-                  </li>
-                  <li>
                     <InformationLine label="Xp" value={user.mount.xp} />
+                  </li>
+                  <li>
+                    <FoodProgress mount={user.mount} />
                   </li>
                 </ul>
               </>
@@ -235,10 +221,10 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                     <InformationLine label="Skin" value={getPet(user.pet.currentSkin)} />
                   </li>
                   <li>
-                    <InformationLine label="Hapiness" value={`${user.pet.happiness}/200`} />
+                    <InformationLine label="Nombre de skills" value={user.pet.skills.length} />
                   </li>
                   <li>
-                    <InformationLine label="Nombre de skills" value={user.pet.skills.length} />
+                    <HapinessProgress pet={user.pet} />
                   </li>
                 </ul>
               </>
@@ -481,6 +467,48 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
       </div>
     </div>
+  )
+}
+
+const HapinessProgress = ({ pet }: { pet: UserDetailsProps['user']['pet'] }) => {
+  if (!pet) return null
+  const { happiness } = pet
+  const happinessPercent = (happiness / 200) * 100
+
+  return (
+    <ProgressBar
+      max={100}
+      indicator={happinessPercent.toFixed(2) + '%'}
+      label={
+        <div className="flex gap-2 items-center">
+          <span className="font-pixel text-xs xs:text-base text-pretty">Happiness</span>
+          <ArrowRightIcon className="w-2 invert dark:invert-0" />
+        </div>
+      }
+      value={happinessPercent}
+      variant="inline"
+    />
+  )
+}
+
+const FoodProgress = ({ mount }: { mount: UserDetailsProps['user']['mount'] }) => {
+  if (!mount) return null
+  const { food } = mount
+  const foodPercent = food / 100
+
+  return (
+    <ProgressBar
+      max={100}
+      indicator={foodPercent.toFixed(2) + '%'}
+      label={
+        <div className="flex gap-2 items-center">
+          <span className="font-pixel text-xs xs:text-base text-pretty">Food</span>
+          <ArrowRightIcon className="w-2 invert dark:invert-0" />
+        </div>
+      }
+      value={foodPercent}
+      variant="inline"
+    />
   )
 }
 
