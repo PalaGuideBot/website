@@ -208,9 +208,9 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
             {!user.mount && <p className="text-center">Aucune monture trouvée</p>}
           </CardContent>
         </Card>
-        <Card className="flex flex-col" id="animal">
+        <Card className="flex flex-col" id="familier">
           <CardHeader className="border-b">
-            <CardTitle href="#animal">Animal</CardTitle>
+            <CardTitle href="#animal">Familier</CardTitle>
           </CardHeader>
           <CardContent className="pt-4 flex flex-1 flex-col">
             {user.pet && (
