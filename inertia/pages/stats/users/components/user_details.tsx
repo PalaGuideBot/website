@@ -210,7 +210,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
         </Card>
         <Card className="flex flex-col" id="familier">
           <CardHeader className="border-b">
-            <CardTitle href="#animal">Familier</CardTitle>
+            <CardTitle href="#familier">Familier</CardTitle>
           </CardHeader>
           <CardContent className="pt-4 flex flex-1 flex-col">
             {user.pet && (
@@ -229,7 +229,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                 </ul>
               </>
             )}
-            {!user.pet && <p className="text-center">Aucun animal trouvé</p>}
+            {!user.pet && <p className="text-center">Aucun familier trouvé</p>}
           </CardContent>
         </Card>
       </div>
