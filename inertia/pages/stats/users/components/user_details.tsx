@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { ChevronDown } from 'lucide-react'
-import { ArrowRightIcon } from '~/components/icons'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
@@ -18,6 +17,7 @@ import {
 } from 'recharts'
 
 import { GlowText } from '~/components/glow_text'
+import { ArrowRightIcon } from '~/components/icons'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
@@ -37,6 +37,7 @@ import {
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
+import { getPet } from '~/content/pets'
 import { formatDate } from '~/lib/date'
 import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
@@ -44,7 +45,6 @@ import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
 import type { UserShowProps } from '../show'
-import { getPet } from '~/content/pets'
 
 type UserDetailsProps = {
   user: NonNullable<UserShowProps['exampleUser']>
@@ -224,7 +224,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
                     <InformationLine label="Nombre de skills" value={user.pet.skills.length} />
                   </li>
                   <li>
-                    <HapinessProgress pet={user.pet} />
+                    <HappinessProgress pet={user.pet} />
                   </li>
                 </ul>
               </>
@@ -470,8 +470,7 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
   )
 }
 
-const HapinessProgress = ({ pet }: { pet: UserDetailsProps['user']['pet'] }) => {
-  if (!pet) return null
+const HappinessProgress = ({ pet }: { pet: NonNullable<UserDetailsProps['user']['pet']> }) => {
   const { happiness } = pet
   const happinessPercent = (happiness / 200) * 100
 
@@ -491,8 +490,7 @@ const HapinessProgress = ({ pet }: { pet: UserDetailsProps['user']['pet'] }) => 
   )
 }
 
-const FoodProgress = ({ mount }: { mount: UserDetailsProps['user']['mount'] }) => {
-  if (!mount) return null
+const FoodProgress = ({ mount }: { mount: NonNullable<UserDetailsProps['user']['mount']> }) => {
   const { food } = mount
   const foodPercent = food / 100
 
