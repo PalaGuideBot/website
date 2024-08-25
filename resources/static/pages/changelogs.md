@@ -1,5 +1,10 @@
 # Changelogs
 
+## 25/08/2024
+
+-> Website
+- Ajout des familiers et des montures sur (`/stats/users`).
+
 ## 21/08/2024
 
 -> Website
