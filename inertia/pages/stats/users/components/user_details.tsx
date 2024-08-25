@@ -102,7 +102,7 @@ interface InformationsSectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const InformationsSection = ({ user, className, ...props }: InformationsSectionProps) => {
-  const lastUserData = user.data.at(0)
+  const lastUserData = user.data.at(-1)
 
   const averageTimePlayed = () => {
     const lastTimePlayed = lastUserData!.data.timePlayed
@@ -168,7 +168,7 @@ interface JobsSectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const JobsSection = ({ user, className, ...props }: JobsSectionProps) => {
-  const lastUserData = user.data.at(0)
+  const lastUserData = user.data.at(-1)
 
   return (
     <Card className={cn('flex lg:col-span-2', className)} {...props}>
@@ -360,7 +360,7 @@ interface JobsEvolutionSectionProps extends React.ComponentProps<typeof Card> {
 const JobsEvolutionSection = ({ user, ...props }: JobsEvolutionSectionProps) => {
   const [graphType, setGraphType] = React.useState<'level' | 'xp'>('level')
 
-  const sortedUserData = (user?.data || []).sort(
+  const sortedUserData = (user?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -459,7 +459,7 @@ interface MoneyEvolutionSectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const MoneyEvolutionSection = ({ user, ...props }: MoneyEvolutionSectionProps) => {
-  const sortedUserData = (user?.data || []).sort(
+  const sortedUserData = (user?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -563,7 +563,7 @@ interface FactionHistorySectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const FactionHistorySection = ({ user, ...props }: FactionHistorySectionProps) => {
-  const sortedUserData = (user?.data || []).sort(
+  const sortedUserData = (user?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -628,7 +628,7 @@ interface RanksHistorySectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const RanksHistorySection = ({ user, ...props }: RanksHistorySectionProps) => {
-  const sortedUserData = (user?.data || []).sort(
+  const sortedUserData = (user?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
