@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react'
 import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { ChevronDown } from 'lucide-react'
 import { DateTime } from 'luxon'
-import { useState } from 'react'
+import * as React from 'react'
 import {
   Area,
   AreaChart,
@@ -51,55 +51,58 @@ type UserDetailsProps = {
 }
 
 export const UserDetails = ({ user }: UserDetailsProps) => {
-  const [graphType, setGraphType] = useState<'level' | 'xp'>('level')
-  const sortedUserData = (user?.data || []).sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
+        <SkinSection user={user} />
+        <InformationsSection user={user} />
+        <JobsSection user={user} />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <MountSection mount={user.mount} />
+        <PetSection pet={user.pet} />
+      </div>
+      <AchievementsSection achievements={user.achievements} />
+      <FriendsSection friends={user.friends} />
+      <JobsEvolutionSection user={user} />
+      <MoneyEvolutionSection user={user} />
+      <ClassementsSection user={user} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FactionHistorySection user={user} />
+        <RanksHistorySection user={user} />
+      </div>
+    </div>
   )
+}
 
-  const factionHistory = sortedUserData.reduce(
-    (history: { period: string; faction: string }[], data) => {
-      const { faction, date } = {
-        faction: data.data.faction || 'Wilderness',
-        date: data.date,
-      }
+interface SkinSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
 
-      const lastHistory = history[history.length - 1]
-
-      if (!lastHistory || lastHistory.faction !== faction) {
-        history.push({
-          period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
-          faction: faction,
-        })
-      } else {
-        lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
-      }
-
-      return history
-    },
-    []
+const SkinSection = ({ user, className, ...props }: SkinSectionProps) => {
+  return (
+    <Card className={cn('flex flex-col lg:row-span-2', className)} {...props}>
+      <CardHeader className="border-b">
+        <CardTitle className="text-center font-pixel">{user.username}</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex-1 flex justify-center">
+        <ReactSkinview3d
+          className="!h-auto w-full"
+          width="278"
+          height="450"
+          skinUrl={getSkinUrl(user.username)}
+        />
+      </CardContent>
+    </Card>
   )
+}
 
-  const rankHistory = sortedUserData.reduce((history: { period: string; rank: string }[], data) => {
-    const { rank, date } = {
-      rank: data.data.rank === 'default' ? 'joueur' : data.data.rank,
-      date: data.date,
-    }
+interface InformationsSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
 
-    const lastHistory = history[history.length - 1]
-
-    if (!lastHistory || lastHistory.rank !== rank) {
-      history.push({
-        period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
-        rank: rank,
-      })
-    } else {
-      lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
-    }
-
-    return history
-  }, [])
-
-  const lastUserData = sortedUserData.at(0)
+const InformationsSection = ({ user, className, ...props }: InformationsSectionProps) => {
+  const lastUserData = user.data.at(0)
 
   const averageTimePlayed = () => {
     const lastTimePlayed = lastUserData!.data.timePlayed
@@ -114,432 +117,203 @@ export const UserDetails = ({ user }: UserDetailsProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
-        <Card className="flex flex-col lg:row-span-2">
-          <CardHeader className="border-b">
-            <CardTitle className="text-center font-pixel">{user.username}</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4 flex-1 flex justify-center">
-            <ReactSkinview3d
-              className="!h-auto w-full"
-              width="278"
-              height="450"
-              skinUrl={getSkinUrl(user.username)}
+    <Card id="informations" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#informations">Informations</CardTitle>
+      </CardHeader>
+      <CardContent className="flex-1 pt-4">
+        <ul className="h-full flex flex-col gap-2 justify-around">
+          <li>
+            <InformationLine
+              label="Première connexion"
+              value={formatDate(new Date(user.firstJoin), DateTime.DATE_MED)}
             />
-          </CardContent>
-        </Card>
-        <Card id="informations" className="flex flex-col lg:col-span-2">
-          <CardHeader className="border-b">
-            <CardTitle href="#informations">Informations</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 pt-4">
-            <ul className="h-full flex flex-col gap-2 justify-around">
+          </li>
+          <li>
+            <InformationLine label="Rank" value={<PaladiumRank rank={lastUserData!.data.rank} />} />
+          </li>
+          <li>
+            <InformationLine
+              label="Faction"
+              value={
+                <Link
+                  className="text-sm font-mc-dungueons"
+                  href={`/stats/factions/${lastUserData!.data.faction}`}
+                >
+                  <GlowText>{lastUserData!.data.faction || 'Wilderness'}</GlowText>
+                </Link>
+              }
+            />
+          </li>
+          <li>
+            <InformationLine label="Money" value={formatPrice(lastUserData!.data.money)} />
+          </li>
+          <li>
+            <InformationLine
+              label="Temps de jeu"
+              value={formatDuration(lastUserData!.data.timePlayed)}
+            />
+          </li>
+          <li>
+            <InformationLine label="Moy. temps jeu quotidien" value={averageTimePlayed()} />
+          </li>
+        </ul>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface JobsSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const JobsSection = ({ user, className, ...props }: JobsSectionProps) => {
+  const lastUserData = user.data.at(0)
+
+  return (
+    <Card className={cn('flex lg:col-span-2', className)} {...props}>
+      <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
+        {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
+          <PaladiumJob key={job} job={job} info={info} />
+        ))}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface MountSectionProps extends React.ComponentProps<typeof Card> {
+  mount: UserDetailsProps['user']['mount']
+}
+
+const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
+  const foodPercent = Number(mount?.food) / 100
+
+  return (
+    <Card className={cn('flex flex-col', className)} id="monture" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#monture">Monture</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex flex-1 flex-col justify-center">
+        {mount && (
+          <>
+            <MountViewer model={getMountNameByType(mount.mountType)} />
+            <ul className="flex flex-col gap-2">
               <li>
-                <InformationLine
-                  label="Première connexion"
-                  value={formatDate(new Date(user.firstJoin), DateTime.DATE_MED)}
-                />
+                <InformationLine label="Name" value={mount.name} />
               </li>
               <li>
-                <InformationLine
-                  label="Rank"
-                  value={<PaladiumRank rank={lastUserData!.data.rank} />}
-                />
+                <InformationLine label="Xp" value={mount.xp} />
               </li>
               <li>
-                <InformationLine
-                  label="Faction"
-                  value={
-                    <Link
-                      className="text-sm font-mc-dungueons"
-                      href={`/stats/factions/${lastUserData!.data.faction}`}
-                    >
-                      <GlowText>{lastUserData!.data.faction || 'Wilderness'}</GlowText>
-                    </Link>
+                <ProgressBar
+                  max={100}
+                  indicator={foodPercent.toFixed(2) + '%'}
+                  label={
+                    <div className="flex gap-2 items-center">
+                      <span className="font-pixel text-xs xs:text-base text-pretty">Food</span>
+                      <ArrowRightIcon className="w-2 invert dark:invert-0" />
+                    </div>
                   }
+                  value={foodPercent}
+                  variant="inline"
                 />
-              </li>
-              <li>
-                <InformationLine label="Money" value={formatPrice(lastUserData!.data.money)} />
-              </li>
-              <li>
-                <InformationLine
-                  label="Temps de jeu"
-                  value={formatDuration(lastUserData!.data.timePlayed)}
-                />
-              </li>
-              <li>
-                <InformationLine label="Moy. temps jeu quotidien" value={averageTimePlayed()} />
               </li>
             </ul>
-          </CardContent>
-        </Card>
-        <Card className="flex lg:col-span-2">
-          <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
-            {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
-              <PaladiumJob key={job} job={job} info={info} />
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Card className="flex flex-col" id="monture">
-          <CardHeader className="border-b">
-            <CardTitle href="#monture">Monture</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4 flex flex-1 flex-col justify-center">
-            {user.mount && (
-              <>
-                <MountViewer model={getMountNameByType(user.mount.mountType)} />
-                <ul className="flex flex-col gap-2">
-                  <li>
-                    <InformationLine label="Name" value={user.mount.name} />
-                  </li>
-                  <li>
-                    <InformationLine label="Xp" value={user.mount.xp} />
-                  </li>
-                  <li>
-                    <FoodProgress mount={user.mount} />
-                  </li>
-                </ul>
-              </>
-            )}
-            {!user.mount && <p className="text-center">Aucune monture trouvée</p>}
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col" id="familier">
-          <CardHeader className="border-b">
-            <CardTitle href="#familier">Familier</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4 flex flex-1 flex-col">
-            {user.pet && (
-              <>
-                <PetViewer model={getPet(user.pet.currentSkin)} />
-                <ul className="flex flex-col gap-2">
-                  <li>
-                    <InformationLine label="Skin" value={getPet(user.pet.currentSkin)} />
-                  </li>
-                  <li>
-                    <InformationLine label="Nombre de skills" value={user.pet.skills.length} />
-                  </li>
-                  <li>
-                    <HappinessProgress pet={user.pet} />
-                  </li>
-                </ul>
-              </>
-            )}
-            {!user.pet && <p className="text-center">Aucun familier trouvé</p>}
-          </CardContent>
-        </Card>
-      </div>
-      <Card id="succes">
-        <CardHeader className="border-b">
-          <CardTitle href="#succes">Succès</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <AchievementsProgress achievements={user.achievements} />
-        </CardContent>
-      </Card>
-      <FriendsCard friends={user.friends} />
-      <Card id="evolution-des-metiers">
-        <CardHeader className="border-b flex flex-row items-center justify-between py-2">
-          <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
-          <ToggleGroup
-            type="single"
-            value={graphType}
-            onValueChange={(value) => {
-              if (value.length) {
-                setGraphType(value as 'level' | 'xp')
-              }
-            }}
-            size="sm"
-            className="!m-0"
-          >
-            <ToggleGroup.Item value="level">Level</ToggleGroup.Item>
-            <ToggleGroup.Item value="xp">XP</ToggleGroup.Item>
-          </ToggleGroup>
-        </CardHeader>
-        <CardContent className="p-0 h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart height={200} data={sortedUserData.toReversed()}>
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-              <XAxis dataKey="date" className="text-xs" />
-              <YAxis
-                domain={graphType === 'level' ? [0, 100] : undefined}
-                orientation="right"
-                className="text-xs"
-                tickFormatter={(value) => formatNumber(Number(value))}
-              />
-              <Tooltip
-                content={({ active, payload, label }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <Card className="bg-background">
-                        <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">
-                            {formatDate(label, DateTime.DATE_MED)}
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            {payload.map(({ name, value }) => {
-                              const Icon = smallJobIcons[name as Job]
-                              return (
-                                <div key={name} className="flex gap-2 items-center">
-                                  <span className="text-sm">
-                                    <Icon className="w-4 mr-2" />
-                                    {name &&
-                                      name.toString().charAt(0).toUpperCase() +
-                                        name.toString().slice(1)}
-                                  </span>
-                                  <span className="text-sm font-bold">
-                                    {formatNumber(Number(value), {
-                                      notation: 'standard',
-                                      maximumFractionDigits: 2,
-                                    })}
-                                  </span>
-                                </div>
-                              )
-                            })}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )
+          </>
+        )}
+        {!mount && <p className="text-center">Aucune monture trouvée</p>}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface PetSectionProps extends React.ComponentProps<typeof Card> {
+  pet: UserDetailsProps['user']['pet']
+}
+
+const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
+  const happinessPercent = (Number(pet?.happiness) / 200) * 100
+
+  return (
+    <Card className={cn('flex flex-col', className)} id="familier" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#familier">Familier</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 flex flex-1 flex-col">
+        {pet && (
+          <>
+            <PetViewer model={getPet(pet.currentSkin)} />
+            <ul className="flex flex-col gap-2">
+              <li>
+                <InformationLine label="Skin" value={getPet(pet.currentSkin)} />
+              </li>
+              <li>
+                <InformationLine label="Nombre de skills" value={pet.skills.length} />
+              </li>
+              <li>
+                <ProgressBar
+                  max={100}
+                  indicator={happinessPercent.toFixed(2) + '%'}
+                  label={
+                    <div className="flex gap-2 items-center">
+                      <span className="font-pixel text-xs xs:text-base text-pretty">Happiness</span>
+                      <ArrowRightIcon className="w-2 invert dark:invert-0" />
+                    </div>
                   }
-                  return null
-                }}
-              />
-              <Legend
-                formatter={(value) =>
-                  value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
-                }
-              />
-              {Object.keys(user.data[0].data.jobs).map((job) => (
-                <Line
-                  key={job}
-                  type="monotone"
-                  dataKey={`data.jobs.${job}.${graphType}`}
-                  name={job}
-                  stroke={`var(--job-${job})`}
-                  strokeWidth={3}
-                  dot={false}
+                  value={happinessPercent}
+                  variant="inline"
                 />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-      <Card id="evolution-de-l-argent">
-        <CardHeader className="border-b">
-          <CardTitle href="#evolution-de-l-argent">&Eacute;volution de l'argent</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0 h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={sortedUserData.toReversed()}>
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-              <XAxis dataKey="date" className="text-xs" />
-              <YAxis
-                className="text-xs"
-                tickFormatter={(value) => formatNumber(Number(value))}
-                orientation="right"
-              />
-              <Tooltip
-                content={({ active, payload, label }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <Card className="bg-background">
-                        <CardContent className="p-4 space-y-2">
-                          <div className="font-pixel text-xs">
-                            {formatDate(label, DateTime.DATE_MED)}
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <span className="text-sm">Argent: </span>
-                            <span className="text-sm font-bold">
-                              {formatPrice(Number(payload[0].value))}
-                            </span>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )
-                  }
-                  return null
-                }}
-              />
-              <Legend />
-              <Area
-                type="monotone"
-                dataKey="data.money"
-                name="Argent"
-                fill="url(#green-gradient)"
-                stroke="#82ca9d"
-                strokeWidth={3}
-                dot={false}
-              />
-              <defs>
-                <LinearGradient id="green-gradient" from="#82ca9d" />
-              </defs>
-            </AreaChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-      <Card id="classements">
-        <CardHeader className="border-b">
-          <CardTitle href="#classements">Classements</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {Object.entries(user.leaderboard)
-            .filter(([key]) => !['corruption', 'chorus', 'end'].includes(key))
-            .filter(([value]) => value !== '-1' && value !== '0')
-            .map(([key, value]) => {
-              const Icon = leaderboardIcons[key as keyof typeof leaderboardIcons]
-              return (
-                <div
-                  key={key}
-                  className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
-                >
-                  {Icon && <Icon className="w-12" />}
-                  <div className="flex flex-col gap-2">
-                    <span className="font-pixel text-xs">{noCase(key)}</span>
-                    <span className="text-sm text-primary font-mc-dungueons">
-                      {value !== -1
-                        ? `# ${formatNumber(value, { notation: 'standard' })}`
-                        : 'Non classé'}
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
-        </CardContent>
-      </Card>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card id="historique-des-factions">
-          <CardHeader className="border-b">
-            <CardTitle href="#historique-des-factions">Historique des factions</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table className="text-nowrap">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Période</TableHead>
-                  <TableHead>Faction</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {factionHistory.map((entry, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{entry.period}</TableCell>
-                    <TableCell>
-                      <Link
-                        href={`/stats/factions/${entry.faction !== 'Wilderness' ? entry.faction : ''}`}
-                      >
-                        <GlowText>{entry.faction}</GlowText>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-        <Card id="historique-des-rangs">
-          <CardHeader className="border-b">
-            <CardTitle href="#historique-des-rangs">Historique des rangs</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table className="text-nowrap">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Période</TableHead>
-                  <TableHead>Rank</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rankHistory.map((entry, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{entry.period}</TableCell>
-                    <TableCell>
-                      <PaladiumRank rank={entry.rank} className="text-xs" />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+              </li>
+            </ul>
+          </>
+        )}
+        {!pet && <p className="text-center">Aucun familier trouvé</p>}
+      </CardContent>
+    </Card>
   )
 }
 
-const HappinessProgress = ({ pet }: { pet: NonNullable<UserDetailsProps['user']['pet']> }) => {
-  const { happiness } = pet
-  const happinessPercent = (happiness / 200) * 100
-
-  return (
-    <ProgressBar
-      max={100}
-      indicator={happinessPercent.toFixed(2) + '%'}
-      label={
-        <div className="flex gap-2 items-center">
-          <span className="font-pixel text-xs xs:text-base text-pretty">Happiness</span>
-          <ArrowRightIcon className="w-2 invert dark:invert-0" />
-        </div>
-      }
-      value={happinessPercent}
-      variant="inline"
-    />
-  )
-}
-
-const FoodProgress = ({ mount }: { mount: NonNullable<UserDetailsProps['user']['mount']> }) => {
-  const { food } = mount
-  const foodPercent = food / 100
-
-  return (
-    <ProgressBar
-      max={100}
-      indicator={foodPercent.toFixed(2) + '%'}
-      label={
-        <div className="flex gap-2 items-center">
-          <span className="font-pixel text-xs xs:text-base text-pretty">Food</span>
-          <ArrowRightIcon className="w-2 invert dark:invert-0" />
-        </div>
-      }
-      value={foodPercent}
-      variant="inline"
-    />
-  )
-}
-
-const AchievementsProgress = ({
-  achievements,
-}: {
+interface AchievementsSectionProps extends React.ComponentProps<typeof Card> {
   achievements: UserDetailsProps['user']['achievements']
-}) => {
+}
+
+const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProps) => {
   const completionPercentage = (achievements.completed / achievements.total) * 100
 
   return (
-    <ProgressBar
-      max={100}
-      value={completionPercentage}
-      label="Progression"
-      indicator={completionPercentage.toFixed(2) + '%'}
-      helperText={`${achievements.completed} / ${achievements.total} succès`}
-    />
+    <Card id="succes" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#succes">Succès</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4">
+        <ProgressBar
+          max={100}
+          value={completionPercentage}
+          label="Progression"
+          indicator={completionPercentage.toFixed(2) + '%'}
+          helperText={`${achievements.completed} / ${achievements.total} succès`}
+        />
+      </CardContent>
+    </Card>
   )
 }
 
-const FriendsCard = ({ friends }: { friends: UserDetailsProps['user']['friends'] }) => {
-  const [open, setOpen] = useState(false)
+interface FriendsSectionProps extends React.ComponentProps<typeof Card> {
+  friends: UserDetailsProps['user']['friends']
+}
+
+const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
+  const [open, setOpen] = React.useState(false)
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <Card id="amis">
+      <Card id="amis" {...props}>
         <CardHeader
-          className={cn('flex flex-row justify-between items-center py-2', open && 'border-b')}
+          className={cn('flex flex-row justify-between items-center', open && 'border-b')}
         >
           <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" className="!m-0" isIconOnly>
+            <Button variant="outline" size="xs-icon" isIconOnly>
               <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
             </Button>
           </CollapsibleTrigger>
@@ -576,5 +350,333 @@ const FriendsCard = ({ friends }: { friends: UserDetailsProps['user']['friends']
         </CollapsibleContent>
       </Card>
     </Collapsible>
+  )
+}
+
+interface JobsEvolutionSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const JobsEvolutionSection = ({ user, ...props }: JobsEvolutionSectionProps) => {
+  const [graphType, setGraphType] = React.useState<'level' | 'xp'>('level')
+
+  const sortedUserData = (user?.data || []).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
+  return (
+    <Card id="evolution-des-metiers" {...props}>
+      <CardHeader className="border-b flex flex-row items-center justify-between py-2">
+        <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
+        <ToggleGroup
+          type="single"
+          value={graphType}
+          onValueChange={(value) => {
+            if (value.length) {
+              setGraphType(value as 'level' | 'xp')
+            }
+          }}
+          size="sm"
+          className="!m-0"
+        >
+          <ToggleGroup.Item value="level">Level</ToggleGroup.Item>
+          <ToggleGroup.Item value="xp">XP</ToggleGroup.Item>
+        </ToggleGroup>
+      </CardHeader>
+      <CardContent className="p-0 h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart height={200} data={sortedUserData.toReversed()}>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis dataKey="date" className="text-xs" />
+            <YAxis
+              domain={graphType === 'level' ? [0, 100] : undefined}
+              orientation="right"
+              className="text-xs"
+              tickFormatter={(value) => formatNumber(Number(value))}
+            />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <Card className="bg-background">
+                      <CardContent className="p-4 space-y-2">
+                        <div className="font-pixel text-xs">
+                          {formatDate(label, DateTime.DATE_MED)}
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          {payload.map(({ name, value }) => {
+                            const Icon = smallJobIcons[name as Job]
+                            return (
+                              <div key={name} className="flex gap-2 items-center">
+                                <span className="text-sm">
+                                  <Icon className="w-4 mr-2" />
+                                  {name &&
+                                    name.toString().charAt(0).toUpperCase() +
+                                      name.toString().slice(1)}
+                                </span>
+                                <span className="text-sm font-bold">
+                                  {formatNumber(Number(value), {
+                                    notation: 'standard',
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                }
+                return null
+              }}
+            />
+            <Legend
+              formatter={(value) =>
+                value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
+              }
+            />
+            {Object.keys(user.data[0].data.jobs).map((job) => (
+              <Line
+                key={job}
+                type="monotone"
+                dataKey={`data.jobs.${job}.${graphType}`}
+                name={job}
+                stroke={`var(--job-${job})`}
+                strokeWidth={3}
+                dot={false}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface MoneyEvolutionSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const MoneyEvolutionSection = ({ user, ...props }: MoneyEvolutionSectionProps) => {
+  const sortedUserData = (user?.data || []).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
+  return (
+    <Card id="evolution-de-l-argent" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#evolution-de-l-argent">&Eacute;volution de l'argent</CardTitle>
+      </CardHeader>
+      <CardContent className="p-0 h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={sortedUserData.toReversed()}>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis dataKey="date" className="text-xs" />
+            <YAxis
+              className="text-xs"
+              tickFormatter={(value) => formatNumber(Number(value))}
+              orientation="right"
+            />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <Card className="bg-background">
+                      <CardContent className="p-4 space-y-2">
+                        <div className="font-pixel text-xs">
+                          {formatDate(label, DateTime.DATE_MED)}
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <span className="text-sm">Argent: </span>
+                          <span className="text-sm font-bold">
+                            {formatPrice(Number(payload[0].value))}
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                }
+                return null
+              }}
+            />
+            <Legend />
+            <Area
+              type="monotone"
+              dataKey="data.money"
+              name="Argent"
+              fill="url(#green-gradient)"
+              stroke="#82ca9d"
+              strokeWidth={3}
+              dot={false}
+            />
+            <defs>
+              <LinearGradient id="green-gradient" from="#82ca9d" />
+            </defs>
+          </AreaChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface ClassementsSectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const ClassementsSection = ({ user, ...props }: ClassementsSectionProps) => {
+  return (
+    <Card id="classements" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#classements">Classements</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {Object.entries(user.leaderboard)
+          .filter(([key]) => !['corruption', 'chorus', 'end'].includes(key))
+          .filter(([value]) => value !== '-1' && value !== '0')
+          .map(([key, value]) => {
+            const Icon = leaderboardIcons[key as keyof typeof leaderboardIcons]
+            return (
+              <div
+                key={key}
+                className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
+              >
+                {Icon && <Icon className="w-12" />}
+                <div className="flex flex-col gap-2">
+                  <span className="font-pixel text-xs">{noCase(key)}</span>
+                  <span className="text-sm text-primary font-mc-dungueons">
+                    {value !== -1
+                      ? `# ${formatNumber(value, { notation: 'standard' })}`
+                      : 'Non classé'}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface FactionHistorySectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const FactionHistorySection = ({ user, ...props }: FactionHistorySectionProps) => {
+  const sortedUserData = (user?.data || []).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
+  const factionHistory = sortedUserData.reduce(
+    (history: { period: string; faction: string }[], data) => {
+      const { faction, date } = {
+        faction: data.data.faction || 'Wilderness',
+        date: data.date,
+      }
+
+      const lastHistory = history[history.length - 1]
+
+      if (!lastHistory || lastHistory.faction !== faction) {
+        history.push({
+          period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
+          faction: faction,
+        })
+      } else {
+        lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
+      }
+
+      return history
+    },
+    []
+  )
+
+  return (
+    <Card id="historique-des-factions" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#historique-des-factions">Historique des factions</CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        <Table className="text-nowrap">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Période</TableHead>
+              <TableHead>Faction</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {factionHistory.map((entry, index) => (
+              <TableRow key={index}>
+                <TableCell>{entry.period}</TableCell>
+                <TableCell>
+                  <Link
+                    href={`/stats/factions/${entry.faction !== 'Wilderness' ? entry.faction : ''}`}
+                  >
+                    <GlowText>{entry.faction}</GlowText>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface RanksHistorySectionProps extends React.ComponentProps<typeof Card> {
+  user: UserDetailsProps['user']
+}
+
+const RanksHistorySection = ({ user, ...props }: RanksHistorySectionProps) => {
+  const sortedUserData = (user?.data || []).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
+  const rankHistory = sortedUserData.reduce((history: { period: string; rank: string }[], data) => {
+    const { rank, date } = {
+      rank: data.data.rank === 'default' ? 'joueur' : data.data.rank,
+      date: data.date,
+    }
+
+    const lastHistory = history[history.length - 1]
+
+    if (!lastHistory || lastHistory.rank !== rank) {
+      history.push({
+        period: `${formatDate(date, DateTime.DATE_MED)} au ${formatDate(date, DateTime.DATE_MED)}`,
+        rank: rank,
+      })
+    } else {
+      lastHistory.period = `${formatDate(date, DateTime.DATE_MED)} au ${lastHistory.period.split(' au ')[1]}`
+    }
+
+    return history
+  }, [])
+
+  return (
+    <Card id="historique-des-rangs" {...props}>
+      <CardHeader className="border-b">
+        <CardTitle href="#historique-des-rangs">Historique des rangs</CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        <Table className="text-nowrap">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Période</TableHead>
+              <TableHead>Rank</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rankHistory.map((entry, index) => (
+              <TableRow key={index}>
+                <TableCell>{entry.period}</TableCell>
+                <TableCell>
+                  <PaladiumRank rank={entry.rank} className="text-xs" />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   )
 }
