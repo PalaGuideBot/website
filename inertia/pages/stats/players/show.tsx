@@ -9,15 +9,15 @@ import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
+import { PlayerDetails } from './components/player_details'
 import { SearchUserForm } from './components/search_user_form'
-import { UserDetails } from './components/user_details'
 
-export type UserShowProps = InferPageProps<PlayerController, 'show'>
+export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
-export default function UserShow(props: UserShowProps) {
-  const { targetUser, exampleUser, authUser, isLinked } = props
+export default function PlayerShow(props: PlayerShowProps) {
+  const { targetPlayer, examplePlayer, authPlayer, isLinked } = props
 
-  const user = targetUser || authUser
+  const player = targetPlayer || authPlayer
   const {
     props: { error },
   } = usePage<{ error?: string }>()
@@ -25,19 +25,19 @@ export default function UserShow(props: UserShowProps) {
 
   return (
     <>
-      {user ? (
+      {player ? (
         <Head
           descriptors={[
-            { title: user.username },
-            { name: 'og:image', content: getHeadUrl(user.username) },
-            { name: 'twitter:image', content: getHeadUrl(user.username) },
+            { title: player.username },
+            { name: 'og:image', content: getHeadUrl(player.username) },
+            { name: 'twitter:image', content: getHeadUrl(player.username) },
           ]}
         />
       ) : (
-        <Head descriptors={[{ title: 'Utilisateur' }]} />
+        <Head descriptors={[{ title: 'Joueur' }]} />
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
-        {auth && !authUser && exampleUser && !isLinked && (
+        {auth && !authPlayer && examplePlayer && !isLinked && (
           <Alert
             className="rounded-none min-h-[60px] border-b"
             closable
@@ -50,7 +50,7 @@ export default function UserShow(props: UserShowProps) {
             Associez votre compte Minecraft pour afficher vos statistiques par défaut.
           </Alert>
         )}
-        {!authUser && exampleUser && isLinked && (
+        {!authPlayer && examplePlayer && isLinked && (
           <Alert
             className="rounded-none min-h-[60px] border-b"
             closable
@@ -64,9 +64,9 @@ export default function UserShow(props: UserShowProps) {
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
-          <PageTitle>Statistiques utilisateur</PageTitle>
-          <SearchUserForm defaultValue={user?.username} />
-          {!error && !user && (
+          <PageTitle>Statistiques de joueur</PageTitle>
+          <SearchUserForm defaultValue={player?.username} />
+          {!error && !player && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>
               <p>
@@ -74,25 +74,25 @@ export default function UserShow(props: UserShowProps) {
                 recherche au-dessus.
               </p>
               <p>
-                Cet outil permet d'afficher les statistiques avancées d'un utilisateur jouant à
-                Paladium. On y retrouve des statistiques telles que l'évolution des niveaux de
-                métier, l'argent, et le temps de jeu.
+                Cet outil permet d'afficher les statistiques avancées d'un joueur jouant à Paladium.
+                On y retrouve des statistiques telles que l'évolution des niveaux de métier,
+                l'argent, et le temps de jeu.
               </p>
               <p>
                 On a également l'historique de sa faction et de son rang. Toutes ces informations
                 seront présentées sous forme d'une page intuitive et facile à lire.
               </p>
-              {exampleUser && (
+              {examplePlayer && (
                 <>
-                  <p>Un exemple d'utilisateur est disponible juste en dessous.</p>
+                  <p>Un exemple de joueur est disponible juste en dessous.</p>
                   <PageSubTitle>Exemple</PageSubTitle>
-                  <UserDetails user={exampleUser} />
+                  <PlayerDetails player={examplePlayer} />
                 </>
               )}
             </div>
           )}
-          {error && !user && <DisplayError>{error}</DisplayError>}
-          {user && <UserDetails user={user} />}
+          {error && !player && <DisplayError>{error}</DisplayError>}
+          {player && <PlayerDetails player={player} />}
         </Page>
       </DefaultLayout>
     </>

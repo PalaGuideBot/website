@@ -44,53 +44,53 @@ import { noCase } from '~/lib/string'
 import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
-import type { UserShowProps } from '../show'
+import type { PlayerShowProps } from '../show'
 
-type UserDetailsProps = {
-  user: NonNullable<UserShowProps['exampleUser']>
+type PlayerDetailsProps = {
+  player: NonNullable<PlayerShowProps['examplePlayer']>
 }
 
-export const UserDetails = ({ user }: UserDetailsProps) => {
+export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
-        <SkinSection user={user} />
-        <InformationsSection user={user} />
-        <JobsSection user={user} />
+        <SkinSection player={player} />
+        <InformationsSection player={player} />
+        <JobsSection player={player} />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <MountSection mount={user.mount} />
-        <PetSection pet={user.pet} />
+        <MountSection mount={player.mount} />
+        <PetSection pet={player.pet} />
       </div>
-      <AchievementsSection achievements={user.achievements} />
-      <FriendsSection friends={user.friends} />
-      <JobsEvolutionSection user={user} />
-      <MoneyEvolutionSection user={user} />
-      <ClassementsSection user={user} />
+      <AchievementsSection achievements={player.achievements} />
+      <FriendsSection friends={player.friends} />
+      <JobsEvolutionSection player={player} />
+      <MoneyEvolutionSection player={player} />
+      <ClassementsSection player={player} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FactionHistorySection user={user} />
-        <RanksHistorySection user={user} />
+        <FactionHistorySection player={player} />
+        <RanksHistorySection player={player} />
       </div>
     </div>
   )
 }
 
 interface SkinSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const SkinSection = ({ user, className, ...props }: SkinSectionProps) => {
+const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
   return (
     <Card className={cn('flex flex-col lg:row-span-2', className)} {...props}>
       <CardHeader className="border-b">
-        <CardTitle className="text-center font-pixel">{user.username}</CardTitle>
+        <CardTitle className="text-center font-pixel">{player.username}</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
         <ReactSkinview3d
           className="!h-auto w-full"
           width="278"
           height="450"
-          skinUrl={getSkinUrl(user.username)}
+          skinUrl={getSkinUrl(player.username)}
         />
       </CardContent>
     </Card>
@@ -98,16 +98,16 @@ const SkinSection = ({ user, className, ...props }: SkinSectionProps) => {
 }
 
 interface InformationsSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const InformationsSection = ({ user, className, ...props }: InformationsSectionProps) => {
-  const lastUserData = user.data.at(-1)
+const InformationsSection = ({ player, className, ...props }: InformationsSectionProps) => {
+  const lastUserData = player.data.at(-1)
 
   const averageTimePlayed = () => {
     const lastTimePlayed = lastUserData!.data.timePlayed
     const now = new Date()
-    const past = new Date(user.firstJoin)
+    const past = new Date(player.firstJoin)
     const diffTime = Math.abs(now.getTime() - past.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
@@ -126,7 +126,7 @@ const InformationsSection = ({ user, className, ...props }: InformationsSectionP
           <li>
             <InformationLine
               label="Première connexion"
-              value={formatDate(new Date(user.firstJoin), DateTime.DATE_MED)}
+              value={formatDate(new Date(player.firstJoin), DateTime.DATE_MED)}
             />
           </li>
           <li>
@@ -164,11 +164,11 @@ const InformationsSection = ({ user, className, ...props }: InformationsSectionP
 }
 
 interface JobsSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const JobsSection = ({ user, className, ...props }: JobsSectionProps) => {
-  const lastUserData = user.data.at(-1)
+const JobsSection = ({ player, className, ...props }: JobsSectionProps) => {
+  const lastUserData = player.data.at(-1)
 
   return (
     <Card className={cn('flex lg:col-span-2', className)} {...props}>
@@ -182,7 +182,7 @@ const JobsSection = ({ user, className, ...props }: JobsSectionProps) => {
 }
 
 interface MountSectionProps extends React.ComponentProps<typeof Card> {
-  mount: UserDetailsProps['user']['mount']
+  mount: PlayerDetailsProps['player']['mount']
 }
 
 const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
@@ -228,7 +228,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
 }
 
 interface PetSectionProps extends React.ComponentProps<typeof Card> {
-  pet: UserDetailsProps['user']['pet']
+  pet: PlayerDetailsProps['player']['pet']
 }
 
 const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
@@ -274,7 +274,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
 }
 
 interface AchievementsSectionProps extends React.ComponentProps<typeof Card> {
-  achievements: UserDetailsProps['user']['achievements']
+  achievements: PlayerDetailsProps['player']['achievements']
 }
 
 const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProps) => {
@@ -299,7 +299,7 @@ const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProp
 }
 
 interface FriendsSectionProps extends React.ComponentProps<typeof Card> {
-  friends: UserDetailsProps['user']['friends']
+  friends: PlayerDetailsProps['player']['friends']
 }
 
 const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
@@ -354,13 +354,13 @@ const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
 }
 
 interface JobsEvolutionSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const JobsEvolutionSection = ({ user, ...props }: JobsEvolutionSectionProps) => {
+const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) => {
   const [graphType, setGraphType] = React.useState<'level' | 'xp'>('level')
 
-  const sortedUserData = (user?.data || []).toSorted(
+  const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -436,7 +436,7 @@ const JobsEvolutionSection = ({ user, ...props }: JobsEvolutionSectionProps) => 
                 value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
               }
             />
-            {Object.keys(user.data[0].data.jobs).map((job) => (
+            {Object.keys(player.data[0].data.jobs).map((job) => (
               <Line
                 key={job}
                 type="monotone"
@@ -455,11 +455,11 @@ const JobsEvolutionSection = ({ user, ...props }: JobsEvolutionSectionProps) => 
 }
 
 interface MoneyEvolutionSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const MoneyEvolutionSection = ({ user, ...props }: MoneyEvolutionSectionProps) => {
-  const sortedUserData = (user?.data || []).toSorted(
+const MoneyEvolutionSection = ({ player, ...props }: MoneyEvolutionSectionProps) => {
+  const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -521,17 +521,17 @@ const MoneyEvolutionSection = ({ user, ...props }: MoneyEvolutionSectionProps) =
 }
 
 interface ClassementsSectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const ClassementsSection = ({ user, ...props }: ClassementsSectionProps) => {
+const ClassementsSection = ({ player, ...props }: ClassementsSectionProps) => {
   return (
     <Card id="classements" {...props}>
       <CardHeader className="border-b">
         <CardTitle href="#classements">Classements</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {Object.entries(user.leaderboard)
+        {Object.entries(player.leaderboard)
           .filter(([key]) => !['corruption', 'chorus', 'end'].includes(key))
           .filter(([value]) => value !== '-1' && value !== '0')
           .map(([key, value]) => {
@@ -559,11 +559,11 @@ const ClassementsSection = ({ user, ...props }: ClassementsSectionProps) => {
 }
 
 interface FactionHistorySectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const FactionHistorySection = ({ user, ...props }: FactionHistorySectionProps) => {
-  const sortedUserData = (user?.data || []).toSorted(
+const FactionHistorySection = ({ player, ...props }: FactionHistorySectionProps) => {
+  const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -622,11 +622,11 @@ const FactionHistorySection = ({ user, ...props }: FactionHistorySectionProps) =
 }
 
 interface RanksHistorySectionProps extends React.ComponentProps<typeof Card> {
-  user: UserDetailsProps['user']
+  player: PlayerDetailsProps['player']
 }
 
-const RanksHistorySection = ({ user, ...props }: RanksHistorySectionProps) => {
-  const sortedUserData = (user?.data || []).toSorted(
+const RanksHistorySection = ({ player, ...props }: RanksHistorySectionProps) => {
+  const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 

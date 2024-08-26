@@ -37,7 +37,7 @@ const LINKS: Record<string, Array<LinkProps>> = {
   Statistiques: [
     {
       path: '/players',
-      label: 'Utilisateur',
+      label: 'Joueur',
       icon: createIconLink(UserIcon),
     },
     {
