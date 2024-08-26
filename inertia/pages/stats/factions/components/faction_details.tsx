@@ -326,7 +326,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
 const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['players'][number] }) => {
   const isLeader = player.group.toLowerCase().includes('leader')
   return (
-    <Link href={`/stats/users/${player.username}`}>
+    <Link href={`/players/${player.username}`}>
       <div className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30">
         <img
           src={getHeadUrl(player.username)}

@@ -98,7 +98,7 @@ export default function BossIndex(props: BossIndexProps) {
                   <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
                   <Legend
                     formatter={(value) => (
-                      <Link className="hover:underline" href={`/stats/users/${value}`}>
+                      <Link className="hover:underline" href={`/players/${value}`}>
                         {value}
                       </Link>
                     )}
@@ -150,7 +150,7 @@ const Podium = ({
         <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
       )}
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/stats/users/${data.username}`}>
+        <PodiumCardDescription href={`/players/${data.username}`}>
           {data.username}
         </PodiumCardDescription>
         <PodiumCardValue after={<BossIcon className="h-5 w-auto invert dark:invert-0" />}>

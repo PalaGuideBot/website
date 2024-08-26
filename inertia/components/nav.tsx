@@ -36,12 +36,12 @@ function createIconLink(Icon: LucideIcon) {
 const LINKS: Record<string, Array<LinkProps>> = {
   Statistiques: [
     {
-      path: '/stats/users',
+      path: '/players',
       label: 'Utilisateur',
       icon: createIconLink(UserIcon),
     },
     {
-      path: '/stats/factions',
+      path: '/factions',
       label: 'Faction',
       icon: createIconLink(ShieldIcon),
     },

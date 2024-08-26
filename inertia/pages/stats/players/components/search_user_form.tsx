@@ -15,7 +15,7 @@ const SearchUserForm = ({ defaultValue }: SearchUserForm) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const username = formData.get('username') as string
-    router.visit(`/stats/users/${username}`, {
+    router.visit(`/players/${username}`, {
       preserveState: true,
       onStart: () => setIsLoading(true),
       onFinish: () => setIsLoading(false),

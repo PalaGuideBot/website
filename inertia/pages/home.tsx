@@ -50,7 +50,7 @@ export default function Home(props: HomePageProps) {
                   after={<ArrowRightIcon className="transition-all h-6 w-0 group-hover:w-6" />}
                   asChild
                 >
-                  <Link href="/stats/users">Voir les statistiques</Link>
+                  <Link href="/players">Voir les statistiques</Link>
                 </Button>
                 <Button
                   variant="outline"

@@ -15,7 +15,7 @@ const SearchFactionForm = ({ defaultValue }: SearchFactionFormProps) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const name = formData.get('name') as string
-    router.visit(`/stats/factions/${name}`, {
+    router.visit(`/factions/${name}`, {
       preserveState: true,
       onStart: () => setIsLoading(true),
       onFinish: () => setIsLoading(false),

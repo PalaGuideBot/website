@@ -95,7 +95,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
                   <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
                   <Legend
                     formatter={(value) => (
-                      <Link className="hover:underline" href={`/stats/factions/${value}`}>
+                      <Link className="hover:underline" href={`/factions/${value}`}>
                         {value}
                       </Link>
                     )}
@@ -142,7 +142,7 @@ const Podium = ({
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.name}'s avatar`} />
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+        <PodiumCardDescription href={`/factions/${data.name}`}>
           {data.name}
         </PodiumCardDescription>
         <PodiumCardValue>

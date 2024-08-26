@@ -1,14 +1,11 @@
-import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
-const UsersController = () => import('#stats/controllers/users_controller')
-const FactionsController = () => import('#stats/controllers/factions_controller')
+const PlayerController = () => import('#stats/controllers/player_controller')
+const FactionController = () => import('#stats/controllers/faction_controller')
 
 router
   .group(() => {
-    router.get('/', ({ inertia }: HttpContext) => inertia.render('stats/index')).as('index')
-    router.get('/users/:username?', [UsersController, 'show']).as('users.show')
-    router.get('/factions/:name?', [FactionsController, 'show']).as('factions.show')
+    router.get('/players/:username?', [PlayerController, 'show']).as('players.show')
+    router.get('/factions/:name?', [FactionController, 'show']).as('factions.show')
   })
-  .prefix('stats')
   .as('stats')

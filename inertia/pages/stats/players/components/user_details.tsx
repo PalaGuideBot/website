@@ -138,7 +138,7 @@ const InformationsSection = ({ user, className, ...props }: InformationsSectionP
               value={
                 <Link
                   className="text-sm font-mc-dungueons"
-                  href={`/stats/factions/${lastUserData!.data.faction}`}
+                  href={`/factions/${lastUserData!.data.faction}`}
                 >
                   <GlowText>{lastUserData!.data.faction || 'Wilderness'}</GlowText>
                 </Link>
@@ -332,7 +332,7 @@ const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
               friends.map((friend) => (
                 <Link
                   key={friend.uuid}
-                  href={`/stats/users/${friend.username}`}
+                  href={`/players/${friend.username}`}
                   className="flex gap-4 border p-4 bg-background/50 rounded-md hover:bg-background/30"
                 >
                   <img
@@ -608,9 +608,7 @@ const FactionHistorySection = ({ user, ...props }: FactionHistorySectionProps) =
               <TableRow key={index}>
                 <TableCell>{entry.period}</TableCell>
                 <TableCell>
-                  <Link
-                    href={`/stats/factions/${entry.faction !== 'Wilderness' ? entry.faction : ''}`}
-                  >
+                  <Link href={`/factions/${entry.faction !== 'Wilderness' ? entry.faction : ''}`}>
                     <GlowText>{entry.faction}</GlowText>
                   </Link>
                 </TableCell>

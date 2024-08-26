@@ -3,7 +3,7 @@ import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 
 @inject()
-export default class UsersController {
+export default class PlayerController {
   constructor(private api: ApiService) {}
 
   async show({ inertia, params, auth }: HttpContext) {
@@ -32,6 +32,6 @@ export default class UsersController {
       const message = error instanceof Error ? error.message : 'Une erreur est survenue'
       inertia.share({ error: message })
     }
-    return inertia.render('stats/users/show', { targetUser, exampleUser, authUser, isLinked })
+    return inertia.render('stats/players/show', { targetUser, exampleUser, authUser, isLinked })
   }
 }

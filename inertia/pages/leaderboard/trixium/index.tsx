@@ -148,7 +148,7 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
               />
               <Legend
                 formatter={(value) => (
-                  <Link className="hover:underline" href={`/stats/users/${value}`}>
+                  <Link className="hover:underline" href={`/players/${value}`}>
                     {value}
                   </Link>
                 )}
@@ -249,7 +249,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
               />
               <Legend
                 formatter={(value) => (
-                  <Link className="hover:underline" href={`/stats/factions/${value}`}>
+                  <Link className="hover:underline" href={`/factions/${value}`}>
                     {value}
                   </Link>
                 )}
@@ -301,7 +301,7 @@ const PlayerPodium = ({
         <PodiumCardImage src={getHeadUrl(data.username)} alt={`${data.username}'s avatar`} />
       )}
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/stats/users/${data.username}`}>
+        <PodiumCardDescription href={`/players/${data.username}`}>
           {data.username}
         </PodiumCardDescription>
         <TooltipProvider delayDuration={100}>
@@ -338,7 +338,7 @@ const FactionPodium = ({
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.uuid}'s avatar`} />
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/stats/factions/${data.name}`}>
+        <PodiumCardDescription href={`/factions/${data.name}`}>
           {data.name}
         </PodiumCardDescription>
         <TooltipProvider delayDuration={100}>

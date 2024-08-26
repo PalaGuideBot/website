@@ -1,6 +1,7 @@
-import type FactionsController from '#stats/controllers/factions_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/react'
+
+import type FactionController from '#stats/controllers/faction_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
@@ -8,7 +9,7 @@ import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
 import { SearchFactionForm } from './components/search_faction_form'
 
-export type FactionShowProps = InferPageProps<FactionsController, 'show'>
+export type FactionShowProps = InferPageProps<FactionController, 'show'>
 
 export default function FactionShow(props: FactionShowProps) {
   const { faction, exampleFaction } = props

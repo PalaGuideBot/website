@@ -3,7 +3,7 @@ import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 
 @inject()
-export default class FactionsController {
+export default class FactionController {
   constructor(private api: ApiService) {}
 
   async show({ inertia, params }: HttpContext) {

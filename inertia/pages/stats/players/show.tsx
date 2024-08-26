@@ -1,17 +1,18 @@
-import type UsersController from '#stats/controllers/users_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
+
+import type PlayerController from '#stats/controllers/player_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
+import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { SearchUserForm } from './components/search_user_form'
 import { UserDetails } from './components/user_details'
-import { useAuth } from '~/hooks/use_auth'
 
-export type UserShowProps = InferPageProps<UsersController, 'show'>
+export type UserShowProps = InferPageProps<PlayerController, 'show'>
 
 export default function UserShow(props: UserShowProps) {
   const { targetUser, exampleUser, authUser, isLinked } = props
