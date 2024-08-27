@@ -141,6 +141,7 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
                   href={`/factions/${lastUserData!.data.faction}`}
                 >
                   <GlowText>{lastUserData!.data.faction || 'Wilderness'}</GlowText>
+                  {lastUserData!.data.factionRank ? ' - ' + lastUserData!.data.factionRank : ''}
                 </Link>
               }
             />

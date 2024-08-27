@@ -76,6 +76,7 @@ export const playerInfoValidator = vine.compile(
             alchemist: jobValidator.clone(),
           }),
           faction: vine.string(),
+          factionRank: vine.string().optional().nullable(),
           money: vine.number(),
           rank: vine.string(),
           timePlayed: vine.number(),
