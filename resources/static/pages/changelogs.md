@@ -10,6 +10,9 @@
 - Ajout du rang de faction au niveau des informations d'un joueur
 - Redirection vers la page du joueur lié à votre compte sur la page `/players` (pour les utilisateurs liés)
 
+-> Other
+- Ajout d'un rich presence Lunar Client personnalisé (Suggestions : "**Statut Lunar Client**")
+
 ## 25/08/2024
 
 -> Website
