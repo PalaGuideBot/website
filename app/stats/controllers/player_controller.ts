@@ -1,31 +1,34 @@
 import { ApiService } from '#core/services/api'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
+import { type PageObject } from '@adonisjs/inertia/types'
 
 @inject()
 export default class PlayerController {
   constructor(private api: ApiService) {}
 
-  async show({ inertia, params, auth }: HttpContext) {
-    let targetPlayer = null
+  async show({ inertia, response, params, auth }: HttpContext): Promise<
+    | string
+    | PageObject<{
+        player: Awaited<ReturnType<ApiService['getPlayer']>> | null
+        examplePlayer: Awaited<ReturnType<ApiService['getPlayer']>> | null
+      }>
+  > {
+    let player = null
     let examplePlayer = null
-    let authPlayer = null
-    let isLinked = false
 
     try {
       if (auth?.user && !params.username) {
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
-        isLinked = true
-        authPlayer = await this.api.getPlayer(profile.username)
+        //@ts-ignore
+        return response.redirect(`/players/${profile.username}`)
       }
     } catch {}
 
     try {
       if (params.username) {
-        targetPlayer = await this.api.getPlayer(params.username)
-      }
-
-      if (!authPlayer && !params.username) {
+        player = await this.api.getPlayer(params.username)
+      } else {
         examplePlayer = await this.api.getPlayer('PalaGuideBot')
       }
     } catch (error: unknown) {
@@ -33,10 +36,8 @@ export default class PlayerController {
       inertia.share({ error: message })
     }
     return inertia.render('stats/players/show', {
-      targetPlayer,
+      player,
       examplePlayer,
-      authPlayer,
-      isLinked,
     })
   }
 }

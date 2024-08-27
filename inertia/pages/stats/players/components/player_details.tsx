@@ -47,7 +47,7 @@ import { InformationLine } from '../../components/information_line'
 import type { PlayerShowProps } from '../show'
 
 type PlayerDetailsProps = {
-  player: NonNullable<PlayerShowProps['examplePlayer']>
+  player: NonNullable<PlayerShowProps['player']>
 }
 
 export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
@@ -102,10 +102,10 @@ interface InformationsSectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const InformationsSection = ({ player, className, ...props }: InformationsSectionProps) => {
-  const lastUserData = player.data.at(-1)
+  const lastPlayerData = player.data.at(-1)
 
   const averageTimePlayed = () => {
-    const lastTimePlayed = lastUserData!.data.timePlayed
+    const lastTimePlayed = lastPlayerData!.data.timePlayed
     const now = new Date()
     const past = new Date(player.firstJoin)
     const diffTime = Math.abs(now.getTime() - past.getTime())
@@ -130,7 +130,10 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
             />
           </li>
           <li>
-            <InformationLine label="Rank" value={<PaladiumRank rank={lastUserData!.data.rank} />} />
+            <InformationLine
+              label="Rank"
+              value={<PaladiumRank rank={lastPlayerData!.data.rank} />}
+            />
           </li>
           <li>
             <InformationLine
@@ -138,21 +141,23 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
               value={
                 <Link
                   className="text-sm font-mc-dungueons"
-                  href={`/factions/${lastUserData!.data.faction}`}
+                  href={`/factions/${lastPlayerData!.data.faction}`}
                 >
-                  <GlowText>{lastUserData!.data.faction || 'Wilderness'}</GlowText>
-                  {lastUserData!.data.factionRank ? ' - ' + lastUserData!.data.factionRank : ''}
+                  <span>{lastPlayerData!.data.faction || 'Wilderness'}</span>
+                  {lastPlayerData!.data.factionRank && (
+                    <span>{` - ${lastPlayerData!.data.factionRank}`}</span>
+                  )}
                 </Link>
               }
             />
           </li>
           <li>
-            <InformationLine label="Money" value={formatPrice(lastUserData!.data.money)} />
+            <InformationLine label="Money" value={formatPrice(lastPlayerData!.data.money)} />
           </li>
           <li>
             <InformationLine
               label="Temps de jeu"
-              value={formatDuration(lastUserData!.data.timePlayed)}
+              value={formatDuration(lastPlayerData!.data.timePlayed)}
             />
           </li>
           <li>
@@ -169,12 +174,12 @@ interface JobsSectionProps extends React.ComponentProps<typeof Card> {
 }
 
 const JobsSection = ({ player, className, ...props }: JobsSectionProps) => {
-  const lastUserData = player.data.at(-1)
+  const lastPlayerData = player.data.at(-1)
 
   return (
     <Card className={cn('flex lg:col-span-2', className)} {...props}>
       <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
-        {Object.entries(lastUserData!.data.jobs).map(([job, info]) => (
+        {Object.entries(lastPlayerData!.data.jobs).map(([job, info]) => (
           <PaladiumJob key={job} job={job} info={info} />
         ))}
       </CardContent>
@@ -310,11 +315,11 @@ const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card id="amis" {...props}>
         <CardHeader
-          className={cn('flex flex-row justify-between items-center', open && 'border-b')}
+          className={cn('flex flex-row justify-between items-center py-2', open && 'border-b')}
         >
           <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" size="xs-icon" isIconOnly>
+            <Button className="!m-0" variant="outline" isIconOnly>
               <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
             </Button>
           </CollapsibleTrigger>
