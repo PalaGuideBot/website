@@ -118,7 +118,7 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
 
   return (
     <Card id="informations" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#informations">Informations</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pt-4">
@@ -177,7 +177,10 @@ const JobsSection = ({ player, className, ...props }: JobsSectionProps) => {
   const lastPlayerData = player.data.at(-1)
 
   return (
-    <Card className={cn('flex lg:col-span-2', className)} {...props}>
+    <Card id="metiers" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
+      <CardHeader className="border-b py-2.5">
+        <CardTitle href="#metiers">Métiers</CardTitle>
+      </CardHeader>
       <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
         {Object.entries(lastPlayerData!.data.jobs).map(([job, info]) => (
           <PaladiumJob key={job} job={job} info={info} />
@@ -196,7 +199,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
 
   return (
     <Card className={cn('flex flex-col', className)} id="monture" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#monture">Monture</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-center">
@@ -242,7 +245,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
 
   return (
     <Card className={cn('flex flex-col', className)} id="familier" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#familier">Familier</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col">
@@ -288,7 +291,7 @@ const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProp
 
   return (
     <Card id="succes" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#succes">Succès</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
@@ -471,7 +474,7 @@ const MoneyEvolutionSection = ({ player, ...props }: MoneyEvolutionSectionProps)
 
   return (
     <Card id="evolution-de-l-argent" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#evolution-de-l-argent">&Eacute;volution de l'argent</CardTitle>
       </CardHeader>
       <CardContent className="p-0 h-64">
@@ -533,7 +536,7 @@ interface ClassementsSectionProps extends React.ComponentProps<typeof Card> {
 const ClassementsSection = ({ player, ...props }: ClassementsSectionProps) => {
   return (
     <Card id="classements" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#classements">Classements</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -598,7 +601,7 @@ const FactionHistorySection = ({ player, ...props }: FactionHistorySectionProps)
 
   return (
     <Card id="historique-des-factions" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#historique-des-factions">Historique des factions</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
@@ -658,7 +661,7 @@ const RanksHistorySection = ({ player, ...props }: RanksHistorySectionProps) => 
 
   return (
     <Card id="historique-des-rangs" {...props}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-2.5">
         <CardTitle href="#historique-des-rangs">Historique des rangs</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
