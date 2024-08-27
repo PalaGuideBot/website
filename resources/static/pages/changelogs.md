@@ -1,5 +1,15 @@
 # Changelogs
 
+## 27/08/2024
+
+-> Website
+- Fix: Bug lors du premier chargement des données d'un joueur
+- Modification de la page `/stats/users` en `/players`
+- Modification de la page `/stats/factions` en `/factions`
+- Suppresion de la page `/stats` (page de passerelle)
+- Ajout du rang de faction au niveau des informations d'un joueur
+- Redirection vers la page du joueur lié à votre compte sur la page `/players` (pour les utilisateurs liés)
+
 ## 25/08/2024
 
 -> Website
