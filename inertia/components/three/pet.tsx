@@ -24,7 +24,12 @@ export const PetViewer = React.forwardRef<HTMLCanvasElement, PetViewerProps>(
         <ambientLight intensity={1} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <PetModel model={model} />
-        <OrbitControls enableZoom={false} enableRotate={true} target={[0, 0.5, 0]} />
+        <OrbitControls
+          enableZoom={false}
+          enableRotate={true}
+          target={[0, 0.5, 0]}
+          enablePan={false}
+        />
       </Canvas>
     )
   }
