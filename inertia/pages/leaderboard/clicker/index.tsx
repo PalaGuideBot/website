@@ -170,7 +170,7 @@ const Podium = ({
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger className="z-[2]">
-              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-0">
+              <PodiumCardValue className="border-b-2 border-dashed border-foreground hover:border-b-transparent">
                 {formatNumber(data.value)}
               </PodiumCardValue>
             </TooltipTrigger>

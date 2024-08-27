@@ -308,7 +308,7 @@ const PlayerPodium = ({
           <Tooltip>
             <TooltipTrigger className="z-[2]">
               <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-0"
+                className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
                 after={<LeaderboardTrixiumIcon />}
               >
                 {formatNumber(data.value)}
@@ -338,14 +338,12 @@ const FactionPodium = ({
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.uuid}'s avatar`} />
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/factions/${data.name}`}>
-          {data.name}
-        </PodiumCardDescription>
+        <PodiumCardDescription href={`/factions/${data.name}`}>{data.name}</PodiumCardDescription>
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger className="z-[2]">
               <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-0"
+                className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
                 after={<LeaderboardTrixiumIcon />}
               >
                 {formatNumber(data.value)}
