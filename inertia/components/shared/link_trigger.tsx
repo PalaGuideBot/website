@@ -10,7 +10,7 @@ const LinkTrigger = ({
   return (
     <div className="group flex items-center gap-2">
       {children}
-      <Button className="p-0.5" variant="tertiary" asChild>
+      <Button className="p-1" isIconOnly variant="transparent" asChild>
         <a
           {...props}
           className={cn(
