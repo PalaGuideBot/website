@@ -41,7 +41,7 @@ export default function ChangelogsPage(props: ChangelogsPageProps) {
                 return <li className="text-sm" {...liProps} />
               },
               p({ node, ...pProps }) {
-                const match = /^-> (?<type>Website|Bot)/.exec(String(pProps.children))
+                const match = /^-> (?<type>Website|Bot|Other)/.exec(String(pProps.children))
 
                 if (match?.groups) {
                   return (
