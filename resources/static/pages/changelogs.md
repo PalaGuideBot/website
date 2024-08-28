@@ -3,7 +3,8 @@
 ## 27/08/2024
 
 -> Website
-- Fix: Bug lors du premier chargement des données d'un joueur
+- Correction lors du premier chargement des données d'un joueur
+- Correction du déplacement sur le rendu 3D des familiers et montures sur `/players`
 - Modification de la page `/stats/users` en `/players`
 - Modification de la page `/stats/factions` en `/factions`
 - Suppresion de la page `/stats` (page de passerelle)
