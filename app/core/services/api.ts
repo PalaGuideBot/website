@@ -7,6 +7,7 @@ import {
   minecraftAccountLinkValidator,
   minecraftTokenLinkValidator,
 } from '#core/validators/minecraft_valiadator'
+import { eventFactionQuestValidator } from '#event/validators/event_validator'
 import {
   categories as leaderboardCategories,
   trixiumCategories as trixiumLeaderboardCategories,
@@ -217,6 +218,19 @@ export class ApiService {
         })
       }
       throw error
+    }
+  }
+
+  async getEventFactionQuest() {
+    try {
+      const response = await client.get('events/qdf')
+      const data = await response.json()
+      return eventFactionQuestValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid event faction quest data', {
+        code: 'E_EVENT_FACTION_QUEST_INVALID',
+        status: 500,
+      })
     }
   }
 }

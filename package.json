@@ -16,6 +16,7 @@
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#core/*": "./app/core/*.js",
+    "#event/*": "./app/event/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#leaderboard/*": "./app/leaderboard/*.js",
     "#middleware/*": "./app/middleware/*.js",
