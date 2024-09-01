@@ -20,3 +20,19 @@ export function getPet(value: string) {
 }
 
 export type PetType = (typeof pets)[number]
+
+const petTranslations: Record<PetType, string> = {
+  cat: 'Cat',
+  dog: 'Dog',
+  dragon: 'Dragon',
+  feng_uang: 'Feng Uang',
+  kapio_koi: 'Kapio Koi',
+  pet_blobfish: 'Blobfish',
+  pet_mini_golem: 'Mini Golem',
+  pet_ufo: 'UFO',
+  rabbit: 'Rabbit',
+}
+
+export function translatePet(pet: PetType): string {
+  return petTranslations[pet] ?? DEFAULT_PET
+}

@@ -37,7 +37,7 @@ import {
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
-import { getPet } from '~/content/pets'
+import { getPet, translatePet } from '~/content/pets'
 import { formatDate } from '~/lib/date'
 import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
@@ -254,7 +254,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
             <PetViewer model={getPet(pet.currentSkin)} />
             <ul className="flex flex-col gap-2">
               <li>
-                <InformationLine label="Skin" value={getPet(pet.currentSkin)} />
+                <InformationLine label="Skin" value={translatePet(getPet(pet.currentSkin))} />
               </li>
               <li>
                 <InformationLine label="Nombre de skills" value={pet.skills.length} />
