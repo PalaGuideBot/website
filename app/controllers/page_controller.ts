@@ -34,9 +34,16 @@ export default class PageController {
     return inertia.render('terms', { content })
   }
 
-  async changelog({ inertia }: HttpContext) {
+  async changelog({ request, response, inertia }: HttpContext) {
     const content = await readFile(app.makePath('resources/static/pages/changelog.md'), 'utf-8')
-    return inertia.render('changelog', { content })
+
+    switch (request.accepts(['text/markdown', 'text/html'])) {
+      case 'text/markdown':
+        return response.status(200).header('Content-Type', 'text/markdown').send(content)
+      case 'text/html':
+      default:
+        return inertia.render('changelog', { content })
+    }
   }
 
   async informations({ inertia }: HttpContext) {
