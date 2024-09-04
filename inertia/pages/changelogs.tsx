@@ -37,23 +37,23 @@ export default function ChangelogsPage(props: ChangelogsPageProps) {
 
                 return implementedComponents.h2({ node, ...h2Props })
               },
-              li({ node, ...liProps }) {
-                return <li className="text-sm" {...liProps} />
-              },
-              p({ node, ...pProps }) {
-                const match = /^-> (?<type>Website|Bot|Other)/.exec(String(pProps.children))
+              h3({ node, ...h3Props }) {
+                const match = /^(?<type>Website|Bot|Other)/.exec(String(h3Props.children))
 
                 if (match?.groups) {
                   return (
-                    <p className="mb-2">
+                    <h3 className="mb-2">
                       <Badge className="py-0.5" stroke before={<BadgeInfoIcon />}>
                         {match.groups.type}
                       </Badge>
-                    </p>
+                    </h3>
                   )
                 }
 
-                return implementedComponents.p({ node, className: 'mb-2', ...pProps })
+                return implementedComponents.h3({ node, ...h3Props })
+              },
+              li({ node, ...liProps }) {
+                return <li className="text-sm" {...liProps} />
               },
             }}
           >

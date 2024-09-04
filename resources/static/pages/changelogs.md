@@ -2,7 +2,8 @@
 
 ## 27/08/2024
 
--> Website
+### Website
+
 - Correction lors du premier chargement des données d'un joueur
 - Correction du déplacement sur le rendu 3D des familiers et montures sur `/players`
 - Modification de la page `/stats/users` en `/players`
@@ -11,45 +12,53 @@
 - Ajout du rang de faction au niveau des informations d'un joueur
 - Redirection vers la page du joueur lié à votre compte sur la page `/players` (pour les utilisateurs liés)
 
--> Other
+### Other
+
 - Ajout d'un rich presence Lunar Client personnalisé (Suggestions : "**Statut Lunar Client**")
 
 ## 25/08/2024
 
--> Website
+### Website
+
 - Ajout des familiers et des montures sur (`/stats/users`).
 
 ## 21/08/2024
 
--> Website
+### Website
+
 - Liaison de notre API avec celle de Paladium en utilisant leur nouveau système d'authentification.
 - Ajout des rangs manquants à la liste des rangs indexés (`/stats/users`).
 - Mise en place d'un système de filtre pour les membres des factions (`/stats/factions`).
 
--> Bot
+### Bot
+
 - Liaison du bot avec l'API de Paladium en utilisant leur nouveau système d'authentification.
 
 ## 10/08/2024
 
--> Website
+### Website
+
 - Augmentation de la durée de la session une fois connecté
 
 ## 09/08/2024
 
--> Website
+### Website
+
 - Ajout de la liste d'amis sur la page de statistiques utilisateur (`/stats/users`)
 - Refonte du podium sur les pages de classements
 - Amélioration du responsive sur la page de statistiques utilisateur (`/stats/users`)
 
 ## 07/08/2024
 
--> Website
+### Website
+
 - Ajout d'une explication sur la façon de lier son compte Minecraft
 - Suppression de la récupération du mail lors de la connexion via Discord
 
 ## 06/08/2024
 
--> Website
+### Website
+
 - Refonte complète de l'API
 - Changement des images de présentation du bot
 - Correction des métiers en mode blanc
@@ -60,17 +69,20 @@
 - Ajout de divers Easter Eggs
 - Ajout de meta tags (Suggestions : "**Ajouter plus de metadata dans le head**")
 
--> Bot
+### Bot
+
 - Changement de la bannière sous les commandes
 
 ## 11/07/2024
 
--> Website
+### Website
+
 - Traduction de `Leaderboard` en `Classement` (Suggestion)
 
 ## 06/07/2024
 
--> Website
+### Website
+
 - Traductions de mots anglais en français
 - Amélioration de l'UI des liens sur les pages `/stats`, `/leaderboard` & `/informations` (Suggestions: "**Page de chemin**" #2)
 - Ajout des unités de valeur & d'icônes sur les podiums de classements (Suggestions: "**Classement, grandeur de la quantité**")
@@ -78,32 +90,38 @@
 
 ## 29/06/2024
 
--> Website
+### Website
+
 - Amélioration de l'accesibilité sur l'ensemble des pages
 
 ## 24/06/2024
 
--> Website
+### Website
+
 - Optimisation de page `/status/paladium` & `/leaderboard/trixium`
 
 ## 23/06/2024
 
--> Website
+### Website
+
 - Ajout des pages `/stats`, `/leaderboard`, `/informations` qui servent de passerelle pour les différentes 
 catégories (Suggestions: "**Page de chemin**")
 - Ajout d'une redirection de la page `/status` vers `/status/paladium` (Suggestions: "**Page de chemin**")
 
 ## 21/06/2024
 
--> Website
+### Website
+
 - Affichage de badges pour différencier les changelogs du bot et du site web dans les changelogs.
 
 ## 20/06/2024
 
--> Website
+### Website
+
 - Ajout des embeds sur toutes les pages
 
--> Bot
+### Bot
+
 - Refonte complète de la structuration
 - Suppression des commandes inutiles
 - Fix de la liste des "amis" sur la commande `/lookup`
@@ -112,7 +130,8 @@ catégories (Suggestions: "**Page de chemin**")
 
 ## 18/06/2024
 
--> Website
+### Website
+
   - Fix du scroll pour la navigation mobile
   - Lien rapide sur les sections des pages `stats/users` & `stats/factions` (Suggestions: "**Lien rapide**")
   - Affichage des grandes valeurs au hover sur les podiums (Suggestions: "**Affichage des grands nombres**")
