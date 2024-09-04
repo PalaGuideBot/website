@@ -1,21 +1,22 @@
 import { Badge } from '@lemonsqueezy/wedges'
 import { BadgeInfoIcon } from 'lucide-react'
+
 import DefaultLayout from '~/components/layouts/default'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { LinkTrigger } from '~/components/shared/link_trigger'
 import { Markdown, implementedComponents } from '~/components/ui/markdown'
 
-type ChangelogsPageProps = {
+type ChangelogPageProps = {
   content: string
 }
 
-export default function ChangelogsPage(props: ChangelogsPageProps) {
+export default function ChangelogPage(props: ChangelogPageProps) {
   const { content } = props
 
   return (
     <>
-      <Head descriptors={[{ title: 'Changelogs' }]} />
+      <Head descriptors={[{ title: 'Changelog' }]} />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown

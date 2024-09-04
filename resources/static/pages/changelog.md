@@ -1,4 +1,4 @@
-# Changelogs
+# Changelog
 
 ## 27/08/2024
 
@@ -112,7 +112,7 @@ catégories (Suggestions: "**Page de chemin**")
 
 ### Website
 
-- Affichage de badges pour différencier les changelogs du bot et du site web dans les changelogs.
+- Affichage de badges dans le changelog pour différencier les changements des différents services.
 
 ## 20/06/2024
 

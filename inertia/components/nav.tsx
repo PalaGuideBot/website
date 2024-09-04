@@ -118,8 +118,8 @@ const LINKS: Record<string, Array<LinkProps>> = {
       icon: createIconLink(UserCogIcon),
     },
     {
-      path: '/changelogs',
-      label: 'Changelogs',
+      path: '/changelog',
+      label: 'Changelog',
       icon: createIconLink(FileEditIcon),
     },
   ],

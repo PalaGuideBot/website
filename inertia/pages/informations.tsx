@@ -23,9 +23,9 @@ export default function InformationsPage() {
       path: '/terms',
     },
     {
-      title: 'Changelogs',
+      title: 'Changelog',
       description: 'Consultez les dernières mises à jour.',
-      path: '/changelogs',
+      path: '/changelog',
     },
   ]
 

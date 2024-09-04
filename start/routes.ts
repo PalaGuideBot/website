@@ -15,5 +15,5 @@ router.group(() => {
   router.get('/discord', [PageController, 'discord']).as('discord')
   router.get('/privacy', [PageController, 'privacy']).as('privacy')
   router.get('/terms', [PageController, 'terms']).as('terms')
-  router.get('/changelogs', [PageController, 'changelogs']).as('changelogs')
+  router.get('/changelog', [PageController, 'changelog']).as('changelog')
 })
