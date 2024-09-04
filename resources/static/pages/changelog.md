@@ -1,5 +1,11 @@
 # Changelog
 
+## 04/09/2024
+
+### Website
+
+- Modification de la page `/changelogs` en `/changelog`
+
 ## 27/08/2024
 
 ### Website
