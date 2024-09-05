@@ -2,6 +2,8 @@ import { cn } from '~/lib/utils'
 
 import ArrowRight from '~/assets/icons/arrow-right.png'
 import Boss from '~/assets/icons/boss.png'
+import Xp from '~/assets/icons/xp.png'
+import Question from '~/assets/icons/question.png'
 
 import SmallAlchemistJob from '~/assets/job-icons/alchemist-small.png'
 import SmallFarmerJob from '~/assets/job-icons/farmer-small.png'
@@ -45,6 +47,9 @@ const iconFactory =
 
 export const ArrowRightIcon = iconFactory(ArrowRight)
 export const BossIcon = iconFactory(Boss)
+export const MoneyIcon = iconFactory(LeaderboardMoney)
+export const XpIcon = iconFactory(Xp)
+export const QuestionIcon = iconFactory(Question)
 
 export const SmallAlchemistJobIcon = iconFactory(SmallAlchemistJob)
 export const SmallFarmerJobIcon = iconFactory(SmallFarmerJob)
