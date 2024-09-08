@@ -1,5 +1,11 @@
 # Changelog
 
+## 08/09/2024
+
+### Website
+
+- Ajout du clicker sur la page `/players`
+
 ## 04/09/2024
 
 ### Website

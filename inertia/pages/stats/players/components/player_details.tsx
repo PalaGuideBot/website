@@ -66,6 +66,7 @@ export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
       <FriendsSection friends={player.friends} />
       <JobsEvolutionSection player={player} />
       <MoneyEvolutionSection player={player} />
+      <ClickerEvolutionSection player={player} />
       <ClassementsSection player={player} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FactionHistorySection player={player} />
@@ -521,6 +522,94 @@ const MoneyEvolutionSection = ({ player, ...props }: MoneyEvolutionSectionProps)
             />
             <defs>
               <LinearGradient id="green-gradient" from="#82ca9d" />
+            </defs>
+          </AreaChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface ClickerEvolutionSectionProps extends React.ComponentProps<typeof Card> {
+  player: PlayerDetailsProps['player']
+}
+
+const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionProps) => {
+  const [graphType, setGraphType] = React.useState<'rps' | 'production'>('rps')
+
+  const playerDataFiltered = player.data.filter(
+    (data) => data.data.clicker?.rps || data.data.clicker?.production
+  )
+
+  const sortedUserData = (playerDataFiltered || []).toSorted(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
+  return (
+    <Card id="evolution-du-clicker" {...props}>
+      <CardHeader className="border-b flex flex-row items-center justify-between py-2">
+        <CardTitle href="#evolution-du-clicker">Évolution du clicker</CardTitle>
+        <ToggleGroup
+          type="single"
+          value={graphType}
+          onValueChange={(value) => {
+            if (value.length) {
+              setGraphType(value as 'rps' | 'production')
+            }
+          }}
+          size="sm"
+          className="!m-0"
+        >
+          <ToggleGroup.Item value="rps">RPS</ToggleGroup.Item>
+          <ToggleGroup.Item value="production">Production</ToggleGroup.Item>
+        </ToggleGroup>
+      </CardHeader>
+      <CardContent className="p-0 h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={sortedUserData.toReversed()}>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis dataKey="date" className="text-xs" />
+            <YAxis
+              className="text-xs"
+              tickFormatter={(value) => formatNumber(Number(value))}
+              orientation="right"
+            />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <Card className="bg-background">
+                      <CardContent className="p-4 space-y-2">
+                        <div className="font-pixel text-xs">
+                          {formatDate(label, DateTime.DATE_MED)}
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <span className="text-sm">
+                            {graphType === 'rps' ? 'RPS' : 'Production'}:{' '}
+                          </span>
+                          <span className="text-sm font-bold">
+                            {formatNumber(Number(payload[0].value))}
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                }
+                return null
+              }}
+            />
+            <Legend />
+            <Area
+              type="monotone"
+              dataKey={`data.clicker.${graphType}`}
+              name={graphType.toUpperCase()}
+              fill="url(#orange-gradient)"
+              stroke="#f4952f"
+              strokeWidth={3}
+              dot={false}
+            />
+            <defs>
+              <LinearGradient id="orange-gradient" from="#f4952f" />
             </defs>
           </AreaChart>
         </ResponsiveContainer>

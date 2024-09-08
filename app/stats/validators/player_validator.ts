@@ -80,6 +80,12 @@ export const playerInfoValidator = vine.compile(
           money: vine.number(),
           rank: vine.string(),
           timePlayed: vine.number(),
+          clicker: vine
+            .object({
+              rps: vine.number(),
+              production: vine.number(),
+            })
+            .optional(),
         }),
         date: vine.string(),
       })
