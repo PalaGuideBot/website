@@ -1,3 +1,4 @@
+import { Loading } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import { HourglassIcon } from 'lucide-react'
 import { DateTime } from 'luxon'
@@ -13,10 +14,15 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card'
-import { translateOnYourMarksGoalType, translateOnYourMarksServerType } from '~/content/events'
+import {
+  getOnYourMarksGoalItem,
+  translateOnYourMarksGoalType,
+  translateOnYourMarksServerType,
+} from '~/content/events'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
 import { formatDate } from '~/lib/date'
 import { formatNumber } from '~/lib/utils'
+import { useMinecraftItem } from '../hooks/use_minecraft_item'
 
 interface OnYourMarksEventCardProps extends React.ComponentProps<typeof Card> {
   event: Infer<typeof eventFactionOnYourMarksValidator>
@@ -28,6 +34,11 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
     countStop: event.end * 1000,
     initialStart: event.state === 'RUNNING',
   })
+  const {
+    data: item,
+    isLoading: itemIsLoading,
+    error: itemError,
+  } = useMinecraftItem(getOnYourMarksGoalItem(event))
 
   return (
     <Card {...props}>
@@ -45,7 +56,9 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
       <CardContent className="pt-4 flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex items-center justify-center size-24 rounded-full bg-primary-500/20">
-            <QuestionIcon className="size-6 invert dark:invert-0" />
+            {itemIsLoading && <Loading size="sm" />}
+            {itemError && <QuestionIcon className="size-6 invert dark:invert-0" />}
+            {item && <img src={item.url} className="object-contain aspect-square w-12" />}
           </div>
           <div className="flex flex-col text-center sm:text-left">
             <h3 className="font-pixel">{translateOnYourMarksGoalType(event.goalType)}</h3>
@@ -54,7 +67,7 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
                 {formatNumber(event.amount, { notation: 'standard' })}
               </span>
               {event.goalType === 'WALK' && <span> Blocks</span>}
-              {event.extra && <span> {event.extra}</span>}
+              {event.extra && <span> {item ? item.name : event.extra}</span>}
             </h3>
           </div>
         </div>
