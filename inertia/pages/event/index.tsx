@@ -4,12 +4,13 @@ import type EventController from '#event/controllers/event_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
 import { QDFEventCard } from './components/qdf_event_card'
 
 type EventIndexPageProps = InferPageProps<EventController, 'index'>
 
 export default function EventIndexPage(props: EventIndexPageProps) {
-  const { factionQuest } = props
+  const { factionQuest, factionOnYourMarks } = props
 
   return (
     <>
@@ -18,6 +19,7 @@ export default function EventIndexPage(props: EventIndexPageProps) {
         <Page>
           <PageTitle>&Eacute;vénements</PageTitle>
           <QDFEventCard event={factionQuest} />
+          <OnYourMarksEventCard event={factionOnYourMarks} />
         </Page>
       </DefaultLayout>
     </>

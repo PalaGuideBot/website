@@ -7,7 +7,10 @@ import {
   minecraftAccountLinkValidator,
   minecraftTokenLinkValidator,
 } from '#core/validators/minecraft_valiadator'
-import { eventFactionQuestValidator } from '#event/validators/event_validator'
+import {
+  eventFactionOnYourMarksValidator,
+  eventFactionQuestValidator,
+} from '#event/validators/event_validator'
 import {
   categories as leaderboardCategories,
   trixiumCategories as trixiumLeaderboardCategories,
@@ -229,6 +232,19 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid event faction quest data', {
         code: 'E_EVENT_FACTION_QUEST_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getEventFactionOnYourMarks() {
+    try {
+      const response = await client.get('events/on-your-marks')
+      const data = await response.json()
+      return eventFactionOnYourMarksValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid event faction on your marks data', {
+        code: 'E_EVENT_FACTION_ON_YOUR_MARKS_INVALID',
         status: 500,
       })
     }
