@@ -56,7 +56,7 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
       <CardContent className="pt-4 flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex items-center justify-center size-24 rounded-full bg-primary-500/20">
-            {itemIsLoading && <Loading size="sm" />}
+            {itemIsLoading && !itemError && <Loading size="sm" />}
             {itemError && <QuestionIcon className="size-6 invert dark:invert-0" />}
             {item && <img src={item.url} className="object-contain aspect-square w-12" />}
           </div>
