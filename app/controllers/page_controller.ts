@@ -49,4 +49,12 @@ export default class PageController {
   async informations({ inertia }: HttpContext) {
     return inertia.render('informations')
   }
+
+  async index({ response }: HttpContext) {
+    const content = await readFile(
+      app.makePath('resources/static/index/381f2e6d-f69b-40a5-859b-33d3da1298f7.txt'),
+      'utf-8'
+    )
+    return response.status(200).send(content)
+  }
 }
