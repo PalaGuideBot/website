@@ -1,5 +1,10 @@
 import vine from '@vinejs/vine'
 
+const minecraftImageValidator = vine.object({
+  url: vine.string(),
+  name: vine.string(),
+})
+
 export const eventFactionQuestValidator = vine.compile(
   vine.object({
     item: vine.string(),
@@ -8,6 +13,7 @@ export const eventFactionQuestValidator = vine.compile(
     earningXp: vine.number(),
     start: vine.number(),
     end: vine.number(),
+    image: minecraftImageValidator.clone().nullable(),
   })
 )
 
@@ -33,6 +39,7 @@ export const eventFactionOnYourMarksValidator = vine.compile(
     start: vine.number(),
     end: vine.number(),
     state: vine.enum(['NOT_STARTED', 'RUNNING', 'FINISHED']),
+    image: minecraftImageValidator.clone().nullable(),
   })
 )
 

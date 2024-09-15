@@ -1,4 +1,3 @@
-import { Loading } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import { HourglassIcon } from 'lucide-react'
 import * as React from 'react'
@@ -15,7 +14,6 @@ import {
 } from '~/components/ui/card'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
 import { formatNumber, formatPrice } from '~/lib/utils'
-import { useMinecraftItem } from '../hooks/use_minecraft_item'
 
 interface QDFEventCardProps extends React.ComponentProps<typeof Card> {
   event: Infer<typeof eventFactionQuestValidator>
@@ -26,7 +24,6 @@ const QDFEventCard = ({ event, ...props }: QDFEventCardProps) => {
     countStart: event.start * 1000,
     countStop: event.end * 1000,
   })
-  const { data: item, isLoading: itemIsLoading, error: itemError } = useMinecraftItem(event.item)
 
   return (
     <Card {...props}>
@@ -39,15 +36,16 @@ const QDFEventCard = ({ event, ...props }: QDFEventCardProps) => {
       <CardContent className="pt-4 flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex items-center justify-center size-24 rounded-full bg-primary-500/20">
-            {itemIsLoading && !itemError && <Loading size="sm" />}
-            {itemError && <QuestionIcon className="size-6 invert dark:invert-0" />}
-            {item && <img src={item.url} className="object-contain aspect-square w-12" />}
+            {!event.image && <QuestionIcon className="size-6 invert dark:invert-0" />}
+            {event.image && (
+              <img src={event.image.url} className="object-contain aspect-square w-12" />
+            )}
           </div>
           <h3 className="text-center font-mc-dungueons mb-1">
             <span className="text-primary-300">
               {formatNumber(event.quantity, { notation: 'standard' })}
             </span>{' '}
-            <span>{item ? item.name : event.item}</span>
+            <span>{event.image ? event.image.name : event.item}</span>
           </h3>
         </div>
         <div className="flex items-center space-x-2">
