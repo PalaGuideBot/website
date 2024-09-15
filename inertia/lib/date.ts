@@ -33,3 +33,8 @@ export function eachDayOfInterval({ start, end }: { start: DateInput; end: DateI
 export function formatDistance(from: DateInput, to: DateInput) {
   return Interval.fromDateTimes(from, to).toDuration().toFormat('hh:mm:ss')
 }
+
+export function translateWeekday(weekday: string) {
+  weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1).toLowerCase()
+  return DateTime.fromFormat(weekday, 'cccc', { locale: 'en' }).toFormat('cccc', { locale: 'fr' })
+}

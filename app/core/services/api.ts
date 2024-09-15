@@ -8,6 +8,11 @@ import {
   minecraftTokenLinkValidator,
 } from '#core/validators/minecraft_valiadator'
 import {
+  dailyEventsValidator,
+  eventFactionOnYourMarksValidator,
+  eventFactionQuestValidator,
+} from '#event/validators/event_validator'
+import {
   categories as leaderboardCategories,
   trixiumCategories as trixiumLeaderboardCategories,
   type LeaderboardCategory,
@@ -217,6 +222,45 @@ export class ApiService {
         })
       }
       throw error
+    }
+  }
+
+  async getEventFactionQuest() {
+    try {
+      const response = await client.get('events/qdf')
+      const data = await response.json()
+      return eventFactionQuestValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid event faction quest data', {
+        code: 'E_EVENT_FACTION_QUEST_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getEventFactionOnYourMarks() {
+    try {
+      const response = await client.get('events/on-your-marks')
+      const data = await response.json()
+      return eventFactionOnYourMarksValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid event faction on your marks data', {
+        code: 'E_EVENT_FACTION_ON_YOUR_MARKS_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getDailyEvents() {
+    try {
+      const response = await client.get('events/daily')
+      const data = await response.json()
+      return dailyEventsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid daily events data', {
+        code: 'E_DAILY_EVENTS_INVALID',
+        status: 500,
+      })
     }
   }
 }

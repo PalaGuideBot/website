@@ -3,6 +3,7 @@ import { Button } from '@lemonsqueezy/wedges'
 import {
   BadgeEuroIcon,
   BotIcon,
+  CalendarIcon,
   DiamondIcon,
   EggIcon,
   ExternalLinkIcon,
@@ -121,6 +122,13 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: '/changelog',
       label: 'Changelog',
       icon: createIconLink(FileEditIcon),
+    },
+  ],
+  Autre: [
+    {
+      path: '/events',
+      label: 'Événements',
+      icon: createIconLink(CalendarIcon),
     },
   ],
 }

@@ -16,6 +16,7 @@
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#core/*": "./app/core/*.js",
+    "#event/*": "./app/event/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#leaderboard/*": "./app/leaderboard/*.js",
     "#middleware/*": "./app/middleware/*.js",
@@ -95,9 +96,11 @@
     "reflect-metadata": "^0.2.2",
     "skinview3d": "^3.0.1",
     "socket.io-client": "^4.7.5",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1",
+    "usehooks-ts": "^3.1.0",
     "zustand": "^4.5.2"
   },
   "hotHook": {
