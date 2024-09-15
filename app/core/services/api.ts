@@ -8,6 +8,7 @@ import {
   minecraftTokenLinkValidator,
 } from '#core/validators/minecraft_valiadator'
 import {
+  dailyEventsValidator,
   eventFactionOnYourMarksValidator,
   eventFactionQuestValidator,
 } from '#event/validators/event_validator'
@@ -245,6 +246,19 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid event faction on your marks data', {
         code: 'E_EVENT_FACTION_ON_YOUR_MARKS_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getDailyEvents() {
+    try {
+      const response = await client.get('events/daily')
+      const data = await response.json()
+      return dailyEventsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid daily events data', {
+        code: 'E_DAILY_EVENTS_INVALID',
         status: 500,
       })
     }

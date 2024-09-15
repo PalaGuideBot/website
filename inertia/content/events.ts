@@ -65,3 +65,7 @@ export function getOnYourMarksGoalItem(event: FactionEventOnYourMarks) {
       return ''
   }
 }
+
+export function getEventImage(event: string) {
+  return `https://image.palaguidebot.fr/events/${event}`
+}

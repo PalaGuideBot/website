@@ -35,3 +35,26 @@ export const eventFactionOnYourMarksValidator = vine.compile(
     state: vine.enum(['NOT_STARTED', 'RUNNING', 'FINISHED']),
   })
 )
+
+export const dailyEventsValidator = vine.compile(
+  vine.array(
+    vine.object({
+      day: vine.enum([
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+      ]),
+      events: vine.array(
+        vine.object({
+          id: vine.string(),
+          name: vine.string(),
+          time: vine.string(),
+        })
+      ),
+    })
+  )
+)
