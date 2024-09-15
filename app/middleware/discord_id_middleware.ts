@@ -18,6 +18,7 @@ export default class DiscordIdMiddleware {
     '564715397023137793',
     '350022867980910595',
     '512045813191409681',
+    '589383722759880705',
   ]
 
   async handle(ctx: HttpContext, next: NextFn) {
