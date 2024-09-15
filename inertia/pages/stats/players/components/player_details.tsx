@@ -88,7 +88,7 @@ const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
         <ReactSkinview3d
-          className="!h-auto w-full"
+          className="!h-auto w-full !pointer-events-none sm:!pointer-events-auto"
           width="278"
           height="450"
           skinUrl={getSkinUrl(player.username)}
@@ -206,7 +206,10 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
       <CardContent className="pt-4 flex flex-1 flex-col justify-center">
         {mount && (
           <>
-            <MountViewer model={getMountNameByType(mount.mountType)} />
+            <MountViewer
+              className="!pointer-events-none sm:!pointer-events-auto"
+              model={getMountNameByType(mount.mountType)}
+            />
             <ul className="flex flex-col gap-2">
               <li>
                 <InformationLine label="Name" value={mount.name} />
@@ -252,7 +255,10 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
       <CardContent className="pt-4 flex flex-1 flex-col">
         {pet && (
           <>
-            <PetViewer model={getPet(pet.currentSkin)} />
+            <PetViewer
+              className="!pointer-events-none sm:!pointer-events-auto"
+              model={getPet(pet.currentSkin)}
+            />
             <ul className="flex flex-col gap-2">
               <li>
                 <InformationLine label="Skin" value={translatePet(getPet(pet.currentSkin))} />
