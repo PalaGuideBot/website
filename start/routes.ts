@@ -17,4 +17,5 @@ router.group(() => {
   router.get('/terms', [PageController, 'terms']).as('terms')
   router.get('/changelog', [PageController, 'changelog']).as('changelog')
   router.get('/381f2e6d-f69b-40a5-859b-33d3da1298f7.txt', [PageController, 'index']).as('index')
+  router.get('/sitemap.xml', [PageController, 'sitemap']).as('sitemap')
 })

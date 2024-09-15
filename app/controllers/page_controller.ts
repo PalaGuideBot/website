@@ -57,4 +57,9 @@ export default class PageController {
     )
     return response.status(200).send(content)
   }
+
+  async sitemap({ response }: HttpContext) {
+    const content = await readFile(app.makePath('resources/static/index/sitemap.xml'), 'utf-8')
+    return response.status(200).header('Content-Type', 'application/xml').send(content)
+  }
 }
