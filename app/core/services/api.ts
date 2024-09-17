@@ -64,10 +64,10 @@ export class ApiService {
       const data = await response.json()
       return factionInfoValidator.validate(data)
     } catch (error) {
-      if (error instanceof HTTPError && error.response.status === 404) {
+      if (error instanceof HTTPError) {
         throw new Exception(`Faction "${name}" not found`, {
           code: 'E_FACTION_NOT_FOUND',
-          status: 404,
+          status: error.response.status,
         })
       }
       if (error instanceof errors.E_VALIDATION_ERROR) {

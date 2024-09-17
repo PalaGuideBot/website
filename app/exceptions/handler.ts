@@ -3,6 +3,8 @@ import app from '@adonisjs/core/services/app'
 import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
 import { errors } from '@adonisjs/shield'
 
+import { createPageErrorFromException } from '#core/helpers/error'
+
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
    * In debug mode, the exception handler will display verbose errors
@@ -15,7 +17,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * codes. You might want to enable them in production only, but feel
    * free to enable them in development as well.
    */
-  protected renderStatusPages = app.inProduction
+  protected renderStatusPages = true
 
   /**
    * Status pages is a collection of error code range and a callback
@@ -24,11 +26,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   protected statusPages: Record<StatusPageRange, StatusPageRenderer> = {
     '404': (error, { inertia }) =>
       inertia.render('errors/not_found', {
-        error: { code: error.code, status: error.status, message: error.message },
+        error: createPageErrorFromException(error),
       }),
     '500..599': (error, { inertia }) =>
       inertia.render('errors/server_error', {
-        error: { code: error.code, status: error.status, message: error.message },
+        error: createPageErrorFromException(error),
       }),
   }
 

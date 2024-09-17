@@ -2,6 +2,7 @@ import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
 
+import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
@@ -19,7 +20,7 @@ export default function PlayerShow(props: PlayerShowProps) {
 
   const {
     props: { error },
-  } = usePage<{ error?: string }>()
+  } = usePage<{ error?: PageError }>()
   const auth = useAuth()
 
   return (
@@ -77,7 +78,21 @@ export default function PlayerShow(props: PlayerShowProps) {
               )}
             </div>
           )}
-          {error && !player && <DisplayError>{error}</DisplayError>}
+          {error && !player && (
+            <DisplayError error={error} className="outline-0">
+              <div className="space-y-1.5">
+                <h3 className="font-semibold">Information complémentaire</h3>
+                <p>
+                  Des erreurs peuvent survenir lors du chargement d'un joueur, si vous voulez plus
+                  de précisions, consultez notre F.A.Q{' '}
+                  <Link href="/faq" className="underline">
+                    ici
+                  </Link>
+                  .
+                </p>
+              </div>
+            </DisplayError>
+          )}
           {player && <PlayerDetails player={player} />}
         </Page>
       </DefaultLayout>

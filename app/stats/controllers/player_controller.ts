@@ -1,7 +1,10 @@
-import { ApiService } from '#core/services/api'
 import { inject } from '@adonisjs/core'
+import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 import { type PageObject } from '@adonisjs/inertia/types'
+
+import { createPageErrorFromException } from '#core/helpers/error'
+import { ApiService } from '#core/services/api'
 
 @inject()
 export default class PlayerController {
@@ -32,8 +35,11 @@ export default class PlayerController {
         examplePlayer = await this.api.getPlayer('PalaGuideBot')
       }
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Une erreur est survenue'
-      inertia.share({ error: message })
+      if (error instanceof Exception) {
+        inertia.share({
+          error: createPageErrorFromException(error),
+        })
+      }
     }
     return inertia.render('stats/players/show', {
       player,
