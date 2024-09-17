@@ -7,7 +7,7 @@ const Page = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => 
 }
 
 const PageTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
-  return <h1 className={cn('text-lg font-medium', className)} {...props} />
+  return <h1 className={cn('text-2xl font-bold', className)} {...props} />
 }
 
 const PageSubTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
