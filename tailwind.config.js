@@ -42,6 +42,8 @@ export default {
       'spin': 'spin 1s linear infinite',
       'glow': 'glow 2s cubic-bezier(.05,.5,.95,.5) infinite',
       'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      'accordion-down': 'accordion-down 0.2s ease-out',
+      'accordion-up': 'accordion-up 0.2s ease-out',
     },
     keyframes: {
       'blink': {
@@ -73,6 +75,14 @@ export default {
         '50%': {
           opacity: 0.5,
         },
+      },
+      'accordion-down': {
+        from: { height: '0' },
+        to: { height: 'var(--radix-accordion-content-height)' },
+      },
+      'accordion-up': {
+        from: { height: 'var(--radix-accordion-content-height)' },
+        to: { height: '0' },
       },
     },
     dropShadow: {

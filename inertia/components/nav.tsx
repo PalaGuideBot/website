@@ -12,6 +12,7 @@ import {
   HandCoinsIcon,
   LucideIcon,
   MenuIcon,
+  MessageCircleQuestionIcon,
   ShieldIcon,
   ShieldQuestionIcon,
   SkullIcon,
@@ -20,6 +21,7 @@ import {
   UserIcon,
   UsersIcon,
 } from 'lucide-react'
+
 import { cn } from '~/lib/utils'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
 
@@ -122,6 +124,11 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: '/changelog',
       label: 'Changelog',
       icon: createIconLink(FileEditIcon),
+    },
+    {
+      path: '/faq',
+      label: 'F.A.Q',
+      icon: createIconLink(MessageCircleQuestionIcon),
     },
   ],
   Autre: [
