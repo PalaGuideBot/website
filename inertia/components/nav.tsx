@@ -125,19 +125,19 @@ const LINKS: Record<string, Array<LinkProps>> = {
       label: 'Changelog',
       icon: createIconLink(FileEditIcon),
     },
-    {
+    /*{
       path: '/faq',
       label: 'F.A.Q',
       icon: createIconLink(MessageCircleQuestionIcon),
-    },
+    },*/
   ],
-  Autre: [
+  /*Autre: [
     {
       path: '/events',
       label: 'Événements',
       icon: createIconLink(CalendarIcon),
     },
-  ],
+  ],*/
 }
 
 export function Navigation() {
