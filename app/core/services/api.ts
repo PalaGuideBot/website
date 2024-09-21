@@ -42,7 +42,7 @@ export class ApiService {
       const data = (await response.json()) as Record<string, unknown>
       return playerInfoValidator.validate({ ...data, username })
     } catch (error) {
-      if (error instanceof HTTPError && error.response.status === 404) {
+      if (error instanceof HTTPError) {
         throw new Exception(`Player "${username}" not found`, {
           code: 'E_PLAYER_NOT_FOUND',
           status: 404,
