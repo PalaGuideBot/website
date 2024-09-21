@@ -11,7 +11,7 @@ import { Head } from '~/components/shared/head'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { PlayerDetails } from './components/player_details'
-import { SearchUserForm } from './components/search_user_form'
+import { SearchPlayerForm } from './components/search_player_form'
 
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
@@ -52,7 +52,7 @@ export default function PlayerShow(props: PlayerShowProps) {
         )}
         <Page className="p-4 lg:p-6">
           <PageTitle>Statistiques de joueur</PageTitle>
-          <SearchUserForm defaultValue={player?.username} />
+          <SearchPlayerForm defaultValue={player?.username} />
           {!error && !player && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>

@@ -2,13 +2,14 @@ import { router } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import { SearchIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
+
 import Input from '~/components/ui/input'
 
-type SearchUserForm = {
+type SearchPlayerFormProps = {
   defaultValue?: string
 }
 
-const SearchUserForm = ({ defaultValue }: SearchUserForm) => {
+const SearchPlayerForm = ({ defaultValue }: SearchPlayerFormProps) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -39,4 +40,4 @@ const SearchUserForm = ({ defaultValue }: SearchUserForm) => {
   )
 }
 
-export { SearchUserForm }
+export { SearchPlayerForm }
