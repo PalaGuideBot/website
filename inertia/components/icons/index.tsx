@@ -20,6 +20,12 @@ import LeaderboardKoth from '~/assets/leaderboard-icons/koth.png'
 import LeaderboardMoney from '~/assets/leaderboard-icons/money.png'
 import LeaderboardTrixium from '~/assets/leaderboard-icons/trixium.png'
 
+import FactionAeloria from '~/assets/faction-icons/aeloria.png'
+import FactionEgopolis from '~/assets/faction-icons/egopolis.png'
+import FactionKilmordra from '~/assets/faction-icons/kilmordra.png'
+import FactionRunegard from '~/assets/faction-icons/runegard.png'
+import FactionXanoth from '~/assets/faction-icons/xanoth.png'
+
 import FactionSoleralt from '~/assets/faction-icons/soleratl.png'
 import FactionMuzdan from '~/assets/faction-icons/muzdan.png'
 import FactionManashino from '~/assets/faction-icons/manashino.png'
@@ -66,6 +72,12 @@ export const LeaderboardEndIcon = iconFactory(LeaderboardEnd)
 export const LeaderboardKothIcon = iconFactory(LeaderboardKoth)
 export const LeaderboardMoneyIcon = iconFactory(LeaderboardMoney)
 export const LeaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
+
+export const FactionAeloriaIcon = iconFactory(FactionAeloria)
+export const FactionEgopolisIcon = iconFactory(FactionEgopolis)
+export const FactionKilmordraIcon = iconFactory(FactionKilmordra)
+export const FactionRunegardIcon = iconFactory(FactionRunegard)
+export const FactionXanothIcon = iconFactory(FactionXanoth)
 
 export const FactionSoleraltIcon = iconFactory(FactionSoleralt)
 export const FactionMuzdanIcon = iconFactory(FactionMuzdan)
