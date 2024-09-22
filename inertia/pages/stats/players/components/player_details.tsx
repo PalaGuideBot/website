@@ -18,6 +18,7 @@ import {
 
 import { GlowText } from '~/components/glow_text'
 import { ArrowRightIcon } from '~/components/icons'
+import { HiddenInformationController } from '~/components/shared/hidden_information_controller'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
@@ -105,18 +106,6 @@ interface InformationsSectionProps extends React.ComponentProps<typeof Card> {
 const InformationsSection = ({ player, className, ...props }: InformationsSectionProps) => {
   const lastPlayerData = player.data.at(-1)
 
-  const averageTimePlayed = () => {
-    const lastTimePlayed = lastPlayerData!.data.timePlayed
-    const now = new Date()
-    const past = new Date(player.firstJoin)
-    const diffTime = Math.abs(now.getTime() - past.getTime())
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-    const duration = formatDuration(lastTimePlayed / diffDays)
-
-    return duration.length ? duration : '-'
-  }
-
   return (
     <Card id="informations" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
       <CardHeader className="border-b py-2.5">
@@ -158,11 +147,20 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
           <li>
             <InformationLine
               label="Temps de jeu"
-              value={formatDuration(lastPlayerData!.data.timePlayed)}
+              value={
+                <HiddenInformationController
+                  active={lastPlayerData!.data.timePlayed === -1}
+                  children={<span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>}
+                  side="right"
+                  align="center"
+                  fallback={
+                    <span className="text-xs sm:text-sm font-mc-dungueons">
+                      {formatDuration(lastPlayerData!.data.timePlayed)}
+                    </span>
+                  }
+                />
+              }
             />
-          </li>
-          <li>
-            <InformationLine label="Moy. temps jeu quotidien" value={averageTimePlayed()} />
           </li>
         </ul>
       </CardContent>
@@ -649,7 +647,7 @@ const ClassementsSection = ({ player, ...props }: ClassementsSectionProps) => {
                 <div className="flex flex-col gap-2">
                   <span className="font-pixel text-xs">{noCase(key)}</span>
                   <span className="text-sm text-primary font-mc-dungueons">
-                    {value !== -1
+                    {![-1, 0].includes(value)
                       ? `# ${formatNumber(value, { notation: 'standard' })}`
                       : 'Non classé'}
                   </span>
