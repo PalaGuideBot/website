@@ -1,10 +1,12 @@
+import React from 'react'
+
 import { cn } from '~/lib/utils'
 
+import Elo from '~/assets/elo-icons/8.png'
 import ArrowRight from '~/assets/icons/arrow-right.png'
 import Boss from '~/assets/icons/boss.png'
-import Xp from '~/assets/icons/xp.png'
 import Question from '~/assets/icons/question.png'
-import Elo from '~/assets/elo-icons/8.png'
+import Xp from '~/assets/icons/xp.png'
 
 import SmallAlchemistJob from '~/assets/job-icons/alchemist-small.png'
 import SmallFarmerJob from '~/assets/job-icons/farmer-small.png'
@@ -22,20 +24,10 @@ import LeaderboardTrixium from '~/assets/leaderboard-icons/trixium.png'
 
 import FactionAeloria from '~/assets/faction-icons/aeloria.png'
 import FactionEgopolis from '~/assets/faction-icons/egopolis.png'
+import FactionEvent from '~/assets/faction-icons/event.png'
 import FactionKilmordra from '~/assets/faction-icons/kilmordra.png'
 import FactionRunegard from '~/assets/faction-icons/runegard.png'
 import FactionXanoth from '~/assets/faction-icons/xanoth.png'
-
-import FactionSoleralt from '~/assets/faction-icons/soleratl.png'
-import FactionMuzdan from '~/assets/faction-icons/muzdan.png'
-import FactionManashino from '~/assets/faction-icons/manashino.png'
-import FactionEvent from '~/assets/faction-icons/event.png'
-import FactionLuccento from '~/assets/faction-icons/luccento.png'
-import FactionImbali from '~/assets/faction-icons/imbali.png'
-import FactionKeltis from '~/assets/faction-icons/keltis.png'
-import FactionNeolith from '~/assets/faction-icons/neolith.png'
-import FactionUntaa from '~/assets/faction-icons/untaa.png'
-import React from 'react'
 
 export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
@@ -75,19 +67,10 @@ export const LeaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
 
 export const FactionAeloriaIcon = iconFactory(FactionAeloria)
 export const FactionEgopolisIcon = iconFactory(FactionEgopolis)
+export const FactionEventIcon = iconFactory(FactionEvent)
 export const FactionKilmordraIcon = iconFactory(FactionKilmordra)
 export const FactionRunegardIcon = iconFactory(FactionRunegard)
 export const FactionXanothIcon = iconFactory(FactionXanoth)
-
-export const FactionSoleraltIcon = iconFactory(FactionSoleralt)
-export const FactionMuzdanIcon = iconFactory(FactionMuzdan)
-export const FactionManashinoIcon = iconFactory(FactionManashino)
-export const FactionEventIcon = iconFactory(FactionEvent)
-export const FactionLuccentoIcon = iconFactory(FactionLuccento)
-export const FactionImbaliIcon = iconFactory(FactionImbali)
-export const FactionKeltisIcon = iconFactory(FactionKeltis)
-export const FactionNeolithIcon = iconFactory(FactionNeolith)
-export const FactionUntaaIcon = iconFactory(FactionUntaa)
 
 export const DiscordIcon = React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   ({ fill = 'currentColor', height = 24, width = 24, ...props }, ref) => {

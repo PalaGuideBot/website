@@ -41,16 +41,7 @@ export type PaladiumStatus =
   | 'unknown'
   | 'whitelist'
 
-export type PaladiumFaction =
-  | 'Soleratl'
-  | 'Muzdan'
-  | 'Manashino'
-  | 'Event'
-  | 'Luccento'
-  | 'Imbali'
-  | 'Keltis'
-  | 'Neolith'
-  | 'Untaa'
+export type PaladiumFaction = 'Runegard' | 'Xanoth' | 'Egopolis' | 'Kilmordra' | 'Aeloria' | 'Event'
 
 export type Path = {
   title: string

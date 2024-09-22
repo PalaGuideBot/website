@@ -1,25 +1,19 @@
 import {
+  FactionAeloriaIcon,
+  FactionEgopolisIcon,
   FactionEventIcon,
-  FactionImbaliIcon,
-  FactionKeltisIcon,
-  FactionLuccentoIcon,
-  FactionManashinoIcon,
-  FactionMuzdanIcon,
-  FactionNeolithIcon,
-  FactionSoleraltIcon,
-  FactionUntaaIcon,
+  FactionKilmordraIcon,
+  FactionRunegardIcon,
+  FactionXanothIcon,
   IconProps,
 } from '~/components/icons'
 import { PaladiumFaction } from '~/types'
 
 export const icons: Record<PaladiumFaction, React.FC<IconProps>> = {
-  Soleratl: FactionSoleraltIcon,
-  Muzdan: FactionMuzdanIcon,
-  Manashino: FactionManashinoIcon,
+  Aeloria: FactionAeloriaIcon,
+  Egopolis: FactionEgopolisIcon,
   Event: FactionEventIcon,
-  Luccento: FactionLuccentoIcon,
-  Imbali: FactionImbaliIcon,
-  Keltis: FactionKeltisIcon,
-  Neolith: FactionNeolithIcon,
-  Untaa: FactionUntaaIcon,
+  Kilmordra: FactionKilmordraIcon,
+  Runegard: FactionRunegardIcon,
+  Xanoth: FactionXanothIcon,
 }
