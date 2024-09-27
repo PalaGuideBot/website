@@ -1,5 +1,13 @@
 # Changelog
 
+## 27/09/2024
+
+### Website
+
+- Mise à jour de compatibilité avec la v10 de Paladium
+- Ajout d'une nouvelle page `/events` pour les évènements sur Paladium
+- Ajout d'une nouvelle page `/faq` pour les questions fréquemment posées
+
 ## 08/09/2024
 
 ### Website
