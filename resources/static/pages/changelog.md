@@ -8,6 +8,11 @@
 - Ajout d'une nouvelle page `/events` pour les évènements sur Paladium
 - Ajout d'une nouvelle page `/faq` pour les questions fréquemment posées
 
+### Bot
+
+- Migration du bot vers TypeScript.
+- Refonte de la plupart des commandes (version non définitive).
+
 ## 08/09/2024
 
 ### Website
