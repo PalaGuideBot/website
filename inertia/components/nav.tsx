@@ -121,15 +121,15 @@ const LINKS: Record<string, Array<LinkProps>> = {
       icon: createIconLink(UserCogIcon),
     },
     {
+      path: '/faq',
+      label: 'F.A.Q',
+      icon: createIconLink(MessageCircleQuestionIcon),
+    },
+    {
       path: '/changelog',
       label: 'Changelog',
       icon: createIconLink(FileEditIcon),
     },
-    /*{
-      path: '/faq',
-      label: 'F.A.Q',
-      icon: createIconLink(MessageCircleQuestionIcon),
-    },*/
   ],
   Autre: [
     {

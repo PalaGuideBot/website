@@ -17,5 +17,5 @@ router.group(() => {
   router.get('/privacy', [PageController, 'privacy']).as('privacy')
   router.get('/terms', [PageController, 'terms']).as('terms')
   router.get('/changelog', [PageController, 'changelog']).as('changelog')
-  //router.get('/faq', [PageController, 'faq']).as('faq')
+  router.get('/faq', [PageController, 'faq']).as('faq')
 })
