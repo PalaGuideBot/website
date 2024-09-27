@@ -11,7 +11,7 @@ import { QDFEventCard } from './components/qdf_event_card'
 type EventIndexPageProps = InferPageProps<EventController, 'index'>
 
 export default function EventIndexPage(props: EventIndexPageProps) {
-  const { /* factionQuest, factionOnYourMarks, */ dailyEvents } = props
+  const { factionQuest, factionOnYourMarks, dailyEvents } = props
 
   return (
     <>
@@ -19,8 +19,8 @@ export default function EventIndexPage(props: EventIndexPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>&Eacute;vénements</PageTitle>
-          {/* <QDFEventCard event={factionQuest} /> */}
-          {/* <OnYourMarksEventCard event={factionOnYourMarks} /> */}
+          <QDFEventCard event={factionQuest} />
+          <OnYourMarksEventCard event={factionOnYourMarks} />
           <DailyEventsCard events={dailyEvents} />
         </Page>
       </DefaultLayout>
