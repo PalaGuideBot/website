@@ -3,6 +3,8 @@ import vine from '@vinejs/vine'
 export const factionInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string(),
+    date: vine.number(),
+    newDate: vine.date(),
     name: vine.string(),
     bgName: vine.string(),
     description: vine.string(),
@@ -16,17 +18,5 @@ export const factionInfoValidator = vine.compile(
       })
     ),
     emblemUrl: vine.string(),
-    data: vine.array(
-      vine.object({
-        date: vine.string(),
-        data: vine.object({
-          level: vine.object({
-            level: vine.number(),
-            xp: vine.number(),
-          }),
-          elo: vine.number(),
-        }),
-      })
-    ),
   })
 )
