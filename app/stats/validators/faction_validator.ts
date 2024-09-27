@@ -3,8 +3,7 @@ import vine from '@vinejs/vine'
 export const factionInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string(),
-    date: vine.number(),
-    newDate: vine.date(),
+    date: vine.string().nullable().optional(),
     name: vine.string(),
     bgName: vine.string(),
     description: vine.string(),
