@@ -25,7 +25,7 @@ const questions: Question[] = [
     id: 2,
     content: "Pourquoi je n'arrive pas à charger les statistiques d'un nouveau joueur ?",
     answer:
-      "Il se peut que lorsque un joueur s'est déjà connecté à Paladium, on ne peut pas charger ses statistiques. Pour cela il faut patienter quelques minutes et réessayer, car notre application est dépendant de l'API publique de Paladium (limitée au niveau du nombre de requêtes).",
+      "Il se peut que lorsque un joueur s'est déjà connecté à Paladium, on ne peut pas charger ses statistiques. Pour cela il faut patienter quelques minutes et réessayer, car notre application est dépendante de l'API publique de Paladium (limitée au niveau du nombre de requêtes).",
   },
   {
     id: 3,
