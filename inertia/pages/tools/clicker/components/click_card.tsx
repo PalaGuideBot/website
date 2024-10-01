@@ -88,7 +88,7 @@ const ClickCard = ({}: ClickCardProps) => {
               <AlertDialogHeader>
                 <AlertDialogTitle>Qu'est ce que tu fais ?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Il a pas un meilleur endroit où cliquer ?
+                  Il n'y a pas un meilleur endroit où cliquer ?
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
