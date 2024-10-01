@@ -7,19 +7,22 @@ import Input from '~/components/ui/input'
 
 type SearchPlayerFormProps = {
   defaultValue?: string
+  path: (username: string) => string
+  onSuccess?: () => void
 }
 
-const SearchPlayerForm = ({ defaultValue }: SearchPlayerFormProps) => {
+const SearchPlayerForm = ({ defaultValue, path, onSuccess }: SearchPlayerFormProps) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const username = formData.get('username') as string
-    router.visit(`/players/${username}`, {
+    router.visit(path(username), {
       preserveState: true,
       onStart: () => setIsLoading(true),
       onFinish: () => setIsLoading(false),
+      onSuccess: onSuccess,
     })
   }
   return (
