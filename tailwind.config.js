@@ -34,6 +34,7 @@ export default {
         'job-farmer': 'var(--job-farmer)',
         'job-hunter': 'var(--job-hunter)',
         'job-miner': 'var(--job-miner)',
+        'clicker-unlocked': 'var(--clicker-unlocked)',
       },
     },
     animation: {

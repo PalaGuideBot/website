@@ -5,9 +5,10 @@ import { cn } from '~/lib/utils'
 import Elo from '~/assets/elo-icons/8.png'
 import ArrowRight from '~/assets/icons/arrow-right.png'
 import Boss from '~/assets/icons/boss.png'
+import Coin from '~/assets/icons/coin.png'
+import ProfileToggleDisabled from '~/assets/icons/profile-toggle-disabled.png'
 import Question from '~/assets/icons/question.png'
 import Xp from '~/assets/icons/xp.png'
-import ProfileToggleDisabled from '~/assets/icons/profile-toggle-disabled.png'
 
 import SmallAlchemistJob from '~/assets/job-icons/alchemist-small.png'
 import SmallFarmerJob from '~/assets/job-icons/farmer-small.png'
@@ -52,6 +53,7 @@ export const XpIcon = iconFactory(Xp)
 export const QuestionIcon = iconFactory(Question)
 export const EloIcon = iconFactory(Elo)
 export const ProfileToggleDisabledIcon = iconFactory(ProfileToggleDisabled)
+export const CoinIcon = iconFactory(Coin)
 
 export const SmallAlchemistJobIcon = iconFactory(SmallAlchemistJob)
 export const SmallFarmerJobIcon = iconFactory(SmallFarmerJob)

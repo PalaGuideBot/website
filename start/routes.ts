@@ -5,6 +5,7 @@ import '#start/routes/minecraft'
 import '#start/routes/staff'
 import '#start/routes/stats'
 import '#start/routes/status'
+import '#start/routes/tools'
 
 import router from '@adonisjs/core/services/router'
 

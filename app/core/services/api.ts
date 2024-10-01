@@ -26,8 +26,9 @@ import { usageStatisticsValidator } from '#staff/validators/staff_validator'
 import env from '#start/env'
 import { botStatsValidator } from '#stats/validators/bot_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
-import { playerInfoValidator } from '#stats/validators/player_validator'
+import { playerClickerDataValidator, playerInfoValidator } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
+import { upgradesValidator } from '#tools/validators/upgrade_validator'
 
 const client = ky.create({
   prefixUrl: env.get('API_URL'),
@@ -41,6 +42,28 @@ export class ApiService {
       const response = await client.get(`players/${username}`)
       const data = (await response.json()) as Record<string, unknown>
       return playerInfoValidator.validate({ ...data, username })
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        throw new Exception(`Player "${username}" not found`, {
+          code: 'E_PLAYER_NOT_FOUND',
+          status: 404,
+        })
+      }
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception('Invalid player data', {
+          code: 'E_PLAYER_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getPlayerClickerData(username: string) {
+    try {
+      const response = await client.get(`players/${username}/clicker`)
+      const data = await response.json()
+      return playerClickerDataValidator.validate(data)
     } catch (error) {
       if (error instanceof HTTPError) {
         throw new Exception(`Player "${username}" not found`, {
@@ -259,6 +282,19 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid daily events data', {
         code: 'E_DAILY_EVENTS_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getClickerUpgrades() {
+    try {
+      const response = await client.get('utils/clicker/upgrades')
+      const data = await response.json()
+      return upgradesValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid clicker upgrades data', {
+        code: 'E_CLICKER_UPGRADES_INVALID',
         status: 500,
       })
     }

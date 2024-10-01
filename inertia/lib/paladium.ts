@@ -1,0 +1,4 @@
+export const PALADIUM_OPTIONS = {
+  MIN_JOB_LEVEL: 1,
+  MAX_JOB_LEVEL: 100,
+}

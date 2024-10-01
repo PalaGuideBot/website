@@ -92,3 +92,29 @@ export const playerInfoValidator = vine.compile(
     ),
   })
 )
+
+export const playerClickerDataValidator = vine.compile(
+  vine.object({
+    username: vine.string(),
+    uuid: vine.string().uuid(),
+    jobs: vine.object({
+      miner: jobValidator.clone(),
+      farmer: jobValidator.clone(),
+      hunter: jobValidator.clone(),
+      alchemist: jobValidator.clone(),
+    }),
+    buildings: vine.array(
+      vine.object({
+        name: vine.string(),
+        label: vine.string(),
+        base_price: vine.number(),
+        base_production: vine.number(),
+        production: vine.number(),
+        quantity: vine.number(),
+      })
+    ),
+    lastBuildingBought: vine.string(),
+    rps: vine.number(),
+    upgrades: vine.array(vine.string()),
+  })
+)
