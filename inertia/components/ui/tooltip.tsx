@@ -2,12 +2,62 @@ import * as React from 'react'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 
 import { cn } from '~/lib/utils'
+import { useMediaQuery } from 'usehooks-ts'
+
+type TooltipTriggerContextType = {
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const TooltipTriggerContext = React.createContext<TooltipTriggerContextType>({
+  open: false,
+  setOpen: () => {},
+})
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+const Tooltip = ({ children, ...props }: TooltipPrimitive.TooltipProps) => {
+  const [open, setOpen] = React.useState(props.defaultOpen ?? false)
 
-const TooltipTrigger = TooltipPrimitive.Trigger
+  // we only want to enable the "click to open" functionality on mobile
+  const isMd = useMediaQuery('(max-width: 768px)')
+
+  return (
+    <TooltipPrimitive.Root
+      delayDuration={isMd ? props.delayDuration : 0}
+      onOpenChange={(e) => {
+        setOpen(e)
+      }}
+      open={open}
+      {...props}
+    >
+      <TooltipTriggerContext.Provider value={{ open, setOpen }}>
+        {children}
+      </TooltipTriggerContext.Provider>
+    </TooltipPrimitive.Root>
+  )
+}
+
+const TooltipTrigger = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger>
+>(({ children, ...props }, ref) => {
+  const isMd = useMediaQuery('(max-width: 768px)')
+  const { setOpen } = React.useContext(TooltipTriggerContext)
+
+  return (
+    <TooltipPrimitive.Trigger
+      ref={ref}
+      {...props}
+      onDoubleClick={(e) => {
+        !isMd && e.preventDefault()
+        setOpen(true)
+      }}
+    >
+      {children}
+    </TooltipPrimitive.Trigger>
+  )
+})
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
