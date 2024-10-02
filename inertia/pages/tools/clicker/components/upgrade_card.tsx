@@ -2,6 +2,7 @@ import type { ClickerAnyUpgrade } from '#tools/types'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { getClickerUpgradeImage } from '~/lib/clicker'
 import { cn, formatNumber } from '~/lib/utils'
+import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { useClickerSettings } from './clicker_settings'
 
 interface UpgradeConditionsProps {
@@ -94,17 +95,14 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
 interface UpgradeCardProps {
   upgrade: ClickerAnyUpgrade
   unlocked?: boolean
-  unlockable?: boolean
   onClick?: () => void
 }
 
-const UpgradeCard = ({
-  upgrade,
-  unlocked = false,
-  unlockable = false,
-  onClick,
-}: UpgradeCardProps) => {
-  const { buildings } = useClickerSettings()
+const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) => {
+  const { buildings, calculator } = useClickerSettings()
+  const playerClickerStore = usePlayerClickerStore()
+
+  const unlockable = playerClickerStore.isUpgradeUnlockable(upgrade, calculator)
 
   const getLabel = (anyUpgrade: ClickerAnyUpgrade) => {
     let target = null

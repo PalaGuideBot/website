@@ -53,51 +53,6 @@ export function getPlayerTotalProduction(playerBuildings: PlayerClickerData['bui
     }, 0)
 }
 
-export function isUpgradeUnlockable(
-  upgrade: ClickerAnyUpgrade,
-  playerBuildings: PlayerClickerData['buildings'],
-  playerUpgrades: PlayerClickerData['upgrades']
-) {
-  const conditions = upgrade.data.conditions.map((condition) => {
-    let target = null
-    switch (condition.type) {
-      case 'building':
-        switch (upgrade.type) {
-          case 'building':
-          case 'many':
-          case 'category':
-            target = playerBuildings.find((b) => b.name === upgrade.data.item[0])
-            return Number(target?.quantity) >= Number(condition.value)
-          case 'posterior':
-            target = playerBuildings.find((b) => b.name === upgrade.data.activeItem[0])
-            return Number(target?.quantity) >= Number(condition.value)
-          default:
-            return true
-        }
-      case 'quantity':
-        const playerProduction = getPlayerTotalProduction(playerBuildings)
-        return playerProduction >= Number(condition.value)
-      case 'time':
-        const seasonStart = getSeasonStart()
-        const now = DateTime.now()
-        const elapsedDays = now.diff(seasonStart, 'days').days
-
-        return elapsedDays >= Number(condition.value)
-      case 'upgrade':
-        switch (upgrade.type) {
-          case 'click':
-            return playerUpgrades.includes(String(condition.value))
-          default:
-            return true
-        }
-      default:
-        return true
-    }
-  })
-
-  return conditions.every((condition) => condition)
-}
-
 export class ClickerCalculator {
   constructor(
     private buildings: Omit<ClickerBuilding, 'quantity' | 'production'>[],
@@ -275,6 +230,109 @@ export class ClickerCalculator {
       }, CLICKER_OPTIONS.DEFAULT_RPS)
   }
 
+  getPlayerTotalSpent(
+    playerBuildings: PlayerClickerData['buildings'],
+    playerUpgrades: PlayerClickerData['upgrades']
+  ) {
+    const buildingSpent = playerBuildings
+      .filter((building) => building.quantity > 0)
+      .map((building) => {
+        let total = 0
+        for (let i = 0; i < building.quantity; i++) {
+          total += getBuildingPrice(building.base_price, i)
+        }
+        return total
+      })
+      .reduce((acc, total) => {
+        return acc + total
+      }, 0)
+
+    const unlockedUpgradesPrices = [
+      /* --- CLICKS ---*/
+      ...this.upgrades.clicks
+        .filter((click) => playerUpgrades.includes(click.name))
+        .map((click) => ({ price: click.price })),
+      /* --- GLOBALS ---*/
+      ...this.upgrades.globals
+        .filter((global) => playerUpgrades.includes(global.name))
+        .map((global) => ({ price: global.price })),
+      /* --- BUILDINGS ---*/
+      ...this.upgrades.buildings
+        .filter((building) => playerUpgrades.includes(building.name))
+        .map((building) => ({ price: building.price })),
+      /* --- CATEGORIES ---*/
+      ...this.upgrades.categories
+        .filter((category) => playerUpgrades.includes(category.name))
+        .map((category) => ({ price: category.price })),
+      /* --- MANY ---*/
+      ...this.upgrades.many
+        .filter((many) => playerUpgrades.includes(many.name))
+        .map((many) => ({ price: many.price })),
+      /* --- POSTERIORS ---*/
+      ...this.upgrades.posteriors
+        .filter((posterior) => playerUpgrades.includes(posterior.name))
+        .map((posterior) => ({ price: posterior.price })),
+      /* --- TERRAINS ---*/
+      ...this.upgrades.terrains
+        .filter((terrain) => playerUpgrades.includes(terrain.name))
+        .map((terrain) => ({ price: terrain.price })),
+    ]
+
+    const upgradesSpent = unlockedUpgradesPrices.reduce((acc, upgrade) => {
+      return acc + upgrade.price
+    }, 0)
+
+    return buildingSpent + upgradesSpent
+  }
+
+  isUpgradeUnlockable(
+    upgrade: ClickerAnyUpgrade,
+    playerBuildings: PlayerClickerData['buildings'],
+    playerUpgrades: PlayerClickerData['upgrades']
+  ) {
+    const conditions = upgrade.data.conditions.map((condition) => {
+      let target = null
+      switch (condition.type) {
+        case 'building':
+          switch (upgrade.type) {
+            case 'building':
+            case 'many':
+            case 'category':
+              target = playerBuildings.find((b) => b.name === upgrade.data.item[0])
+              return Number(target?.quantity) >= Number(condition.value)
+            case 'posterior':
+              target = playerBuildings.find((b) => b.name === upgrade.data.activeItem[0])
+              return Number(target?.quantity) >= Number(condition.value)
+            default:
+              return true
+          }
+        case 'quantity':
+          const playerProduction = Math.max(
+            getPlayerTotalProduction(playerBuildings),
+            this.getPlayerTotalSpent(playerBuildings, playerUpgrades)
+          )
+          return playerProduction >= Number(condition.value)
+        case 'time':
+          const seasonStart = getSeasonStart()
+          const now = DateTime.now()
+          const elapsedDays = now.diff(seasonStart, 'days').days
+
+          return elapsedDays >= Number(condition.value)
+        case 'upgrade':
+          switch (upgrade.type) {
+            case 'click':
+              return playerUpgrades.includes(String(condition.value))
+            default:
+              return true
+          }
+        default:
+          return true
+      }
+    })
+
+    return conditions.every((condition) => condition)
+  }
+
   getBestBuildingToBuy(playerClickerData: PlayerClickerData) {
     let ownedBuildings = playerClickerData.buildings.filter((building) => building.quantity > 0)
     if (ownedBuildings.length !== playerClickerData.buildings.length) {
@@ -338,7 +396,7 @@ export class ClickerCalculator {
       ...this.upgrades.globals
         .filter(
           (global) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'global', data: global },
               playerClickerData.buildings,
               playerClickerData.upgrades
@@ -349,7 +407,7 @@ export class ClickerCalculator {
       ...this.upgrades.buildings
         .filter(
           (building) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'building', data: building },
               playerClickerData.buildings,
               playerClickerData.upgrades
@@ -360,7 +418,7 @@ export class ClickerCalculator {
       ...this.upgrades.categories
         .filter(
           (category) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'category', data: category },
               playerClickerData.buildings,
               playerClickerData.upgrades
@@ -371,7 +429,7 @@ export class ClickerCalculator {
       ...this.upgrades.many
         .filter(
           (many) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'many', data: many },
               playerClickerData.buildings,
               playerClickerData.upgrades
@@ -382,7 +440,7 @@ export class ClickerCalculator {
       ...this.upgrades.posteriors
         .filter(
           (posterior) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'posterior', data: posterior },
               playerClickerData.buildings,
               playerClickerData.upgrades
@@ -393,7 +451,7 @@ export class ClickerCalculator {
       ...this.upgrades.terrains
         .filter(
           (terrain) =>
-            isUpgradeUnlockable(
+            this.isUpgradeUnlockable(
               { type: 'terrain', data: terrain },
               playerClickerData.buildings,
               playerClickerData.upgrades

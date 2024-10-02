@@ -2,12 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { ClickerAnyUpgrade, ClickerClickUpgrade, PlayerClickerData } from '#tools/types'
-import {
-  CLICKER_OPTIONS,
-  ClickerCalculator,
-  isUpgradeUnlockable as clickerIsUpgradeUnlockable,
-  getPlayerTotalProduction,
-} from '~/lib/clicker'
+import { CLICKER_OPTIONS, ClickerCalculator, getPlayerTotalProduction } from '~/lib/clicker'
 
 type State = {
   data: PlayerClickerData | null
@@ -16,7 +11,7 @@ type State = {
 type Actions = {
   init: (data: PlayerClickerData) => void
   hasUpgrade(upgrade: string): boolean
-  isUpgradeUnlockable(upgrade: ClickerAnyUpgrade): boolean
+  isUpgradeUnlockable(upgrade: ClickerAnyUpgrade, calculator: ClickerCalculator): boolean
   toggleUpgrade(upgrade: string): void
   addUpgrade(upgrade: string): void
   unlockClick(name: string, clicks: ClickerClickUpgrade[]): void
@@ -25,6 +20,7 @@ type Actions = {
   setBuildingQuantity(building: string, quantity: number): void
   getRps(calculator: ClickerCalculator): number
   getTotalProduction(): number
+  getTotalSpent(calculator: ClickerCalculator): number
 }
 
 const storageKey = 'player_clicker_data'
@@ -46,14 +42,14 @@ export const usePlayerClickerStore = create(
       hasUpgrade(upgrade) {
         return get().data?.upgrades.includes(upgrade) ?? false
       },
-      isUpgradeUnlockable(upgrade) {
+      isUpgradeUnlockable(upgrade, calculator) {
         const data = get().data
 
         if (!data) {
           return false
         }
 
-        return clickerIsUpgradeUnlockable(upgrade, data.buildings, data.upgrades)
+        return calculator.isUpgradeUnlockable(upgrade, data.buildings, data.upgrades)
       },
       toggleUpgrade(upgrade) {
         const data = get().data
@@ -188,6 +184,15 @@ export const usePlayerClickerStore = create(
         }
 
         return getPlayerTotalProduction(data.buildings)
+      },
+      getTotalSpent(calculator) {
+        const data = get().data
+
+        if (!data) {
+          return 0
+        }
+
+        return calculator.getPlayerTotalSpent(data.buildings, data.upgrades)
       },
     }),
     {
