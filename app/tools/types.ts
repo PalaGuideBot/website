@@ -57,3 +57,18 @@ export type ClickerAnyUpgrade =
       type: 'category'
       data: ClickerCategoryUpgrade
     }
+
+export type BuyableAnyUpgrade = Exclude<ClickerAnyUpgrade, { type: 'click' }>
+
+export type BestBuyableType =
+  | {
+      type: 'building'
+      building: ClickerBuilding
+      rps: number
+    }
+  | {
+      type: 'upgrade'
+      upgrade: BuyableAnyUpgrade
+      rps: number
+    }
+  | null

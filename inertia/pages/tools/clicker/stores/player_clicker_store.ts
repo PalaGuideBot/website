@@ -18,6 +18,7 @@ type Actions = {
   hasUpgrade(upgrade: string): boolean
   isUpgradeUnlockable(upgrade: ClickerAnyUpgrade): boolean
   toggleUpgrade(upgrade: string): void
+  addUpgrade(upgrade: string): void
   unlockClick(name: string, clicks: ClickerClickUpgrade[]): void
   updateJobLevel(job: keyof PlayerClickerData['jobs'], level: number): void
   adjustBuildingQuantity(building: string, adjustement: number): void
@@ -68,6 +69,17 @@ export const usePlayerClickerStore = create(
         }
 
         set({ data: { ...data, upgrades: [...data.upgrades] } })
+      },
+      addUpgrade(upgrade) {
+        const data = get().data
+
+        if (!data) {
+          return
+        }
+
+        data.upgrades = [...data.upgrades, upgrade]
+
+        set({ data: { ...data } })
       },
       unlockClick(click, clicks) {
         const data = get().data

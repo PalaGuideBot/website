@@ -1,10 +1,13 @@
+import { DateTime } from 'luxon'
+
 import type {
+  BestBuyableType,
+  BuyableAnyUpgrade,
   ClickerAnyUpgrade,
   ClickerBuilding,
   ClickerUpgrades,
   PlayerClickerData,
 } from '#tools/types'
-import { DateTime } from 'luxon'
 import { getSeasonStart } from './paladium'
 
 export const CLICKER_OPTIONS = {
@@ -270,5 +273,221 @@ export class ClickerCalculator {
           this.calculateBuildingProduction(building.name, playerClickerData) * building.quantity
         )
       }, CLICKER_OPTIONS.DEFAULT_RPS)
+  }
+
+  getBestBuildingToBuy(playerClickerData: PlayerClickerData) {
+    let ownedBuildings = playerClickerData.buildings.filter((building) => building.quantity > 0)
+    if (ownedBuildings.length !== playerClickerData.buildings.length) {
+      const nextBuilding = this.buildings.at(ownedBuildings.length)
+
+      if (nextBuilding) {
+        ownedBuildings.push({ ...nextBuilding, production: 0, quantity: 0 })
+      }
+    }
+
+    const currentRps = this.getPlayerRps(playerClickerData)
+
+    let bestBuilding: string | null = null
+    let bestBuildingRps = 0
+
+    for (const building of ownedBuildings) {
+      if (building.quantity >= CLICKER_OPTIONS.MAX_BUILDING_QUANTITY) {
+        continue
+      }
+
+      const upgradedBuilding = { ...building, quantity: building.quantity + 1 }
+
+      const upgradedBuildingPrice = getBuildingPrice(
+        upgradedBuilding.base_price,
+        upgradedBuilding.quantity
+      )
+
+      const newRps = this.getPlayerRps({
+        ...playerClickerData,
+        buildings: playerClickerData.buildings
+          .filter((b) => b.name !== building.name)
+          .concat(upgradedBuilding),
+      })
+
+      const finalRps = (newRps - currentRps) / upgradedBuildingPrice
+
+      if (finalRps > bestBuildingRps) {
+        bestBuilding = building.name
+        bestBuildingRps = finalRps
+      }
+    }
+
+    return {
+      bestBuilding,
+      bestBuildingRps,
+    }
+  }
+
+  getBestUpgradeToBuy(playerClickerData: PlayerClickerData) {
+    const currentRps = this.getPlayerRps(playerClickerData)
+
+    let bestUpgrade: { type: BuyableAnyUpgrade['type']; value: string } | null = null
+    let bestUpgradeRps = 0
+
+    const unlockableUpgrades: Array<BuyableAnyUpgrade> = [
+      /* --- GLOBALS ---*/
+      ...this.upgrades.globals
+        .filter(
+          (global) =>
+            isUpgradeUnlockable(
+              { type: 'global', data: global },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(global.name)
+        )
+        .map((global) => ({ type: 'global' as const, data: global })),
+      /* --- BUILDINGS ---*/
+      ...this.upgrades.buildings
+        .filter(
+          (building) =>
+            isUpgradeUnlockable(
+              { type: 'building', data: building },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(building.name)
+        )
+        .map((building) => ({ type: 'building' as const, data: building })),
+      /* --- CATEGORIES ---*/
+      ...this.upgrades.categories
+        .filter(
+          (category) =>
+            isUpgradeUnlockable(
+              { type: 'category', data: category },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(category.name)
+        )
+        .map((category) => ({ type: 'category' as const, data: category })),
+      /* --- MANY ---*/
+      ...this.upgrades.many
+        .filter(
+          (many) =>
+            isUpgradeUnlockable(
+              { type: 'many', data: many },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(many.name)
+        )
+        .map((many) => ({ type: 'many' as const, data: many })),
+      /* --- POSTERIORS ---*/
+      ...this.upgrades.posteriors
+        .filter(
+          (posterior) =>
+            isUpgradeUnlockable(
+              { type: 'posterior', data: posterior },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(posterior.name)
+        )
+        .map((posterior) => ({ type: 'posterior' as const, data: posterior })),
+      /* --- TERRAINS ---*/
+      ...this.upgrades.terrains
+        .filter(
+          (terrain) =>
+            isUpgradeUnlockable(
+              { type: 'terrain', data: terrain },
+              playerClickerData.buildings,
+              playerClickerData.upgrades
+            ) && !playerClickerData.upgrades.includes(terrain.name)
+        )
+        .map((terrain) => ({ type: 'terrain' as const, data: terrain })),
+    ]
+
+    for (const upgrade of unlockableUpgrades) {
+      const newUpgrades = [...playerClickerData.upgrades, upgrade.data.name]
+      const newRps = this.getPlayerRps({ ...playerClickerData, upgrades: newUpgrades })
+      const finalRps = (newRps - currentRps) / upgrade.data.price
+
+      console.log({ type: 'upgrade', rps: newRps })
+
+      if (finalRps > bestUpgradeRps) {
+        bestUpgrade = { type: upgrade.type, value: upgrade.data.name }
+        bestUpgradeRps = finalRps
+      }
+    }
+
+    return {
+      bestUpgrade,
+      bestUpgradeRps,
+    }
+  }
+
+  getBestBuildingOrUpgradeToBuy(playerClickerData: PlayerClickerData): BestBuyableType {
+    const bestBuilding = this.getBestBuildingToBuy(playerClickerData)
+    const bestUpgrade = this.getBestUpgradeToBuy(playerClickerData)
+
+    if (!bestBuilding.bestBuilding && !bestUpgrade.bestUpgrade) {
+      return null
+    }
+
+    if (bestBuilding.bestBuildingRps > bestUpgrade.bestUpgradeRps) {
+      const building = playerClickerData.buildings.find(
+        (item) => item.name === bestBuilding.bestBuilding!
+      )!
+      return {
+        type: 'building',
+        building: { ...building, quantity: building.quantity + 1 },
+        rps: bestBuilding.bestBuildingRps,
+      }
+    }
+
+    let upgrade: BuyableAnyUpgrade
+    switch (bestUpgrade.bestUpgrade!.type) {
+      case 'global':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.globals.find((item) => item.name === bestUpgrade.bestUpgrade!.value)!,
+        }
+        break
+      case 'building':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.buildings.find(
+            (item) => item.name === bestUpgrade.bestUpgrade!.value
+          )!,
+        }
+        break
+      case 'category':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.categories.find(
+            (item) => item.name === bestUpgrade.bestUpgrade!.value
+          )!,
+        }
+        break
+      case 'many':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.many.find((item) => item.name === bestUpgrade.bestUpgrade!.value)!,
+        }
+        break
+      case 'posterior':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.posteriors.find(
+            (item) => item.name === bestUpgrade.bestUpgrade!.value
+          )!,
+        }
+        break
+      case 'terrain':
+        upgrade = {
+          type: bestUpgrade.bestUpgrade!.type,
+          data: this.upgrades.terrains.find(
+            (item) => item.name === bestUpgrade.bestUpgrade!.value
+          )!,
+        }
+        break
+    }
+
+    return {
+      type: 'upgrade',
+      upgrade: upgrade,
+      rps: bestUpgrade.bestUpgradeRps,
+    }
   }
 }

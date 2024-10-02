@@ -17,6 +17,7 @@ import { SearchPlayerForm } from '~/pages/stats/players/components/search_player
 import { BuildingCard } from './components/building_card'
 import { ClickCard } from './components/click_card'
 import { ClickerSettings } from './components/clicker_settings'
+import { NextPurchaseCard } from './components/next_purchase_card'
 import { StatisticsCard } from './components/statistics_card'
 import { UpgradeCard } from './components/upgrade_card'
 import {
@@ -111,6 +112,7 @@ export default function ClickerShow(props: ClickerShowProps) {
                   Informations
                 </PageTitle>
                 <div className="flex flex-col gap-2">
+                  <NextPurchaseCard />
                   <ClickCard />
                   <StatisticsCard />
                 </div>
