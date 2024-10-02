@@ -8,6 +8,7 @@ import type {
 export const CLICKER_OPTIONS = {
   MIN_BUILDING_QUANTITY: 0,
   MAX_BUILDING_QUANTITY: 99,
+  DEFAULT_RPS: 0.5,
 }
 
 export function getBuildingPrice(basePrice: number, quantity: number) {
@@ -203,5 +204,16 @@ export class ClickerCalculator {
     const bonus = bonuses.reduce((acc, value) => acc + value, 1)
 
     return buildingBaseProduction * bonus
+  }
+
+  getPlayerRps(playerClickerData: PlayerClickerData) {
+    return playerClickerData.buildings
+      .filter((building) => building.quantity > 0)
+      .reduce((acc, building) => {
+        return (
+          acc +
+          this.calculateBuildingProduction(building.name, playerClickerData) * building.quantity
+        )
+      }, CLICKER_OPTIONS.DEFAULT_RPS)
   }
 }

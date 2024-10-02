@@ -145,21 +145,13 @@ export const usePlayerClickerStore = create(
         set({ data: { ...data } })
       },
       getRps(calculator) {
-        const DEFAULT_RPS = 0.5
-
         const data = get().data
 
         if (!data) {
-          return DEFAULT_RPS
+          return CLICKER_OPTIONS.DEFAULT_RPS
         }
 
-        return data.buildings
-          .filter((building) => building.quantity > 0)
-          .reduce((acc, building) => {
-            return (
-              acc + calculator.calculateBuildingProduction(building.name, data) * building.quantity
-            )
-          }, DEFAULT_RPS)
+        return calculator.getPlayerRps(data)
       },
       getTotalProduction() {
         const DEFAULT_PRODUCTION = 0
