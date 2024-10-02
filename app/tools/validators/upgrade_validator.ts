@@ -37,6 +37,7 @@ export const buildingUpgradeValidator = vine.object({
 
 export const manyUpgradeValidator = vine.object({
   name: vine.string(),
+  label: vine.string(),
   price: vine.number(),
   item: vine.array(vine.string()),
   conditions: vine.array(conditionValidator),
@@ -44,6 +45,7 @@ export const manyUpgradeValidator = vine.object({
 
 export const posteriorUpgradeValidator = vine.object({
   name: vine.string(),
+  label: vine.string(),
   price: vine.number(),
   activeItem: vine.array(vine.string()),
   previousItem: vine.array(vine.string()),

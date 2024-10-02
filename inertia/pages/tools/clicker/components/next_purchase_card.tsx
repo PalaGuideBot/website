@@ -75,9 +75,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
               />
               <div className="flex flex-col flex-grow space-y-1">
                 <p className="text-sm lg:text-xs xl:text-sm text-left">
-                  {'label' in nextPurchase.upgrade.data
-                    ? nextPurchase.upgrade.data.label
-                    : nextPurchase.upgrade.data.name}
+                  {nextPurchase.upgrade.data.label}
                 </p>
                 <CoinWrapper>
                   {formatNumber(nextPurchase.upgrade.data.price, {

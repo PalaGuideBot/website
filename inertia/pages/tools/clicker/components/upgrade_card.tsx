@@ -99,24 +99,10 @@ interface UpgradeCardProps {
 }
 
 const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) => {
-  const { buildings, calculator } = useClickerSettings()
+  const { calculator } = useClickerSettings()
   const playerClickerStore = usePlayerClickerStore()
 
   const unlockable = playerClickerStore.isUpgradeUnlockable(upgrade, calculator)
-
-  const getLabel = (anyUpgrade: ClickerAnyUpgrade) => {
-    let target = null
-    switch (anyUpgrade.type) {
-      case 'posterior':
-        target = buildings.find((b) => b.name === anyUpgrade.data.activeItem[0])
-        return `Production postérieure - ${target?.label ?? anyUpgrade.data.activeItem[0]}`
-      case 'many':
-        target = buildings.find((b) => b.name === anyUpgrade.data.item[0])
-        return `Production nombreuse - ${target?.label ?? anyUpgrade.data.item[0]}`
-      default:
-        return anyUpgrade.data?.label ?? anyUpgrade.data.name
-    }
-  }
 
   return (
     <TooltipProvider delayDuration={100}>
@@ -138,7 +124,7 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
         </TooltipTrigger>
         <TooltipContent side="bottom" align="center" className="p-0">
           <div className="border-b p-2">
-            <p className="font-bold">{getLabel(upgrade)}</p>
+            <p className="font-bold">{upgrade.data.label}</p>
           </div>
           <div className="p-4 space-y-1.5">
             <p>
