@@ -26,7 +26,7 @@ const StatisticsCard = ({}: StatisticsCardProps) => {
           </CoinWrapper>
         </div>
         <div className="space-y-1">
-          <p className="font-semibold">Total dépensé</p>
+          <p className="font-semibold">Total dépensé (hors Shop)</p>
           <CoinWrapper>
             {formatNumber(totalSpent, { notation: 'standard', maximumFractionDigits: 0 })}
           </CoinWrapper>
