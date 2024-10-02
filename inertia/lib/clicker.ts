@@ -77,16 +77,16 @@ export class ClickerCalculator {
 
     switch (true) {
       case terrain.name.includes('miner'):
-        percentage += playerJobs?.miner?.level ?? 0 * 0.01
+        percentage += playerJobs.miner.level * 0.01
         break
       case terrain.name.includes('farmer'):
-        percentage += playerJobs?.farmer?.level ?? 0 * 0.01
+        percentage += playerJobs.farmer.level * 0.01
         break
       case terrain.name.includes('hunter'):
-        percentage += playerJobs?.hunter?.level ?? 0 * 0.01
+        percentage += playerJobs.hunter.level * 0.01
         break
       case terrain.name.includes('alchemist'):
-        percentage += playerJobs?.alchemist?.level ?? 0 * 0.01
+        percentage += playerJobs.alchemist.level * 0.01
         break
     }
 
