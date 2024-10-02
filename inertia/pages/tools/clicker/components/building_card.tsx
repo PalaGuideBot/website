@@ -105,7 +105,7 @@ const BuildingCard = ({
   onDecreaseQuantity,
   onQuantityChange,
 }: BuildingCardProps) => {
-  const isMd = useMediaQuery('(max-width: 768px)')
+  const isLg = useMediaQuery('(max-width: 1024px)')
   const { calculator } = useClickerSettings()
   const playerClickerStore = usePlayerClickerStore()
 
@@ -149,8 +149,8 @@ const BuildingCard = ({
         </button>
       </PopoverTrigger>
       <PopoverContent
-        side={isMd ? 'bottom' : 'left'}
-        align={isMd ? 'end' : 'start'}
+        side={isLg ? 'bottom' : 'left'}
+        align={isLg ? 'end' : 'start'}
         className="bg-background p-0 text-sm min-w-72"
       >
         <div className="border-b p-2">

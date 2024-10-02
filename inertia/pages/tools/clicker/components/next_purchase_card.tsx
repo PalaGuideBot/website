@@ -90,7 +90,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
           )}
         </div>
         {nextPurchase && (
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row gap-2 justify-between items-center text-nowrap flex-wrap">
             <p className="font-semibold text-sm lg:text-xs xl:text-sm">Production/sec. en plus</p>
             <CoinWrapper>
               +
@@ -101,7 +101,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
             </CoinWrapper>
           </div>
         )}
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row gap-2 justify-between items-center text-nowrap flex-wrap">
           <p className="font-semibold text-sm lg:text-xs xl:text-sm">Production/sec. actuelle</p>
           <CoinWrapper>
             {formatNumber(currentRps, {
@@ -111,7 +111,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
           </CoinWrapper>
         </div>
         {nextPurchase && (
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row gap-2 justify-between items-center text-nowrap flex-wrap">
             <p className="font-semibold text-sm lg:text-xs xl:text-sm">
               Production/sec. après achat
             </p>
