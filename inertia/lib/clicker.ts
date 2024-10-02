@@ -288,7 +288,8 @@ export class ClickerCalculator {
     const currentRps = this.getPlayerRps(playerClickerData)
 
     let bestBuilding: string | null = null
-    let bestBuildingRps = 0
+    let bestRatio = 0
+    let upgradedRps = currentRps
 
     for (const building of ownedBuildings) {
       if (building.quantity >= CLICKER_OPTIONS.MAX_BUILDING_QUANTITY) {
@@ -309,17 +310,19 @@ export class ClickerCalculator {
           .concat(upgradedBuilding),
       })
 
-      const finalRps = (newRps - currentRps) / upgradedBuildingPrice
+      const ratio = (newRps - currentRps) / upgradedBuildingPrice
 
-      if (finalRps > bestBuildingRps) {
+      if (ratio > bestRatio) {
         bestBuilding = building.name
-        bestBuildingRps = finalRps
+        bestRatio = ratio
+        upgradedRps = newRps
       }
     }
 
     return {
       bestBuilding,
-      bestBuildingRps,
+      bestRatio,
+      upgradedRps,
     }
   }
 
@@ -327,7 +330,8 @@ export class ClickerCalculator {
     const currentRps = this.getPlayerRps(playerClickerData)
 
     let bestUpgrade: { type: BuyableAnyUpgrade['type']; value: string } | null = null
-    let bestUpgradeRps = 0
+    let bestRatio = 0
+    let upgradedRps = currentRps
 
     const unlockableUpgrades: Array<BuyableAnyUpgrade> = [
       /* --- GLOBALS ---*/
@@ -401,19 +405,20 @@ export class ClickerCalculator {
     for (const upgrade of unlockableUpgrades) {
       const newUpgrades = [...playerClickerData.upgrades, upgrade.data.name]
       const newRps = this.getPlayerRps({ ...playerClickerData, upgrades: newUpgrades })
-      const finalRps = (newRps - currentRps) / upgrade.data.price
 
-      console.log({ type: 'upgrade', rps: newRps })
+      const ratio = (newRps - currentRps) / upgrade.data.price
 
-      if (finalRps > bestUpgradeRps) {
+      if (ratio > bestRatio) {
         bestUpgrade = { type: upgrade.type, value: upgrade.data.name }
-        bestUpgradeRps = finalRps
+        bestRatio = ratio
+        upgradedRps = newRps
       }
     }
 
     return {
       bestUpgrade,
-      bestUpgradeRps,
+      bestRatio,
+      upgradedRps,
     }
   }
 
@@ -425,14 +430,14 @@ export class ClickerCalculator {
       return null
     }
 
-    if (bestBuilding.bestBuildingRps > bestUpgrade.bestUpgradeRps) {
+    if (bestBuilding.bestRatio > bestUpgrade.bestRatio) {
       const building = playerClickerData.buildings.find(
         (item) => item.name === bestBuilding.bestBuilding!
       )!
       return {
         type: 'building',
         building: { ...building, quantity: building.quantity + 1 },
-        rps: bestBuilding.bestBuildingRps,
+        upgradedRps: bestBuilding.upgradedRps,
       }
     }
 
@@ -487,7 +492,7 @@ export class ClickerCalculator {
     return {
       type: 'upgrade',
       upgrade: upgrade,
-      rps: bestUpgrade.bestUpgradeRps,
+      upgradedRps: bestUpgrade.upgradedRps,
     }
   }
 }

@@ -18,6 +18,8 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
     ? calculator.getBestBuildingOrUpgradeToBuy(playerClickerStore.data)
     : null
 
+  const currentRps = playerClickerStore.getRps(calculator)
+
   const buy = () => {
     if (!nextPurchase) {
       return
@@ -38,12 +40,12 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
       <CardHeader className="border-b p-2.5">
         <CardTitle>Achat le plus rentable</CardTitle>
       </CardHeader>
-      <CardContent className="text-sm p-2 space-y-1.5">
+      <CardContent className="flex flex-col gap-2 text-sm p-2">
         <div className="flex flex-row gap-2">
           {nextPurchase?.type === 'building' && (
             <>
               <img
-                className="w-10 h-auto object-cover"
+                className="h-10 w-auto object-cover"
                 src={getClickerBuildingImage(nextPurchase.building.name)}
               />
               <div className="flex flex-col flex-grow space-y-1">
@@ -68,7 +70,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
           {nextPurchase?.type === 'upgrade' && (
             <>
               <img
-                className="w-10 h-auto object-cover"
+                className="h-10 w-auto object-cover"
                 src={getClickerUpgradeImage(nextPurchase.upgrade)}
               />
               <div className="flex flex-col flex-grow space-y-1">
@@ -87,6 +89,40 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
             </>
           )}
         </div>
+        {nextPurchase && (
+          <div className="flex flex-row justify-between items-center">
+            <p className="font-semibold text-sm lg:text-xs xl:text-sm">Production/sec. en plus</p>
+            <CoinWrapper>
+              +
+              {formatNumber(nextPurchase.upgradedRps - currentRps, {
+                notation: 'standard',
+                maximumFractionDigits: 2,
+              })}
+            </CoinWrapper>
+          </div>
+        )}
+        <div className="flex flex-row justify-between items-center">
+          <p className="font-semibold text-sm lg:text-xs xl:text-sm">Production/sec. actuelle</p>
+          <CoinWrapper>
+            {formatNumber(currentRps, {
+              notation: 'standard',
+              maximumFractionDigits: 2,
+            })}
+          </CoinWrapper>
+        </div>
+        {nextPurchase && (
+          <div className="flex flex-row justify-between items-center">
+            <p className="font-semibold text-sm lg:text-xs xl:text-sm">
+              Production/sec. après achat
+            </p>
+            <CoinWrapper>
+              {formatNumber(nextPurchase.upgradedRps, {
+                notation: 'standard',
+                maximumFractionDigits: 2,
+              })}
+            </CoinWrapper>
+          </div>
+        )}
         <Button before={<ShoppingCartIcon className="size-4" />} variant="outline" onClick={buy}>
           Acheter
         </Button>

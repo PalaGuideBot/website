@@ -64,11 +64,11 @@ export type BestBuyableType =
   | {
       type: 'building'
       building: ClickerBuilding
-      rps: number
+      upgradedRps: number
     }
   | {
       type: 'upgrade'
       upgrade: BuyableAnyUpgrade
-      rps: number
+      upgradedRps: number
     }
   | null
