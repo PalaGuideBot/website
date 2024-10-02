@@ -1,8 +1,13 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import type { ClickerClickUpgrade, PlayerClickerData } from '#tools/types'
-import { CLICKER_OPTIONS, ClickerCalculator } from '~/lib/clicker'
+import type { ClickerAnyUpgrade, ClickerClickUpgrade, PlayerClickerData } from '#tools/types'
+import {
+  CLICKER_OPTIONS,
+  ClickerCalculator,
+  isUpgradeUnlockable as clickerIsUpgradeUnlockable,
+  getPlayerTotalProduction,
+} from '~/lib/clicker'
 
 type State = {
   data: PlayerClickerData | null
@@ -11,6 +16,7 @@ type State = {
 type Actions = {
   init: (data: PlayerClickerData) => void
   hasUpgrade(upgrade: string): boolean
+  isUpgradeUnlockable(upgrade: ClickerAnyUpgrade): boolean
   toggleUpgrade(upgrade: string): void
   unlockClick(name: string, clicks: ClickerClickUpgrade[]): void
   updateJobLevel(job: keyof PlayerClickerData['jobs'], level: number): void
@@ -38,6 +44,15 @@ export const usePlayerClickerStore = create(
       },
       hasUpgrade(upgrade) {
         return get().data?.upgrades.includes(upgrade) ?? false
+      },
+      isUpgradeUnlockable(upgrade) {
+        const data = get().data
+
+        if (!data) {
+          return false
+        }
+
+        return clickerIsUpgradeUnlockable(upgrade, data.buildings, data.upgrades)
       },
       toggleUpgrade(upgrade) {
         const data = get().data
@@ -154,19 +169,13 @@ export const usePlayerClickerStore = create(
         return calculator.getPlayerRps(data)
       },
       getTotalProduction() {
-        const DEFAULT_PRODUCTION = 0
-
         const data = get().data
 
         if (!data) {
-          return DEFAULT_PRODUCTION
+          return 0
         }
 
-        return data.buildings
-          .filter((building) => building.quantity > 0)
-          .reduce((acc, building) => {
-            return acc + building.production
-          }, DEFAULT_PRODUCTION)
+        return getPlayerTotalProduction(data.buildings)
       },
     }),
     {

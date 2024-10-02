@@ -94,10 +94,16 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
 interface UpgradeCardProps {
   upgrade: ClickerAnyUpgrade
   unlocked?: boolean
+  unlockable?: boolean
   onClick?: () => void
 }
 
-const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) => {
+const UpgradeCard = ({
+  upgrade,
+  unlocked = false,
+  unlockable = false,
+  onClick,
+}: UpgradeCardProps) => {
   const { buildings } = useClickerSettings()
 
   const getLabel = (anyUpgrade: ClickerAnyUpgrade) => {
@@ -123,7 +129,10 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
             className={cn(
               'p-2 rounded-md border bg-surface shadow transition-colors duration-100 hover:bg-black/15',
               unlocked &&
-                'bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
+                'bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
+              !unlocked &&
+                unlockable &&
+                'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
             )}
           >
             <img className="w-10 h-auto object-cover" src={getClickerUpgradeImage(upgrade)} />

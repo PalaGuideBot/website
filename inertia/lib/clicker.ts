@@ -4,6 +4,8 @@ import type {
   ClickerUpgrades,
   PlayerClickerData,
 } from '#tools/types'
+import { DateTime } from 'luxon'
+import { getSeasonStart } from './paladium'
 
 export const CLICKER_OPTIONS = {
   MIN_BUILDING_QUANTITY: 0,
@@ -38,6 +40,59 @@ export function getClickerUpgradeImage(upgrade: ClickerAnyUpgrade) {
   }
 
   return `https://image.palaguidebot.fr/clicker/upgrades/${upgrade.type}/${name}`
+}
+
+export function getPlayerTotalProduction(playerBuildings: PlayerClickerData['buildings']) {
+  return playerBuildings
+    .filter((building) => building.quantity > 0)
+    .reduce((acc, building) => {
+      return acc + building.production
+    }, 0)
+}
+
+export function isUpgradeUnlockable(
+  upgrade: ClickerAnyUpgrade,
+  playerBuildings: PlayerClickerData['buildings'],
+  playerUpgrades: PlayerClickerData['upgrades']
+) {
+  const conditions = upgrade.data.conditions.map((condition) => {
+    let target = null
+    switch (condition.type) {
+      case 'building':
+        switch (upgrade.type) {
+          case 'building':
+          case 'many':
+          case 'category':
+            target = playerBuildings.find((b) => b.name === upgrade.data.item[0])
+            return Number(target?.quantity) >= Number(condition.value)
+          case 'posterior':
+            target = playerBuildings.find((b) => b.name === upgrade.data.activeItem[0])
+            return Number(target?.quantity) >= Number(condition.value)
+          default:
+            return true
+        }
+      case 'quantity':
+        const playerProduction = getPlayerTotalProduction(playerBuildings)
+        return playerProduction >= Number(condition.value)
+      case 'time':
+        const seasonStart = getSeasonStart()
+        const now = DateTime.now()
+        const elapsedDays = now.diff(seasonStart, 'days').days
+
+        return elapsedDays >= Number(condition.value)
+      case 'upgrade':
+        switch (upgrade.type) {
+          case 'click':
+            return playerUpgrades.includes(String(condition.value))
+          default:
+            return true
+        }
+      default:
+        return true
+    }
+  })
+
+  return conditions.every((condition) => condition)
 }
 
 export class ClickerCalculator {

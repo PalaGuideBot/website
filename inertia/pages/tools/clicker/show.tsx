@@ -159,6 +159,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'click', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'click',
+                          data: upgrade,
+                        })}
                         onClick={() =>
                           playerClickerStore.unlockClick(upgrade.name, upgrades.clicks)
                         }
@@ -174,6 +178,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'global', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'global',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
@@ -187,6 +195,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'terrain', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'terrain',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
@@ -200,6 +212,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'building', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'building',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
@@ -213,6 +229,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'many', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'many',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
@@ -226,6 +246,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'posterior', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'posterior',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
@@ -239,6 +263,10 @@ export default function ClickerShow(props: ClickerShowProps) {
                         key={upgrade.name}
                         upgrade={{ type: 'category', data: upgrade }}
                         unlocked={playerClickerStore.hasUpgrade(upgrade.name)}
+                        unlockable={playerClickerStore.isUpgradeUnlockable({
+                          type: 'category',
+                          data: upgrade,
+                        })}
                         onClick={() => playerClickerStore.toggleUpgrade(upgrade.name)}
                       />
                     ))}
