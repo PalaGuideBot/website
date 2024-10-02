@@ -300,12 +300,20 @@ const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProp
         <CardTitle href="#succes">Succès</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
-        <ProgressBar
-          max={100}
-          value={completionPercentage}
-          label="Progression"
-          indicator={completionPercentage.toFixed(2) + '%'}
-          helperText={`${achievements.completed} / ${achievements.total} succès`}
+        <HiddenInformationController
+          active={achievements.total === 0}
+          children={<span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>}
+          side="right"
+          align="center"
+          fallback={
+            <ProgressBar
+              max={100}
+              value={completionPercentage}
+              label="Progression"
+              indicator={completionPercentage.toFixed(2) + '%'}
+              helperText={`${achievements.completed} / ${achievements.total} succès`}
+            />
+          }
         />
       </CardContent>
     </Card>
