@@ -1,6 +1,6 @@
 import { Button } from '@lemonsqueezy/wedges'
 import { MinusIcon, PlusIcon } from 'lucide-react'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { useMediaQuery } from 'usehooks-ts'
 
@@ -10,7 +10,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { CLICKER_OPTIONS, getBuildingPrice, getClickerBuildingImage } from '~/lib/clicker'
 import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
-import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
 import { CoinWrapper } from './coin_wrapper'
 
@@ -110,21 +109,6 @@ const BuildingCard = ({
   const { calculator } = useClickerSettings()
   const playerClickerStore = usePlayerClickerStore()
 
-  const production = useMemo(
-    () =>
-      playerClickerStore.data
-        ? formatNumber(
-            calculator.calculateBuildingProduction(building.name, playerClickerStore.data) *
-              building.quantity,
-            {
-              notation: 'standard',
-              maximumFractionDigits: 2,
-            }
-          )
-        : 'Inconnu',
-    [playerClickerStore.data]
-  )
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -158,11 +142,47 @@ const BuildingCard = ({
           <p className="font-bold">{building.label}</p>
         </div>
         <div className="p-4 space-y-1.5">
-          <p>
-            Production (RPS): <AccentText>{production}</AccentText>
-          </p>
-          <div className="flex flex-row items-baseline gap-1">
-            <p>Prochain prix: </p>
+          {playerClickerStore.data && (
+            <>
+              <div className="flex flex-row items-baseline gap-1 flex-wrap">
+                <p>Production/sec. actuelle:</p>
+                <CoinWrapper>
+                  {formatNumber(
+                    calculator.calculateBuildingProduction(building.name, playerClickerStore.data) *
+                      building.quantity,
+                    {
+                      notation: 'standard',
+                      maximumFractionDigits: 2,
+                    }
+                  )}
+                </CoinWrapper>
+              </div>
+              <div className="flex flex-row items-baseline gap-1 flex-wrap">
+                <p>Production/sec. après achat:</p>
+                <CoinWrapper>
+                  {formatNumber(
+                    calculator.calculateBuildingProduction(building.name, playerClickerStore.data) *
+                      (building.quantity + 1),
+                    {
+                      notation: 'standard',
+                      maximumFractionDigits: 2,
+                    }
+                  )}
+                </CoinWrapper>
+              </div>
+            </>
+          )}
+          <div className="flex flex-row items-baseline gap-1 flex-wrap">
+            <p>Prix actuel:</p>
+            <CoinWrapper>
+              {formatNumber(getBuildingPrice(building.base_price, building.quantity), {
+                notation: 'standard',
+                maximumFractionDigits: 0,
+              })}
+            </CoinWrapper>
+          </div>
+          <div className="flex flex-row items-baseline gap-1 flex-wrap">
+            <p>Prix apèrs achat:</p>
             <CoinWrapper>
               {formatNumber(getBuildingPrice(building.base_price, building.quantity + 1), {
                 notation: 'standard',
