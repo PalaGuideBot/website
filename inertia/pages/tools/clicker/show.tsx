@@ -18,6 +18,7 @@ import { BuildingCard } from './components/building_card'
 import { ClickCard } from './components/click_card'
 import { ClickerSettings } from './components/clicker_settings'
 import { NextPurchaseCard } from './components/next_purchase_card'
+import { OptionsCard } from './components/options_card'
 import { StatisticsCard } from './components/statistics_card'
 import { UpgradeCard } from './components/upgrade_card'
 import {
@@ -115,6 +116,13 @@ export default function ClickerShow(props: ClickerShowProps) {
                   <NextPurchaseCard />
                   <ClickCard />
                   <StatisticsCard />
+                  <OptionsCard
+                    onReset={() => {
+                      if (clicker) {
+                        playerClickerStore.init(clicker)
+                      }
+                    }}
+                  />
                 </div>
               </div>
             </ScrollArea>

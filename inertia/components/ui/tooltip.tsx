@@ -24,7 +24,7 @@ const Tooltip = ({ children, ...props }: TooltipPrimitive.TooltipProps) => {
 
   return (
     <TooltipPrimitive.Root
-      delayDuration={isMd ? props.delayDuration : 0}
+      delayDuration={!isMd ? props.delayDuration : 0}
       onOpenChange={(e) => {
         setOpen(e)
       }}

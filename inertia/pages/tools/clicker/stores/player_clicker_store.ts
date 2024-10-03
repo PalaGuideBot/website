@@ -6,10 +6,12 @@ import { CLICKER_OPTIONS, ClickerCalculator, getPlayerTotalProduction } from '~/
 
 type State = {
   data: PlayerClickerData | null
+  markOutLockedUpgrades: boolean
 }
 
 type Actions = {
   init: (data: PlayerClickerData) => void
+  toggleMarkOutLockedUpgrades: () => void
   hasUpgrade(upgrade: string): boolean
   isUpgradeUnlockable(upgrade: ClickerAnyUpgrade, calculator: ClickerCalculator): boolean
   toggleUpgrade(upgrade: string): void
@@ -27,6 +29,7 @@ const storageKey = 'player_clicker_data'
 
 const initialState: State = {
   data: null,
+  markOutLockedUpgrades: false,
 }
 
 export const usePlayerClickerStore = create(
@@ -37,7 +40,22 @@ export const usePlayerClickerStore = create(
         if (get().data) {
           set({ data: null })
         }
-        set({ data: { ...data } })
+        set({
+          data: {
+            ...data,
+            buildings: data.buildings.map((b) => ({ ...b })),
+            jobs: {
+              ...data.jobs,
+              alchemist: { ...data.jobs.alchemist },
+              farmer: { ...data.jobs.farmer },
+              hunter: { ...data.jobs.hunter },
+              miner: { ...data.jobs.miner },
+            },
+          },
+        })
+      },
+      toggleMarkOutLockedUpgrades() {
+        set({ markOutLockedUpgrades: !get().markOutLockedUpgrades })
       },
       hasUpgrade(upgrade) {
         return get().data?.upgrades.includes(upgrade) ?? false

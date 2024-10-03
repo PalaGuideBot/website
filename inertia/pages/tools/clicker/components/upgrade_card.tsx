@@ -179,11 +179,14 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
             onClick={onClick}
             className={cn(
               'p-2 rounded-md border bg-surface shadow transition-colors duration-100 hover:bg-black/15',
-              unlocked &&
-                'bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
               !unlocked &&
                 unlockable &&
-                'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
+                'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
+              !unlockable &&
+                playerClickerStore.markOutLockedUpgrades &&
+                'opacity-50 hover:bg-surface',
+              unlocked &&
+                'opacity-100 bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
             )}
           >
             <img className="w-10 h-auto object-cover" src={getClickerUpgradeImage(upgrade)} />
