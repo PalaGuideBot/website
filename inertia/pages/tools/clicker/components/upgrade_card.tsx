@@ -1,8 +1,11 @@
+import { TrendingUpIcon } from 'lucide-react'
+
 import type { ClickerAnyUpgrade } from '#tools/types'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { getClickerUpgradeImage } from '~/lib/clicker'
 import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
+import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
 
 interface UpgradeConditionsProps {
@@ -30,9 +33,7 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
                     return (
                       <li key={`${condition.type}-${condition.value}`}>
                         Posséder {condition.value}{' '}
-                        <span className="font-bold text-primary">
-                          {target?.label ?? upgrade.data.item[0]}
-                        </span>
+                        <AccentText>{target?.label ?? upgrade.data.item[0]}</AccentText>
                       </li>
                     )
                   case 'posterior':
@@ -41,9 +42,7 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
                     return (
                       <li key={`${condition.type}-${condition.value}`}>
                         Posséder {condition.value}{' '}
-                        <span className="font-bold text-primary">
-                          {target?.label ?? upgrade.data.activeItem[0]}
-                        </span>
+                        <AccentText>{target?.label ?? upgrade.data.activeItem[0]}</AccentText>
                       </li>
                     )
                   default:
@@ -53,17 +52,16 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
                 return (
                   <li key={`${condition.type}-${condition.value}`}>
                     Avoir collecté{' '}
-                    <span className="font-bold text-primary">
+                    <AccentText>
                       {formatNumber(Number(condition.value), { notation: 'standard' })}
-                    </span>{' '}
+                    </AccentText>{' '}
                     coins
                   </li>
                 )
               case 'time':
                 return (
                   <li key={`${condition.type}-${condition.value}`}>
-                    La saison à commencé depuis{' '}
-                    <span className="font-bold text-primary">{condition.value}</span> jours
+                    La saison à commencé depuis <AccentText>{condition.value}</AccentText> jours
                   </li>
                 )
               case 'upgrade':
@@ -73,10 +71,7 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
 
                     return (
                       <li key={`${condition.type}-${condition.value}`}>
-                        Posséder le clic{' '}
-                        <span className="font-bold text-primary">
-                          {target?.label ?? condition.value}
-                        </span>
+                        Posséder le clic <AccentText>{target?.label ?? condition.value}</AccentText>
                       </li>
                     )
                   default:
@@ -89,6 +84,78 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
         </ul>
       </div>
     )
+  )
+}
+
+interface UpgradeAdvantageProps {
+  upgrade: ClickerAnyUpgrade
+}
+
+const UpgradeAdvantage = ({ upgrade }: UpgradeAdvantageProps) => {
+  const { buildings, upgrades } = useClickerSettings()
+
+  return (
+    <div className="flex flex-row gap-2 items-center">
+      <TrendingUpIcon className="size-4" />
+      {upgrade.type === 'click' && (
+        <p>
+          <AccentText>Double</AccentText> votre production par clic
+        </p>
+      )}
+      {upgrade.type === 'global' && (
+        <p>
+          Augmente de <AccentText>10%</AccentText> la production globale
+        </p>
+      )}
+      {upgrade.type === 'terrain' && (
+        <p>
+          Augmente de <AccentText>1%</AccentText> la production de la catégorie{' '}
+          <AccentText>Unknown</AccentText> par niveau du métier de <AccentText>Unknown</AccentText>
+        </p>
+      )}
+      {upgrade.type === 'building' && (
+        <p>
+          Augmente de <AccentText>100%</AccentText> la production du bâtiment{' '}
+          <AccentText>
+            {buildings.find((building) => building.name === upgrade.data.item[0])?.label ??
+              upgrade.data.item[0]}
+          </AccentText>
+        </p>
+      )}
+      {upgrade.type === 'many' && (
+        <p>
+          Augmente de <AccentText>1%</AccentText> la production pour chaque copie du bâtiment{' '}
+          <AccentText>
+            {buildings.find((building) => building.name === upgrade.data.item[0])?.label ??
+              upgrade.data.item[0]}
+          </AccentText>
+        </p>
+      )}
+      {upgrade.type === 'posterior' && (
+        <p>
+          Augmente de <AccentText>1%</AccentText> la production pour chaque copie du bâtiment
+          postérieur à{' '}
+          <AccentText>
+            {buildings.find((building) => building.name === upgrade.data.activeItem[0])?.label ??
+              upgrade.data.activeItem[0]}
+          </AccentText>
+        </p>
+      )}
+      {upgrade.type === 'category' && (
+        <p>
+          Augmente de{' '}
+          <AccentText>
+            {formatNumber(
+              (upgrades.categories.find((u) => u.name === upgrade.data.name)?.pourcentage || 0) *
+                100,
+              { notation: 'standard', maximumFractionDigits: 0 }
+            )}
+            %
+          </AccentText>{' '}
+          la production de la catégorie <AccentText>Unknown</AccentText>
+        </p>
+      )}
+    </div>
   )
 }
 
@@ -129,11 +196,10 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
           <div className="p-4 space-y-1.5">
             <p>
               Prix:{' '}
-              <span className="font-bold text-primary">
-                {formatNumber(upgrade.data.price, { notation: 'standard' })}
-              </span>{' '}
+              <AccentText>{formatNumber(upgrade.data.price, { notation: 'standard' })}</AccentText>{' '}
               coins
             </p>
+            <UpgradeAdvantage upgrade={upgrade} />
             <UpgradeConditions upgrade={upgrade} />
           </div>
         </TooltipContent>

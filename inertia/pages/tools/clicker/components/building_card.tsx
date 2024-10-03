@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { CLICKER_OPTIONS, getBuildingPrice, getClickerBuildingImage } from '~/lib/clicker'
 import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
+import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
 import { CoinWrapper } from './coin_wrapper'
 
@@ -158,7 +159,7 @@ const BuildingCard = ({
         </div>
         <div className="p-4 space-y-1.5">
           <p>
-            Production (RPS): <span className="font-bold text-primary">{production}</span>
+            Production (RPS): <AccentText>{production}</AccentText>
           </p>
           <div className="flex flex-row items-baseline gap-1">
             <p>Prochain prix: </p>

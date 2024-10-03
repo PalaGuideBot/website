@@ -17,6 +17,7 @@ import { getClickerUpgradeImage } from '~/lib/clicker'
 import { formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { useClickerSettings } from './clicker_settings'
+import { AccentText } from './accent_text'
 
 const DEFAULT_CLICK: ClickerClickUpgrade = {
   name: 'click_0',
@@ -108,13 +109,10 @@ const ClickCard = ({}: ClickCardProps) => {
         </CardHeader>
         <CardContent className="p-2 text-sm">
           <p>
-            Nom: <span className="font-bold text-primary">{click.label}</span>
+            Nom: <AccentText>{click.label}</AccentText>
           </p>
           <p>
-            Prix:{' '}
-            <span className="font-bold text-primary">
-              {formatNumber(click.price, { notation: 'standard' })}
-            </span>{' '}
+            Prix: <AccentText>{formatNumber(click.price, { notation: 'standard' })}</AccentText>{' '}
             coins
           </p>
         </CardContent>
