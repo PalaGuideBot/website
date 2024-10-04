@@ -35,7 +35,7 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
             </div>
           </div>
         )}
-        <Checkbox.Root asChild>
+        <Checkbox.Root className="items-center" asChild>
           <label className="font-semibold">
             <Checkbox.Item
               onCheckedChange={() =>
@@ -46,7 +46,7 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
             <span>Distinguer les améliorations bloquées</span>
           </label>
         </Checkbox.Root>
-        <Checkbox.Root asChild>
+        <Checkbox.Root className="items-center" asChild>
           <label className="font-semibold">
             <Checkbox.Item
               onCheckedChange={() =>
@@ -57,7 +57,7 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
             <span>Distinguer les batîments bloquées</span>
           </label>
         </Checkbox.Root>
-        <Checkbox.Root asChild>
+        <Checkbox.Root className="items-center" asChild>
           <label className="font-semibold">
             <Checkbox.Item
               onCheckedChange={() =>
