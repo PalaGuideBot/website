@@ -107,6 +107,7 @@ export const playerClickerDataValidator = vine.compile(
       vine.object({
         name: vine.string(),
         label: vine.string(),
+        category: vine.string().optional(),
         base_price: vine.number(),
         base_production: vine.number(),
         production: vine.number(),

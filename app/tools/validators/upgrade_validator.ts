@@ -9,6 +9,7 @@ export const clickUpgradeValidator = vine.object({
   name: vine.string(),
   label: vine.string(),
   price: vine.number(),
+  rate: vine.number(),
   conditions: vine.array(conditionValidator),
 })
 
@@ -22,6 +23,7 @@ export const globalUpgradeValidator = vine.object({
 export const terrainUpgradeValidator = vine.object({
   name: vine.string(),
   label: vine.string(),
+  job: vine.string(),
   price: vine.number(),
   item: vine.array(vine.string()),
   conditions: vine.array(conditionValidator),
@@ -55,6 +57,7 @@ export const posteriorUpgradeValidator = vine.object({
 export const categoryValidator = vine.object({
   name: vine.string(),
   label: vine.string(),
+  category: vine.string().optional(),
   price: vine.number(),
   item: vine.array(vine.string()),
   pourcentage: vine.number(),

@@ -7,6 +7,7 @@ import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
+import { ucFirst } from '~/lib/string'
 
 interface UpgradeConditionsProps {
   upgrade: ClickerAnyUpgrade
@@ -99,7 +100,8 @@ const UpgradeAdvantage = ({ upgrade }: UpgradeAdvantageProps) => {
       <TrendingUpIcon className="size-4" />
       {upgrade.type === 'click' && (
         <p>
-          <AccentText>Double</AccentText> votre production par clic
+          <AccentText>Double</AccentText> votre production par clic (
+          <AccentText>{formatNumber(upgrade.data.rate, { notation: 'standard' })}</AccentText>/clic)
         </p>
       )}
       {upgrade.type === 'global' && (
@@ -110,7 +112,8 @@ const UpgradeAdvantage = ({ upgrade }: UpgradeAdvantageProps) => {
       {upgrade.type === 'terrain' && (
         <p>
           Augmente de <AccentText>1%</AccentText> la production de la catégorie{' '}
-          <AccentText>Unknown</AccentText> par niveau du métier de <AccentText>Unknown</AccentText>
+          <AccentText>{ucFirst(upgrade.data.job)}</AccentText> par niveau du métier de{' '}
+          <AccentText>{ucFirst(upgrade.data.job)}</AccentText>
         </p>
       )}
       {upgrade.type === 'building' && (
@@ -152,7 +155,8 @@ const UpgradeAdvantage = ({ upgrade }: UpgradeAdvantageProps) => {
             )}
             %
           </AccentText>{' '}
-          la production de la catégorie <AccentText>Unknown</AccentText>
+          la production de la catégorie{' '}
+          <AccentText>{ucFirst(upgrade.data.category || 'inconnu')}</AccentText>
         </p>
       )}
     </div>

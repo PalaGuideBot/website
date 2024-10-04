@@ -12,6 +12,8 @@ import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { useClickerSettings } from './clicker_settings'
 import { CoinWrapper } from './coin_wrapper'
+import { AccentText } from './accent_text'
+import { ucFirst } from '~/lib/string'
 
 interface BuildingQuantityControlsProps {
   building: ClickerBuilding
@@ -151,6 +153,11 @@ const BuildingCard = ({
         <div className="p-4 space-y-1.5">
           {playerClickerStore.data && (
             <>
+              {building.category && (
+                <p>
+                  Catégorie: <AccentText>{ucFirst(building.category)}</AccentText>
+                </p>
+              )}
               <div className="flex flex-row items-baseline gap-1 flex-wrap">
                 <p>Production/sec. actuelle:</p>
                 <CoinWrapper>

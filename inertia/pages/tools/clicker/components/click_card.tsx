@@ -23,6 +23,7 @@ const DEFAULT_CLICK: ClickerClickUpgrade = {
   name: 'click_0',
   label: 'Base Clic',
   price: 0,
+  rate: 1,
   conditions: [],
 }
 
@@ -105,11 +106,14 @@ const ClickCard = ({}: ClickCardProps) => {
       </Card>
       <Card className="flex-grow basis-1/2 text-nowrap">
         <CardHeader className="border-b p-2.5">
-          <CardTitle>Dernier click débloqué</CardTitle>
+          <CardTitle>Dernier clic débloqué</CardTitle>
         </CardHeader>
-        <CardContent className="p-2 text-sm">
+        <CardContent className="p-2 text-sm space-y-1.5">
           <p>
             Nom: <AccentText>{click.label}</AccentText>
+          </p>
+          <p>
+            Taux: <AccentText>{click.rate}</AccentText> par clic
           </p>
           <p>
             Prix: <AccentText>{formatNumber(click.price, { notation: 'standard' })}</AccentText>{' '}
