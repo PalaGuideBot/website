@@ -311,7 +311,7 @@ export class ClickerCalculator {
             getPlayerTotalProduction(playerBuildings),
             this.getPlayerTotalSpent(playerBuildings, playerUpgrades)
           )
-          return playerProduction >= Number(condition.value)
+          return Number(condition.value) !== -1 && playerProduction >= Number(condition.value)
         case 'time':
           const seasonStart = getSeasonStart()
           const now = DateTime.now()

@@ -54,7 +54,9 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
                   <li key={`${condition.type}-${condition.value}`}>
                     Avoir collecté{' '}
                     <AccentText>
-                      {formatNumber(Number(condition.value), { notation: 'standard' })}
+                      {Number(condition.value) !== -1
+                        ? formatNumber(Number(condition.value), { notation: 'standard' })
+                        : '???'}
                     </AccentText>{' '}
                     coins
                   </li>
