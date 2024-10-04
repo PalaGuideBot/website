@@ -1,5 +1,17 @@
 # Changelog
 
+## 04/10/2024
+
+### Website
+
+- Ajout de l'outil clicker
+- Modification de la navbar pour remonter la catégorie "Autre"
+- Correction de l'affichage des achievements lorsqu'ils sont masqués par le joueur `/players`
+
+### Bot
+
+- Refonte du design de la commande `/carte`
+
 ## 27/09/2024
 
 ### Website
