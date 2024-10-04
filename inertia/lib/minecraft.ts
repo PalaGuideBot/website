@@ -7,7 +7,7 @@ export function getHeadUrl(username: string) {
 }
 
 export function getBustUrl(uuid: string) {
-  return `https://skins.mcstats.com/bust/${uuid}`
+  return `https://skins.mcstats.com/bust/${uuid}?disableCosmeticType=all`
 }
 
 export function getFullBobyUrl(uuid: string, side: 'front' | 'back' | 'side' = 'side') {
