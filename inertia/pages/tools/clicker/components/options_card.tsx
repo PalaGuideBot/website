@@ -2,6 +2,7 @@ import { Button, Checkbox } from '@lemonsqueezy/wedges'
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
+import { Link } from '@inertiajs/react'
 
 interface OptionsCardProps {
   onReset?: () => void
@@ -9,7 +10,7 @@ interface OptionsCardProps {
 
 const OptionsCard = ({ onReset }: OptionsCardProps) => {
   const setOptions = usePlayerClickerStore((state) => state.setOptions)
-  const { options } = usePlayerClickerStore()
+  const { options, data } = usePlayerClickerStore()
 
   return (
     <Card>
@@ -19,28 +20,54 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
       <CardContent className="text-sm p-2 space-y-2">
         {onReset && (
           <div className="space-y-1">
-            <p className="font-semibold">Réinitialiser les informations</p>
-            <Button variant="outline" size="sm" onClick={onReset}>
-              Réinitialiser
-            </Button>
+            <p className="font-semibold">Commandes</p>
+            <div className="flex flex-row flex-wrap gap-2">
+              <Button variant="outline" size="sm" onClick={onReset}>
+                Réinitialiser
+              </Button>
+              {data?.username && (
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/players/${data.username}#evolution-du-clicker`}>
+                    Voir le profil
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         )}
-        <Checkbox
-          onCheckedChange={() =>
-            setOptions('markOutLockedUpgrades', !options.markOutLockedUpgrades)
-          }
-          checked={options.markOutLockedUpgrades}
-          className="font-semibold"
-          label="Distinguer les améliorations bloquées"
-        />
-        <Checkbox
-          onCheckedChange={() =>
-            setOptions('markOutLockedBuildings', !options.markOutLockedBuildings)
-          }
-          checked={options.markOutLockedBuildings}
-          className="font-semibold"
-          label="Distinguer les batîments bloquées"
-        />
+        <Checkbox.Root asChild>
+          <label className="font-semibold">
+            <Checkbox.Item
+              onCheckedChange={() =>
+                setOptions('markOutLockedUpgrades', !options.markOutLockedUpgrades)
+              }
+              checked={options.markOutLockedUpgrades}
+            />
+            <span>Distinguer les améliorations bloquées</span>
+          </label>
+        </Checkbox.Root>
+        <Checkbox.Root asChild>
+          <label className="font-semibold">
+            <Checkbox.Item
+              onCheckedChange={() =>
+                setOptions('markOutLockedBuildings', !options.markOutLockedBuildings)
+              }
+              checked={options.markOutLockedBuildings}
+            />
+            <span>Distinguer les batîments bloquées</span>
+          </label>
+        </Checkbox.Root>
+        <Checkbox.Root asChild>
+          <label className="font-semibold">
+            <Checkbox.Item
+              onCheckedChange={() =>
+                setOptions('showUpgradeAdvantages', !options.showUpgradeAdvantages)
+              }
+              checked={options.showUpgradeAdvantages}
+            />
+            <span>Afficher les avantages</span>
+          </label>
+        </Checkbox.Root>
       </CardContent>
     </Card>
   )

@@ -9,6 +9,7 @@ type State = {
   options: {
     markOutLockedUpgrades: boolean
     markOutLockedBuildings: boolean
+    showUpgradeAdvantages: boolean
   }
 }
 
@@ -38,6 +39,7 @@ const initialState: State = {
   options: {
     markOutLockedUpgrades: false,
     markOutLockedBuildings: false,
+    showUpgradeAdvantages: false,
   },
 }
 

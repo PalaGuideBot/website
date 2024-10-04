@@ -206,7 +206,9 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
               <AccentText>{formatNumber(upgrade.data.price, { notation: 'standard' })}</AccentText>{' '}
               coins
             </p>
-            <UpgradeAdvantage upgrade={upgrade} />
+            {playerClickerStore.options.showUpgradeAdvantages && (
+              <UpgradeAdvantage upgrade={upgrade} />
+            )}
             <UpgradeConditions upgrade={upgrade} />
           </div>
         </TooltipContent>
