@@ -1,5 +1,4 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { router } from '@inertiajs/react'
 import { Alert } from '@lemonsqueezy/wedges'
 import * as React from 'react'
 import { useIsClient } from 'usehooks-ts'
@@ -26,6 +25,7 @@ import {
   UpgradeWrapperContent,
   UpgradeWrapperTitle,
 } from './components/upgrade_wrapper'
+import { useSyncLocalStore } from './hooks/use_sync_local_store'
 import { usePlayerClickerStore } from './stores/player_clicker_store'
 
 type ClickerShowProps = InferPageProps<ClickerController, 'show'>
@@ -36,26 +36,7 @@ export default function ClickerShow(props: ClickerShowProps) {
   const isClient = useIsClient()
   const playerClickerStore = usePlayerClickerStore()
 
-  React.useEffect(() => {
-    // If the local data is present and the clicker is different, we reinitialize the store
-    if (playerClickerStore.data && clicker && playerClickerStore.data.uuid !== clicker.uuid) {
-      playerClickerStore.init(clicker)
-    }
-  }, [clicker, playerClickerStore.data])
-
-  React.useEffect(() => {
-    // If the clicker is present and the store is not initialized, we initialize it
-    if (isClient && !playerClickerStore.data && clicker) {
-      playerClickerStore.init(clicker)
-    }
-  }, [isClient, clicker, playerClickerStore.data])
-
-  React.useEffect(() => {
-    // If the clicker is not present and the store is initialized, we navigate to right player
-    if (!clicker && playerClickerStore.data) {
-      router.replace(`/tools/clicker/${playerClickerStore.data.username}`)
-    }
-  }, [clicker, playerClickerStore.data])
+  useSyncLocalStore(clicker)
 
   const onFormSuccess = () => {
     // Reset current player if the form is successful

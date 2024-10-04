@@ -117,5 +117,6 @@ export const playerClickerDataValidator = vine.compile(
     lastBuildingBought: vine.string(),
     rps: vine.number(),
     upgrades: vine.array(vine.string()),
+    state: vine.enum(['UNKNOWN_ERROR', 'NOT_FOUND', 'UNAUTHORIZED']).optional(),
   })
 )
