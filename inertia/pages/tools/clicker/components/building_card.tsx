@@ -112,7 +112,14 @@ const BuildingCard = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="rounded-md border bg-surface shadow outline-2 outline-primary hover:outline hover:border-primary data-[state=open]:outline data-[state=open]:border-primary">
+        <button
+          className={cn(
+            'rounded-md border bg-surface shadow outline-2 outline-primary hover:outline hover:border-primary data-[state=open]:outline data-[state=open]:border-primary',
+            playerClickerStore.options.markOutLockedBuildings &&
+              building.quantity <= 0 &&
+              'opacity-50'
+          )}
+        >
           <div className="p-2 flex flex-row items-center gap-2">
             <img
               className="w-10 h-auto object-cover"

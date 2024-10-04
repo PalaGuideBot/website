@@ -8,7 +8,8 @@ interface OptionsCardProps {
 }
 
 const OptionsCard = ({ onReset }: OptionsCardProps) => {
-  const playerClickerStore = usePlayerClickerStore()
+  const setOptions = usePlayerClickerStore((state) => state.setOptions)
+  const { options } = usePlayerClickerStore()
 
   return (
     <Card>
@@ -25,10 +26,20 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
           </div>
         )}
         <Checkbox
-          onCheckedChange={() => playerClickerStore.toggleMarkOutLockedUpgrades()}
-          checked={playerClickerStore.markOutLockedUpgrades}
+          onCheckedChange={() =>
+            setOptions('markOutLockedUpgrades', !options.markOutLockedUpgrades)
+          }
+          checked={options.markOutLockedUpgrades}
           className="font-semibold"
           label="Distinguer les améliorations bloquées"
+        />
+        <Checkbox
+          onCheckedChange={() =>
+            setOptions('markOutLockedBuildings', !options.markOutLockedBuildings)
+          }
+          checked={options.markOutLockedBuildings}
+          className="font-semibold"
+          label="Distinguer les batîments bloquées"
         />
       </CardContent>
     </Card>
