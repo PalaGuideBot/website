@@ -196,7 +196,7 @@ const BuildingCard = ({
             </CoinWrapper>
           </div>
           <div className="flex flex-row items-baseline gap-1 flex-wrap">
-            <p>Prix apèrs achat:</p>
+            <p>Prix après achat:</p>
             <CoinWrapper>
               {formatNumber(getBuildingPrice(building.base_price, building.quantity + 1), {
                 notation: 'standard',

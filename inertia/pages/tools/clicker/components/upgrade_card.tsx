@@ -64,7 +64,7 @@ const UpgradeConditions = ({ upgrade }: UpgradeConditionsProps) => {
               case 'time':
                 return (
                   <li key={`${condition.type}-${condition.value}`}>
-                    La saison à commencé depuis <AccentText>{condition.value}</AccentText> jours
+                    La saison à commencée depuis <AccentText>{condition.value}</AccentText> jours
                   </li>
                 )
               case 'upgrade':
