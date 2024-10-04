@@ -32,3 +32,7 @@ export function noCase(
     .map(transform || ((input) => input.toLowerCase()))
     .join(' ')
 }
+
+export function ucFirst(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+}

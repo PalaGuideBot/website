@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, MousePointerClickIcon } from 'lucide-react'
 import { DateTime } from 'luxon'
 import * as React from 'react'
 import {
@@ -331,11 +331,14 @@ const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card id="amis" {...props}>
         <CardHeader
-          className={cn('flex flex-row justify-between items-center py-2', open && 'border-b')}
+          className={cn(
+            'space-y-0 flex flex-row justify-between items-center py-2',
+            open && 'border-b'
+          )}
         >
           <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
           <CollapsibleTrigger asChild>
-            <Button className="!m-0" variant="outline" isIconOnly>
+            <Button variant="outline" isIconOnly>
               <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
             </Button>
           </CollapsibleTrigger>
@@ -388,7 +391,7 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
 
   return (
     <Card id="evolution-des-metiers" {...props}>
-      <CardHeader className="border-b flex flex-row items-center justify-between py-2">
+      <CardHeader className="space-y-0 border-b flex flex-row items-center justify-between py-2">
         <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
         <ToggleGroup
           type="single"
@@ -399,7 +402,6 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
             }
           }}
           size="sm"
-          className="!m-0"
         >
           <ToggleGroup.Item value="level">Level</ToggleGroup.Item>
           <ToggleGroup.Item value="xp">XP</ToggleGroup.Item>
@@ -559,22 +561,28 @@ const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionPr
 
   return (
     <Card id="evolution-du-clicker" {...props}>
-      <CardHeader className="border-b flex flex-row items-center justify-between py-2">
+      <CardHeader className="space-y-0 border-b flex flex-row flex-wrap items-center justify-between py-2">
         <CardTitle href="#evolution-du-clicker">Évolution du clicker</CardTitle>
-        <ToggleGroup
-          type="single"
-          value={graphType}
-          onValueChange={(value) => {
-            if (value.length) {
-              setGraphType(value as 'rps' | 'production')
-            }
-          }}
-          size="sm"
-          className="!m-0"
-        >
-          <ToggleGroup.Item value="rps">RPS</ToggleGroup.Item>
-          <ToggleGroup.Item value="production">Production</ToggleGroup.Item>
-        </ToggleGroup>
+        <div className="flex flex-row gap-2">
+          <Button variant="outline" className="min-w-[34px]" isIconOnly asChild>
+            <Link href={`/tools/clicker/${player.username}`}>
+              <MousePointerClickIcon className="size-4" />
+            </Link>
+          </Button>
+          <ToggleGroup
+            type="single"
+            value={graphType}
+            onValueChange={(value) => {
+              if (value.length) {
+                setGraphType(value as 'rps' | 'production')
+              }
+            }}
+            size="sm"
+          >
+            <ToggleGroup.Item value="rps">RPS</ToggleGroup.Item>
+            <ToggleGroup.Item value="production">Production</ToggleGroup.Item>
+          </ToggleGroup>
+        </div>
       </CardHeader>
       <CardContent className="p-0 h-64">
         <ResponsiveContainer width="100%" height="100%">

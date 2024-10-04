@@ -1,6 +1,7 @@
 import { Header } from '~/components/header'
 import Sidebar from '~/components/sidebar'
 import { cn } from '~/lib/utils'
+import { Toaster } from '../ui/toast'
 
 const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
@@ -15,6 +16,7 @@ const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<H
           {children}
         </main>
       </div>
+      <Toaster richColors />
     </div>
   )
 }

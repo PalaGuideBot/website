@@ -13,6 +13,7 @@ import {
   LucideIcon,
   MenuIcon,
   MessageCircleQuestionIcon,
+  MousePointerClickIcon,
   ShieldIcon,
   ShieldQuestionIcon,
   SkullIcon,
@@ -94,6 +95,13 @@ const LINKS: Record<string, Array<LinkProps>> = {
       path: '/leaderboard/koth',
       label: 'Koth',
       icon: createIconLink(SwordsIcon),
+    },
+  ],
+  Outils: [
+    {
+      path: '/tools/clicker',
+      label: 'Clicker',
+      icon: createIconLink(MousePointerClickIcon),
     },
   ],
   Statut: [

@@ -94,8 +94,9 @@ interface ConfettiButtonProps extends ButtonProps {
   children?: React.ReactNode
 }
 
-function ConfettiButton({ options, children, ...props }: ConfettiButtonProps) {
+function ConfettiButton({ options, children, onClick, ...props }: ConfettiButtonProps) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(event)
     const rect = event.currentTarget.getBoundingClientRect()
     const x = rect.left + rect.width / 2
     const y = rect.top + rect.height / 2
@@ -115,6 +116,14 @@ function ConfettiButton({ options, children, ...props }: ConfettiButtonProps) {
   )
 }
 
-export { Confetti, ConfettiButton }
+function safeShapeFromText(
+  options: Parameters<typeof confetti.shapeFromText>[0]
+): ReturnType<typeof confetti.shapeFromText> {
+  //@ts-ignore - not available server-side
+  if (typeof document === 'undefined') return
+  return confetti.shapeFromText(options)
+}
+
+export { Confetti, ConfettiButton, safeShapeFromText }
 
 export default Confetti

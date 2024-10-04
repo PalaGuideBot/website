@@ -52,7 +52,10 @@ export default function PlayerShow(props: PlayerShowProps) {
         )}
         <Page className="p-4 lg:p-6">
           <PageTitle>Statistiques de joueur</PageTitle>
-          <SearchPlayerForm defaultValue={player?.username} />
+          <SearchPlayerForm
+            defaultValue={player?.username}
+            path={(username) => `/players/${username}`}
+          />
           {!error && !player && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>

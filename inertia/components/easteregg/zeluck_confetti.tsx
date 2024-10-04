@@ -1,5 +1,4 @@
-import confetti from 'canvas-confetti'
-import { ConfettiButton } from '~/components/magicui/confetti'
+import { ConfettiButton, safeShapeFromText } from '~/components/magicui/confetti'
 
 const ZeluckConfetti = () => {
   const scalar = 4
@@ -24,14 +23,6 @@ const ZeluckConfetti = () => {
       Zeluck
     </ConfettiButton>
   )
-}
-
-function safeShapeFromText(
-  options: Parameters<typeof confetti.shapeFromText>[0]
-): ReturnType<typeof confetti.shapeFromText> {
-  //@ts-ignore - not available server-side
-  if (typeof document === 'undefined') return
-  return confetti.shapeFromText(options)
 }
 
 export { ZeluckConfetti }
