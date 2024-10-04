@@ -54,7 +54,7 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
               }
               checked={options.markOutLockedBuildings}
             />
-            <span>Distinguer les batîments bloquées</span>
+            <span>Distinguer les batîments bloqués</span>
           </label>
         </Checkbox.Root>
         <Checkbox.Root className="items-center" asChild>
