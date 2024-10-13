@@ -1,6 +1,6 @@
-import type FactionsController from '#leaderboard/controllers/factions_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
+import { Alert } from '@lemonsqueezy/wedges'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -12,12 +12,15 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
+import type FactionsController from '#leaderboard/controllers/factions_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { DateRangeSelector } from '../components/date_range_selector'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
@@ -33,21 +36,14 @@ import {
 type FactionsIndexProps = InferPageProps<FactionsController, 'index'>
 
 export default function FactionsIndex(props: FactionsIndexProps) {
-  const { leaderboard } = props
+  const { leaderboard, options } = props
   const {
     pagination: { page, limit },
     pageOffset,
     setPagination,
   } = usePagination()
 
-  let lastLeaderboard: { data: any[] } | undefined
-
-  for (let i = leaderboard.length - 1; i >= 0; i--) {
-    if (leaderboard[i].data.length > 0) {
-      lastLeaderboard = leaderboard[i]
-      break
-    }
-  }
+  const lastLeaderboard = leaderboard.at(-1)
 
   const [first, second, third] = (lastLeaderboard?.data ?? []).slice(0, 3)
 
@@ -69,7 +65,7 @@ export default function FactionsIndex(props: FactionsIndexProps) {
   }, [page, limit])
 
   const names = useMemo(() => {
-    return lastLeaderboard?.data.slice(pageOffset, page * limit).map((user) => user.name)
+    return (lastLeaderboard?.data || []).slice(pageOffset, page * limit).map((user) => user.name)
   }, [page, limit])
 
   return (
@@ -77,52 +73,62 @@ export default function FactionsIndex(props: FactionsIndexProps) {
       <Head descriptors={[{ title: 'Classement: Factions' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Classement: Factions</PageTitle>
-          <PageSubTitle>Podium</PageSubTitle>
-          <PodiumCardWrapper>
-            <Podium data={first} position="first" />
-            <Podium data={second} position="second" compare={first.value} />
-            <Podium data={third} position="third" compare={first.value} />
-          </PodiumCardWrapper>
-          <PageSubTitle>Historique</PageSubTitle>
-          <Card>
-            <CardContent className="p-4 h-[500px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={graphData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" className="text-sm" />
-                  <YAxis orientation="right" className="text-sm" />
-                  <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
-                  <Legend
-                    formatter={(value) => (
-                      <Link className="hover:underline" href={`/factions/${value}`}>
-                        {value}
-                      </Link>
-                    )}
+          <div className="flex flex-row justify-between items-center">
+            <PageTitle>Classement: Factions</PageTitle>
+            <DateRangeSelector defaultOptions={options} />
+          </div>
+          {!lastLeaderboard && (
+            <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+          )}
+          {lastLeaderboard && (
+            <>
+              <PageSubTitle>Podium</PageSubTitle>
+              <PodiumCardWrapper>
+                <Podium data={first} position="first" />
+                <Podium data={second} position="second" compare={first.value} />
+                <Podium data={third} position="third" compare={first.value} />
+              </PodiumCardWrapper>
+              <PageSubTitle>Historique</PageSubTitle>
+              <Card>
+                <CardContent className="p-4 h-[500px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={graphData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" className="text-sm" />
+                      <YAxis orientation="right" className="text-sm" />
+                      <Tooltip content={<GraphTooltip pageOffset={pageOffset} />} />
+                      <Legend
+                        formatter={(value) => (
+                          <Link className="hover:underline" href={`/factions/${value}`}>
+                            {value}
+                          </Link>
+                        )}
+                      />
+                      {names?.map((name, index) => (
+                        <Line
+                          key={name}
+                          type="monotone"
+                          dataKey={name}
+                          name={name}
+                          stroke={`${graphColors.at(index % graphColors.length)}`}
+                          strokeWidth={3}
+                          dot={false}
+                        />
+                      ))}
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+                <CardFooter className="flex justify-center border-t p-2">
+                  <Pagination
+                    page={page}
+                    limit={limit}
+                    total={lastLeaderboard?.data.length ?? 0}
+                    onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
                   />
-                  {names?.map((name, index) => (
-                    <Line
-                      key={name}
-                      type="monotone"
-                      dataKey={name}
-                      name={name}
-                      stroke={`${graphColors.at(index % graphColors.length)}`}
-                      strokeWidth={3}
-                      dot={false}
-                    />
-                  ))}
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-            <CardFooter className="flex justify-center border-t p-2">
-              <Pagination
-                page={page}
-                limit={limit}
-                total={lastLeaderboard?.data.length ?? 0}
-                onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
-              />
-            </CardFooter>
-          </Card>
+                </CardFooter>
+              </Card>
+            </>
+          )}
         </Page>
       </DefaultLayout>
     </>
@@ -142,9 +148,7 @@ const Podium = ({
     <PodiumCard position={position}>
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.name}'s avatar`} />
       <PodiumCardPedestal>
-        <PodiumCardDescription href={`/factions/${data.name}`}>
-          {data.name}
-        </PodiumCardDescription>
+        <PodiumCardDescription href={`/factions/${data.name}`}>{data.name}</PodiumCardDescription>
         <PodiumCardValue>
           {data.value} <span>Elo</span>
         </PodiumCardValue>

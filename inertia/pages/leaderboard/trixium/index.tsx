@@ -1,6 +1,6 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Tabs } from '@lemonsqueezy/wedges'
+import { Alert, Tabs } from '@lemonsqueezy/wedges'
 import { ShieldIcon, UserIcon } from 'lucide-react'
 import { useMemo } from 'react'
 import {
@@ -26,6 +26,7 @@ import { usePagination } from '~/hooks/use_pagination'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { getHeadUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
+import { DateRangeSelector } from '../components/date_range_selector'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
@@ -43,12 +44,12 @@ import { usePuzzleStore } from '../stores/use_puzzle_store'
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
 export default function TrixiumIndex(props: TrixiumPageProps) {
-  const { leaderboardFaction, leaderboardPlayer } = props
+  const { leaderboardFaction, leaderboardPlayer, options } = props
 
   const [searchParams, setSearchParams] = useSearchParams({ tab: 'player' })
 
   const onChangeTab = (value: string) => {
-    setSearchParams({ tab: value })
+    setSearchParams({ tab: value, ...options })
   }
 
   return (
@@ -56,7 +57,10 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
       <Head descriptors={[{ title: 'Classement: Trixium' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Classement: Trixium</PageTitle>
+          <div className="flex flex-row justify-between items-center">
+            <PageTitle>Classement: Trixium</PageTitle>
+            <DateRangeSelector defaultOptions={options} />
+          </div>
           <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
             <Tabs.List>
               <Tabs.Trigger before={<UserIcon className="size-4" />} value="player">
@@ -88,9 +92,9 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
 
   const puzzle = usePuzzleStore()
 
-  const lastLeaderboard = leaderboard.at(-1)!
+  const lastLeaderboard = leaderboard.at(-1)
 
-  const [first, second, third] = lastLeaderboard.data.slice(0, 3)
+  const [first, second, third] = (lastLeaderboard?.data || []).slice(0, 3)
 
   const graphData = useMemo(() => {
     return leaderboard.map((data) => {
@@ -108,7 +112,9 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
   }, [page, limit])
 
   const usernames = useMemo(() => {
-    return lastLeaderboard.data.slice(pageOffset, page * limit).map((user) => user.username)
+    return (lastLeaderboard?.data || [])
+      .slice(pageOffset, page * limit)
+      .map((user) => user.username)
   }, [page, limit])
 
   const onChangePage = (p: number) => {
@@ -118,66 +124,73 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
 
   return (
     <div className="flex flex-col gap-4">
-      <PageSubTitle>Podium</PageSubTitle>
-      <PodiumCardWrapper>
-        <PlayerPodium data={first} position="first" />
-        <PlayerPodium data={second} position="second" compare={first.value} />
-        <PlayerPodium data={third} position="third" compare={first.value} />
-      </PodiumCardWrapper>
-      <PageSubTitle>Historique</PageSubTitle>
-      <Card>
-        <CardContent className="p-4 h-[500px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={graphData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" className="text-sm" />
-              <YAxis
-                orientation="right"
-                className="text-sm"
-                tickFormatter={(value) => formatNumber(value)}
-              />
-              <RechartsTooltip
-                content={
-                  <GraphTooltip
-                    pageOffset={pageOffset}
-                    valueFormatter={(value) =>
-                      formatNumber(Number(value), { notation: 'standard' })
+      {!lastLeaderboard && (
+        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+      )}
+      {lastLeaderboard && (
+        <>
+          <PageSubTitle>Podium</PageSubTitle>
+          <PodiumCardWrapper>
+            <PlayerPodium data={first} position="first" />
+            <PlayerPodium data={second} position="second" compare={first.value} />
+            <PlayerPodium data={third} position="third" compare={first.value} />
+          </PodiumCardWrapper>
+          <PageSubTitle>Historique</PageSubTitle>
+          <Card>
+            <CardContent className="p-4 h-[500px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={graphData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" className="text-sm" />
+                  <YAxis
+                    orientation="right"
+                    className="text-sm"
+                    tickFormatter={(value) => formatNumber(value)}
+                  />
+                  <RechartsTooltip
+                    content={
+                      <GraphTooltip
+                        pageOffset={pageOffset}
+                        valueFormatter={(value) =>
+                          formatNumber(Number(value), { notation: 'standard' })
+                        }
+                      />
                     }
                   />
-                }
-              />
-              <Legend
-                formatter={(value) => (
-                  <Link className="hover:underline" href={`/players/${value}`}>
-                    {value}
-                  </Link>
-                )}
-              />
-              {usernames.map((username, index) => {
-                return (
-                  <Line
-                    key={username}
-                    type="monotone"
-                    dataKey={username}
-                    name={username}
-                    stroke={`${graphColors.at(index % graphColors.length)}`}
-                    strokeWidth={3}
-                    dot={false}
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/players/${value}`}>
+                        {value}
+                      </Link>
+                    )}
                   />
-                )
-              })}
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-        <CardFooter className="flex justify-center border-t p-2">
-          <Pagination
-            page={page}
-            limit={limit}
-            total={lastLeaderboard.data.length}
-            onChange={onChangePage}
-          />
-        </CardFooter>
-      </Card>
+                  {usernames.map((username, index) => {
+                    return (
+                      <Line
+                        key={username}
+                        type="monotone"
+                        dataKey={username}
+                        name={username}
+                        stroke={`${graphColors.at(index % graphColors.length)}`}
+                        strokeWidth={3}
+                        dot={false}
+                      />
+                    )
+                  })}
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+            <CardFooter className="flex justify-center border-t p-2">
+              <Pagination
+                page={page}
+                limit={limit}
+                total={lastLeaderboard.data.length}
+                onChange={onChangePage}
+              />
+            </CardFooter>
+          </Card>
+        </>
+      )}
     </div>
   )
 }
@@ -189,9 +202,9 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
     setPagination,
   } = usePagination()
 
-  const lastLeaderboard = leaderboard.at(-1)!
+  const lastLeaderboard = leaderboard.at(-1)
 
-  const [first, second, third] = lastLeaderboard.data.slice(0, 3)
+  const [first, second, third] = (lastLeaderboard?.data || []).slice(0, 3)
 
   const graphData = useMemo(() => {
     return leaderboard.map((data) => {
@@ -210,7 +223,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   }, [page, limit])
 
   const factions = useMemo(() => {
-    return lastLeaderboard.data
+    return (lastLeaderboard?.data || [])
       .slice(pageOffset, page * limit)
       .map((faction) =>
         faction.name && faction.name !== 'undefined' ? faction.name : faction.uuid
@@ -219,66 +232,73 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
 
   return (
     <div className="flex flex-col gap-4">
-      <PageSubTitle>Podium</PageSubTitle>
-      <PodiumCardWrapper>
-        <FactionPodium data={first} position="first" />
-        <FactionPodium data={second} position="second" compare={first.value} />
-        <FactionPodium data={third} position="third" compare={first.value} />
-      </PodiumCardWrapper>
-      <PageSubTitle>Historique</PageSubTitle>
-      <Card>
-        <CardContent className="p-4 h-[500px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={graphData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" className="text-sm" />
-              <YAxis
-                orientation="right"
-                className="text-sm"
-                tickFormatter={(value) => formatNumber(value)}
-              />
-              <RechartsTooltip
-                content={
-                  <GraphTooltip
-                    pageOffset={pageOffset}
-                    valueFormatter={(value) =>
-                      formatNumber(Number(value), { notation: 'standard' })
+      {!lastLeaderboard && (
+        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+      )}
+      {lastLeaderboard && (
+        <>
+          <PageSubTitle>Podium</PageSubTitle>
+          <PodiumCardWrapper>
+            <FactionPodium data={first} position="first" />
+            <FactionPodium data={second} position="second" compare={first.value} />
+            <FactionPodium data={third} position="third" compare={first.value} />
+          </PodiumCardWrapper>
+          <PageSubTitle>Historique</PageSubTitle>
+          <Card>
+            <CardContent className="p-4 h-[500px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={graphData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" className="text-sm" />
+                  <YAxis
+                    orientation="right"
+                    className="text-sm"
+                    tickFormatter={(value) => formatNumber(value)}
+                  />
+                  <RechartsTooltip
+                    content={
+                      <GraphTooltip
+                        pageOffset={pageOffset}
+                        valueFormatter={(value) =>
+                          formatNumber(Number(value), { notation: 'standard' })
+                        }
+                      />
                     }
                   />
-                }
-              />
-              <Legend
-                formatter={(value) => (
-                  <Link className="hover:underline" href={`/factions/${value}`}>
-                    {value}
-                  </Link>
-                )}
-              />
-              {factions.map((faction, index) => {
-                return (
-                  <Line
-                    key={faction}
-                    type="monotone"
-                    dataKey={faction}
-                    name={faction}
-                    stroke={`${graphColors.at(index % graphColors.length)}`}
-                    strokeWidth={3}
-                    dot={false}
+                  <Legend
+                    formatter={(value) => (
+                      <Link className="hover:underline" href={`/factions/${value}`}>
+                        {value}
+                      </Link>
+                    )}
                   />
-                )
-              })}
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-        <CardFooter className="flex justify-center border-t p-2">
-          <Pagination
-            page={page}
-            limit={limit}
-            total={lastLeaderboard.data.length}
-            onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
-          />
-        </CardFooter>
-      </Card>
+                  {factions.map((faction, index) => {
+                    return (
+                      <Line
+                        key={faction}
+                        type="monotone"
+                        dataKey={faction}
+                        name={faction}
+                        stroke={`${graphColors.at(index % graphColors.length)}`}
+                        strokeWidth={3}
+                        dot={false}
+                      />
+                    )
+                  })}
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+            <CardFooter className="flex justify-center border-t p-2">
+              <Pagination
+                page={page}
+                limit={limit}
+                total={lastLeaderboard.data.length}
+                onChange={(p) => setPagination((prev) => ({ ...prev, page: p }))}
+              />
+            </CardFooter>
+          </Card>
+        </>
+      )}
     </div>
   )
 }

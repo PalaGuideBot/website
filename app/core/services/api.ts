@@ -104,8 +104,10 @@ export class ApiService {
   }
 
   async getLeaderboard<T extends LeaderboardCategory>(
-    category: T
+    category: T,
+    options?: { from?: string; to?: string } | null
   ): Promise<Infer<(typeof leaderboardValidators)[T]>> {
+    const parsedOptions = new URLSearchParams(options || {})
     try {
       if (!leaderboardCategories.includes(category)) {
         throw new Exception(`Leaderboard category "${category}" don't exists`, {
@@ -113,7 +115,7 @@ export class ApiService {
           status: 400,
         })
       }
-      const response = await client.get(`leaderboard/${category}`)
+      const response = await client.get(`leaderboard/${category}?${parsedOptions.toString()}`)
       const data = await response.json()
       return leaderboardValidators[category].validate(data)
     } catch (error: unknown) {
@@ -128,8 +130,10 @@ export class ApiService {
   }
 
   async getLeaderboardTrixium<T extends LeaderboardTrixiumCategory>(
-    category: T
+    category: T,
+    options?: { from?: string; to?: string } | null
   ): Promise<Infer<(typeof leaderboardTrixiumValidators)[T]>> {
+    const parsedOptions = new URLSearchParams(options || {})
     try {
       if (!trixiumLeaderboardCategories.includes(category)) {
         throw new Exception(`Leaderboard trixium category "${category}" don't exists`, {
@@ -137,7 +141,9 @@ export class ApiService {
           status: 400,
         })
       }
-      const response = await client.get(`leaderboard/trixium/${category}`)
+      const response = await client.get(
+        `leaderboard/trixium/${category}?${parsedOptions.toString()}`
+      )
       const data = await response.json()
       return leaderboardTrixiumValidators[category].validate(data)
     } catch (error: unknown) {

@@ -1,5 +1,6 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
+import { Alert } from '@lemonsqueezy/wedges'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -22,6 +23,7 @@ import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { getHeadUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
+import { DateRangeSelector } from '../components/date_range_selector'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
@@ -39,7 +41,7 @@ import { usePuzzleStore } from '../stores/use_puzzle_store'
 type ClickerIndexProps = InferPageProps<ClickerController, 'index'>
 
 export default function ClickerIndex(props: ClickerIndexProps) {
-  const { leaderboard } = props
+  const { leaderboard, options } = props
   const {
     pagination: { page, limit },
     pageOffset,
@@ -48,9 +50,9 @@ export default function ClickerIndex(props: ClickerIndexProps) {
 
   const puzzle = usePuzzleStore()
 
-  const lastLeaderboard = leaderboard.at(-1)!
+  const lastLeaderboard = leaderboard.at(-1)
 
-  const [first, second, third] = lastLeaderboard.data.slice(0, 3)
+  const [first, second, third] = (lastLeaderboard?.data || []).slice(0, 3)
 
   const graphData = useMemo(() => {
     return leaderboard.map((data) => {
@@ -68,7 +70,9 @@ export default function ClickerIndex(props: ClickerIndexProps) {
   }, [page, limit])
 
   const usernames = useMemo(() => {
-    return lastLeaderboard.data.slice(pageOffset, page * limit).map((user) => user.username)
+    return (lastLeaderboard?.data || [])
+      .slice(pageOffset, page * limit)
+      .map((user) => user.username)
   }, [page, limit])
 
   const onChangePage = (p: number) => {
@@ -81,65 +85,75 @@ export default function ClickerIndex(props: ClickerIndexProps) {
       <Head descriptors={[{ title: 'Classement: Clicker' }]} />
       <DefaultLayout>
         <Page>
-          <PageTitle>Classement: Clicker</PageTitle>
-          <PageSubTitle>Podium</PageSubTitle>
-          <PodiumCardWrapper>
-            <Podium data={first} position="first" />
-            <Podium data={second} position="second" compare={first.value} />
-            <Podium data={third} position="third" compare={first.value} />
-          </PodiumCardWrapper>
-          <PageSubTitle>Historique</PageSubTitle>
-          <Card>
-            <CardContent className="p-4 h-[500px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={graphData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" className="text-sm" />
-                  <YAxis
-                    orientation="right"
-                    className="text-sm"
-                    tickFormatter={(value) => formatNumber(value)}
-                  />
-                  <RechartsTooltip
-                    content={
-                      <GraphTooltip
-                        pageOffset={pageOffset}
-                        valueFormatter={(value) =>
-                          formatNumber(Number(value), { notation: 'standard' })
+          <div className="flex flex-row justify-between items-center">
+            <PageTitle>Classement: Clicker</PageTitle>
+            <DateRangeSelector defaultOptions={options} />
+          </div>
+          {!lastLeaderboard && (
+            <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+          )}
+          {lastLeaderboard && (
+            <>
+              <PageSubTitle>Podium</PageSubTitle>
+              <PodiumCardWrapper>
+                <Podium data={first} position="first" />
+                <Podium data={second} position="second" compare={first.value} />
+                <Podium data={third} position="third" compare={first.value} />
+              </PodiumCardWrapper>
+              <PageSubTitle>Historique</PageSubTitle>
+              <Card>
+                <CardContent className="p-4 h-[500px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={graphData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" className="text-sm" />
+                      <YAxis
+                        orientation="right"
+                        className="text-sm"
+                        tickFormatter={(value) => formatNumber(value)}
+                      />
+                      <RechartsTooltip
+                        content={
+                          <GraphTooltip
+                            pageOffset={pageOffset}
+                            valueFormatter={(value) =>
+                              formatNumber(Number(value), { notation: 'standard' })
+                            }
+                          />
                         }
                       />
-                    }
+                      <Legend
+                        formatter={(value) => (
+                          <Link className="hover:underline" href={`/players/${value}`}>
+                            {value}
+                          </Link>
+                        )}
+                      />
+                      {usernames.map((username, index) => (
+                        <Line
+                          key={username}
+                          type="monotone"
+                          dataKey={username}
+                          name={username}
+                          stroke={`${graphColors.at(index % graphColors.length)}`}
+                          strokeWidth={3}
+                          dot={false}
+                        />
+                      ))}
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+                <CardFooter className="flex justify-center border-t p-2">
+                  <Pagination
+                    page={page}
+                    limit={limit}
+                    total={lastLeaderboard.data.length}
+                    onChange={onChangePage}
                   />
-                  <Legend
-                    formatter={(value) => (
-                      <Link className="hover:underline" href={`/players/${value}`}>
-                        {value}
-                      </Link>
-                    )}
-                  />
-                  {usernames.map((username, index) => (
-                    <Line
-                      key={username}
-                      type="monotone"
-                      dataKey={username}
-                      name={username}
-                      stroke={`${graphColors.at(index % graphColors.length)}`}
-                      strokeWidth={3}
-                      dot={false}
-                    />
-                  ))}
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-            <CardFooter className="flex justify-center border-t p-2">
-              <Pagination
-                page={page}
-                limit={limit}
-                total={lastLeaderboard.data.length}
-                onChange={onChangePage}
-              />
-            </CardFooter>
-          </Card>
+                </CardFooter>
+              </Card>
+            </>
+          )}
         </Page>
       </DefaultLayout>
     </>
