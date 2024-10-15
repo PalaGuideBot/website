@@ -4,12 +4,12 @@
 
 ### Website
 
-- Ajout d'un bouton pour choisir la saison / tranche de date sur `/players` et les `/leaderboard`
-- Mise à jour des informations de confidentialité (privacy).
+- Ajout d'un bouton permettant de sélectionner la saison ou la période sur les pages `/players` et `/leaderboard`
+- Modification des informations de confidentialité (privacy).
 
 ### Bot
 
-- Ajout de la possibilité d'utiliser le bot partout (User-Installable).
+- Ajout de la fonctionnalité permettant d'utiliser le bot partout (User-Installable).
 - Correction des calculs avec la commande `/calculator`.
 - Correction des calculs avec la commande `/reverse-calculator`.
 
