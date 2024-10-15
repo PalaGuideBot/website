@@ -1,5 +1,18 @@
 # Changelog
 
+## 16/10/2024
+
+### Website
+
+- Ajout d'un bouton pour choisir la saison / tranche de date sur `/players` et les `/leaderboard`
+- Mise à jour des informations de confidentialité (privacy).
+
+### Bot
+
+- Ajout de la possibilité d'utiliser le bot partout (User-Installable).
+- Correction des calculs avec la commande `/calculator`.
+- Correction des calculs avec la commande `/reverse-calculator`.
+
 ## 04/10/2024
 
 ### Website
