@@ -39,6 +39,13 @@ const questions: Question[] = [
     answer:
       'Si vous avez une erreur 500, cela signifie que notre application a rencontré un problème. Vous devez patienter le temps que ce soit résolu ou vous pouvez nous contacter via notre serveur Discord.',
   },
+  {
+    id: 5,
+    content:
+      "Pourquoi le filtre sur les statistiques d'un joueur n'affectent pas toutes les données ?",
+    answer:
+      "Le filtre s'applique uniquement sur les informations disposant d'un historique, en occurence: la faction du joueur, son rang, ses niveaux de métiers, son argent, son temps de jeu (si activé) et sa progression sur le Clicker.",
+  },
 ]
 
 export default function FaqPage() {
