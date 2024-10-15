@@ -3,6 +3,7 @@ import { errors } from '@vinejs/vine'
 import { Infer } from '@vinejs/vine/types'
 import ky, { HTTPError } from 'ky'
 
+import type { DistanceFilter } from '#core/validators/filter_validator'
 import {
   minecraftAccountLinkValidator,
   minecraftTokenLinkValidator,
@@ -37,9 +38,12 @@ const client = ky.create({
 })
 
 export class ApiService {
-  async getPlayer(username: string) {
+  async getPlayer(username: string, options?: { from?: string; to?: string } | null) {
+    const parsedOptions = new URLSearchParams(options || {})
     try {
-      const response = await client.get(`players/${username}`)
+      const response = await client.get(`players/${username}`, {
+        searchParams: parsedOptions,
+      })
       const data = (await response.json()) as Record<string, unknown>
       return playerInfoValidator.validate({ ...data, username })
     } catch (error) {
@@ -105,7 +109,7 @@ export class ApiService {
 
   async getLeaderboard<T extends LeaderboardCategory>(
     category: T,
-    options?: { from?: string; to?: string } | null
+    options?: Partial<DistanceFilter> | null
   ): Promise<Infer<(typeof leaderboardValidators)[T]>> {
     const parsedOptions = new URLSearchParams(options || {})
     try {
@@ -115,7 +119,7 @@ export class ApiService {
           status: 400,
         })
       }
-      const response = await client.get(`leaderboard/${category}?${parsedOptions.toString()}`)
+      const response = await client.get(`leaderboard/${category}`, { searchParams: parsedOptions })
       const data = await response.json()
       return leaderboardValidators[category].validate(data)
     } catch (error: unknown) {
@@ -131,7 +135,7 @@ export class ApiService {
 
   async getLeaderboardTrixium<T extends LeaderboardTrixiumCategory>(
     category: T,
-    options?: { from?: string; to?: string } | null
+    options?: Partial<DistanceFilter> | null
   ): Promise<Infer<(typeof leaderboardTrixiumValidators)[T]>> {
     const parsedOptions = new URLSearchParams(options || {})
     try {
@@ -141,9 +145,9 @@ export class ApiService {
           status: 400,
         })
       }
-      const response = await client.get(
-        `leaderboard/trixium/${category}?${parsedOptions.toString()}`
-      )
+      const response = await client.get(`leaderboard/trixium/${category}`, {
+        searchParams: parsedOptions,
+      })
       const data = await response.json()
       return leaderboardTrixiumValidators[category].validate(data)
     } catch (error: unknown) {

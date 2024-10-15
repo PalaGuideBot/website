@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
+import { Alert, Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { ChevronDown, MousePointerClickIcon } from 'lucide-react'
 import { DateTime } from 'luxon'
 import * as React from 'react'
@@ -52,27 +52,36 @@ type PlayerDetailsProps = {
 }
 
 export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
+  const lastPlayerDataExists = Boolean(player.data.at(-1))
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
-        <SkinSection player={player} />
-        <InformationsSection player={player} />
-        <JobsSection player={player} />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <MountSection mount={player.mount} />
-        <PetSection pet={player.pet} />
-      </div>
-      <AchievementsSection achievements={player.achievements} />
-      <FriendsSection friends={player.friends} />
-      <JobsEvolutionSection player={player} />
-      <MoneyEvolutionSection player={player} />
-      <ClickerEvolutionSection player={player} />
-      <ClassementsSection player={player} />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FactionHistorySection player={player} />
-        <RanksHistorySection player={player} />
-      </div>
+      {!lastPlayerDataExists && (
+        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+      )}
+      {lastPlayerDataExists && (
+        <>
+          <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
+            <SkinSection player={player} />
+            <InformationsSection player={player} />
+            <JobsSection player={player} />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <MountSection mount={player.mount} />
+            <PetSection pet={player.pet} />
+          </div>
+          <AchievementsSection achievements={player.achievements} />
+          <FriendsSection friends={player.friends} />
+          <JobsEvolutionSection player={player} />
+          <MoneyEvolutionSection player={player} />
+          <ClickerEvolutionSection player={player} />
+          <ClassementsSection player={player} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FactionHistorySection player={player} />
+            <RanksHistorySection player={player} />
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -112,56 +121,62 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
         <CardTitle href="#informations">Informations</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pt-4">
-        <ul className="h-full flex flex-col gap-2 justify-around">
+        <ul className="h-full flex flex-col gap-2">
           <li>
             <InformationLine
               label="Première connexion"
               value={formatDate(new Date(player.firstJoin), DateTime.DATE_MED)}
             />
           </li>
-          <li>
-            <InformationLine
-              label="Rank"
-              value={<PaladiumRank rank={lastPlayerData!.data.rank} />}
-            />
-          </li>
-          <li>
-            <InformationLine
-              label="Faction"
-              value={
-                <Link
-                  className="text-sm font-mc-dungueons"
-                  href={`/factions/${lastPlayerData!.data.faction}`}
-                >
-                  <span>{lastPlayerData!.data.faction || 'Wilderness'}</span>
-                  {lastPlayerData!.data.factionRank && (
-                    <span>{` - ${lastPlayerData!.data.factionRank}`}</span>
-                  )}
-                </Link>
-              }
-            />
-          </li>
-          <li>
-            <InformationLine label="Money" value={formatPrice(lastPlayerData!.data.money)} />
-          </li>
-          <li>
-            <InformationLine
-              label="Temps de jeu"
-              value={
-                <HiddenInformationController
-                  active={lastPlayerData!.data.timePlayed === -1}
-                  children={<span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>}
-                  side="right"
-                  align="center"
-                  fallback={
-                    <span className="text-xs sm:text-sm font-mc-dungueons">
-                      {formatDuration(lastPlayerData!.data.timePlayed)}
-                    </span>
+          {lastPlayerData && (
+            <>
+              <li>
+                <InformationLine
+                  label="Rank"
+                  value={<PaladiumRank rank={lastPlayerData.data.rank} />}
+                />
+              </li>
+              <li>
+                <InformationLine
+                  label="Faction"
+                  value={
+                    <Link
+                      className="text-sm font-mc-dungueons"
+                      href={`/factions/${lastPlayerData.data.faction}`}
+                    >
+                      <span>{lastPlayerData.data.faction || 'Wilderness'}</span>
+                      {lastPlayerData.data.factionRank && (
+                        <span>{` - ${lastPlayerData.data.factionRank}`}</span>
+                      )}
+                    </Link>
                   }
                 />
-              }
-            />
-          </li>
+              </li>
+              <li>
+                <InformationLine label="Money" value={formatPrice(lastPlayerData.data.money)} />
+              </li>
+              <li>
+                <InformationLine
+                  label="Temps de jeu"
+                  value={
+                    <HiddenInformationController
+                      active={lastPlayerData.data.timePlayed === -1}
+                      children={
+                        <span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>
+                      }
+                      side="right"
+                      align="center"
+                      fallback={
+                        <span className="text-xs sm:text-sm font-mc-dungueons">
+                          {formatDuration(lastPlayerData.data.timePlayed)}
+                        </span>
+                      }
+                    />
+                  }
+                />
+              </li>
+            </>
+          )}
         </ul>
       </CardContent>
     </Card>
@@ -175,13 +190,17 @@ interface JobsSectionProps extends React.ComponentProps<typeof Card> {
 const JobsSection = ({ player, className, ...props }: JobsSectionProps) => {
   const lastPlayerData = player.data.at(-1)
 
+  if (!lastPlayerData) {
+    return null
+  }
+
   return (
     <Card id="metiers" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
       <CardHeader className="border-b py-2.5">
         <CardTitle href="#metiers">Métiers</CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
-        {Object.entries(lastPlayerData!.data.jobs).map(([job, info]) => (
+        {Object.entries(lastPlayerData.data.jobs).map(([job, info]) => (
           <PaladiumJob key={job} job={job} info={info} />
         ))}
       </CardContent>
@@ -460,7 +479,7 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
                 value.toString().charAt(0).toUpperCase() + value.toString().slice(1)
               }
             />
-            {Object.keys(player.data[0].data.jobs).map((job) => (
+            {Object.keys(smallJobIcons).map((job) => (
               <Line
                 key={job}
                 type="monotone"

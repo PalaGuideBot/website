@@ -6,6 +6,7 @@ import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { useAuth } from '~/hooks/use_auth'
@@ -16,7 +17,7 @@ import { SearchPlayerForm } from './components/search_player_form'
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
 export default function PlayerShow(props: PlayerShowProps) {
-  const { player, examplePlayer } = props
+  const { player, examplePlayer, options } = props
 
   const {
     props: { error },
@@ -51,7 +52,10 @@ export default function PlayerShow(props: PlayerShowProps) {
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
-          <PageTitle>Statistiques de joueur</PageTitle>
+          <div className="flex flex-row justify-between items-center">
+            <PageTitle>Statistiques de joueur</PageTitle>
+            <DateRangeSelector defaultOptions={options} />
+          </div>
           <SearchPlayerForm
             defaultValue={player?.username}
             path={(username) => `/players/${username}`}

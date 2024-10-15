@@ -1,4 +1,5 @@
 import vine from '@vinejs/vine'
+import { Infer } from '@vinejs/vine/types'
 import { DateTime } from 'luxon'
 
 type DistanceValidatorMeta = {
@@ -30,3 +31,5 @@ export const distanceValidator = vine.withMetaData<DistanceValidatorMeta>().comp
       .transform((value) => DateTime.fromJSDate(value).toSQLDate()!),
   })
 )
+
+export type DistanceFilter = Infer<typeof distanceValidator>

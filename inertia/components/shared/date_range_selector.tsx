@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
 import { seasons } from '#core/content/paladium'
+import type { DistanceFilter } from '#core/validators/filter_validator'
 import { Calendar } from '~/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { useSearchParams } from '~/hooks/use_search_params'
@@ -21,10 +22,7 @@ import { formatDate } from '~/lib/date'
 import { cn } from '~/lib/utils'
 
 interface DateRangeSelectorProps {
-  defaultOptions?: {
-    from: string
-    to: string
-  } | null
+  defaultOptions?: DistanceFilter | null
 }
 
 const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {

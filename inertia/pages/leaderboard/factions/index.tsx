@@ -16,11 +16,11 @@ import {
 import type FactionsController from '#leaderboard/controllers/factions_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
-import { DateRangeSelector } from '../components/date_range_selector'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
 import {
