@@ -4,7 +4,8 @@
 
 ### Website
 
-- Ajout d'un bouton permettant de sélectionner la saison ou la période sur les pages `/players` et `/leaderboard`
+- Ajout d'un bouton permettant de sélectionner la saison ou la période sur les pages `/players` et `/leaderboard`.
+- Modification de la fréquence de mise à jour du `/status/paladium` de 10 minutes à 5 minutes.
 - Modification des informations de confidentialité (privacy).
 
 ### Bot
