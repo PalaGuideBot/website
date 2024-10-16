@@ -18,8 +18,6 @@ export default class MoneyController {
       },
     })
 
-    console.log(options)
-
     const leaderboard = await this.api.getLeaderboard('money', options)
     return inertia.render('leaderboard/money/index', { leaderboard, options })
   }

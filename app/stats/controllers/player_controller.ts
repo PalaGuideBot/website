@@ -52,7 +52,6 @@ export default class PlayerController {
         })
       }
     }
-    console.log(player)
     return inertia.render('stats/players/show', {
       player,
       examplePlayer,
