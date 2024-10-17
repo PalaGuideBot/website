@@ -37,8 +37,8 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
     }
     if (input.from.isValid && input.to.isValid) {
       return {
-        from: input.from.toJSDate(),
-        to: input.to.toJSDate(),
+        from: input.from.startOf('day').toJSDate(),
+        to: input.to.endOf('day').toJSDate(),
       }
     }
   })
