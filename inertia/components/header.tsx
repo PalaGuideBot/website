@@ -1,19 +1,27 @@
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
+import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import { LogInIcon } from 'lucide-react'
+
 import { useAuth } from '~/hooks/use_auth'
-import { MobileNavigation } from './nav'
 import ThemeToggler from './shared/theme_toggler'
-import { UserDropdown } from './shared/user_dropdown'
+import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
+import { SidebarTrigger } from './ui/sidebar'
 
 const Header = () => {
   const user = useAuth()
 
   return (
     <header className="md:hidden min-h-14 w-full border-b flex gap-4 justify-between items-center px-4 bg-background">
-      <MobileNavigation />
+      <SidebarTrigger />
       {user ? (
-        <UserDropdown user={user} />
+        <DropdownMenu>
+          <DropdownMenu.Trigger asChild>
+            <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm text-surface-600 transition-colors duration-100 wg-antialiased hover:bg-surface dark:hover:bg-white/5">
+              <UserDropdownTrigger user={user} />
+            </span>
+          </DropdownMenu.Trigger>
+          <UserDropdownContent user={user} />
+        </DropdownMenu>
       ) : (
         <>
           <Link href="/">
@@ -43,7 +51,16 @@ const StaffHeader = () => {
           <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
         </Link>
         <div className="flex gap-2 items-center justify-center">
-          {user && <UserDropdown user={user} />}
+          {user && (
+            <DropdownMenu>
+              <DropdownMenu.Trigger asChild>
+                <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm text-surface-600 transition-colors duration-100 wg-antialiased hover:bg-surface dark:hover:bg-white/5">
+                  <UserDropdownTrigger user={user} />
+                </span>
+              </DropdownMenu.Trigger>
+              <UserDropdownContent user={user} />
+            </DropdownMenu>
+          )}
         </div>
       </div>
     </header>

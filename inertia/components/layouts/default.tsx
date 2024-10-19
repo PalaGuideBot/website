@@ -1,13 +1,14 @@
 import { Header } from '~/components/header'
-import Sidebar from '~/components/sidebar'
 import { cn } from '~/lib/utils'
+import { AppSidebar } from '../app_sidebar'
+import { SidebarInset, SidebarProvider } from '../ui/sidebar'
 import { Toaster } from '../ui/toast'
 
 const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex flex-row">
-      <Sidebar />
-      <div className="flex flex-col w-full">
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
         <Header />
         <main
           className={cn('flex w-full flex-col gap-4 p-4 lg:gap-6 lg:p-6', className)}
@@ -15,9 +16,9 @@ const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<H
         >
           {children}
         </main>
-      </div>
+      </SidebarInset>
       <Toaster richColors />
-    </div>
+    </SidebarProvider>
   )
 }
 
