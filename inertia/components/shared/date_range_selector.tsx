@@ -28,6 +28,7 @@ interface DateRangeSelectorProps {
 const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
   const [searchParams, setSearchParams] = useSearchParams(defaultOptions || {})
 
+  const [open, setOpen] = useState(false)
   const [date, setDate] = useState<DateRange | undefined>(() => {
     const input = {
       from: DateTime.fromSQL(
@@ -55,7 +56,28 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
 
   const onSelectChange = (value: string) => {
     const [from, to] = value.split(':')
-    setSearchParams({ from, to })
+    setSearchParams(
+      { from, to },
+      {
+        onSuccess() {
+          setDate({
+            from: DateTime.fromSQL(from).startOf('day').toJSDate(),
+            to: DateTime.fromSQL(to).endOf('day').toJSDate(),
+          })
+        },
+      }
+    )
+  }
+
+  const onOpenChange = (isOpen: boolean) => {
+    if (!isOpen && defaultOptions) {
+      setDate({
+        from: DateTime.fromSQL(defaultOptions.from).startOf('day').toJSDate(),
+        to: DateTime.fromSQL(defaultOptions.to).endOf('day').toJSDate(),
+      })
+    }
+
+    setOpen(isOpen)
   }
 
   const seasonOptions = seasons.map((season) => ({
@@ -68,7 +90,7 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
   )
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
           id="date"
