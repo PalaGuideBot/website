@@ -84,7 +84,7 @@ export default function BossIndex(props: BossIndexProps) {
       <Head descriptors={[{ title: 'Classement: Boss' }]} />
       <DefaultLayout>
         <Page>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Boss</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>

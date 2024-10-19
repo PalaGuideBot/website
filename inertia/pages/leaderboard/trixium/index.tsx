@@ -57,7 +57,7 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
       <Head descriptors={[{ title: 'Classement: Trixium' }]} />
       <DefaultLayout>
         <Page>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Trixium</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>

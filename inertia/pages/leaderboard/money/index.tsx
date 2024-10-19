@@ -85,7 +85,7 @@ export default function MoneyIndex(props: MoneyIndexProps) {
       <Head descriptors={[{ title: 'Classement: Money' }]} />
       <DefaultLayout>
         <Page>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Money</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>

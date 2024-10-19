@@ -85,7 +85,7 @@ export default function ClickerIndex(props: ClickerIndexProps) {
       <Head descriptors={[{ title: 'Classement: Clicker' }]} />
       <DefaultLayout>
         <Page>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Clicker</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>

@@ -85,7 +85,7 @@ export default function KothIndex(props: KothIndexProps) {
       <Head descriptors={[{ title: 'Classement: Koth' }]} />
       <DefaultLayout>
         <Page>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Koth</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>

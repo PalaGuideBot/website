@@ -52,7 +52,7 @@ export default function PlayerShow(props: PlayerShowProps) {
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Statistiques de joueur</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>
