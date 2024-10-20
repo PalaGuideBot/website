@@ -1,7 +1,6 @@
-import { DateInput, DateTime, DateTimeFormatOptions, Interval, Settings } from 'luxon'
+import { DateInput, DateTimeFormatOptions, Interval } from 'luxon'
 
-Settings.defaultLocale = 'fr'
-Settings.defaultZone = 'Europe/Paris'
+import { DateTime } from '~/lib/luxon'
 
 export function formatDate(
   date: string | Date,

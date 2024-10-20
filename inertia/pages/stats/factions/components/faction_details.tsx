@@ -8,11 +8,11 @@ import {
   ChartNoAxesGantt,
   ChevronDown,
 } from 'lucide-react'
-import { DateTime } from 'luxon'
 import { useMemo, useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { getHeadUrl } from '~/lib/minecraft'
 import { cn } from '~/lib/utils'
 import { InformationLine } from '../../components/information_line'

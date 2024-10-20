@@ -1,6 +1,5 @@
 import { Badge } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
-import { DateTime } from 'luxon'
 import * as React from 'react'
 
 import type { dailyEventsValidator } from '#event/validators/event_validator'
@@ -15,6 +14,7 @@ import {
 } from '~/components/ui/carousel'
 import { getEventImage } from '~/content/events'
 import { translateWeekday } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { cn } from '~/lib/utils'
 
 interface EventCardProps extends React.ComponentProps<typeof Card> {

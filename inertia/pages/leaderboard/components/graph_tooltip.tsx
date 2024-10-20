@@ -1,8 +1,9 @@
-import { DateTime } from 'luxon'
 import { TooltipProps } from 'recharts'
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
+
 import { Card, CardContent } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 
 export const GraphTooltip = <TValue extends ValueType, TName extends NameType>({
   active,

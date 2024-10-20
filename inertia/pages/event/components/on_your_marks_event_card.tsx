@@ -1,6 +1,5 @@
 import { Infer } from '@vinejs/vine/types'
 import { HourglassIcon } from 'lucide-react'
-import { DateTime } from 'luxon'
 import * as React from 'react'
 
 import type { eventFactionOnYourMarksValidator } from '#event/validators/event_validator'
@@ -16,6 +15,7 @@ import {
 import { translateOnYourMarksGoalType, translateOnYourMarksServerType } from '~/content/events'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
 import { formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { formatNumber } from '~/lib/utils'
 
 interface OnYourMarksEventCardProps extends React.ComponentProps<typeof Card> {

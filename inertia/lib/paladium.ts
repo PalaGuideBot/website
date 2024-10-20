@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { DateTime } from '~/lib/luxon'
 
 export const PALADIUM_OPTIONS = {
   MIN_JOB_LEVEL: 1,

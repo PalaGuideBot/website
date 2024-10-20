@@ -1,6 +1,7 @@
-import { DateTime } from 'luxon'
 import * as React from 'react'
 import { useCountdown } from 'usehooks-ts'
+
+import { DateTime } from '~/lib/luxon'
 
 type UseDateCountdownOptions = {
   countStop: number

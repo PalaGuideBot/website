@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Alert, Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
 import { ChevronDown, MousePointerClickIcon } from 'lucide-react'
-import { DateTime } from 'luxon'
 import * as React from 'react'
 import {
   Area,
@@ -40,6 +39,7 @@ import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
 import { formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'

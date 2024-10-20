@@ -7,9 +7,10 @@ import {
   ShieldQuestionIcon,
   TriangleAlertIcon,
 } from 'lucide-react'
-import { DateTime } from 'luxon'
+
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { eachDayOfInterval, eachHourOfDate, formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { cn } from '~/lib/utils'
 import { PaladiumStatus } from '~/types'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'

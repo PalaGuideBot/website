@@ -1,5 +1,4 @@
 import { Button, ToggleGroup } from '@lemonsqueezy/wedges'
-import { DateTime } from 'luxon'
 import { useState } from 'react'
 import {
   CartesianGrid,
@@ -14,6 +13,7 @@ import {
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
+import { DateTime } from '~/lib/luxon'
 import { cn, formatNumber } from '~/lib/utils'
 
 export type ApiStatsEndpointsCardProps = {
