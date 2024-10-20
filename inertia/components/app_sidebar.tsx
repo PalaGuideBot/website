@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react'
-import { DropdownMenu } from '@lemonsqueezy/wedges'
+import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import {
   CableIcon,
   CalendarIcon,
@@ -7,6 +7,7 @@ import {
   ChevronRight,
   ExternalLinkIcon,
   FileEditIcon,
+  LogInIcon,
   MessageCircleQuestionIcon,
   ShieldQuestionIcon,
   ShovelIcon,
@@ -35,6 +36,7 @@ import {
 import { useAuth } from '~/hooks/use_auth'
 import { useSidebarStateStore } from '~/stores/sidebar_state_store'
 import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 
 type LinkProps = {
   title: string
@@ -268,7 +270,7 @@ const AppSidebar = () => {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            {user && (
+            {user ? (
               <DropdownMenu>
                 <DropdownMenu.Trigger asChild>
                   <SidebarMenuButton
@@ -280,6 +282,25 @@ const AppSidebar = () => {
                 </DropdownMenu.Trigger>
                 <UserDropdownContent user={user} />
               </DropdownMenu>
+            ) : (
+              <div className="flex flex-row justify-between items-center">
+                <p className="text-xs text-surface-500">Non connecté</p>
+                <TooltipProvider>
+                  <Tooltip delayDuration={200}>
+                    <TooltipTrigger asChild>
+                      <Button variant="outline" className="p-2 aspect-square" asChild>
+                        <Link href="/login">
+                          <span className="sr-only">Se connecter</span>
+                          <LogInIcon className="size-4" />
+                        </Link>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <span>Se connecter</span>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             )}
           </SidebarMenuItem>
         </SidebarMenu>

@@ -20,7 +20,7 @@ createInertiaApp({
   setup({ el, App, props }) {
     hydrateRoot(
       el,
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="dark">
         <App {...props} />
       </ThemeProvider>
     )
