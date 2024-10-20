@@ -1,9 +1,6 @@
 import { ConfettiButton, safeShapeFromText } from '~/components/magicui/confetti'
 
 const ZeluckConfetti = () => {
-  const scalar = 4
-  const paintbrush = safeShapeFromText({ text: '🖌️', scalar })
-
   return (
     <ConfettiButton
       variant="link"
@@ -16,8 +13,12 @@ const ZeluckConfetti = () => {
         gravity: 0,
         decay: 0.96,
         angle: 120,
-        shapes: [paintbrush],
-        scalar,
+        shapes: [
+          safeShapeFromText({ text: '🎨', scalar: 4 }),
+          safeShapeFromText({ text: '✏️', scalar: 4 }),
+          safeShapeFromText({ text: '💻', scalar: 4 }),
+        ],
+        scalar: 5,
       }}
     >
       Zeluck
