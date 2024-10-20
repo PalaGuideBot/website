@@ -1,5 +1,18 @@
 # Changelog
 
+## 20/10/2024
+
+### Website
+
+- Modification de la navbar.
+- Modification des images de présentation sur la page d'accueil.
+- Correction de la période par défaut `/players`.
+
+### Bot
+
+- Correction de la possibilité de mettre le current XP supérieur à celui possible avec la commande `/calculator`.
+- Correction de la couleur des bonbons Miner et Farmer avec la commande `/calculator`.
+
 ## 16/10/2024
 
 ### Website
