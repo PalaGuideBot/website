@@ -13,6 +13,7 @@ import {
   TrophyIcon,
   UserCogIcon,
 } from 'lucide-react'
+import { useIsClient } from 'usehooks-ts'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import {
@@ -25,19 +26,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
 } from '~/components/ui/sidebar'
 import { useAuth } from '~/hooks/use_auth'
+import { useSidebarStateStore } from '~/stores/sidebar_state_store'
 import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
 
 type LinkProps = {
   title: string
   url: string
+  id?: string
   icon?: React.ComponentType
-  isActive?: boolean
   external?: boolean
   items?: LinkProps[]
 }
@@ -46,8 +49,8 @@ const generalLinks: LinkProps[] = [
   {
     title: 'Statistiques',
     url: '#',
+    id: 'statistics',
     icon: ChartLineIcon,
-    isActive: true,
     items: [
       {
         title: 'Joueur',
@@ -62,7 +65,7 @@ const generalLinks: LinkProps[] = [
   {
     title: 'Classements',
     url: '#',
-    isActive: true,
+    id: 'leaderboard',
     icon: TrophyIcon,
     items: [
       {
@@ -94,7 +97,7 @@ const generalLinks: LinkProps[] = [
   {
     title: 'Outils',
     url: '#',
-    isActive: true,
+    id: 'tools',
     icon: ShovelIcon,
     items: [
       {
@@ -107,7 +110,7 @@ const generalLinks: LinkProps[] = [
   {
     title: 'Statut',
     url: '#',
-    isActive: true,
+    id: 'status',
     icon: CableIcon,
     items: [
       {
@@ -146,76 +149,80 @@ const informationLinks: LinkProps[] = [
   },
 ]
 
-const AppSidebar = () => {
-  const user = useAuth()
+const Item = ({ item }: { item: LinkProps }) => {
   const { url } = usePage()
+  const sidebarState = useSidebarStateStore()
 
-  const renderItem = (item: LinkProps) => {
-    if (item.items && item.items.length !== 0) {
-      return (
-        <Collapsible
-          key={item.title}
-          asChild
-          defaultOpen={item.isActive}
-          className="group/collapsible"
-        >
-          <SidebarMenuItem>
-            <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-              </SidebarMenuButton>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <SidebarMenuSub>
-                {item.items.map((subItem) => (
-                  <SidebarMenuSubItem key={subItem.title}>
-                    <SidebarMenuSubButton
-                      isActive={url === subItem.url || url.startsWith(subItem.url)}
-                      asChild
-                    >
-                      {subItem.external ? (
-                        <a href={subItem.url} target="_blank">
-                          {subItem.icon && <subItem.icon />}
-                          <span>{subItem.title}</span>
-                          <ExternalLinkIcon className="ml-auto" />
-                        </a>
-                      ) : (
-                        <Link href={subItem.url}>
-                          {subItem.icon && <subItem.icon />}
-                          <span>{subItem.title}</span>
-                        </Link>
-                      )}
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                ))}
-              </SidebarMenuSub>
-            </CollapsibleContent>
-          </SidebarMenuItem>
-        </Collapsible>
-      )
-    }
-
+  if (item.items && item.items.length !== 0) {
     return (
-      <SidebarMenuItem key={item.title}>
-        <SidebarMenuButton isActive={url === item.url || url.startsWith(item.url)} asChild>
-          {item.external ? (
-            <a href={item.url} target="_blank">
+      <Collapsible
+        key={item.title}
+        asChild
+        open={sidebarState.isActive(String(item.id))}
+        onOpenChange={() => sidebarState.toggleItem(String(item.id))}
+        className="group/collapsible"
+      >
+        <SidebarMenuItem>
+          <CollapsibleTrigger asChild>
+            <SidebarMenuButton tooltip={item.title}>
               {item.icon && <item.icon />}
               <span>{item.title}</span>
-              <ExternalLinkIcon />
-            </a>
-          ) : (
-            <Link href={item.url}>
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
-            </Link>
-          )}
-        </SidebarMenuButton>
-      </SidebarMenuItem>
+              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <SidebarMenuSub>
+              {item.items.map((subItem) => (
+                <SidebarMenuSubItem key={subItem.title}>
+                  <SidebarMenuSubButton
+                    isActive={url === subItem.url || url.startsWith(subItem.url)}
+                    asChild
+                  >
+                    {subItem.external ? (
+                      <a href={subItem.url} target="_blank">
+                        {subItem.icon && <subItem.icon />}
+                        <span>{subItem.title}</span>
+                        <ExternalLinkIcon className="ml-auto" />
+                      </a>
+                    ) : (
+                      <Link href={subItem.url}>
+                        {subItem.icon && <subItem.icon />}
+                        <span>{subItem.title}</span>
+                      </Link>
+                    )}
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ))}
+            </SidebarMenuSub>
+          </CollapsibleContent>
+        </SidebarMenuItem>
+      </Collapsible>
     )
   }
+
+  return (
+    <SidebarMenuItem key={item.title}>
+      <SidebarMenuButton isActive={url === item.url || url.startsWith(item.url)} asChild>
+        {item.external ? (
+          <a href={item.url} target="_blank">
+            {item.icon && <item.icon />}
+            <span>{item.title}</span>
+            <ExternalLinkIcon />
+          </a>
+        ) : (
+          <Link href={item.url}>
+            {item.icon && <item.icon />}
+            <span>{item.title}</span>
+          </Link>
+        )}
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  )
+}
+
+const AppSidebar = () => {
+  const user = useAuth()
+  const isClient = useIsClient()
 
   return (
     <Sidebar collapsible="offcanvas">
@@ -243,20 +250,17 @@ const AppSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Général</SidebarGroupLabel>
-          <SidebarMenu>{generalLinks.map((item) => renderItem(item))}</SidebarMenu>
+          <SidebarMenu>
+            {isClient && generalLinks.map((item) => <Item key={item.title} item={item} />)}
+            {!isClient &&
+              generalLinks.map((_, index) => <SidebarMenuSkeleton key={index} showIcon />)}
+          </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>Informations</SidebarGroupLabel>
           <SidebarMenu>
             {informationLinks.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton isActive={url === item.url || url.startsWith(item.url)} asChild>
-                  <Link href={item.url}>
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <Item key={item.title} item={item} />
             ))}
           </SidebarMenu>
         </SidebarGroup>

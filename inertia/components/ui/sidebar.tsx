@@ -651,6 +651,7 @@ const SidebarMenuSkeleton = React.forwardRef<
             '--skeleton-width': width,
           } as React.CSSProperties
         }
+        suppressHydrationWarning
       />
     </div>
   )
