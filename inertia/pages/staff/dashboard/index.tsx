@@ -170,9 +170,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         data={data
           .toReversed()
           .filter((item) => {
-            if (item.guildsCount && item.usersCount && item.interactionsCount) {
-              return Object.values(item).some((value) => Number(value) > 0)
-            }
+            return Object.values(item).some((value) => Number(value))
           })
           .map((item) => ({
             date: item.date,
