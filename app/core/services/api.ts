@@ -45,6 +45,7 @@ export class ApiService {
         searchParams: parsedOptions,
       })
       const data = (await response.json()) as Record<string, unknown>
+      console.log(data)
       return playerInfoValidator.validate({ ...data, username })
     } catch (error) {
       if (error instanceof HTTPError) {
