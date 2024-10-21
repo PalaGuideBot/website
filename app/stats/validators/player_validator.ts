@@ -120,3 +120,9 @@ export const playerClickerDataValidator = vine.compile(
     state: vine.enum(['UNKNOWN_ERROR', 'NOT_FOUND', 'UNAUTHORIZED']).optional(),
   })
 )
+
+export const latestPlayerDataValidator = vine.compile(
+  vine.array(
+    vine.object({ uuid: vine.string().uuid(), username: vine.string(), date: vine.string() })
+  )
+)

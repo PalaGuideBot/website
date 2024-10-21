@@ -9,6 +9,8 @@ export default class DashboardController {
 
   async index({ inertia }: HttpContext) {
     let stats = await this.api.getUsageStatistics()
-    return inertia.render('staff/dashboard/index', { stats })
+    const latestPlayers = await this.api.getLatestPlayers()
+
+    return inertia.render('staff/dashboard/index', { stats, latestPlayers })
   }
 }

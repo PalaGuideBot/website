@@ -29,6 +29,7 @@ import { transmit } from '~/lib/transmit'
 import { formatNumber } from '~/lib/utils'
 import { ServerUsageInfo } from '~/types'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
+import { ApiLatestPlayersCard } from '../components/api_latest_players_card'
 import {
   ApiStatsEndpointsCard,
   type ApiStatsEndpointsCardProps,
@@ -58,7 +59,7 @@ import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
 export default function DashboardIndexPage(props: DashboardIndexPageProps) {
-  const { stats } = props
+  const { stats, latestPlayers } = props
   const lastDate = stats.at(0)?.date ?? new Date()
 
   return (
@@ -88,7 +89,7 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
               <DiscordTab data={stats} />
             </Tabs.Content>
             <Tabs.Content value="api">
-              <ApiTab data={stats} />
+              <ApiTab data={{ stats, latestPlayers }} />
             </Tabs.Content>
             <Tabs.Content value="usage">
               <UsageTab />
@@ -213,15 +214,16 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
   )
 }
 
-const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
-  const [today, yesterday] = data
+const ApiTab = ({ data }: { data: DashboardIndexPageProps }) => {
+  const { stats, latestPlayers } = data
+  const [today, yesterday] = stats
 
-  const keys = Array.from(new Set(data.flatMap((item) => item.keys.map((key) => key.key))))
+  const keys = Array.from(new Set(stats.flatMap((item) => item.keys.map((key) => key.key))))
   const endpoints = Array.from(
-    new Set(data.flatMap((item) => item.endpoints.map((endpoint) => endpoint.name)))
+    new Set(stats.flatMap((item) => item.endpoints.map((endpoint) => endpoint.name)))
   )
 
-  const keysGraphData = data
+  const keysGraphData = stats
     .toReversed()
     .filter((item) => item.keys.some((key) => key.count !== 0))
     .map((item) => {
@@ -241,7 +243,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
       }
     }) as ApiStatsKeysCardProps['data']
 
-  const endpointsGraphData = data
+  const endpointsGraphData = stats
     .toReversed()
     .filter((item) =>
       item.endpoints.some((endpoint) => endpoint.count !== 0 || endpoint.averageTime !== 0)
@@ -299,7 +301,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         </StatCard>
       </div>
       <ApiDatabaseEvolutionCard
-        data={data.toReversed().map((item) => {
+        data={stats.toReversed().map((item) => {
           return {
             date: item.date,
             playerCount: item.playerCount,
@@ -309,6 +311,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
       />
       <ApiStatsKeysCard data={keysGraphData} keys={keys} />
       <ApiStatsEndpointsCard data={endpointsGraphData} endpoints={endpoints} />
+      <ApiLatestPlayersCard data={latestPlayers} />
     </div>
   )
 }

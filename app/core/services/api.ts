@@ -27,7 +27,11 @@ import { usageStatisticsValidator } from '#staff/validators/staff_validator'
 import env from '#start/env'
 import { botStatsValidator } from '#stats/validators/bot_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
-import { playerClickerDataValidator, playerInfoValidator } from '#stats/validators/player_validator'
+import {
+  latestPlayerDataValidator,
+  playerClickerDataValidator,
+  playerInfoValidator,
+} from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
 
@@ -82,6 +86,16 @@ export class ApiService {
         })
       }
       throw error
+    }
+  }
+
+  async getLatestPlayers() {
+    try {
+      const response = await client.get('players', { searchParams: { latest: 'true' } })
+      const data = await response.json()
+      return latestPlayerDataValidator.validate(data)
+    } catch (error: unknown) {
+      return []
     }
   }
 
