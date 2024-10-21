@@ -56,7 +56,7 @@ const Shiba = ({ id, position, direction }: ShibaProps) => {
       key={id}
       src={shibaImage}
       alt="Shiba"
-      className="fixed size-24 object-contain pointer-events-none"
+      className="z-20 fixed size-24 object-contain pointer-events-none"
       style={{
         rotate: getRotation(),
         top: position.y,
