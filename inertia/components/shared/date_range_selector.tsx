@@ -12,7 +12,7 @@ import { CalendarIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
-import { seasons } from '#core/content/paladium'
+import { getSeasons } from '#core/content/paladium'
 import type { DistanceFilter } from '#core/validators/filter_validator'
 import { Calendar } from '~/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
@@ -80,7 +80,7 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
     setOpen(isOpen)
   }
 
-  const seasonOptions = seasons.map((season) => ({
+  const seasonOptions = getSeasons().map((season) => ({
     value: `${season.start.toSQLDate()}:${season.end.toSQLDate()}`,
     label: season.name,
   }))
