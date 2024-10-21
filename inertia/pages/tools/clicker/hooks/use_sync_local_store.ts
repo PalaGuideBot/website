@@ -27,7 +27,7 @@ export function useSyncLocalStore(clicker: PlayerClickerData | null) {
   useEffect(() => {
     // If the clicker is not present and the store is initialized, we navigate to right player
     if (!clicker && playerClickerStore.data) {
-      router.replace(`/tools/clicker/${playerClickerStore.data.username}`)
+      router.visit(`/tools/clicker/${playerClickerStore.data.username}`, { replace: true })
     }
   }, [clicker, playerClickerStore.data])
 
