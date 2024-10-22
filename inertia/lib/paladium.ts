@@ -8,3 +8,11 @@ export const PALADIUM_OPTIONS = {
 export function getSeasonStart() {
   return DateTime.fromMillis(1726869600000)
 }
+
+export const seasons = [
+  {
+    name: 'v10',
+    start: getSeasonStart().startOf('day'),
+    end: DateTime.now().endOf('day'),
+  },
+]
