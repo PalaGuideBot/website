@@ -8,7 +8,7 @@ export default defineConfig({
 
     // Ensure you are authenticated to register your client
     if (route.getPattern() === '__transmit/events') {
-      route.middleware([middleware.auth(), middleware.discordId()])
+      route.middleware([middleware.auth(), middleware.staff()])
       return
     }
   },

@@ -1,8 +1,9 @@
-import { ApiService } from '#core/services/api'
-import { discordUserValidator } from '#staff/validators/discord_user_validator'
 import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
+
+import { ApiService } from '#core/services/api'
+import { discordUserValidator } from '#staff/validators/discord_user_validator'
 
 @inject()
 export default class AuthController {
@@ -51,11 +52,17 @@ export default class AuthController {
       throw new Exception(discord.getError() ?? 'Erreur provenant de Discord', { status: 400 })
     }
 
-    const user = await discord.user()
+    const discordUser = await discord.user()
 
-    const validatedUser = await this.#validateUser(user)
+    const validatedDiscordUser = await this.#validateUser(discordUser)
 
-    session.put('user', validatedUser)
+    let user = await this.api.getUser(validatedDiscordUser.id)
+
+    if (!user) {
+      user = await this.api.createUser(validatedDiscordUser.id)
+    }
+
+    session.put('user', { ...validatedDiscordUser, roles: user.roles })
     session.regenerate()
 
     return response.redirect().toRoute('home')
