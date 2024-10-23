@@ -21,6 +21,7 @@ import { HiddenInformationController } from '~/components/shared/hidden_informat
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
 import PaladiumRank from '~/components/shared/paladium_rank'
+import { PlayerBadge } from '~/components/shared/player_badge'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
@@ -93,8 +94,9 @@ interface SkinSectionProps extends React.ComponentProps<typeof Card> {
 const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
   return (
     <Card className={cn('flex flex-col lg:row-span-2', className)} {...props}>
-      <CardHeader className="border-b">
-        <CardTitle className="text-center font-pixel">{player.username}</CardTitle>
+      <CardHeader className="py-2.5 border-b space-y-0 flex-row gap-2 items-center justify-center">
+        <CardTitle className="font-pixel">{player.username}</CardTitle>
+        <PlayerBadge player={player} />
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
         <ReactSkinview3d
