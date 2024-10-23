@@ -71,6 +71,10 @@ const generalLinks: LinkProps[] = [
     icon: TrophyIcon,
     items: [
       {
+        title: 'Factions',
+        url: '/leaderboard/factions',
+      },
+      {
         title: 'Money',
         url: '/leaderboard/money',
       },
