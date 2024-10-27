@@ -53,7 +53,7 @@ const PlayerBadge = ({ player, ...props }: PlayerBadgeProps) => {
 }
 
 function getHighestFlag(flags: Player['flags']) {
-  return flags.toSorted((f) => f.priority).at(0)
+  return flags.toSorted((f) => f.priority).at(-1)
 }
 
 export { PlayerBadge }
