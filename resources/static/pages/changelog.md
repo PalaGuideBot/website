@@ -1,5 +1,12 @@
 # Changelog
 
+## 27/10/2024
+
+### Website
+
+- Modification interne du système d'authentification.
+- Ajout de badge sur `/players`.
+
 ## 20/10/2024
 
 ### Website
