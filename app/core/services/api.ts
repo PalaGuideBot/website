@@ -24,6 +24,7 @@ import {
   validators as leaderboardValidators,
 } from '#leaderboard/validators/leaderboard_validator'
 import { usageStatisticsValidator } from '#staff/validators/staff_validator'
+import { userValidator } from '#staff/validators/user_validator'
 import env from '#start/env'
 import { botStatsValidator } from '#stats/validators/bot_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
@@ -321,6 +322,33 @@ export class ApiService {
         code: 'E_CLICKER_UPGRADES_INVALID',
         status: 500,
       })
+    }
+  }
+
+  async createUser(discordId: string, roles: string[] = []) {
+    try {
+      const response = await client.post('users', {
+        body: JSON.stringify({ discordId, roles }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return userValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable to create user', {
+        code: 'E_USER_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getUser(discordId: string) {
+    try {
+      const response = await client.get(`users/${discordId}`)
+      const data = await response.json()
+      const [, result] = await userValidator.tryValidate(data)
+      return result
+    } catch (error: unknown) {
+      return null
     }
   }
 }

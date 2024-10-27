@@ -1,8 +1,9 @@
-import { DiscordUser } from '#app/types'
-import { discordUserValidator } from '#staff/validators/discord_user_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
-import DiscordIdMiddleware from './discord_id_middleware.js'
+
+import StaffMiddleware from '#app/middleware/staff_middleware'
+import { DiscordUser } from '#app/types'
+import { discordUserValidator } from '#staff/validators/discord_user_validator'
 
 /**
  * Silent Auth middleware is used check if a user is authenticated
@@ -17,7 +18,7 @@ export default class SilentAuthMiddleware {
     } catch {}
 
     if (user) {
-      const staff = DiscordIdMiddleware.ids.includes(user.id)
+      const staff = user.roles.some((role) => role.name === StaffMiddleware.ROLE_NAME)
 
       if ('inertia' in ctx) {
         ctx.inertia.share({ auth: user })
