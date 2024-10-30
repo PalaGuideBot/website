@@ -3,16 +3,11 @@ import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
 import {
   CalendarDaysIcon,
   CodeXmlIcon,
-  CpuIcon,
-  HashIcon,
-  MemoryStickIcon,
   PointerIcon,
   ServerIcon,
   SwordsIcon,
-  TimerIcon,
   UsersIcon,
 } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
 
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { DiscordIcon } from '~/components/icons'
@@ -21,13 +16,10 @@ import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
-import { Skeleton } from '~/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
-import { formatDate, formatDistance } from '~/lib/date'
+import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
-import { transmit } from '~/lib/transmit'
 import { formatNumber } from '~/lib/utils'
-import { ServerUsageInfo } from '~/types'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
 import { ApiLatestPlayersCard } from '../components/api_latest_players_card'
 import {
@@ -38,14 +30,6 @@ import { ApiStatsKeysCard, type ApiStatsKeysCardProps } from '../components/api_
 import { DiscordEvolutionCard } from '../components/discord_evolution_card'
 import { DiscordInteractionsCard } from '../components/discord_interactions_card'
 import {
-  ServerUsageCard,
-  ServerUsageCardBadge,
-  ServerUsageCardContent,
-  ServerUsageCardHeader,
-  ServerUsageCardTitle,
-  ServerUsageCardValue,
-} from '../components/server_usage_card'
-import {
   StatCard,
   StatCardChange,
   StatCardContent,
@@ -53,8 +37,6 @@ import {
   StatCardTitle,
   StatCardValue,
 } from '../components/stat_card'
-import { UsageHistoryCpuCard } from '../components/usage_history_cpu_card'
-import { UsageHistoryRamCard } from '../components/usage_history_ram_card'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
@@ -77,9 +59,6 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
                 <Tabs.Trigger before={<CodeXmlIcon className="size-4" />} value="api">
                   API
                 </Tabs.Trigger>
-                <Tabs.Trigger before={<ServerIcon className="size-4" />} value="usage">
-                  Usage
-                </Tabs.Trigger>
               </div>
               <Badge before={<CalendarDaysIcon />} stroke>
                 {formatDate(lastDate, DateTime.DATE_MED)}
@@ -90,9 +69,6 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
             </Tabs.Content>
             <Tabs.Content value="api">
               <ApiTab data={{ stats, latestPlayers }} />
-            </Tabs.Content>
-            <Tabs.Content value="usage">
-              <UsageTab />
             </Tabs.Content>
           </Tabs>
         </Page>
@@ -312,120 +288,6 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps }) => {
       <ApiStatsKeysCard data={keysGraphData} keys={keys} />
       <ApiStatsEndpointsCard data={endpointsGraphData} endpoints={endpoints} />
       <ApiLatestPlayersCard data={latestPlayers} />
-    </div>
-  )
-}
-
-const UsageTab = () => {
-  const [data, setData] = useState<ServerUsageInfo[]>([])
-  const [lastData, setLastData] = useState<ServerUsageInfo[]>([])
-  const [isSubscribed, setIsSubscribed] = useState(false)
-
-  useEffect(() => {
-    const subscription = transmit.subscription('usage/ws')
-
-    const unsbscribe = subscription.onMessage<ServerUsageInfo[]>((message) => {
-      setData((prev) => [...prev, ...message])
-      setLastData(message)
-    })
-
-    const create = async () => {
-      setIsSubscribed(false)
-      await subscription.create()
-      setIsSubscribed(true)
-    }
-
-    create()
-
-    return () => {
-      unsbscribe()
-      subscription.delete()
-    }
-  }, [])
-
-  const services = useMemo(() => Array.from(new Set(data.flatMap((item) => item.name))), [data])
-
-  const historyRamGraphData = useMemo(
-    () =>
-      Object.entries(Object.groupBy(data, (item) => item.date)).map(([date, items]) => {
-        return {
-          date: date,
-          ...services.reduce(
-            (acc, service) => {
-              const target = items?.find((item) => item.name === service)
-              acc[service] = target?.memory ?? 0
-              return acc
-            },
-            {} as Record<string, number>
-          ),
-        }
-      }),
-    [data, services]
-  )
-
-  const historyCpuGraphData = useMemo(
-    () =>
-      Object.entries(Object.groupBy(data, (item) => item.date)).map(([date, items]) => {
-        return {
-          date: date,
-          ...services.reduce(
-            (acc, service) => {
-              const target = items?.find((item) => item.name === service)
-              acc[service] = target?.cpu ?? 0
-              return acc
-            },
-            {} as Record<string, number>
-          ),
-        }
-      }),
-    [data, services]
-  )
-
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {(data.length === 0 || !isSubscribed) &&
-          Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="w-full h-40" />)}
-        {data.length !== 0 &&
-          isSubscribed &&
-          lastData.map((item) => (
-            <ServerUsageCard key={item.pid}>
-              <ServerUsageCardHeader>
-                <ServerUsageCardTitle>{item.name}</ServerUsageCardTitle>
-                <ServerUsageCardBadge status={item.status} />
-              </ServerUsageCardHeader>
-              <ServerUsageCardContent className="space-y-1">
-                <ServerUsageCardValue before={<CpuIcon className="size-4" />}>
-                  CPU: {item.cpu} %
-                </ServerUsageCardValue>
-                <ServerUsageCardValue before={<MemoryStickIcon className="size-4" />}>
-                  RAM:{' '}
-                  {formatNumber(item.memory, {
-                    notation: 'standard',
-                    maximumFractionDigits: 2,
-                    unit: 'megabyte',
-                    style: 'unit',
-                  })}
-                </ServerUsageCardValue>
-                <ServerUsageCardValue
-                  className="font-normal"
-                  before={<HashIcon className="size-4" />}
-                >
-                  PID: {item.pid}
-                </ServerUsageCardValue>
-                <ServerUsageCardValue
-                  className="font-normal"
-                  before={<TimerIcon className="size-4" />}
-                >
-                  UPTIME:{' '}
-                  {formatDistance(DateTime.fromMillis(item.uptime), DateTime.fromISO(item.date))}
-                </ServerUsageCardValue>
-              </ServerUsageCardContent>
-            </ServerUsageCard>
-          ))}
-      </div>
-      <UsageHistoryRamCard data={historyRamGraphData} services={services} />
-      <UsageHistoryCpuCard data={historyCpuGraphData} services={services} />
     </div>
   )
 }

@@ -38,7 +38,6 @@ export default defineConfig({
     () => import('@adonisjs/ally/ally_provider'),
     () => import('@adonisjs/session/session_provider'),
     () => import('@adonisjs/transmit/transmit_provider'),
-    () => import('#core/providers/socket_provider'),
   ],
 
   /*
@@ -53,7 +52,6 @@ export default defineConfig({
     () => import('#start/routes'),
     () => import('#start/kernel'),
     () => import('#start/view'),
-    () => import('#start/socket'),
   ],
 
   /*
