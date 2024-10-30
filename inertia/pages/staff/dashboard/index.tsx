@@ -1,8 +1,8 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Badge, Tabs } from '@lemonsqueezy/wedges'
+import { Avatar, Button, Tabs } from '@lemonsqueezy/wedges'
 import {
-  CalendarDaysIcon,
   CodeXmlIcon,
+  ExternalLinkIcon,
   PointerIcon,
   ServerIcon,
   SwordsIcon,
@@ -17,8 +17,6 @@ import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
-import { formatDate } from '~/lib/date'
-import { DateTime } from '~/lib/luxon'
 import { formatNumber } from '~/lib/utils'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
 import { ApiLatestPlayersCard } from '../components/api_latest_players_card'
@@ -42,7 +40,6 @@ type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 
 export default function DashboardIndexPage(props: DashboardIndexPageProps) {
   const { stats, latestPlayers } = props
-  const lastDate = stats.at(0)?.date ?? new Date()
 
   return (
     <>
@@ -60,9 +57,34 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
                   API
                 </Tabs.Trigger>
               </div>
-              <Badge before={<CalendarDaysIcon />} stroke>
-                {formatDate(lastDate, DateTime.DATE_MED)}
-              </Badge>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="transparent"
+                  after={<ExternalLinkIcon className="size-4" />}
+                  asChild
+                >
+                  <a
+                    href="https://dash.palaguidebot.fr"
+                    target="_blank"
+                    className="flex items-center gap-1"
+                  >
+                    Portainer
+                  </a>
+                </Button>
+                <Button
+                  variant="transparent"
+                  after={<ExternalLinkIcon className="size-4" />}
+                  asChild
+                >
+                  <a
+                    href="https://analytics.palaguidebot.fr"
+                    target="_blank"
+                    className="flex items-center gap-1"
+                  >
+                    Umami
+                  </a>
+                </Button>
+              </div>
             </Tabs.List>
             <Tabs.Content value="discord">
               <DiscordTab data={stats} />
