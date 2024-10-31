@@ -1,5 +1,12 @@
 # Changelog
 
+## 31/10/2024
+
+### Website
+
+- Ajout d'un outil interne d'analytics sur notre site web
+- Correction du débordement de l'écran (pour les mobiles) sur la page `/events`
+
 ## 27/10/2024
 
 ### Website
