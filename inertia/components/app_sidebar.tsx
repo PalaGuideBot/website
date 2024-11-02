@@ -110,6 +110,10 @@ const generalLinks: LinkProps[] = [
         title: 'Clicker',
         url: '/tools/clicker',
       },
+      {
+        title: 'Job Calculator',
+        url: '/tools/job-calculator',
+      },
     ],
   },
   { title: 'Événements', url: '/events', icon: CalendarIcon },

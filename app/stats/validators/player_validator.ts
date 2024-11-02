@@ -124,6 +124,15 @@ export const playerClickerDataValidator = vine.compile(
   })
 )
 
+export const playerJobsValidator = vine.compile(
+  vine.object({
+    miner: jobValidator.clone(),
+    farmer: jobValidator.clone(),
+    hunter: jobValidator.clone(),
+    alchemist: jobValidator.clone(),
+  })
+)
+
 export const latestPlayerDataValidator = vine.compile(
   vine.array(
     vine.object({ uuid: vine.string().uuid(), username: vine.string(), date: vine.string() })
