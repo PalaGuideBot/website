@@ -185,7 +185,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                               variant="outline"
                               onClick={() => fillJobData()}
                             >
-                              Valider
+                              Remplir
                             </Button>
                           </div>
                         </FormItem>
