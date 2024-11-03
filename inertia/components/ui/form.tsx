@@ -11,4 +11,22 @@ const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(({ className, .
   return <div ref={ref} className={cn('flex flex-col gap-2', className)} {...props} />
 })
 
-export { FormItem, FormLabel }
+interface FormMessageProps extends Omit<React.HTMLAttributes<HTMLParagraphElement>, 'children'> {
+  message?: string | string[]
+}
+
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+  ({ className, message, ...props }, ref) => {
+    if (!message) {
+      return null
+    }
+
+    return (
+      <p ref={ref} className={cn('text-destructive text-sm', className)} {...props}>
+        {Array.isArray(message) && message.length !== 0 ? message.at(0) : message}
+      </p>
+    )
+  }
+)
+
+export { FormLabel, FormItem, FormMessage }

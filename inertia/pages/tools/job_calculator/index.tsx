@@ -1,5 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { useForm } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 import {
   Button,
   Loading,
@@ -24,7 +24,7 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
-import { FormItem, FormLabel } from '~/components/ui/form'
+import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import Input from '~/components/ui/input'
 import { smallIcons } from '~/content/jobs'
 import { useSearchParams } from '~/hooks/use_search_params'
@@ -62,6 +62,7 @@ type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
 export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
   const { options, result } = props
 
+  const { errors = {} } = usePage().props
   const resultSubTitleRef = useRef<HTMLHeadingElement>(null)
   const [searchParams] = useSearchParams()
 
@@ -163,6 +164,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+                  <FormMessage message={errors?.['job']} />
                 </FormItem>
                 <AnimatePresence>
                   {form.data.job.length !== 0 && (
@@ -209,6 +211,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                                 form.setData('current-level', form.data['current-level'] + 1)
                               }
                             />
+                            <FormMessage message={errors?.['current-level']} />
                           </FormItem>
                           <ArrowRightIcon className="rotate-90 xs:rotate-0 xs:mt-[32px] size-4" />
                           <FormItem className="items-center">
@@ -223,6 +226,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                                 form.setData('target-level', form.data['target-level'] + 1)
                               }
                             />
+                            <FormMessage message={errors?.['target-level']} />
                           </FormItem>
                         </div>
                         <FormItem>
@@ -233,12 +237,13 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             className="bg-transparent"
                             placeholder="0"
                             min={0}
-                            max={100}
+                            max={33}
                             value={form.data['bonus-xp']}
                             onChange={(event) =>
                               form.setData('bonus-xp', Number(event.target.value))
                             }
                           />
+                          <FormMessage message={errors?.['bonus-xp']} />
                         </FormItem>
                       </motion.div>
                     </>

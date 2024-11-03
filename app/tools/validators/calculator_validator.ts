@@ -6,7 +6,7 @@ export const calculatorOptionsValidator = vine.compile(
       'job': vine.enum(['miner', 'farmer', 'hunter', 'alchemist']),
       'current-level': vine.number().withoutDecimals().min(1).max(100),
       'target-level': vine.number().withoutDecimals().min(1).max(100),
-      'bonus-xp': vine.number().min(0).max(100),
+      'bonus-xp': vine.number().min(0).max(33),
       'current-xp': vine
         .number()
         .positive()
