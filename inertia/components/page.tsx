@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import { cn } from '~/lib/utils'
 
 const Page = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
@@ -10,8 +12,10 @@ const PageTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
   return <h1 className={cn('text-xl md:text-2xl font-bold', className)} {...props} />
 }
 
-const PageSubTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
-  return <h2 className={cn('font-pixel', className)} {...props} />
-}
+const PageSubTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => {
+    return <h2 ref={ref} className={cn('font-pixel', className)} {...props} />
+  }
+)
 
 export { Page, PageTitle, PageSubTitle }

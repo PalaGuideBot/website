@@ -16,12 +16,11 @@ export const calculatorOptionsValidator = vine.compile(
 )
 
 const itemValidator = vine.object({
-  currLevel: vine.number(),
-  tarLevel: vine.number(),
   xp: vine.number(),
   amount: vine.number(),
   item: vine.object({
     type: vine.string(),
+    id: vine.string(),
     action: vine.string(),
     xp: vine.number(),
     from: vine.number(),

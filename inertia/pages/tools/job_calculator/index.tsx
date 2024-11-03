@@ -14,7 +14,7 @@ import {
 import type { Infer } from '@vinejs/vine/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
-import { FormEvent } from 'react'
+import { FormEvent, useRef } from 'react'
 import { toast } from 'sonner'
 
 import type { playerJobsValidator } from '#stats/validators/player_validator'
@@ -30,6 +30,7 @@ import { smallIcons } from '~/content/jobs'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { client } from '~/lib/client'
 import { cn } from '~/lib/utils'
+import { CalculatorResult } from './components/calculator_result'
 import { JobLevelControls } from './components/job_level_controls'
 
 const jobs = [
@@ -58,8 +59,9 @@ const jobs = [
 type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
 
 export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
-  const { result } = props
+  const { options, result } = props
 
+  const resultSubTitleRef = useRef<HTMLHeadingElement>(null)
   const [searchParams] = useSearchParams()
 
   const form = useForm({
@@ -76,7 +78,11 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
     form.transform((data) =>
       Object.fromEntries(Object.entries(data).map(([key, value]) => [key, String(value)]))
     )
-    form.get('/tools/job-calculator')
+    form.get('/tools/job-calculator', {
+      onSuccess: () => {
+        resultSubTitleRef.current?.scrollIntoView({ behavior: 'smooth' })
+      },
+    })
   }
 
   const onSubmitFillJob = async (event: FormEvent<HTMLFormElement>) => {
@@ -257,7 +263,12 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
               </Button>
             </CardFooter>
           </Card>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
+          {result && options && (
+            <>
+              <PageSubTitle ref={resultSubTitleRef}>Résultats</PageSubTitle>
+              <CalculatorResult options={options} result={result} />
+            </>
+          )}
         </Page>
       </DefaultLayout>
     </>
