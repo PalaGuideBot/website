@@ -120,7 +120,7 @@ const generalLinks: LinkProps[] = [
     icon: CableIcon,
     items: [
       {
-        title: 'Bot',
+        title: 'Services',
         url: 'https://status.palaguidebot.fr',
         external: true,
       },
