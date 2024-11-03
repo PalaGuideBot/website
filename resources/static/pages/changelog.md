@@ -1,5 +1,21 @@
 # Changelog
 
+## 03/11/2024
+
+### Website
+
+- Ajout d'un badge "Bug Hunter"
+- Modification des icônes (Contributor & Link) sur `/players`
+- Modification du nom de la redirection vers les statuts de nos services (Bot > Services)
+
+### Bot
+
+- Ajout d'un footer indiquant le badge du joueur sur le site web avec la commande `/lookup`
+- Modification du système de gestion des emojis
+- Correction de l'envoi d'embed vide avec la commande `/ah player`
+- Correction de la commande `/faction` qui ne répondait pas
+- Amélioration de la gestion des erreurs envoyées par les différentes API (Mojang, Paladium, Palaguidebot)
+
 ## 31/10/2024
 
 ### Website
