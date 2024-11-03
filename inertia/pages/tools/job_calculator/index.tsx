@@ -35,10 +35,11 @@ import { JobLevelControls } from './components/job_level_controls'
 
 const jobs = [
   {
-    label: 'Alchimiste',
-    value: 'alchemist',
-    icon: smallIcons.alchemist,
+    label: 'Miner',
+    value: 'miner',
+    icon: smallIcons.miner,
   },
+
   {
     label: 'Farmer',
     value: 'farmer',
@@ -50,9 +51,9 @@ const jobs = [
     icon: smallIcons.hunter,
   },
   {
-    label: 'Miner',
-    value: 'miner',
-    icon: smallIcons.miner,
+    label: 'Alchimiste',
+    value: 'alchemist',
+    icon: smallIcons.alchemist,
   },
 ]
 
