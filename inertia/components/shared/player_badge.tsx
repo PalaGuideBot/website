@@ -1,5 +1,4 @@
 import type { Infer } from '@vinejs/vine/types'
-import { CodeXmlIcon, HandshakeIcon, LinkIcon, LucideProps } from 'lucide-react'
 
 import type { playerInfoValidator } from '#stats/validators/player_validator'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
@@ -7,23 +6,24 @@ import { cn } from '~/lib/utils'
 
 type Player = Infer<typeof playerInfoValidator>
 
-interface PlayerBadgeIconProps extends LucideProps {
+interface PlayerBadgeIconProps extends React.HTMLAttributes<HTMLImageElement> {
   player: Player
 }
 
 const PlayerBadgeIcon = ({ player, className, ...props }: PlayerBadgeIconProps) => {
   const highestFlag = getHighestFlag(player.flags)
 
-  switch (highestFlag?.name) {
-    case 'STAFF':
-      return <CodeXmlIcon className={cn('size-6 text-primary', className)} {...props} />
-    case 'CONTRIBUTOR':
-      return <HandshakeIcon className={cn('size-5 text-job-alchemist', className)} {...props} />
-    case 'LINK':
-      return <LinkIcon className={cn('size-5 text-job-hunter', className)} {...props} />
-    default:
-      return null
+  if (!highestFlag) {
+    return null
   }
+
+  return (
+    <img
+      src={getFlagIconUrl(highestFlag.name)}
+      className={cn('w-4 h-4 object-contain', className)}
+      {...props}
+    />
+  )
 }
 
 interface PlayerBadgeProps extends React.ComponentProps<typeof TooltipTrigger> {
@@ -54,6 +54,10 @@ const PlayerBadge = ({ player, ...props }: PlayerBadgeProps) => {
 
 function getHighestFlag(flags: Player['flags']) {
   return flags.toSorted((a, b) => a.priority - b.priority).at(-1)
+}
+
+function getFlagIconUrl(name: string) {
+  return `https://image.palaguidebot.fr/flags/${name.toLowerCase()}`
 }
 
 export { PlayerBadge }
