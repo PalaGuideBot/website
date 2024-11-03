@@ -80,12 +80,12 @@
 
   <!-- Stats -->
   <url>
-    <loc>https://palaguidebot.fr/stats/players</loc>
+    <loc>https://palaguidebot.fr/players</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://palaguidebot.fr/stats/factions</loc>
+    <loc>https://palaguidebot.fr/factions</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
