@@ -43,7 +43,7 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
 }
 
 function getItemIconUrl(id: string) {
-  return `https://image.palaguidebot.fr/calculator/icons/${id}`
+  return `https://image.palaguidebot.fr/calculator/icons/${id}.webp`
 }
 
 /* function translateAction(action: string) {
