@@ -4,13 +4,6 @@ import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import Autoplay from 'embla-carousel-autoplay'
 import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
-import CardPreview from '~/assets/images/card-preview.png'
-import CraftPreview from '~/assets/images/craft-preview.png'
-import LeaderboardPreview from '~/assets/images/leaderboard-preview.png'
-import LookupPreview from '~/assets/images/lookup-preview.png'
-import QdfPreview from '~/assets/images/qdf-preview.png'
-import StatsPreview from '~/assets/images/stats-preview.png'
-import StatusPreview from '~/assets/images/status-preview.png'
 import { DiscordIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
@@ -73,7 +66,11 @@ export default function Home(props: HomePageProps) {
               className="w-full"
             >
               <CarouselContent>
-                {[StatsPreview, LeaderboardPreview, StatusPreview].map((path) => (
+                {[
+                  'https://image.palaguidebot.fr/home/stats-preview.webp',
+                  'https://image.palaguidebot.fr/home/leaderboard-preview.webp',
+                  'https://image.palaguidebot.fr/home/status-preview.webp',
+                ].map((path) => (
                   <CarouselItem key={path}>
                     <div className="flex items-center justify-center h-full">
                       <img
@@ -100,7 +97,12 @@ export default function Home(props: HomePageProps) {
                 className="w-full"
               >
                 <CarouselContent>
-                  {[CardPreview, CraftPreview, LookupPreview, QdfPreview].map((path) => (
+                  {[
+                    'https://image.palaguidebot.fr/home/card-preview.webp',
+                    'https://image.palaguidebot.fr/home/craft-preview.webp',
+                    'https://image.palaguidebot.fr/home/lookup-preview.webp',
+                    'https://image.palaguidebot.fr/home/qdf-preview.webp',
+                  ].map((path) => (
                     <CarouselItem key={path}>
                       <div className="flex items-center justify-center h-full">
                         <img
