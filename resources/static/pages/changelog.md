@@ -7,6 +7,7 @@
 - Ajout d'un badge "Bug Hunter"
 - Modification des icônes (Contributor & Link) sur `/players`
 - Modification du nom de la redirection vers les statuts de nos services (Bot > Services)
+- Modification de la page `/factions` pour afficher la faction du joueur (uniquement pour les personnes connectées et liées sur le site)
 
 ### Bot
 
