@@ -1,4 +1,19 @@
-import vine from '@vinejs/vine'
+import vine, { SimpleMessagesProvider } from '@vinejs/vine'
+
+const messages = {
+  'job.enum': 'Métier invalide',
+  'current-level.number': 'Le niveau actuel doit être un nombre',
+  'current-level.min': 'Le niveau actuel doit être supérieur à 0',
+  'current-level.max': 'Le niveau actuel doit être inférieur à 101',
+  'target-level.number': 'Le niveau cible doit être un nombre',
+  'target-level.min': 'Le niveau cible doit être supérieur à 0',
+  'target-level.max': 'Le niveau cible doit être inférieur à 101',
+  'bonus-xp.number': 'Le bonus XP doit être un nombre',
+  'bonus-xp.min': "L'XP bonus doit être supérieur à 0",
+  'bonus-xp.max': "L'XP bonus doit être inférieur ou égale à 33",
+  'current-xp.number': "L'XP actuel doit être un nombre",
+  'current-xp.positive': "L'XP actuel doit être supérieur ou égal à 0",
+}
 
 export const calculatorOptionsValidator = vine.compile(
   vine
@@ -14,6 +29,8 @@ export const calculatorOptionsValidator = vine.compile(
     })
     .toCamelCase()
 )
+
+calculatorOptionsValidator.messagesProvider = new SimpleMessagesProvider(messages)
 
 const itemValidator = vine.object({
   xp: vine.number(),
