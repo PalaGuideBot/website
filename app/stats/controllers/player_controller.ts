@@ -1,25 +1,17 @@
 import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
-import { type PageObject } from '@adonisjs/inertia/types'
 
 import { getCurrentSeason } from '#core/content/paladium'
 import { createPageErrorFromException } from '#core/helpers/error'
 import { ApiService } from '#core/services/api'
-import { DistanceFilter, distanceValidator } from '#core/validators/filter_validator'
+import { distanceValidator } from '#core/validators/filter_validator'
 
 @inject()
 export default class PlayerController {
   constructor(private api: ApiService) {}
 
-  async show({ inertia, response, request, params, auth }: HttpContext): Promise<
-    | string
-    | PageObject<{
-        player: Awaited<ReturnType<ApiService['getPlayer']>> | null
-        examplePlayer: Awaited<ReturnType<ApiService['getPlayer']>> | null
-        options: DistanceFilter
-      }>
-  > {
+  async show({ inertia, response, request, params, auth }: HttpContext) {
     let player = null
     let examplePlayer = null
 
@@ -34,7 +26,6 @@ export default class PlayerController {
     try {
       if (auth?.user && !params.username) {
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
-        //@ts-ignore
         return response.redirect(`/players/${profile.username}`)
       }
     } catch {}
