@@ -15,13 +15,13 @@ export default class FactionController {
 
     try {
       if (auth?.user && !params.name) {
-        console.log('auth?.user', auth?.user)
         const profile = await this.api.getMinecraftAccountLinked(auth.user!.id)
-        console.log('profile', profile)
         const player = await this.api.getPlayer(profile.username)
-        console.log('player', player)
-        console.log('faction', player.data.at(-1)?.data.faction)
-        return response.redirect(`/factions/${player.data.at(-1)?.data.faction}`)
+        const factionName = player.data.at(-1)?.data.faction
+        if (factionName === '' || !factionName) {
+          throw new Exception("Vous n'êtes pas dans une faction", { status: 404 })
+        }
+        return response.redirect(`/factions/${factionName}`)
       }
     } catch {}
 
