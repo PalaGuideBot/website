@@ -57,7 +57,7 @@ function getHighestFlag(flags: Player['flags']) {
 }
 
 function getFlagIconUrl(name: string) {
-  return `https://image.palaguidebot.fr/flags/${name.toLowerCase()}`
+  return `https://image.palaguidebot.fr/flags/${name.toLowerCase()}.webp`
 }
 
 export { PlayerBadge }

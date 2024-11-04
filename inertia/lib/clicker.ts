@@ -21,7 +21,7 @@ export function getBuildingPrice(basePrice: number, quantity: number) {
 }
 
 export function getClickerBuildingImage(name: string) {
-  return `https://image.palaguidebot.fr/clicker/buildings/${name}`
+  return `https://image.palaguidebot.fr/clicker/buildings/${name}.webp`
 }
 
 export function getClickerUpgradeImage(upgrade: ClickerAnyUpgrade) {
@@ -42,7 +42,7 @@ export function getClickerUpgradeImage(upgrade: ClickerAnyUpgrade) {
       break
   }
 
-  return `https://image.palaguidebot.fr/clicker/upgrades/${upgrade.type}/${name}`
+  return `https://image.palaguidebot.fr/clicker/upgrades/${upgrade.type}/${name}.webp`
 }
 
 export function getPlayerTotalProduction(playerBuildings: PlayerClickerData['buildings']) {

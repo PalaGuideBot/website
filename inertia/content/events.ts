@@ -46,5 +46,5 @@ export function translateOnYourMarksState(state: FactionEventOnYourMarks['state'
 }
 
 export function getEventImage(event: string) {
-  return `https://image.palaguidebot.fr/events/${event}`
+  return `https://image.palaguidebot.fr/events/${event}.webp`
 }
