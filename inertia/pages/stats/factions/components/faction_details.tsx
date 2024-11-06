@@ -23,7 +23,7 @@ type FactionDetailsProps = {
 }
 
 export const FactionDetails = ({ faction }: FactionDetailsProps) => {
-  const [sortMembersType, setSortMembersType] = useState<'alpha' | 'desc' | 'asc' | 'rang'>('asc')
+  const [sort, setSort] = useState<'alpha' | 'desc' | 'asc' | 'rang'>('asc')
 
   const sortOptions = [
     { value: 'alpha', label: 'Ordre alphabétique', icon: ArrowDownAZ },
@@ -33,12 +33,12 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
   ] as const
 
   const unselectedSortOptions = useMemo(() => {
-    return sortOptions.filter((option) => option.value !== sortMembersType)
-  }, [sortMembersType])
+    return sortOptions.filter((option) => option.value !== sort)
+  }, [sort])
 
   const filteredMembers = useMemo(() => {
     return faction.players.sort((a, b) => {
-      switch (sortMembersType) {
+      switch (sort) {
         case 'asc':
           return a.joinedAt - b.joinedAt
         case 'desc':
@@ -58,7 +58,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
           return a.username.localeCompare(b.username)
       }
     })
-  }, [sortMembersType])
+  }, [sort, faction.players])
   return (
     <div className="flex flex-col gap-4">
       <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
@@ -115,38 +115,18 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
                   <ChevronDown className="size-4 transition-transform group-data-[state=open]:rotate-180" />
                 }
               >
-                <span>{sortOptions.find((option) => option.value === sortMembersType)?.label}</span>
+                <span>{sortOptions.find((option) => option.value === sort)?.label}</span>
               </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content align="start">
               {unselectedSortOptions.map((option) => (
-                <DropdownMenu.Item
-                  key={option.value}
-                  onClick={() => setSortMembersType(option.value)}
-                >
+                <DropdownMenu.Item key={option.value} onClick={() => setSort(option.value)}>
                   <option.icon className="size-4 mr-2" />
                   {option.label}
                 </DropdownMenu.Item>
               ))}
             </DropdownMenu.Content>
           </DropdownMenu>
-
-          {/*<ToggleGroup
-            type="single"
-            value={sortedMembers}
-            onValueChange={(value) => {
-              if (value.length) {
-                setSortedMembers(value as 'asc' | 'desc' | 'rang' | 'alpha')
-              }
-            }}
-            size="sm"
-            className="!m-0"
-          >
-            <ToggleGroup.Item value="asc">Ascendant</ToggleGroup.Item>
-            <ToggleGroup.Item value="desc">Descendant</ToggleGroup.Item>
-            <ToggleGroup.Item value="rang">Rang</ToggleGroup.Item>
-            <ToggleGroup.Item value="alpha">Alphabétique</ToggleGroup.Item>
-          </ToggleGroup>*/}
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
           {filteredMembers.map((player) => (

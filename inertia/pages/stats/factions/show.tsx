@@ -23,7 +23,7 @@ export default function FactionShow(props: FactionShowProps) {
       {faction ? (
         <Head
           descriptors={[
-            { title: faction.name },
+            { title: faction.bgName },
             { name: 'og:image', content: faction.emblemUrl },
             { name: 'twitter:image', content: faction.emblemUrl },
           ]}
