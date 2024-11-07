@@ -32,8 +32,13 @@ import {
   latestPlayerDataValidator,
   playerClickerDataValidator,
   playerInfoValidator,
+  playerJobsValidator,
 } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
+import {
+  calculatorOptionsValidator,
+  calculatorResultValidator,
+} from '#tools/validators/calculator_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
 
 const client = ky.create({
@@ -83,6 +88,28 @@ export class ApiService {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception('Invalid player data', {
           code: 'E_PLAYER_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getPlayerJobs(username: string) {
+    try {
+      const response = await client.get(`players/${username}/jobs`)
+      const data = await response.json()
+      return playerJobsValidator.validate(data)
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        throw new Exception(`Player "${username}" not found`, {
+          code: 'E_PLAYER_NOT_FOUND',
+          status: 404,
+        })
+      }
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception('Invalid player jobs data', {
+          code: 'E_PLAYER_JOBS_INVALID',
           status: 500,
         })
       }
@@ -349,6 +376,22 @@ export class ApiService {
       return result
     } catch (error: unknown) {
       return null
+    }
+  }
+
+  async calculateJob(options: Infer<typeof calculatorOptionsValidator>) {
+    try {
+      const response = await client.post('utils/jobs/calculate', {
+        body: JSON.stringify({ body: options }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return calculatorResultValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid job calculation data', {
+        code: 'E_JOB_CALCULATION_INVALID',
+        status: 500,
+      })
     }
   }
 }

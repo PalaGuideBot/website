@@ -49,4 +49,10 @@ export default class PlayerController {
       options,
     })
   }
+
+  async jobs({ params, response }: HttpContext) {
+    const jobs = await this.api.getPlayerJobs(params.username)
+
+    return response.json(jobs)
+  }
 }
