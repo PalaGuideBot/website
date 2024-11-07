@@ -46,21 +46,4 @@ function getItemIconUrl(id: string) {
   return `https://image.palaguidebot.fr/calculator/icons/${id}.webp`
 }
 
-/* function translateAction(action: string) {
-  const translations: Record<string, string> = {
-    'consumes': 'Consommer',
-    'kill': 'Tuer',
-    'smelt': 'Cuir',
-    'fish': 'Pêcher',
-    'craft': 'Crafter',
-    'break': 'Casser',
-    'extract from sap': 'Extraire de la sève',
-    'throw in a cauldron': 'Jeter dans un Chaudron',
-    'craft in a cauldron': 'Crafter dans un Chaudron',
-    'craft in portal': 'Crafter dans un Portail',
-  }
-
-  return translations[action.toLowerCase()] || action
-} */
-
 export { ExperienceMethod }

@@ -111,8 +111,6 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
     )
   }
 
-  const fillJobData = async () => {}
-
   return (
     <>
       <Head descriptors={[{ title: 'Calculateur de métiers' }]} />
@@ -188,12 +186,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                               value={form.data.pseudo}
                               onChange={(event) => form.setData('pseudo', event.target.value)}
                             />
-                            <Button
-                              type="submit"
-                              form="fill-job"
-                              variant="outline"
-                              onClick={() => fillJobData()}
-                            >
+                            <Button type="submit" form="fill-job" variant="outline">
                               Remplir
                             </Button>
                           </div>
