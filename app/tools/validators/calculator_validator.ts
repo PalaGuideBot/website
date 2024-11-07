@@ -53,5 +53,13 @@ export const calculatorResultValidator = vine.compile(
       x2: vine.array(itemValidator.clone()),
       x10: vine.array(itemValidator.clone()),
     }),
+    rewards: vine.array(
+      vine.object({
+        id: vine.string(),
+        label: vine.string(),
+        type: vine.string(),
+        quantity: vine.number().optional(),
+      })
+    ),
   })
 )

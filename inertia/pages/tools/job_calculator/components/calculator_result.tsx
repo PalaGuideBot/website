@@ -8,7 +8,7 @@ import {
   SelectTrigger,
 } from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
-import { SearchIcon, Trash2Icon } from 'lucide-react'
+import { ChevronRightIcon, SearchIcon, Trash2Icon } from 'lucide-react'
 import { useMemo } from 'react'
 
 import type {
@@ -16,8 +16,9 @@ import type {
   calculatorResultValidator,
 } from '#tools/validators/calculator_validator'
 import { Card, CardContent } from '~/components/ui/card'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import Input from '~/components/ui/input'
-import { formatNumber } from '~/lib/utils'
+import { formatNumber, formatPrice } from '~/lib/utils'
 import { ExperienceMethod } from './experience_method'
 
 interface CalculatorResultProps {
@@ -58,13 +59,45 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
           <span className="font-bold text-primary">{options.currentLevel}</span> avec un bonus
           d'expérience de <span className="font-bold text-primary">{options.bonusXp}%</span>.
         </p>
-        <p className="pb-2">
+        <p>
           La quantité d'expérience nécessaire est de{' '}
           <span className="font-bold text-primary">
             {formatNumber(result.xpTotal, { notation: 'standard' })}
           </span>
           .
         </p>
+        <Collapsible className="group/collapsible">
+          <CollapsibleTrigger asChild>
+            <Button
+              variant="tertiary"
+              size="sm"
+              after={
+                <ChevronRightIcon className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+              }
+            >
+              Voir les récompenses
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="mt-2">
+            <ul className="list-disc list-inside [&>li]:pl-4">
+              {result.rewards.map((reward) => (
+                <li key={reward.id}>
+                  {reward.quantity && reward.id === 'money' && (
+                    <span className="text-primary font-bold">{formatPrice(reward.quantity)}</span>
+                  )}
+                  {reward.quantity && reward.id !== 'money' && (
+                    <>
+                      <span className="font-bold text-primary">
+                        {formatNumber(reward.quantity, { notation: 'standard' })}
+                      </span>{' '}
+                      <span>{reward.label}</span>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </CollapsibleContent>
+        </Collapsible>
         <p>
           Ci-dessous vous retrouverez les différentes méthodes pour atteintre le niveau que vous
           avez choisi:
