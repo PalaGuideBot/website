@@ -6,6 +6,7 @@
 
 - Ajout de l'outil "Job Calculator" disponible sur `/tools/job-calculator`.
 - Correction d'un bug sur la page `/factions` (les membres ne s'actualisent pas lors du changement de faction)
+- Remplacement du "Nombre de skills" par le niveau du pet sur la page `/players`
 
 ### Bot
 

@@ -49,13 +49,14 @@ const mountValidator = vine.object({
 const petValidator = vine.object({
   currentSkin: vine.string(),
   happiness: vine.number(),
-  skills: vine.array(
+  level: vine.number(),
+  /* skills: vine.array(
     vine.object({
       id: vine.string(),
       lastChange: vine.number(),
       nextUse: vine.number(),
     })
-  ),
+  ), */
 })
 
 export const playerInfoValidator = vine.compile(
