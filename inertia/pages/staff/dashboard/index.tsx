@@ -1,18 +1,11 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Button, Tabs } from '@lemonsqueezy/wedges'
-import {
-  CodeXmlIcon,
-  ExternalLinkIcon,
-  PointerIcon,
-  ServerIcon,
-  SwordsIcon,
-  UsersIcon,
-} from 'lucide-react'
+import { Avatar, Tabs } from '@lemonsqueezy/wedges'
+import { CodeXmlIcon, PointerIcon, ServerIcon, SwordsIcon, UsersIcon } from 'lucide-react'
 
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { DiscordIcon } from '~/components/icons'
 import StaffLayout from '~/components/layouts/staff'
-import { Page, PageTitle } from '~/components/page'
+import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
@@ -46,45 +39,14 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
       <Head descriptors={[{ title: 'Tableau de bord' }]} />
       <StaffLayout>
         <Page>
-          <PageTitle>Tableau de bord</PageTitle>
           <Tabs defaultValue="discord" variant="fill">
-            <Tabs.List className="flex flex-col-reverse items-start justify-between gap-2 md:flex-wrap-reverse md:flex-row md:items-center">
-              <div className="flex items-center gap-2">
-                <Tabs.Trigger before={<DiscordIcon className="size-4" />} value="discord">
-                  Discord
-                </Tabs.Trigger>
-                <Tabs.Trigger before={<CodeXmlIcon className="size-4" />} value="api">
-                  API
-                </Tabs.Trigger>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="transparent"
-                  after={<ExternalLinkIcon className="size-4" />}
-                  asChild
-                >
-                  <a
-                    href="https://dash.palaguidebot.fr"
-                    target="_blank"
-                    className="flex items-center gap-1"
-                  >
-                    Portainer
-                  </a>
-                </Button>
-                <Button
-                  variant="transparent"
-                  after={<ExternalLinkIcon className="size-4" />}
-                  asChild
-                >
-                  <a
-                    href="https://analytics.palaguidebot.fr"
-                    target="_blank"
-                    className="flex items-center gap-1"
-                  >
-                    Umami
-                  </a>
-                </Button>
-              </div>
+            <Tabs.List>
+              <Tabs.Trigger before={<DiscordIcon className="size-4" />} value="discord">
+                Discord
+              </Tabs.Trigger>
+              <Tabs.Trigger before={<CodeXmlIcon className="size-4" />} value="api">
+                API
+              </Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="discord">
               <DiscordTab data={stats} />
