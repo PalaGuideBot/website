@@ -11,7 +11,6 @@
 ### Bot
 
 - Ajout des récompenses sur la commande `/calculator`.
-- Ajout d'un bouton pour directement accéder au calculator du website.
 
 ## 03/11/2024
 
