@@ -1,5 +1,17 @@
 # Changelog
 
+## 08/11/2024
+
+### Website
+
+- Ajout de l'outil clicker.
+- Correction d'un bug sur la page `/factions` (garder les membres de la précédente recherche)
+
+### Bot
+
+- Ajout des récompenses.
+- Ajout d'un bouton pour directement accéder au calculator du website.
+
 ## 03/11/2024
 
 ### Website
