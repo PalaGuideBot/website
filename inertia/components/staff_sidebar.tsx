@@ -48,13 +48,21 @@ const StaffSidebar = ({ className, ...props }: React.ComponentProps<typeof Sideb
       <SidebarGroupLabel>Services externes</SidebarGroupLabel>
       <SidebarMenu>
         <SidebarMenuItem>
-          <a href="https://dash.palaguidebot.fr" className={sidebarMenuButtonVariants()}>
+          <a
+            href="https://dash.palaguidebot.fr"
+            target="_blank"
+            className={sidebarMenuButtonVariants()}
+          >
             <span>Portainer</span>
             <ExternalLinkIcon className="size-4" />
           </a>
         </SidebarMenuItem>
         <SidebarMenuItem>
-          <a href="https://analytics.palaguidebot.fr" className={sidebarMenuButtonVariants()}>
+          <a
+            href="https://analytics.palaguidebot.fr"
+            target="_blank"
+            className={sidebarMenuButtonVariants()}
+          >
             <span>Umami</span>
             <ExternalLinkIcon className="size-4" />
           </a>
