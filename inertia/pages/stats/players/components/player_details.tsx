@@ -283,7 +283,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
                 <InformationLine label="Skin" value={translatePet(getPet(pet.currentSkin))} />
               </li>
               <li>
-                <InformationLine label="Nombre de skills" value={pet.skills.length} />
+                <InformationLine label="Niveau" value={pet.level} />
               </li>
               <li>
                 <ProgressBar

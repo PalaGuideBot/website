@@ -1,5 +1,17 @@
 # Changelog
 
+## 08/11/2024
+
+### Website
+
+- Ajout de l'outil Job Calculator
+- Modification de l'informations "Nombre de skills" par le niveau du pet sur la page `/players`
+- Correction d'un bug sur la page `/factions` (les membres ne s'actualisent pas lors du changement de faction)
+
+### Bot
+
+- Ajout des récompenses sur la commande `/calculator`.
+
 ## 03/11/2024
 
 ### Website

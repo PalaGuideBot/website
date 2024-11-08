@@ -49,13 +49,14 @@ const mountValidator = vine.object({
 const petValidator = vine.object({
   currentSkin: vine.string(),
   happiness: vine.number(),
-  skills: vine.array(
+  level: vine.number(),
+  /* skills: vine.array(
     vine.object({
       id: vine.string(),
       lastChange: vine.number(),
       nextUse: vine.number(),
     })
-  ),
+  ), */
 })
 
 export const playerInfoValidator = vine.compile(
@@ -121,6 +122,15 @@ export const playerClickerDataValidator = vine.compile(
     rps: vine.number(),
     upgrades: vine.array(vine.string()),
     state: vine.enum(['UNKNOWN_ERROR', 'NOT_FOUND', 'UNAUTHORIZED']).optional(),
+  })
+)
+
+export const playerJobsValidator = vine.compile(
+  vine.object({
+    miner: jobValidator.clone(),
+    farmer: jobValidator.clone(),
+    hunter: jobValidator.clone(),
+    alchemist: jobValidator.clone(),
   })
 )
 
