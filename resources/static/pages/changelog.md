@@ -4,12 +4,12 @@
 
 ### Website
 
-- Ajout de l'outil clicker.
-- Correction d'un bug sur la page `/factions` (garder les membres de la précédente recherche)
+- Ajout de l'outil "Job Calculator" disponible sur `/tools/job-calculator`.
+- Correction d'un bug sur la page `/factions` (les membres ne s'actualisent pas lors du changement de faction)
 
 ### Bot
 
-- Ajout des récompenses.
+- Ajout des récompenses sur la commande `/calculator`.
 - Ajout d'un bouton pour directement accéder au calculator du website.
 
 ## 03/11/2024
