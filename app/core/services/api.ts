@@ -394,7 +394,7 @@ export class ApiService {
       await client.delete(`users/${discordId}`)
     } catch (error: unknown) {
       throw new Exception('Unable to delete user', {
-        code: 'E_USER_UPDATE_INVALID',
+        code: 'E_USER_DELETE_INVALID',
         status: 500,
       })
     }
@@ -451,6 +451,17 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Unable to update role', {
         code: 'E_ROLE_UPDATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async deleteRole(name: string) {
+    try {
+      await client.delete(`roles/${name}`)
+    } catch (error: unknown) {
+      throw new Exception('Unable to delete role', {
+        code: 'E_ROLE_DELETE_INVALID',
         status: 500,
       })
     }
