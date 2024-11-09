@@ -34,11 +34,11 @@ const StaffSidebar = ({ className, ...props }: React.ComponentProps<typeof Sideb
       <SidebarGroupLabel>Staff</SidebarGroupLabel>
       <SidebarMenu>
         {links.map((item) => (
-          <SidebarMenuItem>
+          <SidebarMenuItem key={item.url}>
             <Link
               href={item.url}
               className={sidebarMenuButtonVariants()}
-              data-active={item.url === url || url.startsWith(item.url)}
+              data-active={item.url === url || url.replace('/staff', '').startsWith(item.url)}
             >
               <span>{item.title}</span>
             </Link>
