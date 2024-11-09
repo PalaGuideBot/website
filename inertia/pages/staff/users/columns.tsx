@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
 import { UserModal } from './user_modal'
+import { useAuth } from '~/hooks/use_auth'
 
 type User = Infer<typeof userValidator>
 
@@ -40,6 +41,8 @@ export const columns: ColumnDef<User>[] = [
     minSize: 0,
     size: 0,
     cell: ({ row }) => {
+      const auth = useAuth()
+
       return (
         <div className="flex justify-end">
           <UserModal user={row.original}>
@@ -47,7 +50,13 @@ export const columns: ColumnDef<User>[] = [
               <EditIcon className="size-4" />
             </Button>
           </UserModal>
-          <Button variant="transparent" size="sm" isIconOnly asChild>
+          <Button
+            variant="transparent"
+            size="sm"
+            isIconOnly
+            asChild
+            disabled={auth?.id === row.original.discordId}
+          >
             <Link
               href={`/staff/users/${row.original.discordId}`}
               method="delete"

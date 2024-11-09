@@ -3,6 +3,7 @@ import { HttpContext } from '@adonisjs/core/http'
 
 import { ApiService } from '#core/services/api'
 import { createUserValidator, updateUserValidator } from '#staff/validators/staff_validator'
+import { Exception } from '@adonisjs/core/exceptions'
 
 @inject()
 export default class UserController {
@@ -29,7 +30,10 @@ export default class UserController {
     return response.redirect().back()
   }
 
-  async destroy({ response, params }: HttpContext) {
+  async destroy({ response, params, auth }: HttpContext) {
+    if (auth?.user.id === params.id) {
+      throw new Exception('You cannot delete yourself', { status: 403 })
+    }
     await this.api.deleteUser(params.id)
 
     return response.redirect().back()
