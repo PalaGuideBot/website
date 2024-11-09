@@ -1,17 +1,33 @@
 import { Link } from '@inertiajs/react'
-import { Badge, Button } from '@lemonsqueezy/wedges'
+import { Avatar, Badge, Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
 import { EditIcon, Trash2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
-import { UserModal } from './user_modal'
 import { useAuth } from '~/hooks/use_auth'
+import { UserModal } from './user_modal'
 
 type User = Infer<typeof userValidator>
 
 export const columns: ColumnDef<User>[] = [
+  {
+    header: "Nom d'utilisateur",
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-2">
+          <Avatar
+            src={row.original.avatarUrl}
+            alt={row.original.username}
+            size="sm"
+            className="rounded-lg"
+          />
+          <span>{row.original.username}</span>
+        </div>
+      )
+    },
+  },
   {
     accessorKey: 'discordId',
     header: '#',

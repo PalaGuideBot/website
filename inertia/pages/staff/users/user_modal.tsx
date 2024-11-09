@@ -87,6 +87,7 @@ const UserModal = ({ children, user }: UserModalProps) => {
                 name="discordId"
                 value={form.data.discordId}
                 onChange={(event) => form.setData('discordId', event.target.value)}
+                disabled={!!user}
               />
               <FormMessage message={form.errors.discordId} />
             </FormItem>
