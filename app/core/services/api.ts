@@ -389,6 +389,17 @@ export class ApiService {
     }
   }
 
+  async deleteUser(discordId: string) {
+    try {
+      await client.delete(`users/${discordId}`)
+    } catch (error: unknown) {
+      throw new Exception('Unable to delete user', {
+        code: 'E_USER_UPDATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
   async getUsers() {
     try {
       const response = await client.get('users')
