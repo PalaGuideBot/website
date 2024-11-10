@@ -45,8 +45,8 @@ const StaffHeader = () => {
   const user = useAuth()
 
   return (
-    <header className="min-h-14 w-full border-b px-4 bg-background z-10 sticky top-0">
-      <div className="max-w-4xl mx-auto flex gap-4 h-full justify-between items-center">
+    <header className="min-h-14 w-full border-b bg-background z-10 sticky top-0">
+      <div className="max-w-6xl mx-auto px-4 flex gap-4 h-full justify-between items-center">
         <Link href="/">
           <img src="/logo.png" className="h-6 lg:h-8 w-full object-contain" />
         </Link>
