@@ -14,6 +14,7 @@ type User = Infer<typeof userValidator>
 export const columns: ColumnDef<User>[] = [
   {
     header: "Nom d'utilisateur",
+    accessorKey: 'username',
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-2">
@@ -34,6 +35,7 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     header: 'Rôles',
+    accessorFn: (row) => row.roles.map((role) => `${role.name}:${role.label}`).join(', '),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
