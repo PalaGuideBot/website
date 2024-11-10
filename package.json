@@ -99,6 +99,7 @@
     "react-dom": "^18.3.1",
     "react-imask": "^7.6.1",
     "react-markdown": "^9.0.1",
+    "react-snowfall": "^2.1.1",
     "recharts": "^2.13.0-alpha.1",
     "reflect-metadata": "^0.2.2",
     "skinview3d": "^3.0.1",

@@ -11,8 +11,12 @@ import { Head } from '~/components/shared/head'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
+import Snowfall from 'react-snowfall'
 
 const CAROUSEL_DELAY = 5000
+const snowflake1 = document.createElement('img')
+snowflake1.src = '/public/snowflake.png'
+const images = [snowflake1]
 
 type HomePageProps = InferPageProps<PageController, 'home'>
 
@@ -23,6 +27,15 @@ export default function Home(props: HomePageProps) {
     <>
       <Head descriptors={[{ title: 'Accueil' }]} />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
+        <Snowfall
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}
+          snowflakeCount={235}
+          speed={[0.5, 3]}
+          wind={[-0.5, 3]}
+          radius={[5, 15]}
+          rotationSpeed={[0.1, 0.5]}
+          images={images}
+        />
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
             <div className="space-y-6">

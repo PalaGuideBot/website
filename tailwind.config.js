@@ -12,7 +12,7 @@ const primaryColor = {
   700: '#B77801',
   800: '#935D00',
   900: '#7A4900',
-  DEFAULT: '#FFB702',
+  DEFAULT: '#d4423e',
 }
 
 /** @type {import('tailwindcss').Config} */
