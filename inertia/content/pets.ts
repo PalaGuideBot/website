@@ -10,6 +10,9 @@ export const pets = [
   'pet_mini_golem',
   'pet_ufo',
   'rabbit',
+  'pet_ender_dragon',
+  'pet_zombie_hand',
+  'pet_arty',
 ] as const
 
 export function getPet(value: string) {
@@ -31,6 +34,9 @@ const translations: Record<PetType, string> = {
   pet_mini_golem: 'Mini Golem',
   pet_ufo: 'UFO',
   rabbit: 'Rabbit',
+  pet_ender_dragon: 'Ender Dragon',
+  pet_zombie_hand: 'Zombie Hand',
+  pet_arty: 'Arty',
 }
 
 export function translatePet(pet: PetType): string {
