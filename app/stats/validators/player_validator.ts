@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine'
 
-import { userRoleValidator } from '#staff/validators/user_validator'
+import { userRoleSchema } from '#staff/validators/user_validator'
 
 const jobValidator = vine.object({
   level: vine.number(),
@@ -93,7 +93,7 @@ export const playerInfoValidator = vine.compile(
         date: vine.string(),
       })
     ),
-    flags: vine.array(userRoleValidator.clone()),
+    flags: vine.array(userRoleSchema.clone()),
   })
 )
 

@@ -24,7 +24,12 @@ import {
   validators as leaderboardValidators,
 } from '#leaderboard/validators/leaderboard_validator'
 import { usageStatisticsValidator } from '#staff/validators/staff_validator'
-import { userValidator } from '#staff/validators/user_validator'
+import {
+  userRolesValidator,
+  userRoleValidator,
+  usersValidator,
+  userValidator,
+} from '#staff/validators/user_validator'
 import env from '#start/env'
 import { botStatsValidator } from '#stats/validators/bot_validator'
 import { factionInfoValidator } from '#stats/validators/faction_validator'
@@ -362,7 +367,47 @@ export class ApiService {
       return userValidator.validate(data)
     } catch (error: unknown) {
       throw new Exception('Unable to create user', {
-        code: 'E_USER_INVALID',
+        code: 'E_USER_CREATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async updateUser(discordId: string, roles: string[] = []) {
+    try {
+      const response = await client.put(`users/${discordId}`, {
+        body: JSON.stringify({ roles }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return userValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable to update user', {
+        code: 'E_USER_UPDATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async deleteUser(discordId: string) {
+    try {
+      await client.delete(`users/${discordId}`)
+    } catch (error: unknown) {
+      throw new Exception('Unable to delete user', {
+        code: 'E_USER_DELETE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getUsers() {
+    try {
+      const response = await client.get('users')
+      const data = await response.json()
+      return usersValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable retreive users', {
+        code: 'E_USERS_INVALID',
         status: 500,
       })
     }
@@ -373,6 +418,73 @@ export class ApiService {
       const response = await client.get(`users/${discordId}`)
       const data = await response.json()
       const [, result] = await userValidator.tryValidate(data)
+      return result
+    } catch (error: unknown) {
+      return null
+    }
+  }
+
+  async createRole(payload: Infer<typeof userRoleValidator>) {
+    try {
+      const response = await client.post('roles', {
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return userRoleValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable to create role', {
+        code: 'E_ROLE_CREATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async updateRole(name: string, payload: Partial<Infer<typeof userRoleValidator>>) {
+    try {
+      const response = await client.put(`roles/${name}`, {
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return userRoleValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable to update role', {
+        code: 'E_ROLE_UPDATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async deleteRole(name: string) {
+    try {
+      await client.delete(`roles/${name}`)
+    } catch (error: unknown) {
+      throw new Exception('Unable to delete role', {
+        code: 'E_ROLE_DELETE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getRoles() {
+    try {
+      const response = await client.get('roles')
+      const data = await response.json()
+      return userRolesValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable retreive roles', {
+        code: 'E_ROLES_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getRole(name: string) {
+    try {
+      const response = await client.get(`roles/${name}`)
+      const data = await response.json()
+      const [, result] = await userRoleValidator.tryValidate(data)
       return result
     } catch (error: unknown) {
       return null

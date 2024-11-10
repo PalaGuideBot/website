@@ -42,3 +42,34 @@ export const usageStatisticsValidator = vine.compile(
     })
   )
 )
+
+export const createUserValidator = vine.compile(
+  vine.object({
+    discordId: vine.string(),
+    roles: vine.array(vine.string()),
+  })
+)
+
+export const updateUserValidator = vine.compile(
+  vine.object({
+    roles: vine.array(vine.string()),
+  })
+)
+
+export const createRoleValidator = vine.compile(
+  vine.object({
+    name: vine.string().toUpperCase(),
+    label: vine.string(),
+    priority: vine.number().positive(),
+    description: vine.string(),
+  })
+)
+
+export const updateRoleValidator = vine.compile(
+  vine.object({
+    name: vine.string().toUpperCase().optional(),
+    label: vine.string().optional(),
+    priority: vine.number().positive().optional(),
+    description: vine.string().optional(),
+  })
+)
