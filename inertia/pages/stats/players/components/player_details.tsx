@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Alert, Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
-import { ChevronDown, MousePointerClickIcon, Repeat } from 'lucide-react'
+import { ChevronDown, MousePointerClickIcon, PauseIcon, PlayIcon } from 'lucide-react'
 import * as React from 'react'
 import {
   Area,
@@ -224,11 +224,11 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
 
   return (
     <Card className={cn('flex flex-col', className)} id="monture" {...props}>
-      <CardHeader className="border-b py-2 flex flex-row items-center justify-between">
+      <CardHeader className="border-b py-2 space-y-0 flex flex-row items-center justify-between">
         <CardTitle href="#monture">Monture</CardTitle>
         {mount && (
           <Button variant="outline" isIconOnly onClick={toggleLoop}>
-            <Repeat className="size-4" />
+            {isLooping ? <PauseIcon className="size-4" /> : <PlayIcon className="size-4" />}
           </Button>
         )}
       </CardHeader>
@@ -288,7 +288,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
         <CardTitle href="#familier">Familier</CardTitle>
         {pet && (
           <Button variant="outline" isIconOnly onClick={toggleLoop}>
-            <Repeat className="size-4" />
+            {isLooping ? <PauseIcon className="size-4" /> : <PlayIcon className="size-4" />}
           </Button>
         )}
       </CardHeader>

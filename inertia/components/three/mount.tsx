@@ -1,4 +1,4 @@
-import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei'
+import { OrbitControls, useAnimations, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React, { useEffect } from 'react'
 import * as THREE from 'three'
@@ -15,8 +15,13 @@ const Mount = ({ model, isLooping }: { model: MountType; isLooping: boolean }) =
     const runningAction = actions?.[mountAnimation] || actions[0]
 
     if (runningAction) {
-      runningAction.reset().play()
-      runningAction.loop = isLooping ? THREE.LoopRepeat : THREE.LoopOnce
+      runningAction.loop = THREE.LoopRepeat
+
+      if (isLooping) {
+        runningAction.reset().play()
+      } else {
+        runningAction.stop()
+      }
     }
 
     return () => {
