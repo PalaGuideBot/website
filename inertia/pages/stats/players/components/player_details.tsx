@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Alert, Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
-import { ChevronDown, MousePointerClickIcon } from 'lucide-react'
+import { ChevronDown, MousePointerClickIcon, Repeat } from 'lucide-react'
 import * as React from 'react'
 import {
   Area,
@@ -216,11 +216,21 @@ interface MountSectionProps extends React.ComponentProps<typeof Card> {
 
 const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
   const foodPercent = Number(mount?.food) / 100
+  const [isLooping, setIsLooping] = React.useState(false)
+
+  const toggleLoop = () => {
+    setIsLooping(!isLooping)
+  }
 
   return (
     <Card className={cn('flex flex-col', className)} id="monture" {...props}>
-      <CardHeader className="border-b py-2.5">
+      <CardHeader className="border-b py-2 flex flex-row items-center justify-between">
         <CardTitle href="#monture">Monture</CardTitle>
+        {mount && (
+          <Button variant="outline" isIconOnly onClick={toggleLoop}>
+            <Repeat className="size-4" />
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-center">
         {mount && (
@@ -228,6 +238,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
             <MountViewer
               className="!pointer-events-none sm:!pointer-events-auto"
               model={getMountNameByType(mount.mountType)}
+              isLooping={isLooping}
             />
             <ul className="flex flex-col gap-2">
               <li>
@@ -265,11 +276,21 @@ interface PetSectionProps extends React.ComponentProps<typeof Card> {
 
 const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
   const happinessPercent = (Number(pet?.happiness) / 200) * 100
+  const [isLooping, setIsLooping] = React.useState(false)
+
+  const toggleLoop = () => {
+    setIsLooping(!isLooping)
+  }
 
   return (
     <Card className={cn('flex flex-col', className)} id="familier" {...props}>
-      <CardHeader className="border-b py-2.5">
+      <CardHeader className="border-b py-2 flex flex-row items-center justify-between">
         <CardTitle href="#familier">Familier</CardTitle>
+        {pet && (
+          <Button variant="outline" isIconOnly onClick={toggleLoop}>
+            <Repeat className="size-4" />
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col">
         {pet && (
@@ -277,8 +298,9 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
             <PetViewer
               className="!pointer-events-none sm:!pointer-events-auto"
               model={getPet(pet.currentSkin)}
+              isLooping={isLooping}
             />
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-2 mt-4">
               <li>
                 <InformationLine label="Skin" value={translatePet(getPet(pet.currentSkin))} />
               </li>
