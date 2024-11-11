@@ -58,6 +58,7 @@ const DiscordInteractionsCard = ({ data, interactions }: DiscordInteractionsCard
     '#75FF33',
     '#33FFBD',
     '#3375FF',
+    '#FF336E',
   ]
 
   return (
