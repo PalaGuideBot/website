@@ -1,5 +1,9 @@
 # Changelog
 
+## 12/11/2024
+
+- Ajout des animations de familiers et montures sur la page `/players`
+
 ## 08/11/2024
 
 ### Website
