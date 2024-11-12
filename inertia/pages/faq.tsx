@@ -44,7 +44,7 @@ const questions: Question[] = [
     content:
       "Pourquoi le filtre sur les statistiques d'un joueur n'affectent pas toutes les données ?",
     answer:
-      "Le filtre s'applique uniquement sur les informations disposant d'un historique, en occurence: la faction du joueur, son rang, ses niveaux de métiers, son argent, son temps de jeu (si activé) et sa progression sur le Clicker.",
+      "Le filtre s'applique uniquement aux informations disposant d'un historique, à savoir : la faction du joueur, son rang, ses niveaux de métiers, son argent, son temps de jeu (si activé) et sa progression dans le Clicker.",
   },
 ]
 

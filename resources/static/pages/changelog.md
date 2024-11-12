@@ -1,5 +1,15 @@
 # Changelog
 
+## 12/11/2024
+
+### Website
+
+- Ajout des animations de familiers et montures sur la page `/players`
+
+### Bot
+
+- Correction d'un bug avec la commande `/faction`
+
 ## 08/11/2024
 
 ### Website
