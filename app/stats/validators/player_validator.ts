@@ -40,10 +40,11 @@ const friendsValidator = vine.array(
 const mountValidator = vine.object({
   mountType: vine.number(),
   name: vine.string(),
-  damage: vine.number(),
+  // damage: vine.number(),
   food: vine.number(),
-  sharedXpPercent: vine.number(),
+  // sharedXpPercent: vine.number(),
   xp: vine.number(),
+  level: vine.number(),
 })
 
 const petValidator = vine.object({

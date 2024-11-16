@@ -245,7 +245,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
                 <InformationLine label="Name" value={mount.name} />
               </li>
               <li>
-                <InformationLine label="Xp" value={mount.xp} />
+                <InformationLine label="Niveau" value={mount.level} />
               </li>
               <li>
                 <ProgressBar
@@ -284,7 +284,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
 
   return (
     <Card className={cn('flex flex-col', className)} id="familier" {...props}>
-      <CardHeader className="border-b py-2 flex flex-row items-center justify-between">
+      <CardHeader className="border-b py-2 space-y-0 flex flex-row items-center justify-between">
         <CardTitle href="#familier">Familier</CardTitle>
         {pet && (
           <Button variant="outline" isIconOnly onClick={toggleLoop}>
