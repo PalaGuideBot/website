@@ -71,6 +71,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
     'current-level': Number(searchParams.get('current-level')),
     'target-level': Number(searchParams.get('target-level')),
     'bonus-xp': Number(searchParams.get('bonus-xp')),
+    'current-xp': Number(searchParams.get('current-xp')),
     'pseudo': searchParams.get('pseudo') || '',
   })
 
@@ -101,6 +102,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
 
         if (target) {
           form.setData('current-level', target.level)
+          form.setData('current-xp', target.xp)
         }
       },
       {
@@ -236,22 +238,41 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             <FormMessage message={errors?.['target-level']} />
                           </FormItem>
                         </div>
-                        <FormItem>
-                          <FormLabel>XP bonus</FormLabel>
-                          <Input
-                            type="number"
-                            name="bonus-xp"
-                            className="bg-transparent"
-                            placeholder="0"
-                            min={0}
-                            max={33}
-                            value={form.data['bonus-xp']}
-                            onChange={(event) =>
-                              form.setData('bonus-xp', Number(event.target.value))
-                            }
-                          />
-                          <FormMessage message={errors?.['bonus-xp']} />
-                        </FormItem>
+                        <div className="grid xs:grid-cols-2 gap-4">
+                          <FormItem>
+                            <FormLabel>XP bonus</FormLabel>
+                            <Input
+                              type="number"
+                              name="bonus-xp"
+                              className="bg-transparent"
+                              placeholder="0"
+                              min={0}
+                              max={33}
+                              value={form.data['bonus-xp']}
+                              onChange={(event) =>
+                                form.setData('bonus-xp', Number(event.target.value))
+                              }
+                            />
+                            <FormMessage message={errors?.['bonus-xp']} />
+                          </FormItem>
+                          <FormItem>
+                            <FormLabel tooltip="La valeur qui s'affiche lorsque vous passez votre souris sur un métier">
+                              XP actuelle (facultatif)
+                            </FormLabel>
+                            <Input
+                              type="number"
+                              name="current-xp"
+                              className="bg-transparent"
+                              placeholder="0"
+                              min={0}
+                              value={form.data['current-xp']}
+                              onChange={(event) =>
+                                form.setData('current-xp', Number(event.target.value))
+                              }
+                            />
+                            <FormMessage message={errors?.['current-xp']} />
+                          </FormItem>
+                        </div>
                       </motion.div>
                     </>
                   )}
