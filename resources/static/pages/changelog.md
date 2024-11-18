@@ -1,5 +1,12 @@
 # Changelog
 
+## 18/11/2024
+
+### Website
+
+- Modification de l'information "XP" par le niveau de la monture sur la page `/players`
+- Ajout de l'XP actuelle sur l'outil Job Calculator
+
 ## 12/11/2024
 
 ### Website
