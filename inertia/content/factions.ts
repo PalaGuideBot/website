@@ -1,4 +1,9 @@
+import type { Infer } from '@vinejs/vine/types'
+
+import type { factionInfoValidator } from '#stats/validators/faction_validator'
 import {
+  AllianceChaosIcon,
+  AllianceOrderIcon,
   FactionAeloriaIcon,
   FactionEgopolisIcon,
   FactionEventIcon,
@@ -9,6 +14,8 @@ import {
 } from '~/components/icons'
 import { PaladiumFaction } from '~/types'
 
+type FactionAlliance = Infer<typeof factionInfoValidator>['alliance']
+
 export const icons: Record<PaladiumFaction, React.FC<IconProps>> = {
   Aeloria: FactionAeloriaIcon,
   Egopolis: FactionEgopolisIcon,
@@ -16,4 +23,13 @@ export const icons: Record<PaladiumFaction, React.FC<IconProps>> = {
   Kilmordra: FactionKilmordraIcon,
   Runegard: FactionRunegardIcon,
   Xanoth: FactionXanothIcon,
+}
+
+export const allianceIcons: Record<FactionAlliance, React.FC<IconProps>> = {
+  CHAOS: AllianceChaosIcon,
+  ORDER: AllianceOrderIcon,
+}
+
+export const allianceToIcon = (alliance: FactionAlliance) => {
+  return allianceIcons[alliance]
 }
