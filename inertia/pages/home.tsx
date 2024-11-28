@@ -151,7 +151,10 @@ export default function Home(props: HomePageProps) {
                   before={<ExternalLinkIcon className="mr-2" />}
                   asChild
                 >
-                  <a target="_blank" href="/discord">
+                  <a
+                    target="_blank"
+                    href="https://discord.com/application-directory/1182646034661392394"
+                  >
                     En savoir plus
                   </a>
                 </Button>

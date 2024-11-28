@@ -1,5 +1,16 @@
 # Changelog
 
+## 29/11/2024
+
+### Website
+
+- Modification du lien **En savoir plus** sur la page d'accueil
+- Ajout de l'allication dans les informations d'une faction
+
+### Bot
+
+- Correction de l'URL vers la version Web du Job Calculator
+
 ## 18/11/2024
 
 ### Website

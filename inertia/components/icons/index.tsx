@@ -31,6 +31,9 @@ import FactionKilmordra from '~/assets/faction-icons/kilmordra.png'
 import FactionRunegard from '~/assets/faction-icons/runegard.png'
 import FactionXanoth from '~/assets/faction-icons/xanoth.png'
 
+import AllianceChaos from '~/assets/icons/alliance-chaos.png'
+import AllianceOrder from '~/assets/icons/alliance-order.png'
+
 export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 const iconFactory =
@@ -75,6 +78,9 @@ export const FactionEventIcon = iconFactory(FactionEvent)
 export const FactionKilmordraIcon = iconFactory(FactionKilmordra)
 export const FactionRunegardIcon = iconFactory(FactionRunegard)
 export const FactionXanothIcon = iconFactory(FactionXanoth)
+
+export const AllianceChaosIcon = iconFactory(AllianceChaos)
+export const AllianceOrderIcon = iconFactory(AllianceOrder)
 
 export const DiscordIcon = React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   ({ fill = 'currentColor', height = 24, width = 24, ...props }, ref) => {
