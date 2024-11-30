@@ -2,7 +2,7 @@ import { wedgesTW } from '@lemonsqueezy/wedges'
 import tailwindCssAnimate from 'tailwindcss-animate'
 
 /** @type {import('@lemonsqueezy/wedges').ThemableColorScale} */
-const primaryColor = {
+/* const primaryColor = {
   100: '#FFF6CC',
   200: '#FFEB99',
   300: '#FFDC67',
@@ -13,6 +13,18 @@ const primaryColor = {
   800: '#935D00',
   900: '#7A4900',
   DEFAULT: '#FFB702',
+} */
+const primaryColor = {
+  100: '#FCE6D9',
+  200: '#FAC7B3',
+  300: '#F29F8B',
+  400: '#E5796B',
+  500: '#D4423E',
+  600: '#B62D35',
+  700: '#981F30',
+  800: '#7A132B',
+  900: '#650B28',
+  DEFAULT: '#D4423E',
 }
 
 /** @type {import('tailwindcss').Config} */

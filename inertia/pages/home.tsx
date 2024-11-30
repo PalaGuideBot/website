@@ -8,6 +8,7 @@ import { DiscordIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
 import { Head } from '~/components/shared/head'
+import { Snowfall } from '~/components/shared/snowfall'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
@@ -23,6 +24,7 @@ export default function Home(props: HomePageProps) {
     <>
       <Head descriptors={[{ title: 'Accueil' }]} />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
+        <Snowfall />
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
             <div className="space-y-6">
