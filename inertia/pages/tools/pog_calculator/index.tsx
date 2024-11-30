@@ -110,7 +110,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                       }}
                       checked={form.data['use-pet-skill']}
                     />
-                    <span>Utiliser la compétence "Bonne pioche" du pet ?</span>
+                    <span className="text-sm">Utiliser la compétence "Bonne pioche" du pet ?</span>
                   </label>
                 </Checkbox.Root>
                 {form.data['use-pet-skill'] && (

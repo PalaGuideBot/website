@@ -50,6 +50,8 @@ const itemValidator = vine.object({
 export const calculatorResultValidator = vine.compile(
   vine.object({
     xpTotal: vine.number(),
+    currentTier: vine.number(),
+    targetTier: vine.number(),
     items: vine.array(itemValidator.clone()),
   })
 )
