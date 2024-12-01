@@ -1,5 +1,17 @@
 # Changelog
 
+## 01/12/2024
+
+### Website
+
+- Ajout de l'outil POG Calculator
+- Ajout de flocons sur la page d'accueil (Noël)
+- Modification des couleurs du site pour le mois de décembre (Noël)
+
+### Bot
+
+- Ajout de la commande `/pog` pour obtenir le lien vers le site web
+
 ## 29/11/2024
 
 ### Website
