@@ -1,5 +1,7 @@
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
+import { greaterThanRule } from '#core/validators/rules/greater_than'
+
 const messages = {
   'job.enum': 'Métier invalide',
   'current-level.number': 'Le niveau actuel doit être un nombre',
@@ -8,6 +10,7 @@ const messages = {
   'target-level.number': 'Le niveau cible doit être un nombre',
   'target-level.min': 'Le niveau cible doit être supérieur à 0',
   'target-level.max': 'Le niveau cible doit être inférieur à 101',
+  'target-level.greaterThan': 'Le niveau cible doit être supérieur au niveau actuel',
   'bonus-xp.number': 'Le bonus XP doit être un nombre',
   'bonus-xp.min': "L'XP bonus doit être supérieur à 0",
   'bonus-xp.max': "L'XP bonus doit être inférieur ou égale à 33",
@@ -20,7 +23,12 @@ export const calculatorOptionsValidator = vine.compile(
     .object({
       'job': vine.enum(['miner', 'farmer', 'hunter', 'alchemist']),
       'current-level': vine.number().withoutDecimals().min(1).max(100),
-      'target-level': vine.number().withoutDecimals().min(1).max(100),
+      'target-level': vine
+        .number()
+        .withoutDecimals()
+        .min(1)
+        .max(100)
+        .use(greaterThanRule({ otherField: 'current-level' })),
       'bonus-xp': vine.number().min(0).max(33),
       'current-xp': vine
         .number()
