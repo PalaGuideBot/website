@@ -10,7 +10,7 @@
 
 ### Bot
 
-- Ajout de la commande `/pog` pour obtenir le lien vers le site web
+- Modification de la commande `/pog` pour obtenir le lien vers le site web
 
 ## 29/11/2024
 
