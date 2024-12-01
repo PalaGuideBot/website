@@ -114,6 +114,10 @@ const generalLinks: LinkProps[] = [
         title: 'Job Calculator',
         url: '/tools/job-calculator',
       },
+      {
+        title: 'POG Calculator',
+        url: '/tools/pog-calculator',
+      },
     ],
   },
   { title: 'Événements', url: '/events', icon: CalendarIcon },

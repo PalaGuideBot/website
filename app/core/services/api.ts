@@ -41,9 +41,13 @@ import {
 } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
 import {
-  calculatorOptionsValidator,
-  calculatorResultValidator,
+  calculatorOptionsValidator as calculatorJobOptionsValidator,
+  calculatorResultValidator as calculatorJobResultValidator,
 } from '#tools/validators/calculator_validator'
+import {
+  calculatorOptionsValidator as calculatorPogOptionsValidator,
+  calculatorResultValidator as calculatorPogResultValidator,
+} from '#tools/validators/pog_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
 
 const client = ky.create({
@@ -491,17 +495,33 @@ export class ApiService {
     }
   }
 
-  async calculateJob(options: Infer<typeof calculatorOptionsValidator>) {
+  async calculateJob(options: Infer<typeof calculatorJobOptionsValidator>) {
     try {
       const response = await client.post('utils/jobs/calculate', {
         body: JSON.stringify({ body: options }),
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.json()
-      return calculatorResultValidator.validate(data)
+      return calculatorJobResultValidator.validate(data)
     } catch (error: unknown) {
       throw new Exception('Invalid job calculation data', {
         code: 'E_JOB_CALCULATION_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async calculatePog(options: Infer<typeof calculatorPogOptionsValidator>) {
+    try {
+      const response = await client.post('utils/pog/calculate', {
+        body: JSON.stringify({ body: options }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      return calculatorPogResultValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid pog calculation data', {
+        code: 'E_POG_CALCULATION_INVALID',
         status: 500,
       })
     }
