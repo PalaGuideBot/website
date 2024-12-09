@@ -45,6 +45,7 @@ import {
   calculatorResultValidator as calculatorJobResultValidator,
 } from '#tools/validators/calculator_validator'
 import {
+  calculatorItemsValidator,
   calculatorOptionsValidator as calculatorPogOptionsValidator,
   calculatorResultValidator as calculatorPogResultValidator,
 } from '#tools/validators/pog_validator'
@@ -522,6 +523,19 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid pog calculation data', {
         code: 'E_POG_CALCULATION_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getPogItems() {
+    try {
+      const response = await client.get('utils/pog/items')
+      const data = await response.json()
+      return calculatorItemsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid pog items data', {
+        code: 'E_POG_ITEMS_INVALID',
         status: 500,
       })
     }

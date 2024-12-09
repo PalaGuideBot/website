@@ -6,40 +6,53 @@ import {
   Loading,
   Select,
   SelectContent,
+  SelectGroup,
+  SelectIcon,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '@lemonsqueezy/wedges'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
 import { FormEvent, useRef } from 'react'
 
 import type PogCalculatorController from '#tools/controller/pog_calculator_controller'
-import { ArrowRightIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
+import Input from '~/components/ui/input'
 import { useSearchParams } from '~/hooks/use_search_params'
+import { getMinecraftItemUrl } from '~/lib/minecraft'
 import { cn } from '~/lib/utils'
+import { BetaAlert } from './components/beta_alert'
 import { CalculatorResult } from './components/calculator_result'
 import { PogLevelControls } from './components/pog_level_controls'
 
 type PogCalculatorIndexProps = InferPageProps<PogCalculatorController, 'index'>
 
 export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
-  const { options, result } = props
+  const { items, options, result } = props
 
   const { errors = {} } = usePage().props
   const resultSubTitleRef = useRef<HTMLHeadingElement>(null)
   const [searchParams] = useSearchParams()
 
   const form = useForm({
+    'block': searchParams.get('block') || '',
     'current-level': Number(searchParams.get('current-level') || 1),
-    'target-level': Number(searchParams.get('target-level') || 1),
-    'use-pet-skill': Boolean(
-      searchParams.get('use-pet-skill') || Boolean(searchParams.get('pet-skill-percentage'))
+    'current-xp': Number(searchParams.get('current-xp') || 0),
+    'use-good-pickaxe': Boolean(
+      searchParams.get('use-good-pickaxe') || searchParams.get('good-pickaxe-percentage')
     ),
-    'pet-skill-percentage': Number(searchParams.get('pet-skill-percentage') || 0),
+    'good-pickaxe-percentage': Number(searchParams.get('good-pickaxe-percentage') || 0),
+    'use-experienced-pickaxe': Boolean(
+      searchParams.get('use-experienced-pickaxe') ||
+        searchParams.get('experienced-pickaxe-percentage')
+    ),
+    'experienced-pickaxe-percentage': Number(
+      searchParams.get('experienced-pickaxe-percentage') || 0
+    ),
   })
 
   const onSubmit = (event: FormEvent) => {
@@ -83,6 +96,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
             Calculez l'expérience et visualisez les éléments dont vous avez besoin pour améliorer
             votre pioche.
           </p>
+          <BetaAlert />
           <div className="flex flex-row items-center justify-between gap-2">
             <PageSubTitle>Paramètres</PageSubTitle>
             <Button
@@ -98,42 +112,104 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
           <Card>
             <CardContent className="pt-4">
               <form id="calculator" className="space-y-2" onSubmit={onSubmit}>
+                <FormItem>
+                  <FormLabel tooltip="Le bloc que vous voulez one-shot">Bloc</FormLabel>
+                  <Select
+                    value={form.data.block}
+                    onValueChange={(value) => form.setData('block', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choissisez un bloc" />
+                      <SelectIcon />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {items.map((item) => (
+                          <SelectItem key={item.id} value={item.id}>
+                            <div className="flex items-center gap-1">
+                              <img
+                                className="w-auto h-6 object-contain"
+                                src={getMinecraftItemUrl(item.id)}
+                              />
+                              <span>{item.name}</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage message={errors?.block} />
+                </FormItem>
                 <Checkbox.Root className="items-center" asChild>
                   <label>
                     <Checkbox.Item
                       onCheckedChange={(checked) => {
-                        form.setData('use-pet-skill', Boolean(checked))
+                        form.setData('use-good-pickaxe', Boolean(checked))
 
                         if (!checked) {
-                          form.setData('pet-skill-percentage', 0)
+                          form.setData('good-pickaxe-percentage', 0)
                         }
                       }}
-                      checked={form.data['use-pet-skill']}
+                      checked={form.data['use-good-pickaxe']}
                     />
                     <span className="text-sm">Utiliser la compétence "Bonne pioche" du pet ?</span>
                   </label>
                 </Checkbox.Root>
-                {form.data['use-pet-skill'] && (
+                {form.data['use-good-pickaxe'] && (
                   <FormItem>
-                    <FormLabel>Pourcentage de la compétence</FormLabel>
-                    <Select
-                      value={String(form.data['pet-skill-percentage'])}
-                      onValueChange={(value) => form.setData('pet-skill-percentage', Number(value))}
-                    >
-                      <SelectTrigger />
-                      <SelectContent>
-                        <SelectItem value="0">0%</SelectItem>
-                        <SelectItem value="10">10%</SelectItem>
-                        <SelectItem value="20">20%</SelectItem>
-                        <SelectItem value="30">30%</SelectItem>
-                        <SelectItem value="40">40%</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage message={errors?.['pet-skill-percentage']} />
+                    <FormLabel htmlFor="good-pickaxe-percentage">
+                      Pourcentage de la compétence
+                    </FormLabel>
+                    <Input
+                      id="good-pickaxe-percentage"
+                      type="number"
+                      className="bg-transparent"
+                      min={0}
+                      value={form.data['good-pickaxe-percentage']}
+                      onChange={(event) =>
+                        form.setData('good-pickaxe-percentage', Number(event.target.value))
+                      }
+                    />
+                    <FormMessage message={errors?.['good-pickaxe-percentage']} />
                   </FormItem>
                 )}
-                <div className="flex flex-col xs:flex-row items-center justify-evenly gap-4">
-                  <FormItem className="items-center">
+                <Checkbox.Root className="items-center" asChild>
+                  <label>
+                    <Checkbox.Item
+                      onCheckedChange={(checked) => {
+                        form.setData('use-experienced-pickaxe', Boolean(checked))
+
+                        if (!checked) {
+                          form.setData('experienced-pickaxe-percentage', 0)
+                        }
+                      }}
+                      checked={form.data['use-experienced-pickaxe']}
+                    />
+                    <span className="text-sm">
+                      Utiliser la compétence "Pioche expérimenté" du pet ?
+                    </span>
+                  </label>
+                </Checkbox.Root>
+                {form.data['use-experienced-pickaxe'] && (
+                  <FormItem>
+                    <FormLabel htmlFor="experienced-pickaxe-percentage">
+                      Pourcentage de la compétence
+                    </FormLabel>
+                    <Input
+                      id="experienced-pickaxe-percentage"
+                      type="number"
+                      className="bg-transparent"
+                      min={0}
+                      value={String(form.data['experienced-pickaxe-percentage'])}
+                      onChange={(event) =>
+                        form.setData('experienced-pickaxe-percentage', Number(event.target.value))
+                      }
+                    />
+                    <FormMessage message={errors?.['good-pickaxe-percentage']} />
+                  </FormItem>
+                )}
+                <div className="flex flex-col md:flex-row md:items-start gap-4">
+                  <FormItem className="items-center md:items-baseline">
                     <FormLabel>Niveau actuel</FormLabel>
                     <PogLevelControls
                       level={form.data['current-level']}
@@ -147,20 +223,22 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                     />
                     <FormMessage message={errors?.['current-level']} />
                   </FormItem>
-                  <ArrowRightIcon className="rotate-90 xs:rotate-0 xs:mt-[32px] size-4 invert dark:invert-0" />
-                  <FormItem className="items-center">
-                    <FormLabel>Niveau cible</FormLabel>
-                    <PogLevelControls
-                      level={form.data['target-level']}
-                      onLevelChange={(level) => form.setData('target-level', level)}
-                      onDecreaseLevel={() =>
-                        form.setData('target-level', form.data['target-level'] - 1)
-                      }
-                      onIncreaseLevel={() =>
-                        form.setData('target-level', form.data['target-level'] + 1)
-                      }
+                  <FormItem className="flex-grow">
+                    <FormLabel
+                      id="current-xp"
+                      tooltip="La valeur qui s'affiche lorsque vous passez la souris sur la pioche"
+                    >
+                      XP actuelle (facultatif)
+                    </FormLabel>
+                    <Input
+                      id="current-xp"
+                      type="number"
+                      className="bg-transparent"
+                      min={0}
+                      value={form.data['current-xp']}
+                      onChange={(event) => form.setData('current-xp', Number(event.target.value))}
                     />
-                    <FormMessage message={errors?.['target-level']} />
+                    <FormMessage message={errors?.['current-xp']} />
                   </FormItem>
                 </div>
               </form>

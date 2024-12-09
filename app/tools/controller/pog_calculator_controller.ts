@@ -13,6 +13,8 @@ export default class PogCalculatorController {
     const [optionsErrors, options] = await calculatorOptionsValidator.tryValidate(request.qs())
     let result = null
 
+    const items = await this.api.getPogItems()
+
     if (options) {
       result = await this.api.calculatePog(options)
     }
@@ -21,6 +23,6 @@ export default class PogCalculatorController {
       inertia.share({ errors: parseErrorsBag(optionsErrors) })
     }
 
-    return inertia.render('tools/pog_calculator/index', { options, result })
+    return inertia.render('tools/pog_calculator/index', { items, options, result })
   }
 }

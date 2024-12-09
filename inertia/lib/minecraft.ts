@@ -13,3 +13,7 @@ export function getBustUrl(uuid: string) {
 export function getFullBobyUrl(uuid: string, side: 'front' | 'back' | 'side' = 'side') {
   return `https://skins.mcstats.com/body/${side}/${uuid}`
 }
+
+export function getMinecraftItemUrl(id: string) {
+  return `https://image.palaguidebot.fr/minecraft/items/${id}`
+}
