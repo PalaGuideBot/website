@@ -4,7 +4,7 @@
 
 ### Website
 
-- Refonte de l'outil POG Calculator
+- Refonte de l'outil POG Calculator [En Bêta]
 - Correction de l'erreur lorsqu'une page est introuvable
 
 ## 01/12/2024
