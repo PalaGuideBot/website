@@ -1,5 +1,12 @@
 # Changelog
 
+## 10/12/2024
+
+### Website
+
+- Refonte de l'outil POG Calculator
+- Correction de l'erreur lorsqu'une page est introuvable
+
 ## 01/12/2024
 
 ### Website
