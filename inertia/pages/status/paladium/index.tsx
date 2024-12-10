@@ -62,7 +62,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
           </p>
           <p className="text-surface-300 text-sm">
             <TriangleAlertIcon className="size-4 mr-2 inline-block" />
-            Les données sont mises à jour toutes les 10 minutes, sous réserve de la disponibilité de
+            Les données sont mises à jour toutes les 5 minutes, sous réserve de la disponibilité de
             l'API de Paladium.
           </p>
           <Tabs defaultValue="global" variant="underlined">
