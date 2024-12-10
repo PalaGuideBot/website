@@ -44,6 +44,7 @@ const icons: Record<Rank, string | null> = {
   'developpeursenior': developpeurIcon,
   'graphistesenior': graphisteIcon,
   'responsable': adminIcon,
+  'administrateur': adminIcon,
 }
 
 const translations: Record<Rank, string> = {
@@ -75,6 +76,7 @@ const translations: Record<Rank, string> = {
   'developpeursenior': 'Développeur Senior',
   'graphistesenior': 'Graphiste Senior',
   'responsable': 'Responsable',
+  'administrateur': 'Administrateur',
 }
 
 export function rankToIcon(rank: Rank) {
