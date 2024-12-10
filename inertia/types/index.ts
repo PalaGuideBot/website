@@ -29,6 +29,7 @@ export type Rank =
   | 'developpeursenior'
   | 'graphistesenior'
   | 'responsable'
+  | 'administrateur'
 
 export type PaladiumStatus =
   | 'online'
