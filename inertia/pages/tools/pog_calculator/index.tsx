@@ -186,7 +186,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                       checked={form.data['use-experienced-pickaxe']}
                     />
                     <span className="text-sm">
-                      Utiliser la compétence "Pioche expérimenté" du pet ?
+                      Utiliser la compétence "Pioche expérimentée" du pet ?
                     </span>
                   </label>
                 </Checkbox.Root>
@@ -205,7 +205,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                         form.setData('experienced-pickaxe-percentage', Number(event.target.value))
                       }
                     />
-                    <FormMessage message={errors?.['good-pickaxe-percentage']} />
+                    <FormMessage message={errors?.['experienced-pickaxe-percentage']} />
                   </FormItem>
                 )}
                 <div className="flex flex-col md:flex-row md:items-start gap-4">
