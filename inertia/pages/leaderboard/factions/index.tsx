@@ -23,7 +23,7 @@ import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
-import { Unavailable } from '~/components/ui/unavailable'
+import { Unavailable } from '~/components/shared/unavailable'
 import {
   PodiumCard,
   PodiumCardCompare,

@@ -40,7 +40,7 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
-import { Unavailable } from '~/components/ui/unavailable'
+import { Unavailable } from '~/components/shared/unavailable'
 
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
