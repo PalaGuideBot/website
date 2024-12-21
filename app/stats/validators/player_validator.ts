@@ -60,6 +60,40 @@ const petValidator = vine.object({
   ), */
 })
 
+export const marketValidator = vine.object({
+  data: vine.array(
+    vine.object({
+      category: vine.enum([
+        'PVP',
+        'LUCKY_BLOCK',
+        'BUILD',
+        'TOOLS',
+        'RARE',
+        'OTHER',
+        'LUCKYDRAWER',
+        'STUFF',
+      ]),
+      createdAt: vine.number(),
+      durability: vine.number(),
+      expireAt: vine.number(),
+      item: vine.object({
+        meta: vine.number(),
+        name: vine.string(),
+        quantity: vine.number(),
+      }),
+      name: vine.string(),
+      price: vine.number(),
+      pricePb: vine.number(),
+      renamed: vine.boolean(),
+      skin: vine.number(),
+      slot: vine.number(),
+      type: vine.string(),
+    })
+  ),
+  totalCount: vine.number(),
+  lastUpdate: vine.string(),
+})
+
 export const playerInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string().uuid(),
@@ -95,6 +129,7 @@ export const playerInfoValidator = vine.compile(
       })
     ),
     flags: vine.array(userRoleSchema.clone()),
+    market: marketValidator.clone(),
   })
 )
 

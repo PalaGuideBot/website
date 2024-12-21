@@ -1,6 +1,17 @@
-import { Link } from '@inertiajs/react'
-import { Alert, Button, ProgressBar, ToggleGroup } from '@lemonsqueezy/wedges'
-import { ChevronDown, MousePointerClickIcon, PauseIcon, PlayIcon } from 'lucide-react'
+import { Link, useForm } from '@inertiajs/react'
+import {
+  Alert,
+  Badge,
+  Button,
+  ProgressBar,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  ToggleGroup,
+} from '@lemonsqueezy/wedges'
+import { ChevronDown, FilterIcon, MousePointerClickIcon, PauseIcon, PlayIcon } from 'lucide-react'
 import * as React from 'react'
 import {
   Area,
@@ -9,14 +20,15 @@ import {
   Legend,
   Line,
   LineChart,
+  Tooltip as RechartsTooltip,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
+import { toast } from 'sonner'
 
 import { GlowText } from '~/components/glow_text'
-import { ArrowRightIcon } from '~/components/icons'
+import { ArrowRightIcon, MarketMoneyIcon, MarketPbIcon } from '~/components/icons'
 import { HiddenInformationController } from '~/components/shared/hidden_information_controller'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
@@ -27,6 +39,10 @@ import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
+import { FormLabel } from '~/components/ui/form'
+import Input from '~/components/ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
+import { ScrollArea } from '~/components/ui/scroll_area'
 import {
   Table,
   TableBody,
@@ -35,13 +51,16 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
+import { sortOptions, translateItemType } from '~/content/market'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
+import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
-import { getHeadUrl, getSkinUrl } from '~/lib/minecraft'
+import { getHeadUrl, getSkinUrl, removeColorCodes } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
@@ -81,6 +100,7 @@ export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
             <FactionHistorySection player={player} />
             <RanksHistorySection player={player} />
           </div>
+          <MarketSection player={player} />
         </>
       )}
     </div>
@@ -461,7 +481,7 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
               className="text-xs"
               tickFormatter={(value) => formatNumber(Number(value))}
             />
-            <Tooltip
+            <RechartsTooltip
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
@@ -545,7 +565,7 @@ const MoneyEvolutionSection = ({ player, ...props }: MoneyEvolutionSectionProps)
               tickFormatter={(value) => formatNumber(Number(value))}
               orientation="right"
             />
-            <Tooltip
+            <RechartsTooltip
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
@@ -637,7 +657,7 @@ const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionPr
               tickFormatter={(value) => formatNumber(Number(value))}
               orientation="right"
             />
-            <Tooltip
+            <RechartsTooltip
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
@@ -835,6 +855,203 @@ const RanksHistorySection = ({ player, ...props }: RanksHistorySectionProps) => 
             ))}
           </TableBody>
         </Table>
+      </CardContent>
+    </Card>
+  )
+}
+
+interface MarketSectionProps extends React.ComponentProps<typeof Card> {
+  player: PlayerDetailsProps['player']
+}
+
+const MarketSection = ({ player, ...props }: MarketSectionProps) => {
+  const [, copy] = useCopyToClipboard()
+
+  const form = useForm({
+    search: '',
+    sort: 'recent',
+  })
+
+  const onCopy = () => {
+    toast.promise(() => copy(`@p:${player.username}`), {
+      success: 'Critère copié !',
+      error: 'Erreur lors de la copie',
+    })
+  }
+
+  const data = React.useMemo(() => {
+    return player.market.data
+      .filter((entry) => {
+        if (form.data.search.length === 0) {
+          return true
+        }
+
+        return entry.name.toLowerCase().includes(form.data.search.toLowerCase())
+      })
+      .toSorted((a, b) => {
+        switch (form.data.sort) {
+          case 'recent':
+            return b.createdAt - a.createdAt
+          case 'alphabetic':
+            return a.name.localeCompare(b.name)
+          case 'asc':
+            return a.price - b.price
+          case 'desc':
+            return b.price - a.price
+          default:
+            return 0
+        }
+      })
+  }, [form.data.search, form.data.sort, player.market.data])
+
+  return (
+    <Card id="market" {...props}>
+      <CardHeader className="border-b py-2 space-y-0 flex-row items-center justify-between">
+        <CardTitle href="#market">Market</CardTitle>
+        <div className="flex flex-row gap-2 items-center">
+          <p className="text-xs">
+            Dernière mise à jour: {formatDate(player.market.lastUpdate, DateTime.DATETIME_SHORT)}
+          </p>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline" isIconOnly>
+                <FilterIcon className="size-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="start" side="right">
+              <div className="grid gap-4">
+                <div className="space-y-2">
+                  <h4 className="text-sm leading-none">Rechercher</h4>
+                  <p className="text-xs text-muted-foreground">Entrez vos critères de recherche.</p>
+                </div>
+                <div className="grid gap-2">
+                  <div className="grid grid-cols-3 items-center gap-4">
+                    <FormLabel htmlFor="search">Recherche</FormLabel>
+                    <Input
+                      id="search"
+                      className="col-span-2 h-8"
+                      value={form.data.search}
+                      onChange={(event) => form.setData('search', event.target.value)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 items-center gap-4">
+                    <FormLabel htmlFor="sort">Trier par</FormLabel>
+                    <Select
+                      className="col-span-2"
+                      value={form.data.sort}
+                      onValueChange={(value) => form.setData('sort', value)}
+                    >
+                      <SelectTrigger id="sort" className="h-8" />
+                      <SelectContent>
+                        <SelectGroup>
+                          {sortOptions.map((option) => (
+                            <SelectItem value={option.value} key={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid grid-cols-3 items-center gap-4">
+                    <FormLabel>Critère</FormLabel>
+                    <Button
+                      type="button"
+                      onClick={onCopy}
+                      variant="outline"
+                      size="sm"
+                      className="group col-span-2"
+                      asChild
+                    >
+                      <button>
+                        <span className="group-hover:hidden">@p:{player.username}</span>
+                        <span className="hidden group-hover:inline">Copier</span>
+                      </button>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </CardHeader>
+      <CardContent className="p-0">
+        {data.length !== 0 ? (
+          <ScrollArea className="h-[256px]">
+            <Table>
+              <TableBody>
+                {data.map((entry) => (
+                  <TableRow key={entry.createdAt}>
+                    <TableCell className="space-y-1.5">
+                      <p className="text-xs truncate">
+                        {entry.type !== 'ITEM' && (
+                          <Badge
+                            shape="pill"
+                            color="primary"
+                            size="sm"
+                            stroke
+                            className="mr-2 text-xxs"
+                          >
+                            {translateItemType(entry.type)}
+                          </Badge>
+                        )}
+                        <span className="font-pixel">{removeColorCodes(entry.name)}</span>
+                      </p>
+                      <p className="text-xs">
+                        {formatDate(
+                          DateTime.fromMillis(entry.createdAt).toISO()!,
+                          DateTime.DATE_SHORT
+                        )}{' '}
+                        · Expire {DateTime.fromMillis(entry.expireAt).toRelative()}
+                      </p>
+                    </TableCell>
+                    <TableCell className="font-pixel text-xs">
+                      <span>{entry.type !== 'LUCKY_DRAWER' && `x${entry.item.quantity}`}</span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-row flex-wrap justify-end gap-1">
+                        {entry.pricePb !== 0 && (
+                          <TooltipProvider delayDuration={0}>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Badge
+                                  className="text-xs font-pixel min-w-20 justify-between"
+                                  before={<MarketPbIcon className="w-4" />}
+                                >
+                                  {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent side="bottom">
+                                {formatNumber(entry.pricePb, { notation: 'standard' })} PB
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        )}
+                        <TooltipProvider delayDuration={0}>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Badge
+                                className="text-xs font-pixel min-w-20 justify-between"
+                                before={<MarketMoneyIcon className="w-4" />}
+                              >
+                                {formatNumber(entry.price, { roundingMode: 'floor' })}
+                              </Badge>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                              {formatPrice(entry.price, { notation: 'standard' })}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
+        ) : (
+          <p className="text-center p-4">Aucun élément trouvé</p>
+        )}
       </CardContent>
     </Card>
   )

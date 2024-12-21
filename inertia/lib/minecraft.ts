@@ -17,3 +17,7 @@ export function getFullBobyUrl(uuid: string, side: 'front' | 'back' | 'side' = '
 export function getMinecraftItemUrl(id: string) {
   return `https://image.palaguidebot.fr/minecraft/items/${id}`
 }
+
+export function removeColorCodes(text: string) {
+  return text.replace(/§[0-9a-fklmnor]/g, '')
+}
