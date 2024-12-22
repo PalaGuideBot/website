@@ -873,7 +873,11 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
   })
 
   const onCopy = () => {
-    toast.promise(() => copy(`@p:${player.username}`), {
+    const criteria = [`@p:${player.username}`, form.data.search]
+      .filter((c) => c.length > 0)
+      .join(' ')
+
+    toast.promise(() => copy(criteria), {
       success: 'Critère copié !',
       error: 'Erreur lors de la copie',
     })
