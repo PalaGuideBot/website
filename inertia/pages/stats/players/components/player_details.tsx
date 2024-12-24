@@ -1,6 +1,7 @@
 import { Link, useForm } from '@inertiajs/react'
 import {
   Alert,
+  Avatar,
   Badge,
   Button,
   ProgressBar,
@@ -28,7 +29,7 @@ import {
 import { toast } from 'sonner'
 
 import { GlowText } from '~/components/glow_text'
-import { ArrowRightIcon, MarketMoneyIcon, MarketPbIcon } from '~/components/icons'
+import { ArrowRightIcon, MarketMoneyIcon, MarketPbIcon, QuestionIcon } from '~/components/icons'
 import { HiddenInformationController } from '~/components/shared/hidden_information_controller'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
@@ -54,13 +55,13 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
-import { sortOptions, translateItemType } from '~/content/market'
+import { sortOptions } from '~/content/market'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
 import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
-import { getHeadUrl, getSkinUrl, removeColorCodes } from '~/lib/minecraft'
+import { getHeadUrl, getMinecraftItemUrl, getSkinUrl, removeColorCodes } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn, formatDuration, formatNumber, formatPrice } from '~/lib/utils'
 import type { Job } from '~/types'
@@ -986,28 +987,30 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
               <TableBody>
                 {data.map((entry) => (
                   <TableRow key={entry.createdAt}>
-                    <TableCell className="space-y-1.5">
-                      <p className="text-xs truncate">
-                        {entry.type !== 'ITEM' && (
-                          <Badge
-                            shape="pill"
-                            color="primary"
-                            size="sm"
-                            stroke
-                            className="mr-2 text-xxs"
-                          >
-                            {translateItemType(entry.type)}
-                          </Badge>
-                        )}
-                        <span className="font-pixel">{removeColorCodes(entry.name)}</span>
-                      </p>
-                      <p className="text-xs">
-                        {formatDate(
-                          DateTime.fromMillis(entry.createdAt).toISO()!,
-                          DateTime.DATE_SHORT
-                        )}{' '}
-                        · Expire {DateTime.fromMillis(entry.expireAt).toRelative()}
-                      </p>
+                    <TableCell className="flex items-center gap-2">
+                      <Avatar.Root>
+                        <Avatar.Image
+                          src={getMinecraftItemUrl(`${entry.item.name}:${entry.item.meta}`)}
+                          alt={entry.name}
+                          style={{ imageRendering: 'pixelated' }}
+                          className="rounded-[inherit] h-8 w-auto object-contain"
+                        />
+                        <Avatar.Fallback className="dark:bg-inherit bg-inherit">
+                          <QuestionIcon className="size-4" />
+                        </Avatar.Fallback>
+                      </Avatar.Root>
+                      <div className="space-y-1.5">
+                        <p className="text-xs font-pixel truncate">
+                          {removeColorCodes(entry.name)}
+                        </p>
+                        <p className="text-xs">
+                          {formatDate(
+                            DateTime.fromMillis(entry.createdAt).toISO()!,
+                            DateTime.DATE_SHORT
+                          )}{' '}
+                          · Expire {DateTime.fromMillis(entry.expireAt).toRelative()}
+                        </p>
+                      </div>
                     </TableCell>
                     <TableCell className="font-pixel text-xs">
                       <span>{entry.type !== 'LUCKY_DRAWER' && `x${entry.item.quantity}`}</span>
