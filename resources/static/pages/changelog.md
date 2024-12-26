@@ -1,5 +1,14 @@
 # Changelog
 
+## 27/12/2024
+
+### Website
+
+- Ajout de la page passerelle `/tools` pour les outils
+- Correction sur l'affichage des erreurs de validation sur l'outil POG Calculator
+- Ajout d'une bannière indicant l'indisponibilité des données de classements (Faction et Trixium)
+- Ajout du Market pour un joueur sur la page `/players`
+
 ## 10/12/2024
 
 ### Website
@@ -24,7 +33,7 @@
 ### Website
 
 - Modification du lien **En savoir plus** sur la page d'accueil
-- Ajout de l'allication dans les informations d'une faction
+- Ajout de l'alliance dans les informations d'une faction
 
 ### Bot
 
