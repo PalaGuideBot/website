@@ -34,6 +34,9 @@ import FactionXanoth from '~/assets/faction-icons/xanoth.png'
 import AllianceChaos from '~/assets/icons/alliance-chaos.png'
 import AllianceOrder from '~/assets/icons/alliance-order.png'
 
+import MarketMoney from '~/assets/icons/market-money.png'
+import MarketPb from '~/assets/icons/market-pb.png'
+
 export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 const iconFactory =
@@ -81,6 +84,9 @@ export const FactionXanothIcon = iconFactory(FactionXanoth)
 
 export const AllianceChaosIcon = iconFactory(AllianceChaos)
 export const AllianceOrderIcon = iconFactory(AllianceOrder)
+
+export const MarketMoneyIcon = iconFactory(MarketMoney)
+export const MarketPbIcon = iconFactory(MarketPb)
 
 export const DiscordIcon = React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   ({ fill = 'currentColor', height = 24, width = 24, ...props }, ref) => {
