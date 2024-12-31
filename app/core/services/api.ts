@@ -13,6 +13,7 @@ import {
   eventFactionOnYourMarksValidator,
   eventFactionQuestValidator,
 } from '#event/validators/event_validator'
+import { giveawayStateValidator, giveawayValidator } from '#event/validators/giveaway_validator'
 import {
   categories as leaderboardCategories,
   trixiumCategories as trixiumLeaderboardCategories,
@@ -536,6 +537,40 @@ export class ApiService {
     } catch (error: unknown) {
       throw new Exception('Invalid pog items data', {
         code: 'E_POG_ITEMS_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getActiveGiveaway() {
+    try {
+      const response = await client.get('giveaways/active')
+      const data = await response.json()
+      return giveawayValidator.validate(data)
+    } catch (error: unknown) {
+      return null
+    }
+  }
+
+  async getUserGiveawayState(id: string, discordId: string) {
+    try {
+      const response = await client.get(`giveaways/${id}/state/${discordId}`)
+      const data = await response.json()
+      return giveawayStateValidator.validate(data)
+    } catch (error: unknown) {
+      return { participated: false, linked: false }
+    }
+  }
+
+  async participateGiveaway(id: string, discordId: string) {
+    try {
+      await client.post(`giveaways/${id}/participate`, {
+        body: JSON.stringify({ id: discordId }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+    } catch (error: unknown) {
+      throw new Exception('Unable to participate to giveaway', {
+        code: 'E_GIVEAWAY_PARTICIPATE_INVALID',
         status: 500,
       })
     }
