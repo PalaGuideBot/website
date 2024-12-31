@@ -84,7 +84,9 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
               <li>
                 <InformationLine
                   label="Alliance"
-                  value={<FactionAlliance alliance={faction.alliance} />}
+                  value={
+                    <FactionAlliance alliance={faction.alliance ? faction.alliance : 'NULL'} />
+                  }
                 />
               </li>
               <li>
