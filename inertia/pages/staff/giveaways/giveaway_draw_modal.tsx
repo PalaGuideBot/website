@@ -1,13 +1,19 @@
-import { router } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import { Button, Loading } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import { HTTPError } from 'ky'
+import { PartyPopperIcon } from 'lucide-react'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
-import { PartyPopperIcon } from 'lucide-react'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '~/components/ui/dialog'
 import Input from '~/components/ui/input'
 import { client } from '~/lib/client'
 import { formatDate } from '~/lib/date'
@@ -57,8 +63,12 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
       <DialogContent
         onOpenAutoFocus={(event) => event.preventDefault()}
         aria-describedby="modal-description"
+        className="max-w-3xl"
       >
         <DialogTitle>{`Giveaway: ${giveaway.title}`}</DialogTitle>
+        <DialogDescription>
+          Informations sur le giveaway et possibilité de tirer au sort les gagnants.
+        </DialogDescription>
         <dl className="grid grid-cols-2 gap-4">
           <dt className="font-semibold">ID</dt>
           <dd>{giveaway._id}</dd>
@@ -95,7 +105,7 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
             </>
           )}
           <dt className="font-semibold">Actions</dt>
-          <dd className="flex items-center gap-2">
+          <dd className="flex items-center gap-2 flex-wrap">
             <Input
               autoComplete="none"
               inputMode="numeric"
@@ -120,6 +130,9 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
               onClick={onDraw}
             >
               Tirer au sort
+            </Button>
+            <Button size="sm" variant="outline" asChild>
+              <Link href="/giveaway">Accéder à la page</Link>
             </Button>
           </dd>
         </dl>
