@@ -1,16 +1,18 @@
 import { Link, useForm } from '@inertiajs/react'
-import { Avatar, AvatarGroup, Button, Loading } from '@lemonsqueezy/wedges'
+import { AvatarGroup, Button, Loading } from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
-import { AwardIcon, CheckCircleIcon, XCircleIcon } from 'lucide-react'
+import { CheckCircleIcon, XCircleIcon } from 'lucide-react'
 import { useRef } from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayStateValidator } from '#event/validators/giveaway_validator'
 import Confetti, { ConfettiRef } from '~/components/magicui/confetti'
-import { Card, CardContent, CardDescription, CardFooter } from '~/components/ui/card'
+import { CardContent, CardDescription, CardFooter } from '~/components/ui/card'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
 import { DateTime } from '~/lib/luxon'
 import { GiveawayPageProps } from '../giveaway'
+import { GiveawayPrize } from './giveaway_prize'
+import { GiveawayUser } from './giveaway_user'
 
 const endMessageCountdown = 'Terminé !'
 
@@ -55,10 +57,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
             <p className="text-center text-2xl font-bold">Voici les gagnants:</p>
             <div className="flex flex-wrap justify-center gap-2">
               {giveaway.winners.map((winner) => (
-                <div className="flex flex-row items-center gap-2 p-2 rounded-md bg-surface">
-                  <Avatar size="xs" src={winner.avatarUrl} alt={`${winner.username}'s avatar`} />
-                  <p className="text-sm">{winner.username}</p>
-                </div>
+                <GiveawayUser key={winner.discordId} user={winner} />
               ))}
             </div>
           </>
@@ -75,17 +74,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
         )}
         <div className="flex justify-center items-center gap-2 flex-wrap">
           {giveaway.prizes.map((prize, index) => (
-            <Card
-              key={index}
-              className="bg-transparent border-0 hover:bg-surface transition-colors"
-            >
-              <CardContent className="p-2 flex items-center gap-2">
-                <div className="flex items-center justify-center size-8 rounded-full bg-primary-500/20">
-                  <AwardIcon className="size-4" />
-                </div>
-                <span className="font-semibold text-sm">{prize}</span>
-              </CardContent>
-            </Card>
+            <GiveawayPrize key={index} prize={prize} />
           ))}
         </div>
         <div className="flex flex-col items-center space-y-2">
