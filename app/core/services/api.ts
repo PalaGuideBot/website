@@ -654,4 +654,14 @@ export class ApiService {
       })
     }
   }
+
+  async checkGiveaway() {
+    try {
+      const response = await client.get('giveaways/check')
+      const data = await response.json<{ active: boolean }>()
+      return data.active
+    } catch (error: unknown) {
+      return false
+    }
+  }
 }
