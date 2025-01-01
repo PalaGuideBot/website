@@ -25,7 +25,7 @@ export default function Home(props: HomePageProps) {
     <>
       <Head descriptors={[{ title: 'Accueil' }]} />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
-        {isActiveGiveaway && <GiveawayBanner className="rounded-none min-h-[60px]" />}
+        {/* {isActiveGiveaway && <GiveawayBanner className="rounded-none min-h-[60px]" />} */}
         <Snowfall />
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
