@@ -11,7 +11,14 @@ export default class PageController {
   constructor(private api: ApiService) {}
   async home({ inertia }: HttpContext) {
     const discordStats = await this.api.getBotStatistics()
-    return inertia.render('home', { discordStats })
+    let isActiveGiveaway = false
+
+    try {
+      const giveaway = await this.api.getActiveGiveaway()
+      isActiveGiveaway = !!giveaway
+    } catch {}
+
+    return inertia.render('home', { discordStats, isActiveGiveaway })
   }
 
   async discord({ response }: HttpContext) {
