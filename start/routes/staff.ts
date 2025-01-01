@@ -2,6 +2,7 @@ import router from '@adonisjs/core/services/router'
 
 import { middleware } from '#start/kernel'
 
+const GiveawayController = () => import('#staff/controllers/giveaway_controller')
 const RoleController = () => import('#staff/controllers/role_controller')
 const UserController = () => import('#staff/controllers/user_controller')
 const DashboardController = () => import('#staff/controllers/dashboard_controller')
@@ -27,6 +28,15 @@ router
             router.delete('/:name', [RoleController, 'destroy']).as('staff.roles.destroy')
           })
           .prefix('/roles')
+        router
+          .group(() => {
+            router.get('/', [GiveawayController, 'index']).as('staff.giveaways.index')
+            router.post('/', [GiveawayController, 'create']).as('staff.giveaways.create')
+            router.put('/:id', [GiveawayController, 'update']).as('staff.giveaways.update')
+            router.delete('/:id', [GiveawayController, 'destroy']).as('staff.giveaways.destroy')
+            router.post('/:id/draw', [GiveawayController, 'draw']).as('staff.giveaways.draw')
+          })
+          .prefix('/giveaways')
       })
       .middleware([middleware.auth(), middleware.staff()])
   })

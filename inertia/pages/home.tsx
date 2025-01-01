@@ -7,6 +7,7 @@ import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
 import { DiscordIcon } from '~/components/icons'
 import DefaultLayout from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
+import { GiveawayBanner } from '~/components/shared/giveaway_banner'
 import { Head } from '~/components/shared/head'
 import { Snowfall } from '~/components/shared/snowfall'
 import { Card, CardContent } from '~/components/ui/card'
@@ -18,12 +19,13 @@ const CAROUSEL_DELAY = 5000
 type HomePageProps = InferPageProps<PageController, 'home'>
 
 export default function Home(props: HomePageProps) {
-  const { discordStats } = props
+  const { discordStats, isActiveGiveaway } = props
 
   return (
     <>
       <Head descriptors={[{ title: 'Accueil' }]} />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
+        {/* {isActiveGiveaway && <GiveawayBanner className="rounded-none min-h-[60px]" />} */}
         <Snowfall />
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">

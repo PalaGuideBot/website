@@ -14,6 +14,13 @@ import {
   eventFactionQuestValidator,
 } from '#event/validators/event_validator'
 import {
+  createGiveawayValidator,
+  giveawayStateValidator,
+  giveawaysValidator,
+  giveawayValidator,
+  updateGiveawayValidator,
+} from '#event/validators/giveaway_validator'
+import {
   categories as leaderboardCategories,
   trixiumCategories as trixiumLeaderboardCategories,
   type LeaderboardCategory,
@@ -538,6 +545,123 @@ export class ApiService {
         code: 'E_POG_ITEMS_INVALID',
         status: 500,
       })
+    }
+  }
+
+  async getActiveGiveaway() {
+    try {
+      const response = await client.get('giveaways/active')
+      const data = await response.json()
+      return giveawayValidator.validate(data)
+    } catch (error: unknown) {
+      return null
+    }
+  }
+
+  async getUserGiveawayState(id: string, discordId: string) {
+    try {
+      const response = await client.get(`giveaways/${id}/state/${discordId}`)
+      const data = await response.json()
+      return giveawayStateValidator.validate(data)
+    } catch (error: unknown) {
+      return { participated: false, linked: false }
+    }
+  }
+
+  async participateGiveaway(id: string, discordId: string) {
+    try {
+      await client.post(`giveaways/${id}/participate`, {
+        body: JSON.stringify({ id: discordId }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+    } catch (error: unknown) {
+      throw new Exception('Unable to participate to giveaway', {
+        code: 'E_GIVEAWAY_PARTICIPATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getGiveaways() {
+    try {
+      const response = await client.get('giveaways')
+      const data = await response.json()
+      return giveawaysValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable retreive giveaways', {
+        code: 'E_GIVEAWAYS_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async createGiveaway(payload: Infer<typeof createGiveawayValidator>) {
+    try {
+      await client.post('giveaways', {
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      // const data = await response.json()
+      // return giveawayValidator.validate(data)
+    } catch (error: unknown) {
+      if (error instanceof HTTPError) {
+        console.log(await error.response.json())
+      }
+      throw new Exception('Unable to create giveaway', {
+        code: 'E_GIVEAWAY_CREATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async updateGiveaway(id: string, payload: Infer<typeof updateGiveawayValidator>) {
+    try {
+      await client.put(`giveaways/${id}`, {
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      // const data = await response.json()
+      // return giveawayValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable to update giveaway', {
+        code: 'E_GIVEAWAY_UPDATE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async deleteGiveaway(id: string) {
+    try {
+      await client.delete(`giveaways/${id}`)
+    } catch (error: unknown) {
+      throw new Exception('Unable to delete giveaway', {
+        code: 'E_GIVEAWAY_DELETE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async drawGiveaway(id: string, count: number) {
+    try {
+      await client.post(`giveaways/${id}/draw`, {
+        body: JSON.stringify({ count }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+    } catch (error: unknown) {
+      throw new Exception('Unable to draw giveaway', {
+        code: 'E_GIVEAWAY_DRAW_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async checkGiveaway() {
+    try {
+      const response = await client.get('giveaways/check')
+      const data = await response.json<{ active: boolean }>()
+      return data.active
+    } catch (error: unknown) {
+      return false
     }
   }
 }

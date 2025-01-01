@@ -24,6 +24,10 @@ const links = [
     title: 'Rôles',
     url: '/staff/roles',
   },
+  {
+    title: 'Giveaways',
+    url: '/staff/giveaways',
+  },
 ]
 
 const StaffSidebar = ({ className, ...props }: React.ComponentProps<typeof SidebarGroup>) => {

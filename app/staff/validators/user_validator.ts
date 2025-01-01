@@ -11,7 +11,7 @@ export const userRoleValidator = vine.compile(userRoleSchema.clone())
 
 export const userRolesValidator = vine.compile(vine.array(userRoleSchema.clone()))
 
-const userSchema = vine.object({
+export const userSchema = vine.object({
   discordId: vine.string(),
   roles: vine.array(userRoleSchema.clone()),
   username: vine.string(),
