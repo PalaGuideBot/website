@@ -98,7 +98,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
         />
       </CardContent>
       <CardFooter className="p-4 sm:p-8 pt-0">
-        {!state.participated && (!countdownIsOver || !giveawayIsOver) ? (
+        {!state.participated && (!countdownIsOver || !giveawayIsOver) && (
           <Button
             before={form.processing ? <Loading size="xs" /> : undefined}
             disabled={form.processing}
@@ -108,7 +108,8 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
           >
             Participer
           </Button>
-        ) : (
+        )}
+        {state.participated && (
           <ul>
             <li className="flex items-center gap-2">
               <CheckCircleIcon className="size-4 min-w-4 text-wg-green" />
