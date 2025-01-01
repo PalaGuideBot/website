@@ -11,7 +11,9 @@ export default class PageController {
   constructor(private api: ApiService) {}
   async home({ inertia }: HttpContext) {
     const discordStats = await this.api.getBotStatistics()
-    return inertia.render('home', { discordStats })
+    const isActiveGiveaway = await this.api.checkGiveaway()
+
+    return inertia.render('home', { discordStats, isActiveGiveaway })
   }
 
   async discord({ response }: HttpContext) {
