@@ -37,7 +37,7 @@ const Head = ({
   descriptors = [],
 }: React.ComponentProps<typeof InertiaHead> & { descriptors?: MetaDescriptor[] }) => {
   const description =
-    'PalaGuideBot vous met à disposition des outils qui vous accompagne dans votre aventure sur Paladium.'
+    'PalaGuideBot vous met à disposition des outils qui vous accompagnent dans votre aventure sur Paladium.'
 
   const titleMeta = descriptors.find((d) => 'title' in d) as { title: string } | undefined
   const title = titleMeta ? `${titleMeta.title} - PalaGuideBot` : 'PalaGuideBot'
