@@ -32,7 +32,7 @@ export default function GiveawayPage(props: GiveawayPageProps) {
           },
         ]}
       />
-      <main className="h-dvh w-full flex items-center justify-center bg-surface">
+      <main className="min-h-dvh w-full flex items-center justify-center bg-surface">
         <div className="max-w-2xl w-full flex flex-col gap-2 px-2">
           <Card className="rounded-xl bg-background border-0 shadow-xl">
             <CardHeader className="p-4 sm:p-8">

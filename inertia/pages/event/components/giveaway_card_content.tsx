@@ -14,7 +14,8 @@ import { GiveawayPageProps } from '../giveaway'
 import { GiveawayPrize } from './giveaway_prize'
 import { GiveawayUser } from './giveaway_user'
 
-const endMessageCountdown = 'Terminé !'
+const END_MESSAGE_COUNTDOWN = 'Terminé !'
+const MAX_USERS_DISPLAYED = 5
 
 interface GiveawayCardContentProps {
   giveaway: NonNullable<Required<GiveawayPageProps['giveaway']>>
@@ -26,11 +27,11 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
   const [countdown] = useDateCountdown({
     countStart: DateTime.fromISO(giveaway.start).toMillis(),
     countStop: DateTime.fromISO(giveaway.end).toMillis(),
-    endMessage: endMessageCountdown,
+    endMessage: END_MESSAGE_COUNTDOWN,
   })
   const form = useForm()
 
-  const countdownIsOver = countdown === endMessageCountdown
+  const countdownIsOver = countdown === END_MESSAGE_COUNTDOWN
   const giveawayIsOver = DateTime.fromISO(giveaway.end) < DateTime.now()
 
   const onSubmit = () => {
@@ -45,7 +46,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
   return (
     <>
       <CardContent className="relative p-4 sm:p-8 pt-0 flex flex-col gap-2">
-        <p className="text-center uppercase font-semibold tracking-wider">Giveaway Exclusive</p>
+        <p className="text-center uppercase font-semibold tracking-wider">Giveaway Exclusif</p>
         <h1 className="text-center font-bold text-2xl sm:text-3xl">
           Gagnez des prix incroyables !
         </h1>
@@ -81,11 +82,12 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
           <CardDescription>Personnes ayant participés:</CardDescription>
           {giveaway.participants.length > 0 ? (
             <AvatarGroup
-              items={giveaway.participants.slice(0, 2).map((participant) => ({
+              items={giveaway.participants.slice(0, MAX_USERS_DISPLAYED).map((participant) => ({
                 src: participant.avatarUrl,
               }))}
               moreLabel={
-                giveaway.participants.length - 2 > 0 && `+${giveaway.participants.length - 2}`
+                giveaway.participants.length - MAX_USERS_DISPLAYED > 0 &&
+                `+${giveaway.participants.length - MAX_USERS_DISPLAYED}`
               }
             />
           ) : (
