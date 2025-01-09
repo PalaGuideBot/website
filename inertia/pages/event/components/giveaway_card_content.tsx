@@ -45,14 +45,8 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
 
   return (
     <>
-      <CardContent className="relative p-4 sm:p-8 pt-0 flex flex-col gap-2">
+      <CardContent className="p-4 sm:p-8 !pt-0 flex flex-col gap-2">
         <p className="text-center uppercase font-semibold tracking-wider">Giveaway Exclusif</p>
-        <h1 className="text-center font-bold text-2xl sm:text-3xl">
-          Gagnez des prix incroyables !
-        </h1>
-        <CardDescription className="text-center text-base pb-2">
-          Ne ratez pas l'opportunité et participez.
-        </CardDescription>
         {giveawayIsOver && giveaway.winners.length !== 0 ? (
           <>
             <p className="text-center text-2xl font-bold">Voici les gagnants:</p>
@@ -64,6 +58,12 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
           </>
         ) : (
           <>
+            <h1 className="text-center font-bold text-xl sm:text-2xl">
+              Gagnez des prix incroyables !
+            </h1>
+            <CardDescription className="text-center text-base pb-2">
+              Ne ratez pas l'opportunité et participez.
+            </CardDescription>
             <p className="text-center text-2xl font-bold">Temps restant:</p>
             <p
               className="text-center text-lg xs:text-2xl font-bold tabular-nums"

@@ -1,5 +1,16 @@
 # Changelog
 
+## 09/01/2025
+
+### Website
+
+- Restauration des couleurs du site
+- Ajout d'un système de **Giveaway**
+
+### Bot
+
+- Retrait des codes couleurs Minecraft sur les items de la commande `/ah player`
+
 ## 27/12/2024
 
 ### Website

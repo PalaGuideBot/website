@@ -22,6 +22,7 @@ interface TagsInputProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string
   maxItems?: number
   minItems?: number
+  allowDuplicates?: boolean
 }
 
 interface TagsInputContextProps {
@@ -37,7 +38,18 @@ const TagInputContext = React.createContext<TagsInputContextProps | null>(null)
 
 export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
   (
-    { children, value, onValueChange, placeholder, maxItems, minItems, className, dir, ...props },
+    {
+      children,
+      value,
+      onValueChange,
+      placeholder,
+      maxItems,
+      minItems,
+      allowDuplicates = false,
+      className,
+      dir,
+      ...props
+    },
     ref
   ) => {
     const [activeIndex, setActiveIndex] = React.useState(-1)
@@ -52,7 +64,10 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
 
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
-        if (!value.includes(val) && value.length < parseMaxItems) {
+        if (!allowDuplicates && value.includes(val)) {
+          return
+        }
+        if (value.length < parseMaxItems) {
           onValueChange([...value, val])
         }
       },
