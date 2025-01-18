@@ -13,6 +13,11 @@ import { Path } from '~/types'
 export default function InformationsPage() {
   const paths: Array<Path> = [
     {
+      title: 'Giveaway',
+      description: 'Retrouvez les giveaways de PalaGuideBot.',
+      path: '/giveaway',
+    },
+    {
       title: 'Politique de confidentialité',
       description: 'Consultez notre politique de confidentialité.',
       path: '/privacy',
