@@ -143,6 +143,7 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
               <FormLabel htmlFor="prizes">Lots</FormLabel>
               <TagsInput
                 placeholder="Renseignez les lots"
+                allowDuplicates
                 value={form.data.prizes}
                 onValueChange={(value) => {
                   form.setData('prizes', value)

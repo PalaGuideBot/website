@@ -32,9 +32,9 @@ export default function GiveawayPage(props: GiveawayPageProps) {
           },
         ]}
       />
-      <main className="h-dvh w-full flex items-center justify-center bg-surface">
+      <main className="min-h-dvh w-full flex items-center justify-center bg-surface">
         <div className="max-w-2xl w-full flex flex-col gap-2 px-2">
-          <Card className="rounded-xl bg-background border-0 shadow-xl">
+          <Card className="relative rounded-xl bg-background border-0 shadow-xl">
             <CardHeader className="p-4 sm:p-8">
               <img
                 src="https://image.palaguidebot.fr/banner/bot.webp"
@@ -44,8 +44,10 @@ export default function GiveawayPage(props: GiveawayPageProps) {
             {giveaway ? (
               <GiveawayCardContent giveaway={giveaway} state={state!} />
             ) : (
-              <CardContent className="p-8 pt-0">
-                <h1 className="text-center font-bold text-3xl">Aucun giveaway actif 😔</h1>
+              <CardContent className="p-4 sm:p-8 !pt-0">
+                <h1 className="text-center font-bold text-xl sm:text-2xl">
+                  Aucun giveaway actif 😔
+                </h1>
               </CardContent>
             )}
           </Card>
