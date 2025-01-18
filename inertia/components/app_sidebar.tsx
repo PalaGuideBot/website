@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react'
 import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import {
+  AwardIcon,
   CableIcon,
   CalendarIcon,
   ChartLineIcon,
@@ -141,6 +142,11 @@ const generalLinks: LinkProps[] = [
 ]
 
 const informationLinks: LinkProps[] = [
+  {
+    title: 'Giveaway',
+    url: '/giveaway',
+    icon: AwardIcon,
+  },
   {
     title: 'Politique de confidentialité',
     url: '/privacy',
