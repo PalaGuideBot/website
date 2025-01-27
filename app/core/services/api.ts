@@ -597,13 +597,16 @@ export class ApiService {
 
   async createGiveaway(payload: Infer<typeof createGiveawayValidator>) {
     try {
-      const response = await client.post('giveaways', {
+      await client.post('giveaways', {
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json' },
       })
-      const data = await response.json()
-      return giveawayValidator.validate(data)
+      // const data = await response.json()
+      // return giveawayValidator.validate(data)
     } catch (error: unknown) {
+      if (error instanceof HTTPError) {
+        console.log(await error.response.json())
+      }
       throw new Exception('Unable to create giveaway', {
         code: 'E_GIVEAWAY_CREATE_INVALID',
         status: 500,
