@@ -39,8 +39,8 @@ const giveawaySchema = vine.object({
   start: vine.string(),
   end: vine.string(),
   prizes: vine.array(vine.string()),
-  participants: vine.array(userSchema.clone()),
-  winners: vine.array(userSchema.clone()),
+  participants: vine.array(vine.unionOfTypes([userSchema.clone(), vine.string()])),
+  winners: vine.array(vine.unionOfTypes([userSchema.clone(), vine.string()])),
 })
 
 export const giveawayValidator = vine.compile(giveawaySchema.clone())
