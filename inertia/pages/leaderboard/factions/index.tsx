@@ -23,7 +23,6 @@ import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
-import { Unavailable } from '~/components/shared/unavailable'
 import {
   PodiumCard,
   PodiumCardCompare,
@@ -78,7 +77,6 @@ export default function FactionsIndex(props: FactionsIndexProps) {
             <PageTitle>Classement: Factions</PageTitle>
             <DateRangeSelector defaultOptions={options} />
           </div>
-          <Unavailable />
           {!lastLeaderboard && (
             <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
           )}
