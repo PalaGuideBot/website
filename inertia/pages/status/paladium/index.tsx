@@ -1,6 +1,6 @@
-import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
-import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
+// import type { InferPageProps } from '@adonisjs/inertia/types'
+import { Alert /* , Tabs, ToggleGroup */ } from '@lemonsqueezy/wedges'
+// import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import {
   Area,
   AreaChart,
@@ -12,7 +12,7 @@ import {
   YAxis,
 } from 'recharts'
 
-import type PaladiumController from '#status/controllers/paladium_controller'
+// import type PaladiumController from '#status/controllers/paladium_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
@@ -26,7 +26,7 @@ import { PaladiumFaction, PaladiumStatus } from '~/types'
 import { UptimeIndicator } from '../components/uptime_indicator'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
-type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
+// type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 
 type Status = {
   from: string
@@ -34,8 +34,8 @@ type Status = {
   status: PaladiumStatus
 }
 
-export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
-  const { todayStatus, last30daysStatus } = props
+export default function PaladiumStatusPage(/* props: PaladiumStatusPageProps */) {
+  /* const { todayStatus, last30daysStatus } = props
 
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
   const setDateInterval = useDateIntervalStore((state) => state.setDateInterval)
@@ -49,7 +49,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
     case 'last-30-days':
       status = last30daysStatus
       break
-  }
+  } */
 
   return (
     <>
@@ -58,9 +58,13 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
         <Page>
           <PageTitle>Statut: Paladium</PageTitle>
           <p>
-            Sur cette page, vous pourrez visualiser le status des différents services de Paladium.
+            Sur cette page, vous pourrez visualiser le statut des différents services de Paladium.
           </p>
-          <p className="text-surface-300 text-sm">
+          <Alert title="Maintenance" variant="expanded" color="info">
+            Cette page est momentanément indisponible. Nous rencontrons actuellement des soucis
+            techniques pour traiter les données. Nous travaillons sur la résolution du problème.
+          </Alert>
+          {/* <p className="text-surface-300 text-sm">
             <TriangleAlertIcon className="size-4 mr-2 inline-block" />
             Les données sont mises à jour toutes les 5 minutes, sous réserve de la disponibilité de
             l'API de Paladium.
@@ -116,7 +120,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
                 data={status.map((s) => ({ date: s.date, launcher: s.data.launcher }))}
               />
             </Tabs.Content>
-          </Tabs>
+          </Tabs> */}
         </Page>
       </DefaultLayout>
     </>
