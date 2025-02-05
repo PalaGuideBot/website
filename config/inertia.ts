@@ -9,9 +9,7 @@ export default defineConfig({
   /**
    * Data that should be shared with all rendered pages
    */
-  sharedData: {
-    errors: (ctx) => ctx.session?.flashMessages.get('errors'),
-  },
+  sharedData: {},
 
   /**
    * Options for the server-side rendering
