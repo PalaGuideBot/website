@@ -7,7 +7,18 @@ import '#start/routes/stats'
 import '#start/routes/status'
 import '#start/routes/tools'
 
+import { middleware } from '#start/kernel'
+
 import router from '@adonisjs/core/services/router'
+import transmit from '@adonisjs/transmit/services/main'
+
+transmit.registerRoutes((route) => {
+  // Ensure you are authenticated to register your client
+  if (route.getPattern() === '__transmit/events') {
+    route.middleware([middleware.auth(), middleware.staff()])
+    return
+  }
+})
 
 const PageController = () => import('#controllers/page_controller')
 
