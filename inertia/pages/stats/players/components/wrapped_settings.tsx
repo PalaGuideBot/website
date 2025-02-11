@@ -25,7 +25,8 @@ const WrappedSettings = ({
   children: React.ReactNode
   player: WrappedSettingsContextValue['player']
 }) => {
-  const [banner, setBanner] = React.useState<WrappedSettingsContextValue['banner']>('none')
+  const [banner, setBanner] = React.useState<WrappedSettingsContextValue['banner']>('shore')
+
   const [slots, setSlots] = React.useState<WrappedSettingsContextValue['slots']>(() => {
     const ids = getRandomMetricIds(6, (metric) => metric.isVisible(player))
     return {

@@ -112,7 +112,7 @@ export const metrics: Array<Metric> = [
             }[jobName as 'miner']
 
             return (
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-2" key={jobName}>
                 <Icon className="size-4" />
                 <span
                   className={cn(
@@ -130,13 +130,12 @@ export const metrics: Array<Metric> = [
     },
   },
   {
-    title: 'Plus haut niveau richesse',
-    id: 'highest-wealth',
+    title: 'Money max.',
+    id: 'money-max',
     isVisible: (_) => true,
     renderContent: (player) => {
-      const highestWealth = Math.max(...player.data.map((data) => data.data.money))
-
-      return formatPrice(highestWealth)
+      const moneyMax = Math.max(...player.data.map((data) => data.data.money))
+      return formatPrice(moneyMax)
     },
   },
 ]

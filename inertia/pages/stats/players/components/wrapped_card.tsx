@@ -28,7 +28,14 @@ const WrappedCard = React.forwardRef<HTMLDivElement, WrappedCardProps>(
     const today = DateTime.now()
 
     return (
-      <Card ref={ref} className={cn('min-w-[672px] rounded-none border-0', className)} {...props}>
+      <Card
+        ref={ref}
+        className={cn(
+          'min-w-[672px] rounded-none border-0 bg-[#f7f7f8] dark:bg-[#2a2a2f]',
+          className
+        )}
+        {...props}
+      >
         <CardContent className="px-0 flex flex-col gap-8">
           <div
             className="relative flex flex-row gap-4 items-center justify-evenly h-52"
@@ -55,7 +62,7 @@ const WrappedCard = React.forwardRef<HTMLDivElement, WrappedCardProps>(
               const metric = metrics.find((m) => m.id === metricId)
 
               if (!metric) {
-                return <WrappedMetricCardDroppable id={slot} />
+                return <WrappedMetricCardDroppable id={slot} key={slot} />
               }
 
               return (

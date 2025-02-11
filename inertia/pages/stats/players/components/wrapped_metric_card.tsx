@@ -19,7 +19,7 @@ const WrappedMetricCard = ({ className, ...props }: WrappedMetricCardProps) => {
     <Card
       data-over={isOver}
       className={cn(
-        'group relative rounded-xl border-2 border-surface/20 data-[over=true]:border-dashed bg-surface/10 p-4 min-h-24 flex flex-col gap-2 justify-center',
+        'group relative rounded-xl border-2 border-surface/20 data-[over=true]:border-dashed bg-surface/10 p-4 min-h-24 flex flex-col gap-2',
         className
       )}
       ref={setNodeRef}
@@ -97,10 +97,10 @@ const WrappedMetricCardTitle = React.forwardRef<
   )
 })
 
-const WrappedMetricCardContent = React.forwardRef<HTMLParagraphElement, React.ComponentProps<'p'>>(
+const WrappedMetricCardContent = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
-      <p className={cn('text-3xl font-extrabold text-center', className)} ref={ref} {...props} />
+      <div className={cn('text-3xl font-extrabold text-center', className)} ref={ref} {...props} />
     )
   }
 )
