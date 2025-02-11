@@ -1,3 +1,4 @@
+import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
 const PlayerController = () => import('#stats/controllers/player_controller')
@@ -8,5 +9,9 @@ router
     router.get('/players/:username?', [PlayerController, 'show']).as('players.show')
     router.post('/players/:username/jobs', [PlayerController, 'jobs']).as('players.jobs')
     router.get('/factions/:name?', [FactionController, 'show']).as('factions.show')
+    router
+      .get('/wrapped/:username', [PlayerController, 'wrapped'])
+      .as('players.wrapped')
+      .middleware([middleware.auth()])
   })
   .as('stats')
