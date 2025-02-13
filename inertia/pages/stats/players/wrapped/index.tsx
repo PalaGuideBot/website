@@ -2,7 +2,7 @@ import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import { AnimatePresence, motion } from 'framer-motion'
-import { PlayCircleIcon } from 'lucide-react'
+import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import type PlayerController from '#stats/controllers/player_controller'
@@ -36,6 +36,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides)
+  }
+
+  const replaySlide = () => {
+    setCurrentSlide(0)
   }
 
   const slides = [
@@ -502,7 +506,14 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         Vous avez la possibilité de sauvegarder une carte
         <br /> qui résume vos statistiques préférées en contiunant la navigation.
       </motion.p>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-4">
+        <Button
+          variant="tertiary"
+          before={<RefreshCcwIcon className="size-4" />}
+          onClick={replaySlide}
+        >
+          Recommencer
+        </Button>
         <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
           <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
         </Button>
