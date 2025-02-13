@@ -506,7 +506,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         Vous avez la possibilité de sauvegarder une carte
         <br /> qui résume vos statistiques préférées en contiunant la navigation.
       </motion.p>
-      <div className="flex items-center justify-center gap-4">
+      <motion.div
+        className="flex items-center justify-center gap-4"
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2 }}
+      >
         <Button
           variant="tertiary"
           before={<RefreshCcwIcon className="size-4" />}
@@ -517,7 +522,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
           <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
         </Button>
-      </div>
+      </motion.div>
     </motion.div>,
   ]
 
