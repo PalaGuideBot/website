@@ -1,6 +1,7 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Button } from '@lemonsqueezy/wedges'
 import { Loader2Icon, SaveIcon } from 'lucide-react'
+import { useIsClient } from 'usehooks-ts'
 
 import type PlayerController from '#stats/controllers/player_controller'
 import { Page, PageTitle } from '~/components/page'
@@ -9,14 +10,13 @@ import ThemeToggler from '~/components/shared/theme_toggler'
 import { Toaster } from '~/components/ui/toast'
 import { useScreenshot } from '~/hooks/use_screenshot'
 import { getHeadUrl } from '~/lib/minecraft'
-import { WrappedCard } from './components/wrapped_card'
-import { WrappedPersonalization } from './components/wrapped_personalization'
-import { WrappedSettings } from './components/wrapped_settings'
-import { useIsClient } from 'usehooks-ts'
+import { WrappedCard } from '../components/wrapped_card'
+import { WrappedPersonalization } from '../components/wrapped_personalization'
+import { WrappedSettings } from '../components/wrapped_settings'
 
-export type PlayerWrappedPageProps = InferPageProps<PlayerController, 'wrapped'>
+export type PlayerWrappedEndPageProps = InferPageProps<PlayerController, 'wrappedEnd'>
 
-export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
+export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
   const { player } = props
 
   const isClient = useIsClient()

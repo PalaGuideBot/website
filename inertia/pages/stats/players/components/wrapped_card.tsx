@@ -1,4 +1,4 @@
-import { Infer } from '@vinejs/vine/types'
+import type { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
 import type { playerInfoValidator } from '#stats/validators/player_validator'
@@ -31,14 +31,14 @@ const WrappedCard = React.forwardRef<HTMLDivElement, WrappedCardProps>(
       <Card
         ref={ref}
         className={cn(
-          'min-w-[672px] rounded-none border-0 bg-[#f7f7f8] dark:bg-[#2a2a2f]',
+          'min-w-[672px] h-fit rounded-none border-0 bg-[#f7f7f8] dark:bg-[#2a2a2f]',
           className
         )}
         {...props}
       >
         <CardContent className="px-0 flex flex-col gap-8">
           <div
-            className="relative flex flex-row gap-4 items-center justify-evenly h-52"
+            className="relative flex flex-row px-8 gap-4 items-center justify-around h-52"
             style={{
               backgroundImage: banner !== 'none' ? `url(${banners[banner]})` : undefined,
             }}

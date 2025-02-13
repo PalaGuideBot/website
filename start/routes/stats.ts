@@ -10,8 +10,8 @@ router
     router.post('/players/:username/jobs', [PlayerController, 'jobs']).as('players.jobs')
     router.get('/factions/:name?', [FactionController, 'show']).as('factions.show')
     router
-      .get('/wrapped/:username', [PlayerController, 'wrapped'])
-      .as('players.wrapped')
+      .get('/wrapped/:username/end', [PlayerController, 'wrappedEnd'])
+      .as('players.wrapped.end')
       .middleware([middleware.auth()])
   })
   .as('stats')
