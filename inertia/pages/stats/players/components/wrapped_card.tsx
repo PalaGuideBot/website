@@ -1,7 +1,7 @@
 import type { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
-import type { playerInfoValidator } from '#stats/validators/player_validator'
+import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { banners } from '~/content/banner'
 import { DateTime } from '~/lib/luxon'
@@ -18,7 +18,7 @@ import { metrics } from './wrapped_metrics'
 import { useWrappedSettings } from './wrapped_settings'
 
 interface WrappedCardProps extends React.ComponentProps<typeof Card> {
-  player: Infer<typeof playerInfoValidator>
+  player: Infer<typeof playerWrappedValidator>
 }
 
 const WrappedCard = React.forwardRef<HTMLDivElement, WrappedCardProps>(

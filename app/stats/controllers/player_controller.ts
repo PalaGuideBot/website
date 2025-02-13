@@ -59,7 +59,7 @@ export default class PlayerController {
   async wrappedEnd({ auth, inertia, params }: HttpContext) {
     // TMP: Get user by linked account
     // const profile = await this.api.getMinecraftAccountLinked(auth!.user.id)
-    const player = await this.api.getPlayer(params.username)
+    const player = await this.api.getPlayerWrapped(params.username)
 
     return inertia.render('stats/players/wrapped/end', { player })
   }
