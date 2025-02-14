@@ -52,25 +52,27 @@ L’équipe de **PalaGuideBot** est composée de trois membres principaux :
   - **Études/Travail :** Étudiant en maintenance  
   - **Rôles :** Direction artistique, communication, Minecraft (*les choses simples*)  
 
-- **Riveur** (*Développeur TypeScript*)  
+- **Riveur** (*Développeur Web*)  
   - **Rejoint le :** 24/05/24  
-  - **Études/Travail :**  
+  - **Études/Travail :** Concepteur Développeur d'Applications
   - **Rôles :** Développement du site web, de l’API, gestion des images...  
 
 ### **Contributeurs externes**  
 
 Deux contributeurs ont également apporté leur expertise au projet :  
 
-- **Razi** (*Développeur Java*)  
+- **Razi** (*Contributeur Java*)  
   - **Dernière contribution :** 16/09/24  
   - **Réalisation :** Développement d’un easter egg pour le serveur Minecraft de Link.  
 
-- **Volcane’eau** (*Développeur TypeScript*)  
+- **Volcan'eau** (*Contributeur TypeScript*)  
   - **Dernière contribution :** 21/10/24  
   - **Réalisations :**  
     - Développement initial des badges sur les profils.  
     - Suggestions et rapports de bugs.  
-    - Conseils et améliorations techniques.  
+    - Conseils et améliorations techniques.
+
+Toutes les personnes présentes sont bénévoles et contribuent sur leur temps libre.
 
 ---
 
@@ -89,7 +91,7 @@ Portainer est utilisé pour visualiser et gérer les conteneurs Docker plus faci
 ![image](https://image.palaguidebot.fr/articles/knowEverything/portainer.png)  
 
 ### **GitHub**  
-GitHub permet de gérer le code source via Git, d’automatiser le déploiement avec Docker et de suivre l’historique des modifications.  
+GitHub permet de gérer le code source via Git, d’automatiser le déploiement avec Docker et de suivre l’historique des modifications. 
 
 ![image](https://image.palaguidebot.fr/articles/knowEverything/github.png)  
 
@@ -103,15 +105,22 @@ Discord est notre principal canal de communication, notamment pour la gestion de
 
 ![image](https://image.palaguidebot.fr/articles/knowEverything/discord.png)
 
-### Choix Des Implémentations
+### **Choix des implémentations**  
 
-...
+Toutes les idées de l'équipe sont rassemblées dans le forum Discord, où elles sont débattues afin de déterminer si elles doivent être mises en place, leur niveau de priorité et la personne qui se chargera de les développer.  
+
+Lorsqu'une fonctionnalité n'a pas de contrainte de date ou de priorité élevée, c'est le développeur en charge qui choisit l'ordre de traitement. Le reste de l'équipe s'adapte en conséquence. **Riveur**, étant principalement responsable du développement du site web, est souvent celui qui décide de la fonctionnalité sur laquelle il travaille en priorité.  
+
+Les demandes des utilisateurs sont également prises en compte. Si une demande est simple à réaliser, elle sera traitée rapidement en fonction des disponibilités. En revanche, si elle concerne une fonctionnalité plus complexe qui enthousiasme l'équipe, elle sera priorisée et intégrée dans la roadmap.
 
 ---
 
 ## Développement
 
-...
+### Temps développement
+
+Heures
+Commit par repos
 
 ### Les Technologies
 
@@ -124,9 +133,10 @@ PalaGuideBot doit gérer plusieurs services :
 - **API**  
 - **Génération d’images**  
 - **Serveur Minecraft**  
-- **Bot de support**  
+- **Bot de support**
+- **Base de données**
 
-L’ensemble fonctionne sur un **VPS sous Debian 11**, fourni gracieusement par **NVH Cloud**, qui assure également une protection contre les attaques **DDoS**. Tous les services sont gérés via **Docker**.
+L’ensemble fonctionne sur un **VPS sous Debian 11**, fourni gracieusement par **[NVH Cloud](https://www.nvhcloud.com)**, qui assure également une protection contre les attaques **DDoS**. Tous les services sont gérés via **Docker**.
 
 ---
 
@@ -147,5 +157,4 @@ L’équipe est à l’écoute des joueurs et encourage la communauté à faire 
 Question : 
 
 Si vous faites ca sur votre temps libre ou sinon avez d'autres projets qui vous prends du temps (en rapport à paladium ou pas) ---> Organisation
-Si vous êtes bénévoles
 Combien de temps / semaine sur le projet ---> Organisation
