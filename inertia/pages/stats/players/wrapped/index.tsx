@@ -579,6 +579,9 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         </div>
       </main>
       <ThemeToggler variant="tertiary" className="fixed top-0 right-0 m-4" />
+      {currentSlide === 0 && (
+        <span className="text-sm fixed bottom-0 right-0 m-4 italic">Inspirée de Lunar Client</span>
+      )}
     </>
   )
 }
