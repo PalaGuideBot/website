@@ -37,7 +37,7 @@ export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
       {isClient && (
         <WrappedSettings player={player}>
           <main className="min-h-screen w-full">
-            <Page className="p-8 max-w-none flex-row w-fit">
+            <Page className="p-8 max-w-none lg:flex-row w-fit">
               <div className="max-w-xl flex flex-col gap-4">
                 <div className="space-y-1.5 pb-8">
                   <PageTitle>Paladium Wrapped</PageTitle>

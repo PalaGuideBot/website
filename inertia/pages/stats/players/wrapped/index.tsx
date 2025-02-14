@@ -20,7 +20,7 @@ import { allianceToIcon } from '~/content/factions'
 import { icons as jobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
-import { getPet } from '~/content/pets'
+import { getPet, translatePet } from '~/content/pets'
 import { getClickerBuildingImage } from '~/lib/clicker'
 import { getFullBobyUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
@@ -68,6 +68,14 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           options={{ enableControls: false }}
         />
       </motion.div>
+      <motion.p
+        className="text-surface-300"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        Pour une meilleure expérience, veuillez visiter cette page sur un ordinateur
+      </motion.p>
     </motion.div>,
 
     <motion.div
@@ -197,8 +205,8 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       exit={{ opacity: 0 }}
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos compagnons</h2>
-      <div className="flex flex-row gap-8 items-center justify-center">
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl w-80">
+      <div className="grid sm:grid-cols-2 w-fit gap-8 items-center justify-center mx-auto">
+        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
           <CardHeader>
             <CardTitle className="text-3xl text-center">Monture</CardTitle>
           </CardHeader>
@@ -211,7 +219,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                   rotation={[0, Math.PI / 0.8, 0]}
                   isLooping
                 />
-                <ul className="flex flex-col gap-2 items-center font-mc-dungueons">
+                <ul className="flex flex-col gap-2 items-center font-mc-dungueons text-nowrap">
                   <li className="text-xl">
                     Nom : <span className="text-primary">{player.mount.name}</span>
                   </li>
@@ -229,7 +237,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             )}
           </CardContent>
         </Card>
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl w-80">
+        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
           <CardHeader>
             <CardTitle className="text-3xl text-center">Familier</CardTitle>
           </CardHeader>
@@ -245,7 +253,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                 />
                 <ul className="flex flex-col gap-2 items-center font-mc-dungueons">
                   <li className="text-xl">
-                    Skin : <span className="text-primary">{getPet(player.pet.currentSkin)}</span>
+                    Skin :{' '}
+                    <span className="text-primary">
+                      {translatePet(getPet(player.pet.currentSkin))}
+                    </span>
                   </li>
                   <li className="text-xl">
                     Niveau : <NumberTicker className="text-primary" value={player.pet.level} />
@@ -272,11 +283,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       exit={{ opacity: 0 }}
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos métiers</h2>
-      <div className="w-fit grid grid-cols-2 gap-8 items-center justify-center mx-auto">
+      <div className="w-fit grid sm:grid-cols-2 gap-8 items-center justify-center mx-auto">
         {Object.entries(player.jobs).map(([jobName, level], index) => {
           const jobIcon = jobIcons[jobName as 'miner']
           return (
             <motion.div
+              key={jobName}
               className="w-64 border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
@@ -320,7 +332,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         <p className="text-4xl font-mc-dungueons text-primary">
           <NumberTicker value={player.moneyMax} /> $
         </p>
-        <p className="text-lg">Le montant le plus élevé que vous avez eu</p>
+        <p className="text-lg">Le montant le plus élevé que vous avez atteint</p>
       </div>
     </motion.div>,
 
@@ -469,11 +481,11 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Fin</h2>
       <motion.div
-        className="mx-auto max-w-2xl border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
+        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <CardContent className="pt-4 pb-0 relative flex flex-row items-center">
+        <CardContent className="pt-4 pb-0 relative flex flex-col sm:flex-row items-center gap-8">
           <div className="relative size-48 overflow-hidden">
             <img
               src={getFullBobyUrl(player.uuid, 'front')}
@@ -482,7 +494,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             />
           </div>
           <HyperText
-            className="flex-grow animate-glow text-5xl text-center pb-4"
+            className="flex-grow animate-glow text-xl sm:text-5xl text-center pb-4"
             charcacterClassName="font-mc-dungueons"
           >
             {player.username}
