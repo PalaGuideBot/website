@@ -6,6 +6,7 @@ import { allianceToIcon } from '~/content/factions'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { cn, formatNumber, formatPrice } from '~/lib/utils'
+import { getPet, translatePet } from '~/content/pets'
 
 type Player = Infer<typeof playerWrappedValidator>
 
@@ -70,8 +71,8 @@ export const metrics: Array<Metric> = [
     },
   },
   {
-    title: 'Clicker',
-    id: 'clicker',
+    title: 'Clicker : Production',
+    id: 'clicker-production',
     isVisible: (_) => true,
     renderContent: (player) => {
       return (
@@ -81,6 +82,20 @@ export const metrics: Array<Metric> = [
         </p>
       )
     },
+  },
+  {
+    title: 'Clicker : Bâtiments',
+    id: 'clicker-buildings',
+    isVisible: (player) => player.clicker.buildings.unlocked > 0,
+    renderContent: (player) =>
+      `${player.clicker.buildings.unlocked} / ${player.clicker.buildings.total}`,
+  },
+  {
+    title: 'Clicker : Améliorations',
+    id: 'clicker-upgrades',
+    isVisible: (player) => player.clicker.upgrades.unlocked > 0,
+    renderContent: (player) =>
+      `${player.clicker.upgrades.unlocked} / ${player.clicker.upgrades.total}`,
   },
   {
     title: 'Métiers',
@@ -122,6 +137,22 @@ export const metrics: Array<Metric> = [
     isVisible: (_) => true,
     renderContent: (player) => {
       return formatPrice(player.moneyMax)
+    },
+  },
+  {
+    title: 'Skin de familier',
+    id: 'pet-skin',
+    isVisible: (player) => player.pet !== undefined,
+    renderContent: (player) => {
+      return translatePet(getPet(player.pet!.currentSkin))
+    },
+  },
+  {
+    title: 'Niveau du familier',
+    id: 'pet-level',
+    isVisible: (player) => player.pet !== undefined,
+    renderContent: (player) => {
+      return player.pet!.level
     },
   },
 ]

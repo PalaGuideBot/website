@@ -1,7 +1,7 @@
 import { Button } from '@lemonsqueezy/wedges'
 import { BanIcon } from 'lucide-react'
 
-import { FormItem, FormLabel } from '~/components/ui/form'
+import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { banners } from '~/content/banner'
 import { WrappedMetricCardDraggable } from './wrapped_metric_card'
 import { metrics } from './wrapped_metrics'
@@ -39,6 +39,10 @@ const WrappedPersonalization = () => {
       </FormItem>
       <FormItem>
         <FormLabel>Métriques</FormLabel>
+        <FormMessage
+          message="Glissez-déposez les métriques pour les afficher sur votre profil."
+          className="text-foreground"
+        />
         <div className="flex flex-row flex-wrap gap-2">
           {metrics
             .filter((metric) => metric.isVisible(player))
