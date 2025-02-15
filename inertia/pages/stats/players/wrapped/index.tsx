@@ -135,7 +135,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             heures
           </p>
         ) : (
-          <p>Vous avez masqué cette information</p>
+          <p className="text-xl">
+            Vous avez <span className="font-mc-dungueons text-primary">masqué</span> cette
+            information
+          </p>
         )}
       </motion.div>
       <motion.div
@@ -470,7 +473,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                     style={{ imageRendering: 'pixelated' }}
                   />
                 </Card>
-                <p className="text-lg">
+                <p className="text-xl">
                   <span className="font-mc-dungueons text-primary">
                     {player.clicker.buildings.lastUnlocked.label}
                   </span>{' '}
