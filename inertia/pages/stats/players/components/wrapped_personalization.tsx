@@ -14,6 +14,10 @@ const WrappedPersonalization = () => {
     <>
       <FormItem>
         <FormLabel>Bannière</FormLabel>
+        <FormMessage
+          message="Cliquez sur une bannière pour la sélectionner."
+          className="text-foreground"
+        />
         <div className="flex flex-row flex-wrap gap-2">
           {Object.entries(banners)
             .concat([['none', 'none']])
@@ -40,7 +44,7 @@ const WrappedPersonalization = () => {
       <FormItem>
         <FormLabel>Métriques</FormLabel>
         <FormMessage
-          message="Glissez-déposez les métriques pour les afficher sur votre profil."
+          message="Glissez-déposez les métriques pour les afficher sur votre carte."
           className="text-foreground"
         />
         <div className="flex flex-row flex-wrap gap-2">
