@@ -565,7 +565,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           Recommencer
         </Button>
         <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
-          <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
+          <Link href={`/wrapped/end`}>Continuer</Link>
         </Button>
       </motion.div>
     </motion.div>,
