@@ -56,18 +56,24 @@ export default class PlayerController {
     return response.json(jobs)
   }
 
-  async wrapped({ inertia, params }: HttpContext) {
-    // TMP: Get user by linked account
-    // const profile = await this.api.getMinecraftAccountLinked(auth!.user.id)
-    const player = await this.api.getPlayerWrapped(params.username)
+  async wrapped({ auth, inertia }: HttpContext) {
+    let player = null
+
+    try {
+      const profile = await this.api.getMinecraftAccountLinked(auth!.user.id)
+      player = await this.api.getPlayerWrapped(profile.username)
+    } catch {}
 
     return inertia.render('stats/players/wrapped/index', { player })
   }
 
-  async wrappedEnd({ auth, inertia, params }: HttpContext) {
-    // TMP: Get user by linked account
-    // const profile = await this.api.getMinecraftAccountLinked(auth!.user.id)
-    const player = await this.api.getPlayerWrapped(params.username)
+  async wrappedEnd({ auth, inertia }: HttpContext) {
+    let player = null
+
+    try {
+      const profile = await this.api.getMinecraftAccountLinked(auth!.user.id)
+      player = await this.api.getPlayerWrapped(profile.username)
+    } catch {}
 
     return inertia.render('stats/players/wrapped/end', { player })
   }

@@ -1,14 +1,17 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
+import type { Infer } from '@vinejs/vine/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import type PlayerController from '#stats/controllers/player_controller'
+import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { CoinIcon, QuestionIcon } from '~/components/icons'
 import { HyperText } from '~/components/magicui/hyper_text'
 import { NumberTicker } from '~/components/magicui/number_ticker'
+import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { JobProgress } from '~/components/shared/paladium_job'
 import ThemeToggler from '~/components/shared/theme_toggler'
@@ -25,6 +28,9 @@ import { getClickerBuildingImage } from '~/lib/clicker'
 import { getFullBobyUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn } from '~/lib/utils'
+import { WrappedNotAvailableBanner } from '../components/wrapped_not_available_banner'
+
+type Player = Infer<typeof playerWrappedValidator>
 
 export type PlayerWrappedPageProps = InferPageProps<PlayerController, 'wrapped'>
 
@@ -40,6 +46,33 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
 
   const replaySlide = () => {
     setCurrentSlide(0)
+  }
+
+  if (!player) {
+    return (
+      <>
+        <Head
+          descriptors={[
+            { title: 'Wrapped' },
+            {
+              name: 'description',
+              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
+            },
+            {
+              name: 'og:description',
+              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
+            },
+          ]}
+        />
+        <main className="flex w-full flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          <Page>
+            <PageTitle>Paladium Wrapped</PageTitle>
+            <p>Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !</p>
+            <WrappedNotAvailableBanner />
+          </Page>
+        </main>
+      </>
+    )
   }
 
   const slides = [
@@ -586,9 +619,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
   )
 }
 
-function renderAllianceIcon(
-  alliance: Required<PlayerWrappedPageProps['player']['faction']>['alliance']
-) {
+function renderAllianceIcon(alliance: Required<Player['faction']>['alliance']) {
   const Icon = allianceToIcon(alliance)
   return <Icon className="size-6" />
 }

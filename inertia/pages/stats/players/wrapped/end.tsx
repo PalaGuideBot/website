@@ -11,6 +11,7 @@ import { Toaster } from '~/components/ui/toast'
 import { useScreenshot } from '~/hooks/use_screenshot'
 import { getHeadUrl } from '~/lib/minecraft'
 import { WrappedCard } from '../components/wrapped_card'
+import { WrappedNotAvailableBanner } from '../components/wrapped_not_available_banner'
 import { WrappedPersonalization } from '../components/wrapped_personalization'
 import { WrappedSettings } from '../components/wrapped_settings'
 
@@ -22,8 +23,35 @@ export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
   const isClient = useIsClient()
 
   const { ref, isLoading, takeScreenshot } = useScreenshot<HTMLDivElement>({
-    filename: `${player.username}_wrapped`,
+    filename: `${player?.username}_wrapped`,
   })
+
+  if (!player) {
+    return (
+      <>
+        <Head
+          descriptors={[
+            { title: 'Wrapped' },
+            {
+              name: 'description',
+              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
+            },
+            {
+              name: 'og:description',
+              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
+            },
+          ]}
+        />
+        <main className="flex w-full flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          <Page>
+            <PageTitle>Paladium Wrapped</PageTitle>
+            <p>Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !</p>
+            <WrappedNotAvailableBanner />
+          </Page>
+        </main>
+      </>
+    )
+  }
 
   return (
     <>
