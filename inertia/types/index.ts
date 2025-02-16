@@ -45,6 +45,20 @@ export type PaladiumStatus =
 
 export type PaladiumFaction = 'Runegard' | 'Xanoth' | 'Egopolis' | 'Kilmordra' | 'Aeloria' | 'Event'
 
+export type ProfileBanner =
+  | 'build'
+  | 'docs'
+  | 'dune'
+  | 'fac'
+  | 'hole'
+  | 'mast'
+  | 'mine'
+  | 'pillage'
+  | 'pond'
+  | 'pvp'
+  | 'shore'
+  | 'sword'
+
 export type Path = {
   title: string
   description: string

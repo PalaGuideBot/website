@@ -97,7 +97,7 @@ export default PaladiumJob
 
 type JobProgressProps = PaladiumJobProps & React.SVGProps<SVGSVGElement>
 
-const JobProgress = ({ job, info, ...props }: JobProgressProps) => {
+export const JobProgress = ({ job, info, ...props }: JobProgressProps) => {
   return (
     <svg viewBox="0 0 667 769" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

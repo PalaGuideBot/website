@@ -6,7 +6,13 @@ import * as THREE from 'three'
 import { MountType, getMountAnimation } from '~/content/mounts'
 import { cn } from '~/lib/utils'
 
-const Mount = ({ model, isLooping }: { model: MountType; isLooping: boolean }) => {
+interface MountProps {
+  model: MountType
+  isLooping: boolean
+  rotation?: [number, number, number]
+}
+
+const Mount = ({ model, isLooping, rotation = [0, Math.PI / 0.8, 0] }: MountProps) => {
   const { scene, animations } = useGLTF(`/mount-model/${model}.gltf`)
   const { actions } = useAnimations(animations, scene)
 
@@ -29,29 +35,31 @@ const Mount = ({ model, isLooping }: { model: MountType; isLooping: boolean }) =
     }
   }, [isLooping, actions])
 
-  return (
-    <primitive object={scene} scale={1.2} rotation={[0, Math.PI / 0.8, 0]} position={[0, -1, 0]} />
-  )
+  return <primitive object={scene} scale={1.2} rotation={rotation} position={[0, -1, 0]} />
 }
 
 interface MountViewerProps extends Omit<React.ComponentProps<typeof Canvas>, 'children'> {
   model: MountType
   isLooping: boolean
+  enableControls?: boolean
+  rotation?: MountProps['rotation']
 }
 
 export const MountViewer = React.forwardRef<HTMLCanvasElement, MountViewerProps>(
-  ({ model, className, isLooping, ...props }, ref) => (
+  ({ model, className, enableControls = true, rotation, isLooping, ...props }, ref) => (
     <Canvas ref={ref} className={cn('!h-[200px]', className)} {...props}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
-      <Mount model={model} isLooping={isLooping} />
-      <OrbitControls
-        enableZoom={false}
-        enableRotate={true}
-        target={[0, 0.5, 0]}
-        enablePan={false}
-        rotateSpeed={0.3}
-      />
+      <Mount model={model} isLooping={isLooping} rotation={rotation} />
+      {enableControls && (
+        <OrbitControls
+          enableZoom={false}
+          enableRotate={true}
+          target={[0, 0.5, 0]}
+          enablePan={false}
+          rotateSpeed={0.3}
+        />
+      )}
     </Canvas>
   )
 )
