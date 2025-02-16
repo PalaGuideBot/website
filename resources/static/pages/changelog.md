@@ -1,5 +1,13 @@
 # Changelog
 
+## 16/02/2025
+
+### Site Web
+
+Ajout du Wrapped de la saison
+Correction de la page /status/paladium
+Ajout d'un article sur PalaGuideBot et son histoire [Temporaire]
+
 ## 09/01/2025
 
 ### Website
