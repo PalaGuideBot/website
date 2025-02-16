@@ -28,7 +28,7 @@ import { getClickerBuildingImage } from '~/lib/clicker'
 import { getFullBobyUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn } from '~/lib/utils'
-import { WrappedNotAvailableBanner } from '../components/wrapped_not_available_banner'
+import { SearchPlayerForm } from '../components/search_player_form'
 
 type Player = Infer<typeof playerWrappedValidator>
 
@@ -68,7 +68,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           <Page>
             <PageTitle>Paladium Wrapped</PageTitle>
             <p>Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !</p>
-            <WrappedNotAvailableBanner />
+            <SearchPlayerForm path={(username) => `/wrapped/${username}`} />
           </Page>
         </main>
       </>

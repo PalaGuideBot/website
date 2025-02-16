@@ -1,6 +1,7 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
+import { PackageIcon } from 'lucide-react'
 
 import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
@@ -9,6 +10,7 @@ import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { PlayerDetails } from './components/player_details'
@@ -54,7 +56,21 @@ export default function PlayerShow(props: PlayerShowProps) {
         <Page className="p-4 lg:p-6">
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Statistiques de joueur</PageTitle>
-            <DateRangeSelector defaultOptions={options} />
+            <div className="flex flex-row items-center gap-2">
+              <Tooltip>
+                <TooltipProvider>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" isIconOnly className="h-10 aspect-square" asChild>
+                      <Link href={`/wrapped/${player?.username}`}>
+                        <PackageIcon className="size-4 " />
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Wrapped</TooltipContent>
+                </TooltipProvider>
+              </Tooltip>
+              <DateRangeSelector defaultOptions={options} />
+            </div>
           </div>
           <SearchPlayerForm
             defaultValue={player?.username}
