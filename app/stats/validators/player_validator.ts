@@ -175,3 +175,50 @@ export const latestPlayerDataValidator = vine.compile(
     vine.object({ uuid: vine.string().uuid(), username: vine.string(), date: vine.string() })
   )
 )
+
+export const playerWrappedValidator = vine.compile(
+  vine.object({
+    uuid: vine.string().uuid(),
+    username: vine.string(),
+    achievements: vine.object({
+      completed: vine.number(),
+      total: vine.number(),
+    }),
+    mount: vine
+      .object({
+        mountType: vine.number(),
+        name: vine.string(),
+        level: vine.number(),
+      })
+      .optional(),
+    pet: vine
+      .object({
+        currentSkin: vine.string(),
+        level: vine.number(),
+      })
+      .optional(),
+    friends: vine.number(),
+    faction: vine.object({
+      name: vine.string(),
+    }),
+    factionsCount: vine.number(),
+    timePlayed: vine.number(),
+    jobs: vine.object({
+      miner: vine.number(),
+      farmer: vine.number(),
+      hunter: vine.number(),
+      alchemist: vine.number(),
+    }),
+    moneyMax: vine.number(),
+    bestLeaderboard: vine
+      .object({
+        name: vine.string(),
+        value: vine.number(),
+      })
+      .nullable(),
+    clicker: vine.object({
+      production: vine.number(),
+      rps: vine.number(),
+    }),
+  })
+)

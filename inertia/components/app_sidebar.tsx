@@ -10,6 +10,7 @@ import {
   FileEditIcon,
   LogInIcon,
   MessageCircleQuestionIcon,
+  NewspaperIcon,
   ShieldQuestionIcon,
   ShovelIcon,
   TrophyIcon,
@@ -36,6 +37,7 @@ import {
 } from '~/components/ui/sidebar'
 import { useAuth } from '~/hooks/use_auth'
 import { useSidebarStateStore } from '~/stores/sidebar_state_store'
+import { PaladiumWrappedBanner } from './shared/paladium_wrapped_banner'
 import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 
@@ -167,6 +169,11 @@ const informationLinks: LinkProps[] = [
     url: '/changelog',
     icon: FileEditIcon,
   },
+  {
+    title: 'Tout savoir',
+    url: '/know-everything',
+    icon: NewspaperIcon,
+  },
 ]
 
 const Item = ({ item }: { item: LinkProps }) => {
@@ -286,6 +293,9 @@ const AppSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <div className="p-1">
+          <PaladiumWrappedBanner />
+        </div>
         <SidebarMenu>
           <SidebarMenuItem>
             {user ? (

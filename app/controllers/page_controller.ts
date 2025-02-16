@@ -48,6 +48,20 @@ export default class PageController {
     }
   }
 
+  async know_everything({ request, response, inertia }: HttpContext) {
+    const content = await readFile(
+      app.makePath('resources/static/pages/know_everything.md'),
+      'utf-8'
+    )
+    switch (request.accepts(['text/markdown', 'text/html'])) {
+      case 'text/markdown':
+        return response.status(200).header('Content-Type', 'text/markdown').send(content)
+      case 'text/html':
+      default:
+        return inertia.render('know_everything', { content })
+    }
+  }
+
   async informations({ inertia }: HttpContext) {
     return inertia.render('informations')
   }

@@ -1,0 +1,23 @@
+import DefaultLayout from '~/components/layouts/default'
+import { Page } from '~/components/page'
+import { Head } from '~/components/shared/head'
+import { Markdown } from '~/components/ui/markdown'
+
+type KnowEverythingPageProps = {
+  content: string
+}
+
+export default function KnowEverythingPage(props: KnowEverythingPageProps) {
+  const { content } = props
+
+  return (
+    <>
+      <Head descriptors={[{ title: 'Article tout savoir sur PalaGuideBot' }]} />
+      <DefaultLayout>
+        <Page className="gap-0">
+          <Markdown>{content}</Markdown>
+        </Page>
+      </DefaultLayout>
+    </>
+  )
+}

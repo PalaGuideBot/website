@@ -45,6 +45,7 @@ import {
   playerClickerDataValidator,
   playerInfoValidator,
   playerJobsValidator,
+  playerWrappedValidator,
 } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
 import {
@@ -127,6 +128,29 @@ export class ApiService {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         throw new Exception('Invalid player jobs data', {
           code: 'E_PLAYER_JOBS_INVALID',
+          status: 500,
+        })
+      }
+      throw error
+    }
+  }
+
+  async getPlayerWrapped(username: string) {
+    try {
+      const response = await client.get(`players/${username}/wrapped`)
+      const data = await response.json()
+      return playerWrappedValidator.validate(data)
+    } catch (error) {
+      console.log(await error.response.json())
+      if (error instanceof HTTPError) {
+        throw new Exception(`Player "${username}" not found`, {
+          code: 'E_PLAYER_NOT_FOUND',
+          status: 404,
+        })
+      }
+      if (error instanceof errors.E_VALIDATION_ERROR) {
+        throw new Exception('Invalid player wrapped data', {
+          code: 'E_PLAYER_WRAPPED_INVALID',
           status: 500,
         })
       }

@@ -97,7 +97,7 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
           variant="outline"
           before={<CalendarIcon className="size-4" />}
           className={cn(
-            'w-full lg:w-[300px] justify-start text-left font-normal',
+            'justify-start text-left font-normal',
             !searchParams.has('from') && searchParams.has('to') && 'text-surface-400'
           )}
         >
