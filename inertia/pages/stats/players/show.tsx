@@ -10,7 +10,6 @@ import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { PlayerDetails } from './components/player_details'
@@ -54,22 +53,18 @@ export default function PlayerShow(props: PlayerShowProps) {
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
-          <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
+          <div className="flex flex-row flex-wrap gap-2 items-center justify-between">
             <PageTitle>Statistiques de joueur</PageTitle>
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex items-center gap-2">
               {player && (
-                <Tooltip>
-                  <TooltipProvider>
-                    <TooltipTrigger asChild>
-                      <Button variant="outline" isIconOnly className="h-10 aspect-square" asChild>
-                        <Link href={`/wrapped/${player.username}`}>
-                          <PackageIcon className="size-4 " />
-                        </Link>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Wrapped</TooltipContent>
-                  </TooltipProvider>
-                </Tooltip>
+                <Button
+                  variant="tertiary"
+                  before={<PackageIcon className="size-4 " />}
+                  className="h-10 bg-emerald-700/10 border-4 border-white/10"
+                  asChild
+                >
+                  <Link href={`/wrapped/${player.username}`}>Wrapped</Link>
+                </Button>
               )}
               <DateRangeSelector defaultOptions={options} />
             </div>
