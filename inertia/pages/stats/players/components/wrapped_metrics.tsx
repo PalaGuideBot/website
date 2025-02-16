@@ -2,11 +2,10 @@ import type { Infer } from '@vinejs/vine/types'
 
 import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { CoinIcon } from '~/components/icons'
-import { allianceToIcon } from '~/content/factions'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
-import { cn, formatNumber, formatPrice } from '~/lib/utils'
 import { getPet, translatePet } from '~/content/pets'
+import { cn, formatNumber, formatPrice } from '~/lib/utils'
 
 type Player = Infer<typeof playerWrappedValidator>
 
@@ -33,14 +32,7 @@ export const metrics: Array<Metric> = [
     id: 'faction',
     isVisible: (_) => true,
     renderContent: (player) => {
-      const AllianceIcon = player.faction.alliance ? allianceToIcon(player.faction.alliance) : null
-
-      return (
-        <p className="flex flex-row items-center justify-center gap-2">
-          {AllianceIcon && <AllianceIcon className="size-6" />}
-          <span>{player.faction.name || 'Wilderness'}</span>
-        </p>
-      )
+      return player.faction.name || 'Wilderness'
     },
   },
   {
@@ -84,18 +76,17 @@ export const metrics: Array<Metric> = [
     },
   },
   {
-    title: 'Clicker : Bâtiments',
-    id: 'clicker-buildings',
-    isVisible: (player) => player.clicker.buildings.unlocked > 0,
-    renderContent: (player) =>
-      `${player.clicker.buildings.unlocked} / ${player.clicker.buildings.total}`,
-  },
-  {
-    title: 'Clicker : Améliorations',
-    id: 'clicker-upgrades',
-    isVisible: (player) => player.clicker.upgrades.unlocked > 0,
-    renderContent: (player) =>
-      `${player.clicker.upgrades.unlocked} / ${player.clicker.upgrades.total}`,
+    title: 'Clicker : Coins /sec.',
+    id: 'clicker-rps',
+    isVisible: (_) => true,
+    renderContent: (player) => {
+      return (
+        <p className="flex flex-row items-center justify-center gap-2">
+          <span>{formatNumber(player.clicker.rps)}</span>
+          <CoinIcon className="size-6" />
+        </p>
+      )
+    },
   },
   {
     title: 'Métiers',

@@ -1,13 +1,11 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
-import type { Infer } from '@vinejs/vine/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import type PlayerController from '#stats/controllers/player_controller'
-import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { CoinIcon, QuestionIcon } from '~/components/icons'
 import { HyperText } from '~/components/magicui/hyper_text'
 import { NumberTicker } from '~/components/magicui/number_ticker'
@@ -19,18 +17,14 @@ import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { allianceToIcon } from '~/content/factions'
 import { icons as jobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
-import { getClickerBuildingImage } from '~/lib/clicker'
 import { getFullBobyUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn } from '~/lib/utils'
 import { SearchPlayerForm } from '../components/search_player_form'
-
-type Player = Infer<typeof playerWrappedValidator>
 
 export type PlayerWrappedPageProps = InferPageProps<PlayerController, 'wrapped'>
 
@@ -149,18 +143,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       >
         <p className="text-3xl font-bold pb-4 border-b">Faction</p>
         <div className="flex flex-row gap-8 items-center">
-          {player.faction.emblemUrl && (
-            <img
-              src={player.faction.emblemUrl}
-              alt="Emblème de la faction"
-              className="w-24 h-24 rounded-lg"
-            />
-          )}
           <div className="space-y-1.5">
             <p className="text-xl">
               Vous êtes dans la faction{' '}
               <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary text-2xl">
-                {player.faction.alliance && renderAllianceIcon(player.faction.alliance)}
                 <span>{player.faction.name || 'Wilderness'}</span>
               </span>
             </p>
@@ -446,65 +432,29 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
       >
-        <p className="text-3xl font-bold pb-4 border-b">Bâtiments</p>
-        <div className="flex flex-row gap-8 items-center">
-          <div className="space-y-1.5">
-            <p className="text-xl">
-              Vous avez débloqué{' '}
+        <p className="text-3xl font-bold pb-4 border-b">Click Coins par seconde</p>
+        {player.clicker.rps > 0 ? (
+          <p className="text-xl">
+            Vous produisiez un total de{' '}
+            <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary">
               <NumberTicker
                 className="font-mc-dungueons text-primary text-2xl"
-                value={player.clicker.buildings.unlocked}
-                delay={1.2}
-              />{' '}
-              bâtiments pour un total de{' '}
-              <NumberTicker
-                className="font-mc-dungueons text-primary text-2xl"
-                value={player.clicker.buildings.total}
-                delay={1.2}
+                value={player.clicker.rps}
               />
-            </p>
-            {player.clicker.buildings.lastUnlocked && (
-              <div className="flex flex-row items-end gap-2">
-                <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl p-2">
-                  <img
-                    src={getClickerBuildingImage(player.clicker.buildings.lastUnlocked.name)}
-                    alt={player.clicker.buildings.lastUnlocked.name}
-                    className="w-16 h-auto object-cover"
-                    style={{ imageRendering: 'pixelated' }}
-                  />
-                </Card>
-                <p className="text-xl">
-                  <span className="font-mc-dungueons text-primary">
-                    {player.clicker.buildings.lastUnlocked.label}
-                  </span>{' '}
-                  est le dernier bâtiment que vous avez débloqué
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
-      <motion.div
-        className="flex flex-col gap-2"
-        initial={{ opacity: 0, y: -4 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2 }}
-      >
-        <p className="text-3xl font-bold pb-4 border-b">Améliorations</p>
-        <p className="text-xl">
-          Vous avez débloqué{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.clicker.upgrades.unlocked}
-            delay={2.4}
-          />{' '}
-          améliorations pour un total de{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.clicker.upgrades.total}
-            delay={2.4}
-          />
-        </p>
+              <CoinIcon className="size-6" />
+            </span>{' '}
+            par seconde
+          </p>
+        ) : (
+          <p className="text-xl">
+            Vous générez{' '}
+            <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary">
+              <span>aucun</span>
+              <CoinIcon className="size-6" />
+            </span>{' '}
+            par seconde
+          </p>
+        )}
       </motion.div>
     </motion.div>,
 
@@ -620,11 +570,6 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       )}
     </>
   )
-}
-
-function renderAllianceIcon(alliance: Required<Player['faction']>['alliance']) {
-  const Icon = allianceToIcon(alliance)
-  return <Icon className="size-6" />
 }
 
 function renderLeaderboardIcon(leaderboard: string) {
