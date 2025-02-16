@@ -300,7 +300,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                 </ul>
               </>
             )}
-            {!player.mount && (
+            {!player.pet && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
                 <p>Vous ne possèdez aucun familier</p>
@@ -568,7 +568,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           Recommencer
         </Button>
         <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
-          <Link href={`/wrapped/end`}>Continuer</Link>
+          <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
         </Button>
       </motion.div>
     </motion.div>,

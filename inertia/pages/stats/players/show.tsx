@@ -57,18 +57,20 @@ export default function PlayerShow(props: PlayerShowProps) {
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Statistiques de joueur</PageTitle>
             <div className="flex flex-row items-center gap-2">
-              <Tooltip>
-                <TooltipProvider>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" isIconOnly className="h-10 aspect-square" asChild>
-                      <Link href={`/wrapped/${player?.username}`}>
-                        <PackageIcon className="size-4 " />
-                      </Link>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Wrapped</TooltipContent>
-                </TooltipProvider>
-              </Tooltip>
+              {player && (
+                <Tooltip>
+                  <TooltipProvider>
+                    <TooltipTrigger asChild>
+                      <Button variant="outline" isIconOnly className="h-10 aspect-square" asChild>
+                        <Link href={`/wrapped/${player.username}`}>
+                          <PackageIcon className="size-4 " />
+                        </Link>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Wrapped</TooltipContent>
+                  </TooltipProvider>
+                </Tooltip>
+              )}
               <DateRangeSelector defaultOptions={options} />
             </div>
           </div>
