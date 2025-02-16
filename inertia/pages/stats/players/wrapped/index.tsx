@@ -254,7 +254,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.mount && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possèdez aucune monture</p>
+                <p>Vous ne possédez aucune monture</p>
               </div>
             )}
           </CardContent>
@@ -289,7 +289,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.pet && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possèdez aucun familier</p>
+                <p>Vous ne possédez aucun familier</p>
               </div>
             )}
           </CardContent>
