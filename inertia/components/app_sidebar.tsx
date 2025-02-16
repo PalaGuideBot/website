@@ -10,6 +10,7 @@ import {
   FileEditIcon,
   LogInIcon,
   MessageCircleQuestionIcon,
+  NewspaperIcon,
   ShieldQuestionIcon,
   ShovelIcon,
   TrophyIcon,
@@ -166,6 +167,11 @@ const informationLinks: LinkProps[] = [
     title: 'Changelog',
     url: '/changelog',
     icon: FileEditIcon,
+  },
+  {
+    title: 'Tout savoir',
+    url: '/knowEverything',
+    icon: NewspaperIcon,
   },
 ]
 

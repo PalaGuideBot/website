@@ -42,10 +42,10 @@ L’équipe de **PalaGuideBot** est composée de trois membres principaux :
 
 ### **Membres principaux**  
 
-- **TonyKun** (*Créateur*)  
-  - **Rejoint le :** 08/12/23  
-  - **Études/Travail :** Étudiant en développement  
-  - **Rôles :** Développement du bot, du site web, de l’API, gestion des images, administration système...  
+  - **TonyKun** (*Créateur*)  
+    - **Rejoint le :** 08/12/23  
+    - **Études/Travail :** Étudiant en développement  
+    - **Rôles :** Développement du bot, du site web, de l’API, gestion des images, administration système...  
 
 - **Zeluck** (*Graphiste, Communication*)  
   - **Rejoint le :** 31/01/24  
@@ -182,7 +182,8 @@ Et surtout, **merci à vous** pour votre soutien et votre engagement ❤️
 
 ---
 
-## **FAQ**  
+## **❓FAQ**
+Réponses aux questions posées sur notre Discord
 
 ### **PalaGuideBot sera-t-il payant un jour ?** *(Air_Infinity)*  
 Actuellement, **PalaGuideBot** est entièrement **gratuit** et maintenu bénévolement par l'équipe. Il n'y a **aucun projet** de le rendre payant.  
