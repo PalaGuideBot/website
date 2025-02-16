@@ -8,10 +8,10 @@ export default class EventController {
   constructor(private api: ApiService) {}
 
   async index({ inertia }: HttpContext) {
-    const factionQuest = await this.api.getEventFactionQuest()
-    const factionOnYourMarks = await this.api.getEventFactionOnYourMarks()
+    // const factionQuest = await this.api.getEventFactionQuest()
+    // const factionOnYourMarks = await this.api.getEventFactionOnYourMarks()
     const dailyEvents = await this.api.getDailyEvents()
 
-    return inertia.render('event/index', { factionQuest, factionOnYourMarks, dailyEvents })
+    return inertia.render('event/index', { /* factionQuest, factionOnYourMarks, */ dailyEvents })
   }
 }
