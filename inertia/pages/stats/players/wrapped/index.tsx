@@ -502,7 +502,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         transition={{ delay: 1.5 }}
       >
         Vous avez la possibilité de sauvegarder une carte
-        <br /> qui résume vos statistiques préférées en contiunant la navigation.
+        <br /> qui résume vos statistiques préférées en continuant la navigation.
       </motion.p>
       <motion.div
         className="flex items-center justify-center gap-4"
