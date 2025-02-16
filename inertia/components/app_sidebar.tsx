@@ -170,7 +170,7 @@ const informationLinks: LinkProps[] = [
   },
   {
     title: 'Tout savoir',
-    url: '/knowEverything',
+    url: '/know_everything',
     icon: NewspaperIcon,
   },
 ]

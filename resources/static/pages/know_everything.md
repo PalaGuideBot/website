@@ -42,10 +42,10 @@ L’équipe de **PalaGuideBot** est composée de trois membres principaux :
 
 ### **Membres principaux**  
 
-  - **TonyKun** (*Créateur*)  
-    - **Rejoint le :** 08/12/23  
-    - **Études/Travail :** Étudiant en développement  
-    - **Rôles :** Développement du bot, du site web, de l’API, gestion des images, administration système...  
+- **TonyKun** (*Créateur*)  
+  - **Rejoint le :** 08/12/23  
+  - **Études/Travail :** Étudiant en développement  
+  - **Rôles :** Développement du bot, du site web, de l’API, gestion des images, administration système...  
 
 - **Zeluck** (*Graphiste, Communication*)  
   - **Rejoint le :** 31/01/24  

@@ -48,9 +48,9 @@ export default class PageController {
     }
   }
 
-  async knowEverything({ request, response, inertia }: HttpContext) {
+  async know_everything({ request, response, inertia }: HttpContext) {
     const content = await readFile(
-      app.makePath('resources/static/pages/knowEverything.md'),
+      app.makePath('resources/static/pages/know_everything.md'),
       'utf-8'
     )
     switch (request.accepts(['text/markdown', 'text/html'])) {
