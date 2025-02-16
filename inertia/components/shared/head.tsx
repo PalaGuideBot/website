@@ -30,6 +30,7 @@ const keywords = [
   'palaguidebot',
   'bot',
   'discord',
+  'fuzeiii',
 ]
 
 const Head = ({

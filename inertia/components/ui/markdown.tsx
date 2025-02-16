@@ -22,7 +22,12 @@ export const implementedComponents = {
     return <a className={cn('underline animate-glow', className)} {...props} />
   },
   ul({ node, className, ...props }) {
-    return <ul className={cn('list-disc list-inside mb-4 [&>li]:pl-4', className)} {...props} />
+    return (
+      <ul
+        className={cn('list-disc list-inside mb-4 [&>li]:pl-4 [&>li>p]:inline-block', className)}
+        {...props}
+      />
+    )
   },
   code({ node, className, ...props }) {
     return <code className={cn('bg-surface-100 px-1 rounded-sm', className)} {...props} />

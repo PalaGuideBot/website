@@ -17,6 +17,6 @@ export const factionInfoValidator = vine.compile(
       })
     ),
     emblemUrl: vine.string(),
-    alliance: vine.enum(['CHAOS', 'ORDER']),
+    alliance: vine.enum(['CHAOS', 'ORDER', 'NULL']).nullable().optional(),
   })
 )
