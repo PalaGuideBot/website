@@ -5,7 +5,7 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { DailyEventsCard } from './components/daily_events_card'
-import { PaladiumNextVersion } from '~/components/shared/paladiumversion'
+import { PaladiumNextVersion } from '~/components/shared/paladium_next_version'
 // import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
 // import { QDFEventCard } from './components/qdf_event_card'
 

@@ -25,7 +25,7 @@ import { formatNumber } from '~/lib/utils'
 import { PaladiumFaction, PaladiumStatus } from '~/types'
 import { UptimeIndicator } from '../components/uptime_indicator'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
-import { PaladiumNextVersion } from '~/components/shared/paladiumversion'
+import { PaladiumNextVersion } from '~/components/shared/paladium_next_version'
 
 type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 

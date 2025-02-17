@@ -9,7 +9,7 @@ import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
 /* import { SearchFactionForm } from './components/search_faction_form' */
-import { PaladiumNextVersion } from '~/components/shared/paladiumversion'
+import { PaladiumNextVersion } from '~/components/shared/paladium_next_version'
 
 export type FactionShowProps = InferPageProps<FactionController, 'show'>
 
