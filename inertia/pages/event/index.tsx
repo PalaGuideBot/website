@@ -1,11 +1,11 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Alert } from '@lemonsqueezy/wedges'
 
 import type EventController from '#event/controllers/event_controller'
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { DailyEventsCard } from './components/daily_events_card'
+import { PaladiumNextVersion } from '~/components/shared/paladiumversion'
 // import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
 // import { QDFEventCard } from './components/qdf_event_card'
 
@@ -20,11 +20,7 @@ export default function EventIndexPage(props: EventIndexPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>&Eacute;vénements</PageTitle>
-          <Alert title="Maintenance" variant="expanded" color="info">
-            La quête de faction et l'évènement A vos marques sont momentanément indisponible.
-            <br />
-            Merci de votre compréhension.
-          </Alert>
+          <PaladiumNextVersion />
           {/* <QDFEventCard event={factionQuest} /> */}
           {/* <OnYourMarksEventCard event={factionOnYourMarks} /> */}
           <DailyEventsCard events={dailyEvents} />

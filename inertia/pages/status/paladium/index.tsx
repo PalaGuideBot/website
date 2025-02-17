@@ -25,6 +25,7 @@ import { formatNumber } from '~/lib/utils'
 import { PaladiumFaction, PaladiumStatus } from '~/types'
 import { UptimeIndicator } from '../components/uptime_indicator'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
+import { PaladiumNextVersion } from '~/components/shared/paladiumversion'
 
 type PaladiumStatusPageProps = InferPageProps<PaladiumController, 'index'>
 
@@ -57,6 +58,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>Statut: Paladium</PageTitle>
+          <PaladiumNextVersion />
           <p>
             Sur cette page, vous pourrez visualiser le statut des différents services de Paladium.
           </p>
