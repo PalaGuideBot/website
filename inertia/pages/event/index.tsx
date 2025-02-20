@@ -5,14 +5,13 @@ import DefaultLayout from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { DailyEventsCard } from './components/daily_events_card'
-import { PaladiumNextVersion } from '~/components/shared/paladium_next_version'
-// import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
-// import { QDFEventCard } from './components/qdf_event_card'
+import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
+import { QDFEventCard } from './components/qdf_event_card'
 
 type EventIndexPageProps = InferPageProps<EventController, 'index'>
 
 export default function EventIndexPage(props: EventIndexPageProps) {
-  const { /* factionQuest, factionOnYourMarks, */ dailyEvents } = props
+  const { factionQuest, factionOnYourMarks, dailyEvents } = props
 
   return (
     <>
@@ -20,9 +19,8 @@ export default function EventIndexPage(props: EventIndexPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>&Eacute;vénements</PageTitle>
-          <PaladiumNextVersion />
-          {/* <QDFEventCard event={factionQuest} /> */}
-          {/* <OnYourMarksEventCard event={factionOnYourMarks} /> */}
+          <QDFEventCard event={factionQuest} />
+          <OnYourMarksEventCard event={factionOnYourMarks} />
           <DailyEventsCard events={dailyEvents} />
         </Page>
       </DefaultLayout>
