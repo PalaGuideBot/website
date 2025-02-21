@@ -2,10 +2,10 @@ import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
-import { getCurrentSeason } from '#core/content/paladium'
 import { createPageErrorFromException } from '#core/helpers/error'
 import { ApiService } from '#core/services/api'
 import { distanceValidator } from '#core/validators/filter_validator'
+import { ClientSeasonsFromProps } from '#app/types'
 
 @inject()
 export default class PlayerController {
@@ -15,10 +15,12 @@ export default class PlayerController {
     let player = null
     let examplePlayer = null
 
-    const currentSeason = getCurrentSeason()
+    const seasons = await this.api.getPaladiumSeasons()
+    const currentSeason = seasons.seasons[seasons.current]
+
     const options = await distanceValidator.validate(request.qs(), {
       meta: {
-        from: currentSeason.start.toSQLDate()!,
+        from: currentSeason.start.toSQLDate(),
         to: currentSeason.end.toSQLDate(),
       },
     })
@@ -47,6 +49,7 @@ export default class PlayerController {
       player,
       examplePlayer,
       options,
+      seasons: seasons.seasons as unknown as ClientSeasonsFromProps,
     })
   }
 

@@ -58,6 +58,7 @@ import {
   calculatorResultValidator as calculatorPogResultValidator,
 } from '#tools/validators/pog_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
+import { paladiumSeasonValidator } from '#core/validators/paladium_validator'
 
 const client = ky.create({
   prefixUrl: env.get('API_URL'),
@@ -686,6 +687,19 @@ export class ApiService {
       return data.active
     } catch (error: unknown) {
       return false
+    }
+  }
+
+  async getPaladiumSeasons() {
+    try {
+      const response = await client.get('paladium/seasons')
+      const data = await response.json()
+      return paladiumSeasonValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Unable retreive paladium seasons', {
+        code: 'E_PALADIUM_SEASONS_INVALID',
+        status: 500,
+      })
     }
   }
 }
