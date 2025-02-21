@@ -8,8 +8,7 @@ import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
-/* import { SearchFactionForm } from './components/search_faction_form' */
-import { PaladiumNextVersion } from '~/components/shared/paladium_next_version'
+import { SearchFactionForm } from './components/search_faction_form'
 
 export type FactionShowProps = InferPageProps<FactionController, 'show'>
 
@@ -35,8 +34,7 @@ export default function FactionShow(props: FactionShowProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>Statistiques faction</PageTitle>
-          <PaladiumNextVersion />
-          {/*           <SearchFactionForm defaultValue={faction?.bgName ?? faction?.name} /> */}
+          <SearchFactionForm defaultValue={faction?.bgName ?? faction?.name} />
           {!error && !faction && (
             <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>

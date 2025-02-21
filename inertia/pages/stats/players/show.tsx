@@ -18,7 +18,7 @@ import { SearchPlayerForm } from './components/search_player_form'
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
 export default function PlayerShow(props: PlayerShowProps) {
-  const { player, examplePlayer, options } = props
+  const { player, examplePlayer, options, seasons } = props
 
   const {
     props: { error },
@@ -66,7 +66,7 @@ export default function PlayerShow(props: PlayerShowProps) {
                   <Link href={`/wrapped/${player.username}`}>Wrapped</Link>
                 </Button>
               )}
-              <DateRangeSelector defaultOptions={options} />
+              <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
           <SearchPlayerForm

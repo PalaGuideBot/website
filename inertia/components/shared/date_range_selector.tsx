@@ -12,20 +12,21 @@ import { CalendarIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
+import type { ClientSeasonsFromProps } from '#app/types'
 import type { DistanceFilter } from '#core/validators/filter_validator'
 import { Calendar } from '~/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
-import { seasons } from '~/lib/paladium'
 import { cn } from '~/lib/utils'
 
 interface DateRangeSelectorProps {
+  seasons: ClientSeasonsFromProps
   defaultOptions?: DistanceFilter | null
 }
 
-const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
+const DateRangeSelector = ({ seasons, defaultOptions }: DateRangeSelectorProps) => {
   const [searchParams, setSearchParams] = useSearchParams(defaultOptions || {})
 
   const [open, setOpen] = useState(false)
@@ -80,9 +81,9 @@ const DateRangeSelector = ({ defaultOptions }: DateRangeSelectorProps) => {
     setOpen(isOpen)
   }
 
-  const seasonOptions = seasons.map((season) => ({
-    value: `${season.start.toSQLDate()}:${season.end.toSQLDate()}`,
-    label: season.name,
+  const seasonOptions = Object.entries(seasons).map(([seasonName, season]) => ({
+    value: `${DateTime.fromISO(season.start).toSQLDate()}:${DateTime.fromISO(season.end).toSQLDate()}`,
+    label: seasonName,
   }))
 
   const defaultSeason = seasonOptions.find(

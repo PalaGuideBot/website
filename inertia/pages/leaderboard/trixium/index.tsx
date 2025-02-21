@@ -44,7 +44,7 @@ import { usePuzzleStore } from '../stores/use_puzzle_store'
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
 export default function TrixiumIndex(props: TrixiumPageProps) {
-  const { leaderboardFaction, leaderboardPlayer, options } = props
+  const { leaderboardFaction, leaderboardPlayer, options, seasons } = props
 
   const [searchParams, setSearchParams] = useSearchParams({ tab: 'player' })
 
@@ -59,7 +59,7 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Trixium</PageTitle>
-            <DateRangeSelector defaultOptions={options} />
+            <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
           <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
             <Tabs.List>
