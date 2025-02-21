@@ -40,7 +40,7 @@ import { usePuzzleStore } from '../stores/use_puzzle_store'
 type KothIndexProps = InferPageProps<KothController, 'index'>
 
 export default function KothIndex(props: KothIndexProps) {
-  const { leaderboard, options } = props
+  const { leaderboard, options, seasons } = props
 
   const {
     pagination: { page, limit },
@@ -87,7 +87,7 @@ export default function KothIndex(props: KothIndexProps) {
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Koth</PageTitle>
-            <DateRangeSelector defaultOptions={options} />
+            <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
           {!lastLeaderboard && (
             <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>

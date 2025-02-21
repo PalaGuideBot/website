@@ -9,3 +9,5 @@ export type PageError = {
   status: number
   message: string
 }
+
+export type ClientSeasonsFromProps = Record<string, { start: string; end: string }>

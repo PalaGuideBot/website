@@ -40,7 +40,7 @@ import { usePuzzleStore } from '../stores/use_puzzle_store'
 type BossIndexProps = InferPageProps<BossController, 'index'>
 
 export default function BossIndex(props: BossIndexProps) {
-  const { leaderboard, options } = props
+  const { leaderboard, options, seasons } = props
   const {
     pagination: { page, limit },
     pageOffset,
@@ -86,7 +86,7 @@ export default function BossIndex(props: BossIndexProps) {
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Boss</PageTitle>
-            <DateRangeSelector defaultOptions={options} />
+            <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
           {!lastLeaderboard && (
             <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
