@@ -69,6 +69,10 @@ export default function PlayerShow(props: PlayerShowProps) {
               <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
+          <Alert color="error" variant="expanded">
+            Les statistiques sont temporairement indisponibles. Tenez-vous informé sur notre
+            https://discord.gg/palaguidebot pour plus d'informations.
+          </Alert>
           <SearchPlayerForm
             defaultValue={player?.username}
             path={(username) => `/players/${username}`}
