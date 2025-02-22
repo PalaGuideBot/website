@@ -25,11 +25,14 @@ export const icons: Record<PaladiumFaction, React.FC<IconProps>> = {
   Xanoth: FactionXanothIcon,
 }
 
-export const allianceIcons: Record<FactionAlliance, React.FC<IconProps>> = {
+export const allianceIcons: Record<
+  Extract<FactionAlliance, 'CHAOS' | 'ORDER'>,
+  React.FC<IconProps>
+> = {
   CHAOS: AllianceChaosIcon,
   ORDER: AllianceOrderIcon,
 }
 
 export const allianceToIcon = (alliance: FactionAlliance) => {
-  return allianceIcons[alliance]
+  return alliance && alliance !== 'NULL' ? allianceIcons[alliance] : null
 }

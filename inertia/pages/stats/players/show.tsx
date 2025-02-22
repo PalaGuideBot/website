@@ -69,9 +69,12 @@ export default function PlayerShow(props: PlayerShowProps) {
               <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
-          <Alert color="error" variant="expanded">
-            Les statistiques sont temporairement indisponibles. Tenez-vous informé sur notre
-            https://discord.gg/palaguidebot pour plus d'informations.
+          <Alert color="info" variant="expanded" title="Information">
+            Le pseudo du joueur n'est actuellement pas visible (affiche son UUID à la place).
+            <br />
+            Cela est dû à une erreur technique, le problème sera résolu prochainement.
+            <br />
+            Vous pouvez cependant, toujours rechercher un joueur en utilisant son pseudo.
           </Alert>
           <SearchPlayerForm
             defaultValue={player?.username}

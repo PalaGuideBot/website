@@ -169,7 +169,7 @@ const Podium = ({
           {data.username}
         </PodiumCardDescription>
         <PodiumCardValue after={<LeaderboardKothIcon />}>{data.value}</PodiumCardValue>
-        {compare && <PodiumCardCompare value={compare} compare={compare} />}
+        {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>
   )

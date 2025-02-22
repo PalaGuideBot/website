@@ -193,7 +193,7 @@ const Podium = ({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+        {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>
   )
