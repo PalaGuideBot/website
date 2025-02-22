@@ -98,7 +98,7 @@ export const playerInfoValidator = vine.compile(
   vine.object({
     uuid: vine.string().uuid(),
     username: vine.string(),
-    firstJoin: vine.number(),
+    firstSeen: vine.number(),
     leaderboard: leaderboardValidator,
     achievements: achievementsValidator,
     friends: friendsValidator,
