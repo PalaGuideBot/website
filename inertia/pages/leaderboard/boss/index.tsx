@@ -170,7 +170,7 @@ const Podium = ({
         <PodiumCardValue after={<BossIcon className="h-5 w-auto invert dark:invert-0" />}>
           {data.value}
         </PodiumCardValue>
-        {compare && <PodiumCardCompare value={data.value} compare={compare} />}
+        {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>
   )
