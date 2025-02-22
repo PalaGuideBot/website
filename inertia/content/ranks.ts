@@ -1,6 +1,7 @@
 import developpeurIcon from '~/assets/rank-icons/developpeur.png'
 import discordIcon from '~/assets/rank-icons/discord.png'
 import endiumIcon from '~/assets/rank-icons/endium.png'
+import divinityIcon from '~/assets/rank-icons/divinity.png'
 import gamedesignIcon from '~/assets/rank-icons/gamedesign.png'
 import graphisteIcon from '~/assets/rank-icons/graphiste.png'
 import ingameIcon from '~/assets/rank-icons/ingame.png'
@@ -20,6 +21,7 @@ const icons: Record<Rank, string | null> = {
   'titan': titanIcon,
   'paladin': paladinIcon,
   'endium': endiumIcon,
+  'divinity': divinityIcon,
   'legende': endiumIcon,
   'trixium': trixiumIcon,
   'trixium+': trixiumPlusIcon,
@@ -53,6 +55,7 @@ const translations: Record<Rank, string> = {
   'titan': 'Titan',
   'paladin': 'Paladin',
   'endium': 'Endium',
+  'divinity': 'Divinité',
   'legende': 'Légende',
   'trixium': 'Trixium',
   'trixium+': 'Trixium+',
