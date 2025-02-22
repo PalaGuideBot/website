@@ -5,6 +5,7 @@ export type Rank =
   | 'titan'
   | 'paladin'
   | 'endium'
+  | 'divinity'
   | 'legende'
   | 'trixium'
   | 'trixium+'
