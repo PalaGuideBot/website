@@ -1,5 +1,20 @@
 # Changelog
 
+## 24/02/2025
+
+### Website
+
+- Correction de l'expérience donnée par une Kiwano Seed `/tools/job-calculator`  
+- Correction du bonus d'XP maximum obtenable `/tools/job-calculator`  
+- Correction de l'autocomplétion sur la page de défaut avec les joueurs link `/players`  
+- Ajout des nouveaux grades disponibles sur Paladium  
+
+### Bot
+
+- Suppression des classements Chorus et End dans les commandes `/leaderboard global` & `/leaderboard player`  
+- Ajout des nouveaux grades disponibles sur Paladium  
+
+
 ## 16/02/2025
 
 ### Website
