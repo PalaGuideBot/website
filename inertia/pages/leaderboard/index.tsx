@@ -49,6 +49,17 @@ export default function LeaderboardIndexPage() {
       description: 'Consultez le classement des joueurs qui ont gagnés le King Of The Hill (KOTH).',
       path: '/leaderboard/koth',
     },
+    {
+      title: 'Alignement',
+      description:
+        "Consultez le classement des joueurs ayant capturés le plus de chunk de l'alignement.",
+      path: '/leaderboard/alignement',
+    },
+    {
+      title: 'Métiers',
+      description: 'Consultez le classement des joueurs qui ont le plus de niveau dans un métier.',
+      path: '/leaderboard/jobs',
+    },
   ]
 
   return (
