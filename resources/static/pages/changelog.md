@@ -4,10 +4,11 @@
 
 ### Website
 
-- Correction de l'expérience donnée par une Kiwano Seed `/tools/job-calculator`  
-- Correction du bonus d'XP maximum obtenable `/tools/job-calculator`  
-- Correction de l'autocomplétion sur la page de défaut avec les joueurs link `/players`  
-- Ajout des nouveaux grades disponibles sur Paladium  
+- Ajout d'une nouvelle page de classement pour l'alignement : `/leaderboard/alignment`
+- Ajout d'une nouvelle page de classement pour les métiers : `/leaderboard/jobs`
+- Correction de l'expérience obtenue par une **Kiwano Seed** sur l'outil : `/tools/job-calculator`
+- Correction du bonus d'XP maximum sur l'outil : `/tools/job-calculator`
+- Ajout des nouveaux grades disponibles sur Paladium
 
 ### Bot
 
