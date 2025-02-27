@@ -3,6 +3,7 @@ import { ShoppingCartIcon } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { getBuildingPrice, getClickerBuildingImage, getClickerUpgradeImage } from '~/lib/clicker'
+import { trackEvent } from '~/lib/umami'
 import { formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { useClickerSettings } from './clicker_settings'
@@ -28,9 +29,20 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
     switch (nextPurchase.type) {
       case 'building':
         playerClickerStore.adjustBuildingQuantity(nextPurchase.building.name, 1)
+        trackEvent('clicker-purchase', {
+          type: 'building',
+          name: nextPurchase.building.label,
+          quantity: nextPurchase.building.quantity,
+          player: playerClickerStore.data?.username,
+        })
         break
       case 'upgrade':
         playerClickerStore.addUpgrade(nextPurchase.upgrade.data.name)
+        trackEvent('clicker-purchase', {
+          type: 'upgrade',
+          name: nextPurchase.upgrade.data.label,
+          player: playerClickerStore.data?.username,
+        })
         break
     }
   }
