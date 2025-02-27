@@ -28,6 +28,7 @@ import { cn } from '~/lib/utils'
 import { BetaAlert } from './components/beta_alert'
 import { CalculatorResult } from './components/calculator_result'
 import { PogLevelControls } from './components/pog_level_controls'
+import { trackEvent } from '~/lib/umami'
 
 type PogCalculatorIndexProps = InferPageProps<PogCalculatorController, 'index'>
 
@@ -68,6 +69,8 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
     form.get('/tools/pog-calculator', {
       onSuccess: () => {
         resultSubTitleRef.current?.scrollIntoView({ behavior: 'smooth' })
+        const item = items.find((i) => i.id === form.data.block)
+        trackEvent('pog-calculator', { block: item?.name || form.data.block })
       },
     })
   }

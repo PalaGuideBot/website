@@ -29,6 +29,7 @@ import Input from '~/components/ui/input'
 import { smallIcons } from '~/content/jobs'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { client } from '~/lib/client'
+import { trackEvent } from '~/lib/umami'
 import { cn } from '~/lib/utils'
 import { CalculatorResult } from './components/calculator_result'
 import { JobLevelControls } from './components/job_level_controls'
@@ -84,6 +85,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
     form.get('/tools/job-calculator', {
       onSuccess: () => {
         resultSubTitleRef.current?.scrollIntoView({ behavior: 'smooth' })
+        trackEvent('job-calculator', { job: form.data.job })
       },
     })
   }
