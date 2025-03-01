@@ -23,6 +23,7 @@ import LeaderboardEnd from '~/assets/leaderboard-icons/end.png'
 import LeaderboardKoth from '~/assets/leaderboard-icons/koth.png'
 import LeaderboardMoney from '~/assets/leaderboard-icons/money.png'
 import LeaderboardTrixium from '~/assets/leaderboard-icons/trixium.png'
+import LeaderboardAlliance from '~/assets/leaderboard-icons/alliance.png'
 
 import FactionAeloria from '~/assets/faction-icons/aeloria.png'
 import FactionEgopolis from '~/assets/faction-icons/egopolis.png'
@@ -74,6 +75,7 @@ export const LeaderboardEndIcon = iconFactory(LeaderboardEnd)
 export const LeaderboardKothIcon = iconFactory(LeaderboardKoth)
 export const LeaderboardMoneyIcon = iconFactory(LeaderboardMoney)
 export const LeaderboardTrixiumIcon = iconFactory(LeaderboardTrixium)
+export const LeaderboardAllianceIcon = iconFactory(LeaderboardAlliance)
 
 export const FactionAeloriaIcon = iconFactory(FactionAeloria)
 export const FactionEgopolisIcon = iconFactory(FactionEgopolis)

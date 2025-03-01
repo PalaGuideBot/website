@@ -10,6 +10,8 @@ const BossController = () => import('#leaderboard/controllers/boss_controller')
 const EgghuntController = () => import('#leaderboard/controllers/egghunt_controller')
 // const EndController = () => import('#leaderboard/controllers/end_controller')
 const KothController = () => import('#leaderboard/controllers/koth_controller')
+const AllianceController = () => import('#leaderboard/controllers/alliance_controller')
+const JobsController = () => import('#leaderboard/controllers/jobs_controller')
 
 router
   .group(() => {
@@ -23,6 +25,8 @@ router
     router.get('/egghunt', [EgghuntController, 'index']).as('egghunt.index')
     // router.get('/end', [EndController, 'index']).as('end.index')
     router.get('/koth', [KothController, 'index']).as('koth.index')
+    router.get('/alignement', [AllianceController, 'index']).as('alliance.index')
+    router.get('/jobs', [JobsController, 'index']).as('jobs.index')
   })
   .prefix('leaderboard')
   .as('leaderboard')

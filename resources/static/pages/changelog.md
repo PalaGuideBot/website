@@ -1,5 +1,22 @@
 # Changelog
 
+## 01/03/2025
+
+### Website
+
+- Ajout d'une nouvelle page de classement pour l'alignement : `/leaderboard/alignment`
+- Ajout d'une nouvelle page de classement pour les métiers : `/leaderboard/jobs`
+- Ajout des nouveaux grades disponibles sur Paladium
+- Correction de l'expérience obtenue par une **Kiwano Seed** sur l'outil : `/tools/job-calculator`
+- Correction du bonus d'XP maximum sur l'outil : `/tools/job-calculator`
+- Retrait du Paladium Wrapped
+
+### Bot
+
+- Ajout des nouveaux grades disponibles sur Paladium  
+- Suppression des classements Chorus et End dans les commandes `/leaderboard global` & `/leaderboard player`  
+
+
 ## 16/02/2025
 
 ### Website

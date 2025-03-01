@@ -148,15 +148,52 @@ const trixiumPlayerValidator = vine.compile(
   )
 )
 
+const allianceValidator = vine.compile(
+  vine.array(
+    vine.object({
+      date: vine.string(),
+      data: vine.array(
+        vine.object({
+          username: vine.string(),
+          value: vine.number(),
+        })
+      ),
+    })
+  )
+)
+
+const jobValidator = vine.compile(
+  vine.array(
+    vine.object({
+      date: vine.string(),
+      data: vine.array(
+        vine.object({
+          username: vine.string(),
+          value: vine.number(),
+        })
+      ),
+    })
+  )
+)
+
+export const jobQueryValidator = vine.compile(
+  vine.enum(['miner', 'farmer', 'hunter', 'alchemist']).parse((value) => value || 'miner')
+)
+
 export const validators = {
-  factions: factionsValidator,
-  boss: bossValidator,
-  chorus: chorusValidator,
-  clicker: clickerValidator,
-  egghunt: egghuntValidator,
-  end: endValidator,
-  koth: kothValidator,
-  money: moneyValidator,
+  'factions': factionsValidator,
+  'boss': bossValidator,
+  'chorus': chorusValidator,
+  'clicker': clickerValidator,
+  'egghunt': egghuntValidator,
+  'end': endValidator,
+  'koth': kothValidator,
+  'money': moneyValidator,
+  'alliance': allianceValidator,
+  'job.miner': jobValidator,
+  'job.farmer': jobValidator,
+  'job.hunter': jobValidator,
+  'job.alchemist': jobValidator,
 } satisfies Record<LeaderboardCategory, VineValidator<any, any>>
 
 export const trixiumValidators = {

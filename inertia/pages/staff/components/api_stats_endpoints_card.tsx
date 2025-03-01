@@ -61,6 +61,20 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
     '#4A235A',
     '#FFB3C6',
     '#FF914D',
+    '#1E90FF',
+    '#FF4500',
+    '#32CD32',
+    '#8B008B',
+    '#FFDAB9',
+    '#00CED1',
+    '#FF1493',
+    '#ADFF2F',
+    '#DC143C',
+    '#20B2AA',
+    '#FF6347',
+    '#7B68EE',
+    '#40E0D0',
+    '#FF8C00',
   ]
 
   const initialSeries = endpoints.map((endpoint, index) => ({

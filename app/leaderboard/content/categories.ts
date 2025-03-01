@@ -7,6 +7,11 @@ const categories = [
   'end',
   'koth',
   'money',
+  'alliance',
+  'job.miner',
+  'job.farmer',
+  'job.hunter',
+  'job.alchemist',
 ] as const
 
 const trixiumCategories = ['faction', 'player'] as const

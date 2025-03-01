@@ -1,7 +1,6 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Alert, Button } from '@lemonsqueezy/wedges'
-import { PackageIcon } from 'lucide-react'
 
 import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
@@ -56,16 +55,6 @@ export default function PlayerShow(props: PlayerShowProps) {
           <div className="flex flex-row flex-wrap gap-2 items-center justify-between">
             <PageTitle>Statistiques de joueur</PageTitle>
             <div className="flex items-center gap-2">
-              {player && (
-                <Button
-                  variant="tertiary"
-                  before={<PackageIcon className="size-4 " />}
-                  className="h-10 bg-emerald-700/10 border-4 border-white/10"
-                  asChild
-                >
-                  <Link href={`/wrapped/${player.username}`}>Wrapped</Link>
-                </Button>
-              )}
               <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
