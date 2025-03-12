@@ -69,4 +69,8 @@ export default class PageController {
   async faq({ inertia }: HttpContext) {
     return inertia.render('faq')
   }
+
+  async riveur({ inertia }: HttpContext) {
+    return inertia.render('riveur')
+  }
 }

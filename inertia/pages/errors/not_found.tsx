@@ -19,7 +19,7 @@ export default function NotFound(props: NotFoundProps) {
             <div className="space-y-1.5">
               <h3 className="font-semibold">Information complémentaire</h3>
               <p>
-                La page que vous avez demandé est introuvable, vérifiez qu'il n'y ait pas d'erreur
+                La page que vous avez demandée est introuvable, vérifiez qu'il n'y ait pas d'erreur
                 au niveau de l'URL.
               </p>
             </div>
