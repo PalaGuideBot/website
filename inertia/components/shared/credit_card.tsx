@@ -15,7 +15,7 @@ const CreditCard = ({
       <CardContent className="p-0">
         <p className="text-xs">
           Made with <HeartFilledIcon className="text-destructive inline-block size-4" /> by{' '}
-          <a className="text-primary" href="https://riveur.com" target="_blank">
+          <a className="text-primary" href="/riveur">
             Riveur
           </a>
           , <ShibaInfestation />, <ZeluckConfetti />
