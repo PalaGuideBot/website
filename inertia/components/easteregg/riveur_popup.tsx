@@ -1,8 +1,11 @@
+import { Button } from '@lemonsqueezy/wedges'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import { AnimatedSpan, Terminal, TypingAnimation } from '~/components/magicui/terminal'
+import { Dialog, DialogHeader, DialogContent } from '~/components/ui/dialog'
 
-export function TerminalDemo() {
+export function TerminalRiveur() {
   return (
-    <Terminal>
+    <Terminal className="mt-2">
       <TypingAnimation>&gt; ssh root@84.32.21.111</TypingAnimation>
 
       <AnimatedSpan delay={1500} className="text-green-500">
@@ -50,10 +53,22 @@ export function TerminalDemo() {
   )
 }
 
-export default function RiveurPage() {
+export function RiveurPopup() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <TerminalDemo />
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="link"
+          size="sm"
+          className="text-xs text-primary no-underline cursor-default [&>span]:p-0"
+        >
+          Riveur
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="bg-transparent border-transparent">
+        <DialogHeader></DialogHeader>
+        <TerminalRiveur />
+      </DialogContent>
+    </Dialog>
   )
 }

@@ -4,6 +4,7 @@ import { ShibaInfestation } from '~/components/easteregg/shiba_infestation'
 import { ZeluckConfetti } from '~/components/easteregg/zeluck_confetti'
 import { Card, CardContent } from '~/components/ui/card'
 import { cn } from '~/lib/utils'
+import { RiveurPopup } from '~/components/easteregg/riveur_popup'
 
 const CreditCard = ({
   className,
@@ -15,10 +16,7 @@ const CreditCard = ({
       <CardContent className="p-0">
         <p className="text-xs">
           Made with <HeartFilledIcon className="text-destructive inline-block size-4" /> by{' '}
-          <a className="text-primary" href="/riveur">
-            Riveur
-          </a>
-          , <ShibaInfestation />, <ZeluckConfetti />
+          <RiveurPopup />, <ShibaInfestation />, <ZeluckConfetti />
         </p>
       </CardContent>
     </Card>
