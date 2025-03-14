@@ -5,14 +5,14 @@
 ### Website
 
 - Modification d'un easter egg
-- Modification du bonus d'xp obtenable : `/tools/job-calculator`
+- Correction du bonus d'XP maximum sur l'outil : `/tools/job-calculator`
 - Correction de la date de première connexion incorrect `/players`
 
 ### Bot
 
-- Retrait du prix moyen d'un item dans la commande `/market item:`
-- Modification du bonus d'xp obtenable : `/calculator`
-- Correction de la date de première connexion incorrect `/lookup`
+- Retrait du prix moyen d'un item dans la commande : `/market item:`
+- Correction du bonus d'XP maximum avec la commande : `/calculator`
+- Correction de la date de première connexion incorrect avec la commande : `/lookup`
 
 ## 01/03/2025
 
