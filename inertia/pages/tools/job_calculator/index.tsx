@@ -249,7 +249,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                               className="bg-transparent"
                               placeholder="0"
                               min={0}
-                              max={70}
+                              max={150}
                               value={form.data['bonus-xp']}
                               onChange={(event) =>
                                 form.setData('bonus-xp', Number(event.target.value))

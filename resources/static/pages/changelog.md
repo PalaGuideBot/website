@@ -1,5 +1,19 @@
 # Changelog
 
+## 14/03/2025
+
+### Website
+
+- Modification d'un easter egg
+- Modification du bonus d'xp ostensiblement : `/tools/job-calculator`
+- Correction de la date de première connexion incorrect `/players`
+
+### Bot
+
+- Retrait du prix moyen d'un item dans la commande `/market item:`
+- Modification du bonus d'xp ostensiblement : `/calculator`
+- Correction de la date de première connexion incorrect `/lookup`
+
 ## 01/03/2025
 
 ### Website
