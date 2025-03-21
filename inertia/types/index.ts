@@ -7,6 +7,7 @@ export type Rank =
   | 'endium'
   | 'divinity'
   | 'legende'
+  | 'legend'
   | 'trixium'
   | 'trixium+'
   | 'premium'
