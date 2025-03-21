@@ -8,6 +8,7 @@ export type Rank =
   | 'divinity'
   | 'legende'
   | 'legend'
+  | 'heros'
   | 'trixium'
   | 'trixium+'
   | 'premium'
