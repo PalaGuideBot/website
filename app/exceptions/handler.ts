@@ -28,6 +28,10 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       inertia.render('errors/not_found', {
         error: createPageErrorFromException(error),
       }),
+    '403': (error, { inertia }) =>
+      inertia.render('errors/unauthorized', {
+        error: createPageErrorFromException(error),
+      }),
     '500..599': (error, { inertia }) =>
       inertia.render('errors/server_error', {
         error: createPageErrorFromException(error),
