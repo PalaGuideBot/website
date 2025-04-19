@@ -4,11 +4,14 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
 import { Card, CardContent } from '~/components/ui/card'
+import { DataTablePagination } from '~/components/ui/data_table/data_table_pagination'
+import { DataTablePerPage } from '~/components/ui/data_table/data_table_per_page'
 import Input from '~/components/ui/input'
 import {
   Table,
@@ -27,14 +30,21 @@ interface DataTableProps<TData, TValue> {
 
 const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
   const [globalFilter, setGlobalFilter] = useState('')
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     state: {
       globalFilter,
+      pagination,
     },
   })
 
@@ -93,6 +103,10 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
           </Table>
         </CardContent>
       </Card>
+      <div className="flex items-center justify-between gap-8">
+        <DataTablePerPage table={table} />
+        <DataTablePagination table={table} />
+      </div>
     </>
   )
 }

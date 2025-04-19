@@ -690,6 +690,20 @@ export class ApiService {
     }
   }
 
+  async deleteGiveawayParticipant(id: string, discordId: string) {
+    try {
+      await client.post(`giveaways/${id}/leave`, {
+        body: JSON.stringify({ id: discordId }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+    } catch (error: unknown) {
+      throw new Exception('Unable to remove user to giveaway', {
+        code: 'E_GIVEAWAY_LEAVE_INVALID',
+        status: 500,
+      })
+    }
+  }
+
   async getPaladiumSeasons() {
     try {
       const response = await client.get('paladium/seasons')

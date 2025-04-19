@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react'
 import { Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
@@ -7,6 +6,7 @@ import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
 import { formatDate } from '~/lib/date'
+import { DeleteGiveawayDialog } from './delete_giveaway_dialog'
 import { GiveawayDrawModal } from './giveaway_draw_modal'
 import { GiveawayModal } from './giveaway_modal'
 
@@ -64,15 +64,14 @@ export const columns: ColumnDef<Giveaway>[] = [
               <EditIcon className="size-4" />
             </Button>
           </GiveawayModal>
-          <Button variant="transparent" size="sm" isIconOnly asChild>
-            <Link
-              href={`/staff/giveaways/${row.original._id}`}
-              method="delete"
-              onSuccess={() => toast.success('Giveaway supprimé avec succés')}
-            >
+          <DeleteGiveawayDialog
+            giveaway={row.original}
+            onSuccess={() => toast.success('Giveaway supprimé avec succès')}
+          >
+            <Button variant="transparent" size="sm" isIconOnly>
               <Trash2Icon className="size-4" />
-            </Link>
-          </Button>
+            </Button>
+          </DeleteGiveawayDialog>
         </div>
       )
     },

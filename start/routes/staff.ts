@@ -35,6 +35,10 @@ router
             router.put('/:id', [GiveawayController, 'update']).as('staff.giveaways.update')
             router.delete('/:id', [GiveawayController, 'destroy']).as('staff.giveaways.destroy')
             router.post('/:id/draw', [GiveawayController, 'draw']).as('staff.giveaways.draw')
+            router.delete('/:id/participants/:participantId', [
+              GiveawayController,
+              'deleteParticipant',
+            ])
           })
           .prefix('/giveaways')
       })

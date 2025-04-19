@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
 
 import { cn } from '~/lib/utils'
+import { Button } from '@lemonsqueezy/wedges'
 
 const AlertDialog = AlertDialogPrimitive.Root
 
@@ -85,7 +86,9 @@ const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
 >(({ className, ...props }, ref) => (
-  <AlertDialogPrimitive.Cancel ref={ref} className={cn('mt-2 sm:mt-0', className)} {...props} />
+  <Button asChild variant="outline">
+    <AlertDialogPrimitive.Cancel ref={ref} className={cn('mt-2 sm:mt-0', className)} {...props} />
+  </Button>
 ))
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
 

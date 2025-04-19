@@ -89,7 +89,18 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
           <dt className="font-semibold col-span-2">Participants</dt>
           <dd className="col-span-2 flex flex-wrap gap-2">
             {giveaway.participants.length !== 0 ? (
-              giveaway.participants.map((user) => <GiveawayUser key={user.discordId} user={user} />)
+              giveaway.participants.map((user) => (
+                <GiveawayUser
+                  key={user.discordId}
+                  user={user}
+                  onDelete={() => {
+                    router.delete(
+                      `/staff/giveaways/${giveaway._id}/participants/${user.discordId}`,
+                      { onSuccess: () => toast.success('Participant supprimé avec succès') }
+                    )
+                  }}
+                />
+              ))
             ) : (
               <p>Aucun participant</p>
             )}
