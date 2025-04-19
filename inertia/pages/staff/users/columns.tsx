@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react'
 import { Avatar, Badge, Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
@@ -7,6 +6,7 @@ import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
 import { useAuth } from '~/hooks/use_auth'
+import { DeleteUserDialog } from './delete_user_dialog'
 import { UserModal } from './user_modal'
 
 type User = Infer<typeof userValidator>
@@ -68,21 +68,19 @@ export const columns: ColumnDef<User>[] = [
               <EditIcon className="size-4" />
             </Button>
           </UserModal>
-          <Button
-            variant="transparent"
-            size="sm"
-            isIconOnly
-            asChild
-            disabled={auth?.id === row.original.discordId}
+          <DeleteUserDialog
+            user={row.original}
+            onSuccess={() => toast.success('Utilisateur supprimé avec succès')}
           >
-            <Link
-              href={`/staff/users/${row.original.discordId}`}
-              method="delete"
-              onSuccess={() => toast.success('Utilisateur supprimé avec succés')}
+            <Button
+              variant="transparent"
+              size="sm"
+              isIconOnly
+              disabled={auth?.id === row.original.discordId}
             >
               <Trash2Icon className="size-4" />
-            </Link>
-          </Button>
+            </Button>
+          </DeleteUserDialog>
         </div>
       )
     },

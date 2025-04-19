@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react'
 import { Avatar, Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
@@ -7,6 +6,7 @@ import { toast } from 'sonner'
 
 import type { userRoleValidator } from '#staff/validators/user_validator'
 import { QuestionIcon } from '~/components/icons'
+import { DeleteRoleDialog } from './delete_role_dialog'
 import { RoleModal } from './role_modal'
 
 type Role = Infer<typeof userRoleValidator>
@@ -61,15 +61,14 @@ export const columns: ColumnDef<Role>[] = [
               <EditIcon className="size-4" />
             </Button>
           </RoleModal>
-          <Button variant="transparent" size="sm" isIconOnly asChild>
-            <Link
-              href={`/staff/roles/${row.original.name}`}
-              method="delete"
-              onSuccess={() => toast.success('Rôle supprimé avec succés')}
-            >
+          <DeleteRoleDialog
+            role={row.original}
+            onSuccess={() => toast.success('Rôle supprimé avec succès')}
+          >
+            <Button variant="transparent" size="sm" isIconOnly>
               <Trash2Icon className="size-4" />
-            </Link>
-          </Button>
+            </Button>
+          </DeleteRoleDialog>
         </div>
       )
     },

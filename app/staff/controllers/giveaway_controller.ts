@@ -50,4 +50,10 @@ export default class GiveawayController {
       return response.badRequest({ message })
     }
   }
+
+  async deleteParticipant({ response, params }: HttpContext) {
+    await this.api.deleteGiveawayParticipant(params.id, params.participantId)
+
+    return response.redirect().back()
+  }
 }
