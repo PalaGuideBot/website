@@ -1,8 +1,9 @@
-import { RowData, Table } from '@tanstack/react-table'
-import { Pagination, PaginationContent, PaginationItem } from '../pagination'
 import { Button } from '@lemonsqueezy/wedges'
+import { RowData, Table } from '@tanstack/react-table'
 import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+
 import { cn } from '~/lib/utils'
+import { Pagination, PaginationContent, PaginationItem } from '../pagination'
 
 interface DataTablePaginationProps<TData extends RowData>
   extends React.HTMLAttributes<HTMLDivElement> {
