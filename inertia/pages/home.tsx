@@ -102,7 +102,6 @@ export default function Home(props: HomePageProps) {
                 <CarouselContent>
                   {[
                     'https://image.palaguidebot.fr/home/card-preview.webp',
-                    'https://image.palaguidebot.fr/home/craft-preview.webp',
                     'https://image.palaguidebot.fr/home/lookup-preview.webp',
                     'https://image.palaguidebot.fr/home/qdf-preview.webp',
                   ].map((path) => (
