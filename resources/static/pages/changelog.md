@@ -21,11 +21,6 @@
 - Refonte globale des interactions avec le bot pour fluidifier l'utilisation
 - Refonte des designs de toutes les commandes (Embeds > Container)
 
-### Other
-
-- Modification du design du changelog
-- Refonte du bot support
-
 ## 14/03/2025
 
 ### Website
