@@ -1,5 +1,31 @@
 # Changelog
 
+## 03/05/2025
+
+### Website
+
+- Ajout d'un évènement boss `/events`
+- Modification des images de preview sur la page d'accueil
+
+### Bot
+
+- Ajout des shards
+- Ajout d'un tempban en cas de spam de commandes
+- Ajout d'un bouton "Consulter les membres" sur la commande `/faction`
+- Ajout d'un bouton "Voir le market" sur la commande `/lookup`
+- Ajout d'un bouton "Voir les classements" sur la commande `/lookup`
+- Ajout de la commande `/shard` permettant de consulter la shard utilisée sur votre serveur
+- Modification de la commande `/status` en `/status palaguidebot` et `/status paladium`
+- Modification de la commande `/leaderboard global` suppression de l'option type
+- Modification des activités du bot
+- Refonte globale des interactions avec le bot pour fluidifier l'utilisation
+- Refonte des designs de toutes les commandes (Embeds > Container)
+
+### Other
+
+- Modification du design du changelog
+- Refonte du bot support
+
 ## 14/03/2025
 
 ### Website
