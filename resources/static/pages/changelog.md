@@ -1,5 +1,16 @@
 # Changelog
 
+## 30/05/2025
+
+### Website
+
+- Retrait d'une question dans la FAQ
+
+### Bot
+
+- Ajout de la commande `/vote` permettant de voir le temps restant avant le prochain vote disponible
+- Correction de diverses fautes présentes dans les nouveaux containers
+
 ## 03/05/2025
 
 ### Website
