@@ -5,6 +5,7 @@
 ### Website
 
 - Retrait d'une question dans la FAQ
+- Modification de l'affichage du temps de jeu si le joueur n'a pas joué cette saison `/players`
 
 ### Bot
 
