@@ -186,19 +186,25 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
                 <InformationLine
                   label="Temps de jeu"
                   value={
-                    <HiddenInformationController
-                      active={lastPlayerData.data.timePlayed === -1}
-                      children={
-                        <span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>
-                      }
-                      side="right"
-                      align="center"
-                      fallback={
-                        <span className="text-xs sm:text-sm font-mc-dungueons">
-                          {formatDuration(lastPlayerData.data.timePlayed)}
-                        </span>
-                      }
-                    />
+                    lastPlayerData.data.timePlayed === 0 ? (
+                      <span className="text-xs sm:text-sm font-mc-dungueons">
+                        Aucun cette saison
+                      </span>
+                    ) : (
+                      <HiddenInformationController
+                        active={lastPlayerData.data.timePlayed === -1}
+                        children={
+                          <span className="text-xs sm:text-sm font-mc-dungueons">Masqué</span>
+                        }
+                        side="right"
+                        align="center"
+                        fallback={
+                          <span className="text-xs sm:text-sm font-mc-dungueons">
+                            {formatDuration(lastPlayerData.data.timePlayed)}
+                          </span>
+                        }
+                      />
+                    )
                   }
                 />
               </li>

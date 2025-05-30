@@ -46,12 +46,6 @@ const questions: Question[] = [
     answer:
       "Le filtre s'applique uniquement aux informations disposant d'un historique, à savoir : la faction du joueur, son rang, ses niveaux de métiers, son argent, son temps de jeu (si activé) et sa progression dans le Clicker.",
   },
-  {
-    id: 6,
-    content: 'Pourquoi mon temps de jeu est affiché "Inconnu" sur le site et le bot ?',
-    answer:
-      'Si votre temps de jeu est affiché "Inconnu", cela signifie que vous avez rejoint Paladium avant qu\'ils ne commencent à enregistrer.',
-  },
 ]
 
 export default function FaqPage() {
