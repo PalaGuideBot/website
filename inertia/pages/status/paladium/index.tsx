@@ -166,7 +166,9 @@ const GlobalTab = ({
               <AreaChart data={dataWithAverage}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
-                  dataKey={(entry) => `${entry.date}T${entry.hour ?? '00'}:00:00Z`}
+                  dataKey={(entry) =>
+                    DateTime.fromSQL(`${entry.date} ${entry.hour ?? '00'}:00:00`).toISO()!
+                  }
                   tickFormatter={(value) =>
                     formatDate(
                       value,
