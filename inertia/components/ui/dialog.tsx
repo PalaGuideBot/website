@@ -36,7 +36,7 @@ const dialogContentVariants = cva(
         'default':
           'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
         'right-to-left':
-          'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right-[100%] data-[state=open]:slide-in-from-right-[100%] sm:rounded-none border-y-0',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:rounded-none border-y-0',
       },
     },
     defaultVariants: {

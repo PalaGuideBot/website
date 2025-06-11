@@ -46,7 +46,7 @@ interface PetViewerProps extends Omit<React.ComponentProps<typeof Canvas>, 'chil
 
 export const PetViewer = React.forwardRef<HTMLCanvasElement, PetViewerProps>(
   ({ model, className, enableControls = true, rotation, isLooping, ...props }, ref) => (
-    <Canvas ref={ref} className={cn('!h-[200px]', className)} {...props}>
+    <Canvas ref={ref} className={cn('h-[200px]!', className)} {...props}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <PetModel model={model} isLooping={isLooping} rotation={rotation} />

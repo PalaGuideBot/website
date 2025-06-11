@@ -121,7 +121,7 @@ const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
         <ReactSkinview3d
-          className="!h-auto w-full !pointer-events-none sm:!pointer-events-auto"
+          className="h-auto! w-full pointer-events-none! sm:pointer-events-auto!"
           width="278"
           height="450"
           skinUrl={getSkinUrl(player.username)}
@@ -267,7 +267,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
         {mount && (
           <>
             <MountViewer
-              className="!pointer-events-none sm:!pointer-events-auto"
+              className="pointer-events-none! sm:pointer-events-auto!"
               model={getMountNameByType(mount.mountType)}
               isLooping={isLooping}
             />
@@ -284,7 +284,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
                   indicator={foodPercent.toFixed(2) + '%'}
                   label={
                     <div className="flex gap-2 items-center">
-                      <span className="font-pixel text-xs xs:text-base text-pretty">Food</span>
+                      <span className="font-pixel text-pretty">Food</span>
                       <ArrowRightIcon className="w-2 invert dark:invert-0" />
                     </div>
                   }
@@ -327,7 +327,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
         {pet && (
           <>
             <PetViewer
-              className="!pointer-events-none sm:!pointer-events-auto"
+              className="pointer-events-none! sm:pointer-events-auto!"
               model={getPet(pet.currentSkin)}
               isLooping={isLooping}
             />
@@ -344,7 +344,7 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
                   indicator={happinessPercent.toFixed(2) + '%'}
                   label={
                     <div className="flex gap-2 items-center">
-                      <span className="font-pixel text-xs xs:text-base text-pretty">Happiness</span>
+                      <span className="font-pixel text-pretty">Happiness</span>
                       <ArrowRightIcon className="w-2 invert dark:invert-0" />
                     </div>
                   }

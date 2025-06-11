@@ -200,7 +200,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                               name="pseudo"
                               form="fill-job"
                               placeholder="Pseudo"
-                              className="min-w-0 flex-grow bg-transparent"
+                              className="min-w-0 grow bg-transparent"
                               value={form.data.pseudo}
                               onChange={(event) => form.setData('pseudo', event.target.value)}
                             />

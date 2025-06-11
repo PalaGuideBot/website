@@ -27,7 +27,7 @@ const ExperienceMethod = ({ item, os, target = false }: ExperienceMethodProps) =
           style={{ imageRendering: 'pixelated' }}
           src={getMinecraftItemUrl(item.id)}
         />
-        <div className="flex-grow">
+        <div className="grow">
           <h4>{item.name}</h4>
           {unlocked && (
             <p className="text-xs text-primary font-bold">

@@ -127,7 +127,7 @@ const BuildingCard = ({
               className="w-10 h-auto object-cover"
               src={getClickerBuildingImage(building.name)}
             />
-            <div className="flex flex-col flex-grow space-y-1">
+            <div className="flex flex-col grow space-y-1">
               <p className="text-sm lg:text-xs xl:text-sm text-left">{building.label}</p>
               <CoinWrapper>
                 {formatNumber(getBuildingPrice(building.base_price, building.quantity), {

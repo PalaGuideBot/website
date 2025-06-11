@@ -126,7 +126,7 @@ export const PodiumCardSkin = ({
 }: PodiumCardSkinProps) => {
   return (
     <ReactSkinview3d
-      className={cn('!h-auto w-full', className)}
+      className={cn('h-auto! w-full', className)}
       width={width}
       height={height}
       skinUrl={getSkinUrl(username)}
@@ -157,7 +157,7 @@ export const PodiumCardDescription = ({
       {href ? (
         <Link
           href={href}
-          className='before:absolute before:inset-0 before:content-[""] before:z-[1]'
+          className='before:absolute before:inset-0 before:content-[""] before:z-1'
         >
           {children}
         </Link>

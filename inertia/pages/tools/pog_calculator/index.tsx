@@ -226,7 +226,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                     />
                     <FormMessage message={errors?.['current-level']} />
                   </FormItem>
-                  <FormItem className="flex-grow">
+                  <FormItem className="grow">
                     <FormLabel
                       id="current-xp"
                       tooltip="La valeur qui s'affiche lorsque vous passez la souris sur la pioche"

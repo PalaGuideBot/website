@@ -39,7 +39,7 @@ const UserDropdownContent = ({
 }) => {
   const { theme, setTheme } = useTheme()
   return (
-    <DropdownMenu.Content align={align} side={side} className="min-w-[200px] z-[1]">
+    <DropdownMenu.Content align={align} side={side} className="min-w-[200px] z-1">
       <DropdownMenu.Label className="normal-case text-normal font-normal">
         <div className="flex flex-col space-y-1">
           <p className="text-md font-bold leading-none">{user.globalName}</p>

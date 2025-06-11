@@ -27,7 +27,7 @@ const PathCardTitle = ({
   external = false,
   ...props
 }: React.ComponentProps<typeof CardTitle> & { href: string; external?: boolean }) => {
-  const linkClass = 'before:absolute before:inset-0 before:content-[""] before:z-[1]'
+  const linkClass = 'before:absolute before:inset-0 before:content-[""] before:z-1'
   return (
     <CardTitle className={cn('text-xl font-bold', className)} {...props}>
       {external ? (

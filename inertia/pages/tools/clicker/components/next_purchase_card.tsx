@@ -60,7 +60,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
                 className="h-10 w-auto object-cover"
                 src={getClickerBuildingImage(nextPurchase.building.name)}
               />
-              <div className="flex flex-col flex-grow space-y-1">
+              <div className="flex flex-col grow space-y-1">
                 <p className="text-sm lg:text-xs xl:text-sm text-left">
                   {nextPurchase.building.label} - Level {nextPurchase.building.quantity}
                 </p>
@@ -85,7 +85,7 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
                 className="h-10 w-auto object-cover"
                 src={getClickerUpgradeImage(nextPurchase.upgrade)}
               />
-              <div className="flex flex-col flex-grow space-y-1">
+              <div className="flex flex-col grow space-y-1">
                 <p className="text-sm lg:text-xs xl:text-sm text-left">
                   {nextPurchase.upgrade.data.label}
                 </p>

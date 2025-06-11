@@ -47,7 +47,7 @@ interface MountViewerProps extends Omit<React.ComponentProps<typeof Canvas>, 'ch
 
 export const MountViewer = React.forwardRef<HTMLCanvasElement, MountViewerProps>(
   ({ model, className, enableControls = true, rotation, isLooping, ...props }, ref) => (
-    <Canvas ref={ref} className={cn('!h-[200px]', className)} {...props}>
+    <Canvas ref={ref} className={cn('h-[200px]!', className)} {...props}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <Mount model={model} isLooping={isLooping} rotation={rotation} />

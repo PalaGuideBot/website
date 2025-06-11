@@ -15,7 +15,7 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
     <Card className="bg-transparent">
       <CardContent className="p-2 relative flex flex-row items-center gap-2">
         <img className="w-10 h-10 object-contain" src={getItemIconUrl(item.item.id)} />
-        <div className="flex-grow">
+        <div className="grow">
           <h4>{item.item.type}</h4>
           <p className="text-xs text-primary font-bold">
             {formatNumber(item.amount, { notation: 'standard' })}

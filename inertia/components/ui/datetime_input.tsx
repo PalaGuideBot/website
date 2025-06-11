@@ -308,7 +308,7 @@ const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(
         )}
         <input
           ref={mergeRefs(inputRef)}
-          className="font-mono flex-grow min-w-0 bg-transparent py-2 px-2 text-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="font-mono grow min-w-0 bg-transparent py-2 px-2 text-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onClick={onClick}

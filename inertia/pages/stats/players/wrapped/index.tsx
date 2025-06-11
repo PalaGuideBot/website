@@ -88,7 +88,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         transition={{ duration: 0.5 }}
       >
         <ReactSkinview3d
-          className="!h-auto w-full !pointer-events-none"
+          className="h-auto! w-full pointer-events-none!"
           width="278"
           height="450"
           skinUrl={getSkinUrl(player.username)}
@@ -267,7 +267,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {player.pet && (
               <>
                 <PetViewer
-                  className="!pointer-events-none sm:!pointer-events-auto"
+                  className="pointer-events-none! sm:pointer-events-auto!"
                   model={getPet(player.pet.currentSkin)}
                   enableControls={false}
                   rotation={[0, Math.PI / -0.8, 0]}
@@ -480,7 +480,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             />
           </div>
           <HyperText
-            className="flex-grow animate-glow text-xl sm:text-5xl text-center pb-4"
+            className="grow animate-glow text-xl sm:text-5xl text-center pb-4"
             charcacterClassName="font-mc-dungueons"
           >
             {player.username}
@@ -540,8 +540,8 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             backgroundImage: "url('/paladium-menu-background.jpg')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-black/80" />
-        <div className="relative max-w-5xl w-full flex-grow">
+        <div className="absolute inset-0 bg-linear-to-b from-black to-black/80" />
+        <div className="relative max-w-5xl w-full grow">
           <AnimatePresence mode="wait">{slides[currentSlide]}</AnimatePresence>
         </div>
         <div

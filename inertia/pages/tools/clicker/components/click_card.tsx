@@ -59,7 +59,7 @@ const ClickCard = ({}: ClickCardProps) => {
 
   return (
     <div className="flex flex-row flex-wrap gap-2">
-      <Card className="flex flex-col flex-grow basis-1/4">
+      <Card className="flex flex-col grow basis-1/4">
         <CardContent className="pt-4 flex flex-1 items-center justify-center">
           <AlertDialog open={isWarningDialogOpen} onOpenChange={setIsWarningDialogOpen}>
             <ConfettiButton
@@ -104,7 +104,7 @@ const ClickCard = ({}: ClickCardProps) => {
           </AlertDialog>
         </CardContent>
       </Card>
-      <Card className="flex-grow basis-1/2 text-nowrap">
+      <Card className="grow basis-1/2 text-nowrap">
         <CardHeader className="border-b p-2.5">
           <CardTitle>Dernier clic débloqué</CardTitle>
         </CardHeader>

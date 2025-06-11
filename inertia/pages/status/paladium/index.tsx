@@ -276,7 +276,7 @@ const FactionsTab = ({
             return (
               <div key={faction} className="flex items-end justify-center gap-4 pb-2">
                 <Icon className="h-10 w-10" />
-                <div className="space-y-2 flex-grow">
+                <div className="space-y-2 grow">
                   <PageSubTitle>{faction}</PageSubTitle>
                   <UptimeIndicator data={status} />
                 </div>

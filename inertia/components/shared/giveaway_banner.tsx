@@ -11,7 +11,7 @@ interface GiveawayBannerProps {
 const GiveawayBanner = ({ className }: GiveawayBannerProps) => {
   return (
     <Alert
-      className={cn('bg-gradient-to-tr from-primary to-destructive !text-white', className)}
+      className={cn('bg-linear-to-tr from-primary to-destructive text-white!', className)}
       closable
       before={<PartyPopperIcon className="size-6 text-white" />}
       after={

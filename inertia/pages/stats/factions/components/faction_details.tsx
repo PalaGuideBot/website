@@ -117,7 +117,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             <DropdownMenu.Trigger asChild>
               <Button
                 variant="outline"
-                className="!m-0 w-50 flex items-center justify-between group"
+                className="m-0! w-50 flex items-center justify-between group"
                 size="sm"
                 before={<ArrowDownUpIcon className="size-4" />}
                 after={

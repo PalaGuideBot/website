@@ -29,8 +29,8 @@ export default function ProfilePage(props: ProfilePageProps) {
   return (
     <>
       <Head descriptors={[{ title: 'Profil' }]} />
-      <DefaultLayout className="bg-secondary-50 flex-grow">
-        <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-col gap-4 p-4 md:gap-8 md:p-10">
+      <DefaultLayout className="bg-secondary-50 grow">
+        <div className="flex min-h-[calc(100vh-(--spacing(16)))] flex-col gap-4 p-4 md:gap-8 md:p-10">
           <div className="mx-auto grid w-full max-w-6xl gap-2">
             <h1 className="text-3xl font-semibold">Profil</h1>
           </div>

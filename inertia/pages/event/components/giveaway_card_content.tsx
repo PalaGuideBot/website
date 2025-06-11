@@ -45,7 +45,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
 
   return (
     <>
-      <CardContent className="p-4 sm:p-8 !pt-0 flex flex-col gap-2">
+      <CardContent className="p-4 sm:p-8 pt-0! flex flex-col gap-2">
         <p className="text-center uppercase font-semibold tracking-wider">Giveaway Exclusif</p>
         {giveawayIsOver && giveaway.winners.length !== 0 ? (
           <>
