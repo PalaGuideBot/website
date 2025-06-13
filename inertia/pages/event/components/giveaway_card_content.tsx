@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayStateValidator } from '#event/validators/giveaway_validator'
-import Confetti, { ConfettiRef } from '~/components/magicui/confetti'
+import { Confetti, ConfettiRef } from '~/components/magicui/confetti'
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '~/components/ui/avatar'
 import { Button } from '~/components/ui/button'
 import { CardContent, CardDescription, CardFooter } from '~/components/ui/card'

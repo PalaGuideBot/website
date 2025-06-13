@@ -1,7 +1,7 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 
 import type EventController from '#event/controllers/event_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { DailyEventsCard } from './components/daily_events_card'

@@ -3,7 +3,7 @@ import { StaffSidebar } from '~/components/staff_sidebar'
 import { Toaster } from '~/components/ui/toast'
 import { cn } from '~/lib/utils'
 
-const StaffLayout = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+export function StaffLayout({ children, className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div className="flex flex-row">
       <div className="flex flex-col w-full">
@@ -21,5 +21,3 @@ const StaffLayout = ({ children, className, ...props }: React.HTMLAttributes<HTM
     </div>
   )
 }
-
-export default StaffLayout

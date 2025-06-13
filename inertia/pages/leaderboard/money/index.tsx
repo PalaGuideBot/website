@@ -13,7 +13,7 @@ import {
 } from 'recharts'
 
 import type MoneyController from '#leaderboard/controllers/money_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'

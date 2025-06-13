@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
-import FactionAlliance from '~/components/shared/faction_alliance'
+import { FactionAlliance } from '~/components/shared/faction_alliance'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import {

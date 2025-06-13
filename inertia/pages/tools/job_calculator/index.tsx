@@ -1,28 +1,21 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { useForm, usePage } from '@inertiajs/react'
 import type { Infer } from '@vinejs/vine/types'
-import { AnimatePresence, motion } from 'framer-motion'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { FormEvent, useRef } from 'react'
 import { toast } from 'sonner'
 
 import type { playerJobsValidator } from '#stats/validators/player_validator'
 import type JobCalculatorController from '#tools/controller/job_calculator_controller'
 import { ArrowRightIcon } from '~/components/icons'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
-import { smallIcons } from '~/content/jobs'
-import { useSearchParams } from '~/hooks/use_search_params'
-import { client } from '~/lib/client'
-import { trackEvent } from '~/lib/umami'
-import { cn } from '~/lib/utils'
-import { CalculatorResult } from './components/calculator_result'
-import { JobLevelControls } from './components/job_level_controls'
-import { Button } from '~/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -32,6 +25,13 @@ import {
   SelectValue,
 } from '~/components/ui/select'
 import { Spinner } from '~/components/ui/spinner'
+import { smallIcons } from '~/content/jobs'
+import { useSearchParams } from '~/hooks/use_search_params'
+import { client } from '~/lib/client'
+import { trackEvent } from '~/lib/umami'
+import { cn } from '~/lib/utils'
+import { CalculatorResult } from './components/calculator_result'
+import { JobLevelControls } from './components/job_level_controls'
 
 const jobs = [
   {

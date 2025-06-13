@@ -56,7 +56,7 @@ export interface ReactSkinview3dOptions {
 /**
  * A skinview3d component
  */
-const ReactSkinview3d = ({
+export function SkinViewer3d({
   className,
   width,
   height,
@@ -64,13 +64,13 @@ const ReactSkinview3d = ({
   capeUrl,
   onReady,
   options,
-}: ReactSkinview3dOptions): JSX.Element => {
-  const canvasRef = useRef<HTMLCanvasElement>()
-  const skinviewRef = useRef<SkinViewer>()
+}: ReactSkinview3dOptions) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const skinviewRef = useRef<SkinViewer>(null)
 
   useEffect(() => {
     const viewer = new SkinViewer({
-      canvas: canvasRef.current,
+      canvas: canvasRef.current!,
       width: Number(width),
       height: Number(height),
       animation: new IdleAnimation(),
@@ -114,5 +114,3 @@ const ReactSkinview3d = ({
     />
   )
 }
-
-export default ReactSkinview3d

@@ -1,4 +1,4 @@
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Markdown } from '~/components/ui/markdown'

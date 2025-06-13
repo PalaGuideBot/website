@@ -4,7 +4,7 @@ import { AppSidebar } from '../app_sidebar'
 import { SidebarInset, SidebarProvider } from '../ui/sidebar'
 import { Toaster } from '../ui/toast'
 
-const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+export function DefaultLayout({ children, className, ...props }: React.ComponentProps<'main'>) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -21,5 +21,3 @@ const DefaultLayout = ({ children, className, ...props }: React.HTMLAttributes<H
     </SidebarProvider>
   )
 }
-
-export default DefaultLayout

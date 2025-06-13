@@ -12,7 +12,7 @@ import {
 } from 'recharts'
 
 import type PaladiumController from '#status/controllers/paladium_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import LinearGradient from '~/components/shared/linear_gradient'

@@ -24,11 +24,11 @@ import { toast } from 'sonner'
 import { GlowText } from '~/components/glow_text'
 import { MarketMoneyIcon, MarketPbIcon, QuestionIcon } from '~/components/icons'
 import { HiddenInformationController } from '~/components/shared/hidden_information_controller'
-import LinearGradient from '~/components/shared/linear_gradient'
-import PaladiumJob from '~/components/shared/paladium_job'
-import PaladiumRank from '~/components/shared/paladium_rank'
+import { LinearGradient } from '~/components/shared/linear_gradient'
+import { PaladiumJob } from '~/components/shared/paladium_job'
+import { PaladiumRank } from '~/components/shared/paladium_rank'
 import { PlayerBadge } from '~/components/shared/player_badge'
-import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { SkinViewer3d } from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
 import { Alert, AlertDescription } from '~/components/ui/alert'
@@ -131,7 +131,7 @@ const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
         </div>
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
-        <ReactSkinview3d
+        <SkinViewer3d
           className="h-auto! w-full pointer-events-none! sm:pointer-events-auto!"
           width="278"
           height="450"
@@ -266,7 +266,7 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
 
   return (
     <Card id="monture" className={cn('pt-2', className)} {...props}>
-      <CardHeader className="border-b pr-2 pb-2!">
+      <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
         <CardTitle href="#monture">Monture</CardTitle>
         {mount && (
           <Button variant="outline" size="icon" className="rounded-sm" onClick={toggleLoop}>

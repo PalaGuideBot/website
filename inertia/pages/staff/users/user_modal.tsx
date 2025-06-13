@@ -5,12 +5,7 @@ import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
 import { Button } from '~/components/ui/button'
-import {
-  Dialog,
-  DialogContentWithoutOverlay,
-  DialogTitle,
-  DialogTrigger,
-} from '~/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { MultiSelect } from '~/components/ui/multi_select'
@@ -69,7 +64,8 @@ const UserModal = ({ children, user }: UserModalProps) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContentWithoutOverlay
+      <DialogContent
+        transparentOverlay
         onOpenAutoFocus={(event) => event.preventDefault()}
         aria-describedby="modal-description"
         animation="right-to-left"
@@ -110,7 +106,7 @@ const UserModal = ({ children, user }: UserModalProps) => {
             </div>
           </div>
         </form>
-      </DialogContentWithoutOverlay>
+      </DialogContent>
     </Dialog>
   )
 }

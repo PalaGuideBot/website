@@ -3,12 +3,14 @@ import { CodeXmlIcon, PointerIcon, ServerIcon, SwordsIcon, UsersIcon } from 'luc
 
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { DiscordIcon } from '~/components/icons'
-import StaffLayout from '~/components/layouts/staff'
+import { StaffLayout } from '~/components/layouts/staff'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { Avatar, AvatarImage } from '~/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { formatNumber } from '~/lib/utils'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
 import { ApiLatestPlayersCard } from '../components/api_latest_players_card'
@@ -27,8 +29,6 @@ import {
   StatCardTitle,
   StatCardValue,
 } from '../components/stat_card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
-import { Avatar, AvatarImage } from '~/components/ui/avatar'
 
 type DashboardIndexPageProps = InferPageProps<DashboardController, 'index'>
 

@@ -16,7 +16,7 @@ interface PaladiumJobProps {
   onLevelChange?: (level: PaladiumJobProps['info']['level']) => void
 }
 
-function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
+export function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
   const jobIcon = icons[job as Job]
   const jobColor = {
     alchemist: 'bg-job-alchemist',
@@ -92,8 +92,6 @@ function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
     </div>
   )
 }
-
-export default PaladiumJob
 
 type JobProgressProps = PaladiumJobProps & React.ComponentProps<'svg'>
 

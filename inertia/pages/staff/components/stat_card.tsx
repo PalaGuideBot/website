@@ -1,13 +1,11 @@
-import React from 'react'
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { cn } from '~/lib/utils'
 
-const StatCard = ({ className, ...props }: React.ComponentProps<typeof Card>) => {
+function StatCard({ className, ...props }: React.ComponentProps<typeof Card>) {
   return <Card className={cn('bg-background', className)} {...props} />
 }
 
-const StatCardHeader = ({ className, ...props }: React.ComponentProps<typeof CardHeader>) => {
+function StatCardHeader({ className, ...props }: React.ComponentProps<typeof CardHeader>) {
   return (
     <CardHeader
       className={cn('flex flex-row items-center justify-between space-y-0 pb-2', className)}
@@ -16,24 +14,22 @@ const StatCardHeader = ({ className, ...props }: React.ComponentProps<typeof Car
   )
 }
 
-const StatCardTitle = ({ className, ...props }: React.ComponentProps<typeof CardTitle>) => {
+function StatCardTitle({ className, ...props }: React.ComponentProps<typeof CardTitle>) {
   return <CardTitle className={cn('text-sm font-medium', className)} {...props} />
 }
 
-const StatCardContent = CardContent
-
-const StatCardValue = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+function StatCardValue({ className, ...props }: React.ComponentProps<'div'>) {
   return <div className={cn('text-2xl font-bold', className)} {...props} />
 }
 
-interface StatCardChangeProps extends React.HTMLAttributes<HTMLParagraphElement> {
+interface StatCardChangeProps extends React.ComponentProps<'p'> {
   value: number
   compare: number
   zeroText?: string
   text?: string
 }
 
-const StatCardChange = ({
+function StatCardChange({
   value,
   compare,
   zeroText = "Même quantité qu'hier",
@@ -41,7 +37,7 @@ const StatCardChange = ({
   className,
   children,
   ...props
-}: StatCardChangeProps) => {
+}: StatCardChangeProps) {
   const change = value - compare
   const isPositive = change > 0
   const isZero = change === 0
@@ -62,4 +58,11 @@ const StatCardChange = ({
   )
 }
 
-export { StatCard, StatCardHeader, StatCardTitle, StatCardContent, StatCardValue, StatCardChange }
+export {
+  StatCard,
+  StatCardChange,
+  CardContent as StatCardContent,
+  StatCardHeader,
+  StatCardTitle,
+  StatCardValue,
+}

@@ -1,5 +1,4 @@
 import { Link } from '@inertiajs/react'
-import React from 'react'
 
 import type { PageError } from '#app/types'
 import { Button } from '~/components/ui/button'

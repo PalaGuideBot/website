@@ -4,7 +4,7 @@ import { CalculatorIcon, Trash2Icon } from 'lucide-react'
 import { FormEvent, useRef } from 'react'
 
 import type PogCalculatorController from '#tools/controller/pog_calculator_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Button } from '~/components/ui/button'

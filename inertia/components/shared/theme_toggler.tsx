@@ -3,9 +3,9 @@ import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from '~/components/theme_provider'
 import { Button } from '~/components/ui/button'
 
-const ThemeToggler = (
-  props: Omit<React.ComponentPropsWithoutRef<typeof Button>, 'onClick' | 'children'>
-) => {
+export function ThemeToggler(
+  props: Omit<React.ComponentProps<typeof Button>, 'onClick' | 'children'>
+) {
   const { theme, setTheme } = useTheme()
 
   return (
@@ -21,5 +21,3 @@ const ThemeToggler = (
     </Button>
   )
 }
-
-export default ThemeToggler

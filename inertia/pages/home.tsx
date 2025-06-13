@@ -5,7 +5,7 @@ import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
 
 import type PageController from '#controllers/page_controller'
 import { DiscordIcon } from '~/components/icons'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
 import { GiveawayBanner } from '~/components/shared/giveaway_banner'
 import { Head } from '~/components/shared/head'
@@ -42,8 +42,8 @@ export default function Home(props: HomePageProps) {
               <div className="grid grid-cols-2 gap-4 w-full">
                 <Button variant="secondary" className="xl:text-lg p-2 group" asChild>
                   <Link href="/players">
-                    <ArrowRightIcon className="transition-all h-6 w-0! group-hover:w-6!" />
                     Voir les statistiques
+                    <ArrowRightIcon className="transition-all size-6 w-0! group-hover:w-6!" />
                   </Link>
                 </Button>
                 <Button variant="outline" className="xl:text-lg p-2 group" asChild>

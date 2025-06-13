@@ -3,7 +3,7 @@ import { Link, usePage } from '@inertiajs/react'
 
 import type { PageError } from '#app/types'
 import type FactionController from '#stats/controllers/faction_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'

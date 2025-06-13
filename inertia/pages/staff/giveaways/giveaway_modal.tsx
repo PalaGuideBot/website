@@ -5,18 +5,13 @@ import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
 import { Button } from '~/components/ui/button'
+import { Checkbox } from '~/components/ui/checkbox'
 import { DateTimeInput } from '~/components/ui/datetime_input'
-import {
-  Dialog,
-  DialogContentWithoutOverlay,
-  DialogTitle,
-  DialogTrigger,
-} from '~/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { TagsInput } from '~/components/ui/tags_input'
 import { DateTime } from '~/lib/luxon'
-import { Checkbox } from '~/components/ui/checkbox'
 
 type Giveaway = Infer<typeof giveawayValidator>
 
@@ -85,7 +80,8 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContentWithoutOverlay
+      <DialogContent
+        transparentOverlay
         onOpenAutoFocus={(event) => event.preventDefault()}
         aria-describedby="modal-description"
         animation="right-to-left"
@@ -158,7 +154,7 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
             </div>
           </div>
         </form>
-      </DialogContentWithoutOverlay>
+      </DialogContent>
     </Dialog>
   )
 }

@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { LogInIcon } from 'lucide-react'
 
-import ThemeToggler from '~/components/shared/theme_toggler'
+import { ThemeToggler } from '~/components/shared/theme_toggler'
 import { UserDropdownContent, UserDropdownTrigger } from '~/components/shared/user_dropdown'
 import { Button } from '~/components/ui/button'
 import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown_menu'

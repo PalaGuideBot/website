@@ -5,12 +5,7 @@ import { toast } from 'sonner'
 
 import type { userRoleValidator } from '#staff/validators/user_validator'
 import { Button } from '~/components/ui/button'
-import {
-  Dialog,
-  DialogContentWithoutOverlay,
-  DialogTitle,
-  DialogTrigger,
-} from '~/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
@@ -69,7 +64,8 @@ export function RoleModal({ children, role }: RoleModalProps) {
   return (
     <Dialog open={isModalOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContentWithoutOverlay
+      <DialogContent
+        transparentOverlay
         onOpenAutoFocus={(event) => event.preventDefault()}
         aria-describedby="modal-description"
         animation="right-to-left"
@@ -128,7 +124,7 @@ export function RoleModal({ children, role }: RoleModalProps) {
             </div>
           </div>
         </form>
-      </DialogContentWithoutOverlay>
+      </DialogContent>
     </Dialog>
   )
 }

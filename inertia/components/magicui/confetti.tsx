@@ -126,5 +126,3 @@ function safeShapeFromText(
 }
 
 export { Confetti, ConfettiButton, safeShapeFromText }
-
-export default Confetti

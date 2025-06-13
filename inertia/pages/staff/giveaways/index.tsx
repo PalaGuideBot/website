@@ -1,7 +1,7 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 
 import type GiveawayController from '#staff/controllers/giveaway_controller'
-import StaffLayout from '~/components/layouts/staff'
+import { StaffLayout } from '~/components/layouts/staff'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { columns } from './columns'

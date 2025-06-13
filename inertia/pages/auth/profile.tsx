@@ -5,7 +5,7 @@ import { CheckIcon, CopyIcon, UnlinkIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import type AuthController from '#controllers/auth_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 import { LinkSteps } from '~/components/shared/link_steps'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
@@ -62,7 +62,7 @@ export default function ProfilePage(props: ProfilePageProps) {
   )
 }
 
-const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccount'] }) => {
+function MinecraftTab({ account }: { account?: ProfilePageProps['minecraftAccount'] }) {
   const [token, setToken] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -87,8 +87,8 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
 
   return (
     <>
-      <Card className="bg-background">
-        <CardHeader>
+      <Card className="bg-background gap-4">
+        <CardHeader className="flex-col">
           <CardTitle>Lier mon compte Minecraft</CardTitle>
           <CardDescription>
             Enregistrez votre compte Minecraft pour bénéficier de fonctionnalités supplémentaires.
@@ -97,10 +97,10 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
         <CardContent className="space-y-2">
           {account && (
             <>
-              <Alert color="success">
+              <Alert variant="success">
                 <AlertDescription>Votre compte est lié.</AlertDescription>
               </Alert>
-              <Card>
+              <Card className="p-0">
                 <CardContent className="p-2">
                   <div className="flex flex-row gap-2 items-center">
                     <img

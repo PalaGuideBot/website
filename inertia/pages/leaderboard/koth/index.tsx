@@ -14,7 +14,7 @@ import {
 
 import type KothController from '#leaderboard/controllers/koth_controller'
 import { LeaderboardKothIcon } from '~/components/icons'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'

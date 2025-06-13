@@ -1,7 +1,7 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 
 import type PlayerController from '#stats/controllers/player_controller'
@@ -11,8 +11,8 @@ import { NumberTicker } from '~/components/magicui/number_ticker'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { JobProgress } from '~/components/shared/paladium_job'
-import ThemeToggler from '~/components/shared/theme_toggler'
-import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { ThemeToggler } from '~/components/shared/theme_toggler'
+import { SkinViewer3d } from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
 import { Button } from '~/components/ui/button'
@@ -87,7 +87,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <ReactSkinview3d
+        <SkinViewer3d
           className="h-auto! w-full pointer-events-none!"
           width="278"
           height="450"

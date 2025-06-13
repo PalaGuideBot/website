@@ -14,14 +14,14 @@ const Step1 = () => {
   const [, copy] = useCopyToClipboard()
 
   return (
-    <Card className="flex flex-col bg-background lg:col-span-6">
-      <CardHeader className="border-b text-center">
+    <Card className="bg-background lg:col-span-6">
+      <CardHeader className="border-b justify-center">
         <CardTitle>Etape 1</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
         <p className="text-sm">Rejoignez notre serveur (+1.8):</p>
         <p>
-          <Badge stroke className="w-fit px-1.5">
+          <Badge variant="secondary" stroke className="px-1.5">
             {SERVER_IP}
           </Badge>
           <Button variant="link" onClick={() => copy(SERVER_IP)}>
@@ -40,14 +40,14 @@ const Step1 = () => {
 
 const Step2 = () => {
   return (
-    <Card className="flex flex-col bg-background lg:col-span-6">
-      <CardHeader className="border-b text-center">
+    <Card className="bg-background lg:col-span-6">
+      <CardHeader className="border-b justify-center">
         <CardTitle>Etape 2</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
         <p className="text-sm">
           Tapez la commande{' '}
-          <Badge stroke className="w-fit px-1.5">
+          <Badge variant="secondary" stroke className="px-1.5">
             /link
           </Badge>{' '}
           avec votre code.
@@ -64,13 +64,13 @@ const Step2 = () => {
 
 const Step3 = () => {
   return (
-    <Card className="flex flex-col bg-background lg:col-start-4 lg:col-end-10">
-      <CardHeader className="border-b text-center">
+    <Card className="bg-background lg:col-start-4 lg:col-end-10">
+      <CardHeader className="border-b justify-center">
         <CardTitle>Etape 3</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
         <p className="text-sm">
-          <Button variant="link" onClick={() => router.reload()}>
+          <Button variant="link" className="p-0" onClick={() => router.reload()}>
             Actualisez
           </Button>{' '}
           cette page pour voir le résultat.

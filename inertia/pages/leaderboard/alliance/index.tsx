@@ -14,7 +14,7 @@ import {
 import { LeaderboardAllianceIcon } from '~/components/icons'
 
 import type AllianceController from '#leaderboard/controllers/alliance_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'

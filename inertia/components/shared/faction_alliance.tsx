@@ -4,12 +4,12 @@ import type { factionInfoValidator } from '#stats/validators/faction_validator'
 import { allianceToIcon } from '~/content/factions'
 import { cn } from '~/lib/utils'
 
-type FactionAllianceProps = {
+interface FactionAllianceProps {
   alliance: Infer<typeof factionInfoValidator>['alliance']
   className?: string
 }
 
-const FactionAlliance = ({ alliance, className }: FactionAllianceProps) => {
+export function FactionAlliance({ alliance, className }: FactionAllianceProps) {
   const AllianceIcon = allianceToIcon(alliance)
 
   const iconSize = className?.includes('text-xs') ? 'size-4' : 'w-6 h-6'
@@ -21,5 +21,3 @@ const FactionAlliance = ({ alliance, className }: FactionAllianceProps) => {
     </div>
   )
 }
-
-export default FactionAlliance

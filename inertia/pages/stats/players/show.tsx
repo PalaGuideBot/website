@@ -3,7 +3,7 @@ import { Link, usePage } from '@inertiajs/react'
 
 import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { DisplayError } from '~/components/shared/display_error'

@@ -1,6 +1,6 @@
 import type EndController from '#leaderboard/controllers/end_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 
 export default function EndIndex(props: InferPageProps<EndController, 'index'>) {
