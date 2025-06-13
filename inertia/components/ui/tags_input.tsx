@@ -241,20 +241,18 @@ export function TagsInput({
         {...props}
         dir={dir}
         className={cn(
-          'flex items-center flex-wrap gap-1 px-2.5 py-1.5 rounded-lg bg-background overflow-hidden border outline-2 focus-within:outline focus-within:-outline-offset-1',
-          {
-            'focus-within:outline-primary': activeIndex === -1,
-          },
+          'flex items-center flex-wrap gap-1 px-2.5 py-1.5 rounded-lg bg-background overflow-hidden border transition-[color,box-shadow] focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px]',
           className
         )}
       >
         {value.map((item, index) => (
           <Badge
+            variant="secondary"
             tabIndex={activeIndex !== -1 ? 0 : activeIndex}
             key={item}
             aria-disabled={disableButton}
             data-active={activeIndex === index}
-            className="text-xs relative px-1 rounded flex items-center gap-1 data-[active='true']:ring-2 data-[active='true']:ring-muted-foreground truncate aria-disabled:opacity-50 aria-disabled:cursor-not-allowed"
+            className="text-xs relative px-1 rounded flex items-center gap-1 data-[active=true]:ring-2 data-[active=true]:ring-muted-foreground truncate aria-disabled:opacity-50 aria-disabled:cursor-not-allowed"
           >
             {item}
             <button
@@ -264,7 +262,7 @@ export function TagsInput({
               disabled={disableButton}
               onMouseDown={mousePreventDefault}
               onClick={() => RemoveValue(item)}
-              className="disabled:cursor-not-allowed"
+              className="disabled:cursor-not-allowed cursor-pointer"
             >
               <span className="sr-only">Remove {item} option</span>
               <RemoveIcon className="size-4 hover:stroke-destructive" />

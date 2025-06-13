@@ -7,7 +7,13 @@ import type { giveawayValidator } from '#event/validators/giveaway_validator'
 import { Button } from '~/components/ui/button'
 import { Checkbox } from '~/components/ui/checkbox'
 import { DateTimeInput } from '~/components/ui/datetime_input'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { TagsInput } from '~/components/ui/tags_input'
@@ -90,6 +96,7 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
         <DialogTitle>
           {giveaway ? `Modifier le giveaway ${giveaway.title}` : 'Ajouter un giveaway'}
         </DialogTitle>
+        <DialogDescription className="sr-only">Modification d'un giveaway</DialogDescription>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <FormItem>

@@ -10,7 +10,7 @@ import {
   YAxis,
 } from 'recharts'
 
-import LinearGradient from '~/components/shared/linear_gradient'
+import { LinearGradient } from '~/components/shared/linear_gradient'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'

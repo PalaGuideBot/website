@@ -283,8 +283,8 @@ export function DateTimeInput({ ref, ...options }: DateTimeInputProps) {
     <div
       ref={ref}
       className={cn(
-        'flex h-10 items-center justify-start rounded-lg border bg-background text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 hover:border-border/30',
-        isFocused ? 'outline-primary outline-2 -outline-offset-1' : '',
+        'flex h-10 items-center justify-start rounded-lg border bg-background text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 transition-[color,box-shadow]',
+        isFocused && 'border-ring ring-ring/50 ring-[3px]',
         options.hideCalendarIcon && 'ps-2',
         options.className
       )}

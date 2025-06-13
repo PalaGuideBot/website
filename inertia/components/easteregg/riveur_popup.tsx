@@ -2,7 +2,7 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 
 import { AnimatedSpan, Terminal, TypingAnimation } from '~/components/magicui/terminal'
 import { Button } from '~/components/ui/button'
-import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '~/components/ui/dialog'
 
 function TerminalRiveur() {
   return (
@@ -68,6 +68,7 @@ export function RiveurPopup() {
       </DialogTrigger>
       <DialogContent showCloseButton={false} className="bg-transparent border-transparent">
         <DialogTitle className="sr-only">Riveur EasterEgg</DialogTitle>
+        <DialogDescription className="sr-only">EasterEgg</DialogDescription>
         <TerminalRiveur />
       </DialogContent>
     </Dialog>

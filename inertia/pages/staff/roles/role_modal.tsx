@@ -5,7 +5,13 @@ import { toast } from 'sonner'
 
 import type { userRoleValidator } from '#staff/validators/user_validator'
 import { Button } from '~/components/ui/button'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
@@ -72,6 +78,7 @@ export function RoleModal({ children, role }: RoleModalProps) {
         className="flex flex-col gap-2 translate-x-0 translate-y-0 left-auto right-0 top-14 bottom-0 border-r-0"
       >
         <DialogTitle>{role ? `Modifier le rôle ${role.name}` : 'Ajouter un rôle'}</DialogTitle>
+        <DialogDescription className="sr-only">Modification d'un rôle</DialogDescription>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <FormItem>

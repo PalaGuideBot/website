@@ -5,10 +5,16 @@ import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
 import { Button } from '~/components/ui/button'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
-import { MultiSelect } from '~/components/ui/multi_select'
+import { MultiSelect } from '~/components/ui/multiselect'
 import { usePageSettings } from './page_settings'
 
 type User = Infer<typeof userValidator>
@@ -24,10 +30,10 @@ const UserModal = ({ children, user }: UserModalProps) => {
 
   const form = useForm(
     user
-      ? { ...user, roles: user.roles.map((role) => role.name) }
+      ? { ...user, roles: user.roles.map((role) => ({ label: role.label, value: role.name })) }
       : {
           discordId: '',
-          roles: [],
+          roles: [] as Array<{ label: string; value: string }>,
         }
   )
 
@@ -41,6 +47,11 @@ const UserModal = ({ children, user }: UserModalProps) => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    form.transform((data) => ({
+      ...data,
+      roles: data.roles.map((role) => role.value),
+    }))
 
     if (user) {
       form.put(`/staff/users/${user.discordId}`, {
@@ -74,6 +85,7 @@ const UserModal = ({ children, user }: UserModalProps) => {
         <DialogTitle>
           {user ? `Modifier l'utilisateur #${user.discordId}` : 'Ajouter un utilisateur'}
         </DialogTitle>
+        <DialogDescription className="sr-only">Modification d'un utilisateur</DialogDescription>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <FormItem>
@@ -90,12 +102,16 @@ const UserModal = ({ children, user }: UserModalProps) => {
             <FormItem>
               <FormLabel htmlFor="roles">Rôles</FormLabel>
               <MultiSelect
-                modalPopover
-                options={roles.map((role) => ({ label: role.label, value: role.name }))}
-                onValueChange={(value) => form.setData('roles', value)}
-                defaultValue={form.data.roles}
+                commandProps={{
+                  label: 'Choisissez un ou plusieurs rôles',
+                }}
+                value={form.data.roles}
+                onChange={(value) => form.setData('roles', value)}
+                defaultOptions={roles.map((role) => ({ label: role.label, value: role.name }))}
                 placeholder="Choisissez un ou plusieurs rôles"
-                variant="inverted"
+                hideClearAllButton
+                hidePlaceholderWhenSelected
+                emptyIndicator={<p className="text-center text-sm">Aucun résultat</p>}
               />
               <FormMessage message={form.errors.roles} />
             </FormItem>
