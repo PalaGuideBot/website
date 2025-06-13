@@ -66,7 +66,7 @@ export function RiveurPopup() {
           Riveur
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-transparent border-transparent">
+      <DialogContent showCloseButton={false} className="bg-transparent border-transparent">
         <DialogTitle className="sr-only">Riveur EasterEgg</DialogTitle>
         <TerminalRiveur />
       </DialogContent>
