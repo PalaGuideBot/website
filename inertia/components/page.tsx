@@ -14,7 +14,7 @@ const PageTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
 
 const PageSubTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => {
-    return <h2 ref={ref} className={cn('font-pixel', className)} {...props} />
+    return <h2 ref={ref} className={cn('font-semibold text-lg', className)} {...props} />
   }
 )
 

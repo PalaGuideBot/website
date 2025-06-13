@@ -47,9 +47,12 @@ const StatCardChange = ({
   const isZero = change === 0
 
   return (
-    <p className={cn('text-xs text-surface-400', className)} {...props}>
+    <p className={cn('text-xs text-muted-foreground', className)} {...props}>
       <span
-        className={cn(isPositive && 'text-wg-green', !isPositive && !isZero && 'text-destructive')}
+        className={cn(
+          isPositive && 'text-emerald-500',
+          !isPositive && !isZero && 'text-destructive'
+        )}
       >
         {isPositive && `+${change}`}
         {!isPositive && !isZero && change}

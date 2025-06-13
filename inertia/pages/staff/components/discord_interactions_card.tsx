@@ -45,13 +45,13 @@ const DiscordInteractionsCard = ({ data, interactions }: DiscordInteractionsCard
   const initialSeries = interactions.map((interaction, index) => ({
     id: interaction,
     name: interaction,
-    color: colors[index] ?? 'hsl(var(--wg-primary))',
+    color: colors[index] ?? 'var(--primary)',
   }))
 
   return (
     <ChartContainer initialSeries={initialSeries}>
-      <Card className="bg-background">
-        <CardHeader className="space-y-0 py-2 border-b flex flex-row items-center justify-between gap-4">
+      <Card className="p-0 pt-2 bg-background">
+        <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
           <CardTitle>Intéractions</CardTitle>
           <ChartControls />
         </CardHeader>
@@ -84,7 +84,7 @@ const Chart = ({ data }: { data: any[] }) => {
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <Card className="bg-background/95">
+                <Card className="p-0 bg-background/95">
                   <CardContent className="p-4 space-y-2">
                     <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
                     <div className="flex flex-col gap-2">

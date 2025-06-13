@@ -1,5 +1,4 @@
 import { Link, useForm } from '@inertiajs/react'
-import { AvatarGroup, Button, Loading } from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
 import { CheckCircleIcon, XCircleIcon } from 'lucide-react'
 import { useRef } from 'react'
@@ -7,7 +6,10 @@ import { toast } from 'sonner'
 
 import type { giveawayStateValidator } from '#event/validators/giveaway_validator'
 import Confetti, { ConfettiRef } from '~/components/magicui/confetti'
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '~/components/ui/avatar'
+import { Button } from '~/components/ui/button'
 import { CardContent, CardDescription, CardFooter } from '~/components/ui/card'
+import { Spinner } from '~/components/ui/spinner'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
 import { DateTime } from '~/lib/luxon'
 import { GiveawayPageProps } from '../giveaway'
@@ -22,7 +24,7 @@ interface GiveawayCardContentProps {
   state: Infer<typeof giveawayStateValidator>
 }
 
-const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
+export function GiveawayCardContent({ giveaway, state }: GiveawayCardContentProps) {
   const confettiRef = useRef<ConfettiRef>(null)
   const [countdown] = useDateCountdown({
     countStart: DateTime.fromISO(giveaway.start).toMillis(),
@@ -66,7 +68,7 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
             </CardDescription>
             <p className="text-center text-2xl font-bold">Temps restant:</p>
             <p
-              className="text-center text-lg xs:text-2xl font-bold tabular-nums"
+              className="text-center text-lg sm:text-2xl font-bold tabular-nums"
               suppressHydrationWarning
             >
               {countdown}
@@ -81,15 +83,18 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
         <div className="flex flex-col items-center space-y-2">
           <CardDescription>Personnes ayant participés:</CardDescription>
           {giveaway.participants.length > 0 ? (
-            <AvatarGroup
-              items={giveaway.participants.slice(0, MAX_USERS_DISPLAYED).map((participant) => ({
-                src: participant.avatarUrl,
-              }))}
-              moreLabel={
-                giveaway.participants.length - MAX_USERS_DISPLAYED > 0 &&
-                `+${giveaway.participants.length - MAX_USERS_DISPLAYED}`
-              }
-            />
+            <AvatarGroup>
+              {giveaway.participants.slice(0, MAX_USERS_DISPLAYED).map((participant) => (
+                <Avatar key={participant.avatarUrl}>
+                  <AvatarImage src={participant.avatarUrl} />
+                </Avatar>
+              ))}
+              {giveaway.participants.length - MAX_USERS_DISPLAYED > 0 && (
+                <Avatar>
+                  <AvatarFallback>{`+${giveaway.participants.length - MAX_USERS_DISPLAYED}`}</AvatarFallback>
+                </Avatar>
+              )}
+            </AvatarGroup>
           ) : (
             <p className="text-sm">Aucune</p>
           )}
@@ -102,26 +107,26 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
       <CardFooter className="p-4 sm:p-8 pt-0">
         {!state.participated && (!countdownIsOver || !giveawayIsOver) && (
           <Button
-            before={form.processing ? <Loading size="xs" /> : undefined}
             disabled={form.processing}
             onClick={onSubmit}
             variant="secondary"
             className="w-full text-lg"
           >
+            {form.processing && <Spinner variant="circle" className="size-6" />}
             Participer
           </Button>
         )}
         {state.participated && (
           <ul>
             <li className="flex items-center gap-2">
-              <CheckCircleIcon className="size-4 min-w-4 text-wg-green" />
+              <CheckCircleIcon className="size-4 min-w-4 text-emerald-500" />
               <p className="text-sm">Votre participation à bien été prise en compte</p>
             </li>
             <li className="flex items-center gap-2">
               {state.linked ? (
-                <CheckCircleIcon className="size-4 min-w-4 text-wg-green" />
+                <CheckCircleIcon className="size-4 min-w-4 text-emerald-500" />
               ) : (
-                <XCircleIcon className="size-4 min-w-4 text-wg-red" />
+                <XCircleIcon className="size-4 min-w-4 text-destructive" />
               )}
               <p className="text-sm">
                 <Link href="/profile" className="underline">
@@ -136,5 +141,3 @@ const GiveawayCardContent = ({ giveaway, state }: GiveawayCardContentProps) => {
     </>
   )
 }
-
-export { GiveawayCardContent }

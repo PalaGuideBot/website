@@ -78,14 +78,14 @@ export const PodiumCardPedestal = React.forwardRef<HTMLDivElement, PodiumCardPed
           transition: { delay: delays[position], duration: 0.5 },
         }}
         className={cn(
-          'relative flex flex-col gap-2 items-center justify-center bg-surface border border-l-8 md:border-l md:border-t-8 p-2 w-full rounded-md md:rounded-b-none overflow-hidden group',
+          'relative flex flex-col gap-2 items-center justify-center bg-card border border-l-8 md:border-l md:border-t-8 p-2 w-full rounded-md md:rounded-b-none overflow-hidden group',
           '[--podium-pedestal-height:auto] [--podium-pedestal-initial-height:auto] md:[--podium-pedestal-initial-height:100px]',
           position === 'first' &&
             'border-l-primary md:border-l-inherit md:border-t-primary md:[--podium-pedestal-height:250px]',
           position === 'second' &&
-            'border-l-wg-gray md:border-l-inherit md:border-t-wg-gray md:[--podium-pedestal-height:200px]',
+            'border-l-gray-500 md:border-l-inherit md:border-t-gray-200 md:[--podium-pedestal-height:200px]',
           position === 'third' &&
-            'border-l-destructive-800 md:border-l-inherit md:border-t-destructive-800 md:[--podium-pedestal-height:150px]',
+            'border-l-destructive-800 md:border-l-inherit md:border-t-destructive md:[--podium-pedestal-height:150px]',
           className
         )}
         {...props}
@@ -155,10 +155,7 @@ export const PodiumCardDescription = ({
   return (
     <div className={cn('text-xl font-bold', className)} {...props}>
       {href ? (
-        <Link
-          href={href}
-          className='before:absolute before:inset-0 before:content-[""] before:z-1'
-        >
+        <Link href={href} className='before:absolute before:inset-0 before:content-[""] before:z-1'>
           {children}
         </Link>
       ) : (

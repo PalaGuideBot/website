@@ -1,9 +1,10 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { DialogTrigger } from '@radix-ui/react-dialog'
-import { AnimatedSpan, Terminal, TypingAnimation } from '~/components/magicui/terminal'
-import { Dialog, DialogHeader, DialogContent } from '~/components/ui/dialog'
 
-export function TerminalRiveur() {
+import { AnimatedSpan, Terminal, TypingAnimation } from '~/components/magicui/terminal'
+import { Button } from '~/components/ui/button'
+import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog'
+
+function TerminalRiveur() {
   return (
     <Terminal className="mt-2">
       <TypingAnimation>&gt; ssh root@84.32.21.111</TypingAnimation>
@@ -60,13 +61,13 @@ export function RiveurPopup() {
         <Button
           variant="link"
           size="sm"
-          className="text-xs text-primary no-underline cursor-default [&>span]:p-0"
+          className="h-auto p-0 text-xs text-primary hover:no-underline cursor-default"
         >
           Riveur
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-transparent border-transparent">
-        <DialogHeader></DialogHeader>
+        <DialogTitle className="sr-only">Riveur EasterEgg</DialogTitle>
         <TerminalRiveur />
       </DialogContent>
     </Dialog>

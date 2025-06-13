@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 
+import { Input } from '~/components/ui/input'
 import { icons } from '~/content/jobs'
 import { PALADIUM_OPTIONS } from '~/lib/paladium'
 import { cn } from '~/lib/utils'
 import type { Job } from '~/types'
-import Input from '../ui/input'
 
-type PaladiumJobProps = {
+interface PaladiumJobProps {
   job: string
   info: {
     level: number
@@ -16,7 +16,7 @@ type PaladiumJobProps = {
   onLevelChange?: (level: PaladiumJobProps['info']['level']) => void
 }
 
-const PaladiumJob = ({ job, info, onLevelChange }: PaladiumJobProps) => {
+function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
   const jobIcon = icons[job as Job]
   const jobColor = {
     alchemist: 'bg-job-alchemist',
@@ -95,9 +95,9 @@ const PaladiumJob = ({ job, info, onLevelChange }: PaladiumJobProps) => {
 
 export default PaladiumJob
 
-type JobProgressProps = PaladiumJobProps & React.SVGProps<SVGSVGElement>
+type JobProgressProps = PaladiumJobProps & React.ComponentProps<'svg'>
 
-export const JobProgress = ({ job, info, ...props }: JobProgressProps) => {
+export function JobProgress({ job, info, ...props }: JobProgressProps) {
   return (
     <svg viewBox="0 0 667 769" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

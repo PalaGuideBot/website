@@ -1,6 +1,6 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { ShoppingCartIcon } from 'lucide-react'
 
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { getBuildingPrice, getClickerBuildingImage, getClickerUpgradeImage } from '~/lib/clicker'
 import { trackEvent } from '~/lib/umami'
@@ -9,9 +9,7 @@ import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { useClickerSettings } from './clicker_settings'
 import { CoinWrapper } from './coin_wrapper'
 
-interface NextPurchaseCardProps {}
-
-const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
+export function NextPurchaseCard() {
   const { calculator } = useClickerSettings()
   const playerClickerStore = usePlayerClickerStore()
 
@@ -48,8 +46,8 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
   }
 
   return (
-    <Card>
-      <CardHeader className="border-b p-2.5">
+    <Card className="p-0 pt-4">
+      <CardHeader className="border-b">
         <CardTitle>Achat le plus rentable</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 text-sm p-2">
@@ -133,12 +131,11 @@ const NextPurchaseCard = ({}: NextPurchaseCardProps) => {
             </CoinWrapper>
           </div>
         )}
-        <Button before={<ShoppingCartIcon className="size-4" />} variant="outline" onClick={buy}>
+        <Button variant="outline" className="rounded-sm" onClick={buy}>
+          <ShoppingCartIcon />
           Acheter
         </Button>
       </CardContent>
     </Card>
   )
 }
-
-export { NextPurchaseCard }

@@ -64,7 +64,7 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
         <div className="flex items-center space-x-2">
           <HourglassIcon className="size-6 text-primary-300" />
           {event.state === 'RUNNING' ? (
-            <span className="text-lg xs:text-2xl font-bold tabular-nums" suppressHydrationWarning>
+            <span className="text-lg sm:text-2xl font-bold tabular-nums" suppressHydrationWarning>
               {countdown}
             </span>
           ) : (
@@ -76,7 +76,7 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
       </CardContent>
       <CardFooter className="flex justify-center items-center gap-4 pt-4 border-t">
         <div className="flex items-center space-x-2">
-          <EloIcon className="size-6 text-wg-green" />
+          <EloIcon className="size-6 text-emerald-500" />
           <span className="text-sm font-mc-dungueons">
             +{formatNumber(event.rewardElo, { notation: 'standard' })} ELO
           </span>

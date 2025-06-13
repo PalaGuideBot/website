@@ -1,10 +1,10 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { MinusIcon, PlusIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { useIsClient } from 'usehooks-ts'
 
-import Input from '~/components/ui/input'
+import { Button } from '~/components/ui/button'
+import { Input } from '~/components/ui/input'
 import { PALADIUM_OPTIONS } from '~/lib/paladium'
 
 interface PogLevelControlsProps {
@@ -14,12 +14,12 @@ interface PogLevelControlsProps {
   onLevelChange?: (level: number) => void
 }
 
-const PogLevelControls = ({
+export function PogLevelControls({
   level,
   onIncreaseLevel,
   onDecreaseLevel,
   onLevelChange,
-}: PogLevelControlsProps) => {
+}: PogLevelControlsProps) {
   const isClient = useIsClient()
 
   const {
@@ -56,12 +56,12 @@ const PogLevelControls = ({
       <Button
         type="button"
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onDecreaseLevel}
         disabled={Boolean(Number(isClient ? maskValue : level) <= PALADIUM_OPTIONS.MIN_POG_LEVEL)}
       >
-        <MinusIcon className="size-4" />
+        <MinusIcon />
       </Button>
       <Input
         // @ts-ignore
@@ -78,15 +78,13 @@ const PogLevelControls = ({
       <Button
         type="button"
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onIncreaseLevel}
         disabled={Boolean(Number(isClient ? maskValue : level) >= PALADIUM_OPTIONS.MAX_POG_LEVEL)}
       >
-        <PlusIcon className="size-4" />
+        <PlusIcon />
       </Button>
     </div>
   )
 }
-
-export { PogLevelControls }

@@ -1,13 +1,13 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { BanIcon } from 'lucide-react'
 
+import { Button } from '~/components/ui/button'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { banners } from '~/content/banner'
 import { WrappedMetricCardDraggable } from './wrapped_metric_card'
 import { metrics } from './wrapped_metrics'
 import { useWrappedSettings } from './wrapped_settings'
 
-const WrappedPersonalization = () => {
+export function WrappedPersonalization() {
   const { player, banner, changeBanner } = useWrappedSettings()
 
   return (
@@ -24,7 +24,7 @@ const WrappedPersonalization = () => {
             .map(([key, value]) => (
               <Button
                 variant="outline"
-                className="size-16 overflow-hidden p-0 transition-all duration-75 hover:outline focus:outline-2 hover:outline-2 hover:outline-offset-2 data-[selected=true]:outline data-[selected=true]:outline-2 data-[selected=true]:outline-offset-2"
+                className="size-16 overflow-hidden p-0 transition-all duration-75 focus:outline-2 hover:outline-2 hover:outline-offset-2 data-[selected=true]:outline-2 data-[selected=true]:outline-offset-2"
                 data-selected={banner === key}
                 key={key}
                 onClick={() => changeBanner(key as 'none')}
@@ -62,5 +62,3 @@ const WrappedPersonalization = () => {
     </>
   )
 }
-
-export { WrappedPersonalization }

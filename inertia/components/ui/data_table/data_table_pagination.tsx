@@ -1,24 +1,23 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { RowData, Table } from '@tanstack/react-table'
 import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
+import { Button } from '~/components/ui/button'
+import { Pagination, PaginationContent, PaginationItem } from '~/components/ui/pagination'
 import { cn } from '~/lib/utils'
-import { Pagination, PaginationContent, PaginationItem } from '../pagination'
 
-interface DataTablePaginationProps<TData extends RowData>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface DataTablePaginationProps<TData extends RowData> extends React.ComponentProps<'div'> {
   table: Table<TData>
 }
 
-function DataTablePagination<TData extends RowData>({
+export function DataTablePagination<TData extends RowData>({
   table,
   className,
   ...props
 }: DataTablePaginationProps<TData>) {
   return (
     <div className={cn('flex flex-row items-center gap-4', className)} {...props}>
-      <div className="text-surface-300 flex grow justify-end text-sm whitespace-nowrap">
-        <p className="text-surface-300 text-sm whitespace-nowrap" aria-live="polite">
+      <div className="flex grow justify-end text-sm whitespace-nowrap">
+        <p className="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite">
           <span className="text-foreground">
             {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
             {Math.min(
@@ -38,8 +37,7 @@ function DataTablePagination<TData extends RowData>({
           <PaginationContent>
             <PaginationItem>
               <Button
-                size="sm"
-                isIconOnly
+                size="icon"
                 variant="outline"
                 className="disabled:pointer-events-none disabled:opacity-50"
                 onClick={() => table.firstPage()}
@@ -51,9 +49,8 @@ function DataTablePagination<TData extends RowData>({
             </PaginationItem>
             <PaginationItem>
               <Button
-                size="sm"
+                size="icon"
                 variant="outline"
-                isIconOnly
                 className="disabled:pointer-events-none disabled:opacity-50"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
@@ -64,9 +61,8 @@ function DataTablePagination<TData extends RowData>({
             </PaginationItem>
             <PaginationItem>
               <Button
-                size="sm"
+                size="icon"
                 variant="outline"
-                isIconOnly
                 className="disabled:pointer-events-none disabled:opacity-50"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
@@ -77,9 +73,8 @@ function DataTablePagination<TData extends RowData>({
             </PaginationItem>
             <PaginationItem>
               <Button
-                size="sm"
+                size="icon"
                 variant="outline"
-                isIconOnly
                 className="disabled:pointer-events-none disabled:opacity-50"
                 onClick={() => table.lastPage()}
                 disabled={!table.getCanNextPage()}
@@ -94,5 +89,3 @@ function DataTablePagination<TData extends RowData>({
     </div>
   )
 }
-
-export { DataTablePagination }

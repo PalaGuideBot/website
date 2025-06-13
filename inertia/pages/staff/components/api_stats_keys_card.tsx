@@ -1,4 +1,3 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
   CartesianGrid,
@@ -10,18 +9,19 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { Button } from '~/components/ui/button'
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { cn, formatNumber } from '~/lib/utils'
 
-export type ApiStatsKeysCardProps = {
+export interface ApiStatsKeysCardProps {
   data: Array<Record<string, { count: number; ip: number } | string>>
   keys: string[]
 }
 
-const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
+export function ApiStatsKeysCard({ data, keys }: ApiStatsKeysCardProps) {
   const [visibleKeys, setVisibleKeys] = useState(
     keys.reduce(
       (acc, key) => {
@@ -52,7 +52,7 @@ const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
   ]
 
   return (
-    <Card className="bg-backgroud">
+    <Card className="pb-0 bg-backgroud">
       <CardHeader className="border-b">
         <CardTitle>Statistiques: Clés API</CardTitle>
       </CardHeader>
@@ -70,7 +70,7 @@ const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <Card className="bg-background/95">
+                    <Card className="p-0 bg-background/95">
                       <CardContent className="p-4 space-y-2">
                         <div className="font-pixel text-xs">
                           {formatDate(label, DateTime.DATE_MED)}
@@ -107,7 +107,7 @@ const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
               formatter={(value) => (
                 <Button
                   type="button"
-                  variant="transparent"
+                  variant="ghost"
                   size="sm"
                   className={cn('text-inherit p-0.5', !visibleKeys[value] && 'line-through')}
                 >
@@ -123,7 +123,7 @@ const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
                 dataKey={`${key}.count`}
                 name={key}
                 hide={!visibleKeys[key]}
-                stroke={colors[index] ?? 'hsl(var(--wg-primary))'}
+                stroke={colors[index] ?? 'var(--primary)'}
                 strokeWidth={2}
                 dot={false}
               />
@@ -134,5 +134,3 @@ const ApiStatsKeysCard = ({ data, keys }: ApiStatsKeysCardProps) => {
     </Card>
   )
 }
-
-export { ApiStatsKeysCard }

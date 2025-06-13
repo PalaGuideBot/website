@@ -1,8 +1,9 @@
-import { Badge, Button } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import { CalendarIcon } from 'lucide-react'
 
 import type { latestPlayerDataValidator } from '#stats/validators/player_validator'
+import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
@@ -10,14 +11,18 @@ import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { getHeadUrl } from '~/lib/minecraft'
 
-export type ApiLatestPlayersCardProps = { data: Infer<typeof latestPlayerDataValidator> }
+export interface ApiLatestPlayersCardProps {
+  data: Infer<typeof latestPlayerDataValidator>
+}
 
-const ApiLatestPlayersCard = ({ data }: ApiLatestPlayersCardProps) => {
+export function ApiLatestPlayersCard({ data }: ApiLatestPlayersCardProps) {
   return (
-    <Card className="bg-background">
-      <CardHeader className="p-2.5 space-y-0 border-b flex flex-row flex-wrap gap-2 items-center justify-between">
+    <Card className="pb-0 bg-background">
+      <CardHeader className="border-b items-center justify-between">
         <CardTitle>Joueurs ajoutés récemment</CardTitle>
-        <Badge shape="pill">{data.length}</Badge>
+        <Badge className="size-6" shape="pill">
+          {data.length}
+        </Badge>
       </CardHeader>
       <CardContent className="p-0">
         <ScrollArea className="h-[570px]">
@@ -55,5 +60,3 @@ const ApiLatestPlayersCard = ({ data }: ApiLatestPlayersCardProps) => {
     </Card>
   )
 }
-
-export { ApiLatestPlayersCard }

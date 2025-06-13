@@ -1,10 +1,10 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { MinusIcon, PlusIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { useIsClient } from 'usehooks-ts'
+import { Button } from '~/components/ui/button'
 
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { PALADIUM_OPTIONS } from '~/lib/paladium'
 
 interface JobLevelControlsProps {
@@ -14,12 +14,12 @@ interface JobLevelControlsProps {
   onLevelChange?: (level: number) => void
 }
 
-const JobLevelControls = ({
+export function JobLevelControls({
   level,
   onIncreaseLevel,
   onDecreaseLevel,
   onLevelChange,
-}: JobLevelControlsProps) => {
+}: JobLevelControlsProps) {
   const isClient = useIsClient()
 
   const {
@@ -56,12 +56,12 @@ const JobLevelControls = ({
       <Button
         type="button"
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onDecreaseLevel}
         disabled={Number(isClient ? maskValue : level) <= PALADIUM_OPTIONS.MIN_JOB_LEVEL}
       >
-        <MinusIcon className="size-4" />
+        <MinusIcon />
       </Button>
       <Input
         // @ts-ignore
@@ -78,15 +78,13 @@ const JobLevelControls = ({
       <Button
         type="button"
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onIncreaseLevel}
         disabled={Number(isClient ? maskValue : level) >= PALADIUM_OPTIONS.MAX_JOB_LEVEL}
       >
-        <PlusIcon className="size-4" />
+        <PlusIcon />
       </Button>
     </div>
   )
 }
-
-export { JobLevelControls }

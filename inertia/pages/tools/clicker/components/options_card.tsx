@@ -1,23 +1,24 @@
-import { Button, Checkbox } from '@lemonsqueezy/wedges'
-
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { Link } from '@inertiajs/react'
+
+import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { Checkbox } from '~/components/ui/checkbox'
+import { usePlayerClickerStore } from '../stores/player_clicker_store'
 
 interface OptionsCardProps {
   onReset?: () => void
 }
 
-const OptionsCard = ({ onReset }: OptionsCardProps) => {
+export function OptionsCard({ onReset }: OptionsCardProps) {
   const setOptions = usePlayerClickerStore((state) => state.setOptions)
   const { options, data } = usePlayerClickerStore()
 
   return (
-    <Card>
-      <CardHeader className="border-b p-2.5">
+    <Card className="pb-0">
+      <CardHeader className="border-b">
         <CardTitle>Options</CardTitle>
       </CardHeader>
-      <CardContent className="text-sm p-2 space-y-2">
+      <CardContent className="flex flex-col gap-2 text-sm p-2">
         {onReset && (
           <div className="space-y-1">
             <p className="font-semibold">Commandes</p>
@@ -35,42 +36,43 @@ const OptionsCard = ({ onReset }: OptionsCardProps) => {
             </div>
           </div>
         )}
-        <Checkbox.Root className="items-center" asChild>
-          <label className="font-semibold">
-            <Checkbox.Item
-              onCheckedChange={() =>
-                setOptions('markOutLockedUpgrades', !options.markOutLockedUpgrades)
-              }
-              checked={options.markOutLockedUpgrades}
-            />
-            <span>Distinguer les améliorations bloquées</span>
+        <div className="inline-flex items-center gap-2">
+          <Checkbox
+            id="markOutLockedUpgrades"
+            onCheckedChange={() =>
+              setOptions('markOutLockedUpgrades', !options.markOutLockedUpgrades)
+            }
+            checked={options.markOutLockedUpgrades}
+          />
+          <label htmlFor="markOutLockedUpgrades" className="cursor-pointer font-semibold">
+            Distinguer les améliorations bloquées
           </label>
-        </Checkbox.Root>
-        <Checkbox.Root className="items-center" asChild>
-          <label className="font-semibold">
-            <Checkbox.Item
-              onCheckedChange={() =>
-                setOptions('markOutLockedBuildings', !options.markOutLockedBuildings)
-              }
-              checked={options.markOutLockedBuildings}
-            />
-            <span>Distinguer les batîments bloqués</span>
+        </div>
+        <div className="inline-flex items-center gap-2">
+          <Checkbox
+            id="markOutLockedBuildings"
+            onCheckedChange={() =>
+              setOptions('markOutLockedBuildings', !options.markOutLockedBuildings)
+            }
+            checked={options.markOutLockedBuildings}
+          />
+          <label htmlFor="markOutLockedBuildings" className="cursor-pointer font-semibold">
+            Distinguer les batîments bloqués
           </label>
-        </Checkbox.Root>
-        <Checkbox.Root className="items-center" asChild>
-          <label className="font-semibold">
-            <Checkbox.Item
-              onCheckedChange={() =>
-                setOptions('showUpgradeAdvantages', !options.showUpgradeAdvantages)
-              }
-              checked={options.showUpgradeAdvantages}
-            />
-            <span>Afficher les avantages</span>
+        </div>
+        <div className="inline-flex items-center gap-2">
+          <Checkbox
+            id="showUpgradeAdvantages"
+            onCheckedChange={() =>
+              setOptions('showUpgradeAdvantages', !options.showUpgradeAdvantages)
+            }
+            checked={options.showUpgradeAdvantages}
+          />
+          <label htmlFor="showUpgradeAdvantages" className="cursor-pointer font-semibold">
+            Afficher les avantages
           </label>
-        </Checkbox.Root>
+        </div>
       </CardContent>
     </Card>
   )
 }
-
-export { OptionsCard }

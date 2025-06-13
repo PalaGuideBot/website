@@ -1,4 +1,3 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 
 import type { ClickerClickUpgrade } from '#tools/types'
@@ -16,8 +15,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { getClickerUpgradeImage } from '~/lib/clicker'
 import { formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
-import { useClickerSettings } from './clicker_settings'
 import { AccentText } from './accent_text'
+import { useClickerSettings } from './clicker_settings'
 
 const DEFAULT_CLICK: ClickerClickUpgrade = {
   name: 'click_0',
@@ -27,9 +26,7 @@ const DEFAULT_CLICK: ClickerClickUpgrade = {
   conditions: [],
 }
 
-interface ClickCardProps {}
-
-const ClickCard = ({}: ClickCardProps) => {
+export function ClickCard() {
   const { upgrades } = useClickerSettings()
   const playerClickerStore = usePlayerClickerStore()
   const [, setCount] = useState(0)
@@ -59,14 +56,13 @@ const ClickCard = ({}: ClickCardProps) => {
 
   return (
     <div className="flex flex-row flex-wrap gap-2">
-      <Card className="flex flex-col grow basis-1/4">
+      <Card className="p-0 grow basis-1/4">
         <CardContent className="pt-4 flex flex-1 items-center justify-center">
           <AlertDialog open={isWarningDialogOpen} onOpenChange={setIsWarningDialogOpen}>
             <ConfettiButton
-              className="size-20 hover:bg-transparent"
-              variant="transparent"
-              shape="pill"
-              isIconOnly
+              className="rounded-full size-20 hover:bg-transparent"
+              variant="ghost"
+              size="icon"
               onClick={onClick}
               options={{
                 particleCount: 5,
@@ -94,18 +90,14 @@ const ClickCard = ({}: ClickCardProps) => {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogAction asChild>
-                  <Button variant="tertiary" onClick={() => setCount(0)}>
-                    J'ai compris 😒
-                  </Button>
-                </AlertDialogAction>
+                <AlertDialogAction onClick={() => setCount(0)}>J'ai compris 😒</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </CardContent>
       </Card>
-      <Card className="grow basis-1/2 text-nowrap">
-        <CardHeader className="border-b p-2.5">
+      <Card className="pb-0 grow basis-1/2 text-nowrap">
+        <CardHeader className="border-b">
           <CardTitle>Dernier clic débloqué</CardTitle>
         </CardHeader>
         <CardContent className="p-2 text-sm space-y-1.5">
@@ -124,5 +116,3 @@ const ClickCard = ({}: ClickCardProps) => {
     </div>
   )
 }
-
-export { ClickCard }

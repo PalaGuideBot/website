@@ -1,13 +1,14 @@
 import { Link } from '@inertiajs/react'
-import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import { LogInIcon } from 'lucide-react'
 
+import ThemeToggler from '~/components/shared/theme_toggler'
+import { UserDropdownContent, UserDropdownTrigger } from '~/components/shared/user_dropdown'
+import { Button } from '~/components/ui/button'
+import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown_menu'
+import { SidebarTrigger } from '~/components/ui/sidebar'
 import { useAuth } from '~/hooks/use_auth'
-import ThemeToggler from './shared/theme_toggler'
-import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
-import { SidebarTrigger } from './ui/sidebar'
 
-const Header = () => {
+export function Header() {
   const user = useAuth()
 
   return (
@@ -15,11 +16,11 @@ const Header = () => {
       <SidebarTrigger />
       {user ? (
         <DropdownMenu>
-          <DropdownMenu.Trigger asChild>
-            <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm text-surface-600 transition-colors duration-100 wg-antialiased hover:bg-surface dark:hover:bg-white/5">
+          <DropdownMenuTrigger asChild>
+            <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm transition-colors duration-100 antialiased hover:bg-carddark:hover:bg-white/5">
               <UserDropdownTrigger user={user} />
             </span>
-          </DropdownMenu.Trigger>
+          </DropdownMenuTrigger>
           <UserDropdownContent user={user} />
         </DropdownMenu>
       ) : (
@@ -29,9 +30,9 @@ const Header = () => {
           </Link>
           <div>
             <ThemeToggler size="sm" />
-            <Button variant="transparent" size="sm" isIconOnly asChild>
+            <Button variant="ghost" size="icon" asChild>
               <Link href="/login">
-                <LogInIcon className="size-4" />
+                <LogInIcon />
               </Link>
             </Button>
           </div>
@@ -41,7 +42,7 @@ const Header = () => {
   )
 }
 
-const StaffHeader = () => {
+export function StaffHeader() {
   const user = useAuth()
 
   return (
@@ -53,11 +54,11 @@ const StaffHeader = () => {
         <div className="flex gap-2 items-center justify-center">
           {user && (
             <DropdownMenu>
-              <DropdownMenu.Trigger asChild>
-                <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm text-surface-600 transition-colors duration-100 wg-antialiased hover:bg-surface dark:hover:bg-white/5">
+              <DropdownMenuTrigger asChild>
+                <span className="group flex shrink cursor-pointer select-none items-center justify-center gap-1 rounded-lg p-1.5 px-2 text-sm transition-colors duration-100 antialiased hover:bg-carddark:hover:bg-white/5">
                   <UserDropdownTrigger user={user} />
                 </span>
-              </DropdownMenu.Trigger>
+              </DropdownMenuTrigger>
               <UserDropdownContent user={user} />
             </DropdownMenu>
           )}
@@ -66,5 +67,3 @@ const StaffHeader = () => {
     </header>
   )
 }
-
-export { Header, StaffHeader }

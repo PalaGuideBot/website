@@ -1,19 +1,19 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { MinusIcon, PlusIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { useMediaQuery } from 'usehooks-ts'
 
 import type { ClickerBuilding } from '#tools/types'
-import Input from '~/components/ui/input'
+import { Button } from '~/components/ui/button'
+import { Input } from '~/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { CLICKER_OPTIONS, getBuildingPrice, getClickerBuildingImage } from '~/lib/clicker'
+import { ucFirst } from '~/lib/string'
 import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
+import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
 import { CoinWrapper } from './coin_wrapper'
-import { AccentText } from './accent_text'
-import { ucFirst } from '~/lib/string'
 
 interface BuildingQuantityControlsProps {
   building: ClickerBuilding
@@ -61,12 +61,12 @@ const BuildingQuantityControls = ({
     <div className="flex items-center justify-center space-x-2">
       <Button
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onDecreaseQuantity}
         disabled={Number(maskValue) <= CLICKER_OPTIONS.MIN_BUILDING_QUANTITY}
       >
-        <MinusIcon className="size-4" />
+        <MinusIcon />
       </Button>
       <Input
         // @ts-ignore
@@ -83,12 +83,12 @@ const BuildingQuantityControls = ({
       />
       <Button
         variant="outline"
-        shape="pill"
-        isIconOnly
+        size="icon"
+        className="rounded-full"
         onClick={onIncreaseQuantity}
         disabled={Number(maskValue) >= CLICKER_OPTIONS.MAX_BUILDING_QUANTITY}
       >
-        <PlusIcon className="size-4" />
+        <PlusIcon />
       </Button>
     </div>
   )
@@ -116,7 +116,7 @@ const BuildingCard = ({
       <PopoverTrigger asChild>
         <button
           className={cn(
-            'rounded-md border bg-surface shadow outline-2 outline-primary hover:outline hover:border-primary data-[state=open]:outline data-[state=open]:border-primary',
+            'rounded-md border bg-card shadow outline-primary hover:outline-2 hover:border-primary data-[state=open]:outline data-[state=open]:border-primary',
             playerClickerStore.options.markOutLockedBuildings &&
               building.quantity <= 0 &&
               'opacity-50'
@@ -136,7 +136,7 @@ const BuildingCard = ({
                 })}
               </CoinWrapper>
             </div>
-            <p className="font-mc-dungueons text-2xl drop-shadow-[0px_2px_0px_hsl(var(--wg-primary))]">
+            <p className="font-mc-dungueons text-2xl drop-shadow-[0px_2px_0px_var(--primary)]">
               {String(building.quantity).padStart(2, '0')}
             </p>
           </div>

@@ -1,4 +1,3 @@
-import { Avatar, Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
 import { EditIcon, Trash2Icon } from 'lucide-react'
@@ -6,6 +5,8 @@ import { toast } from 'sonner'
 
 import type { userRoleValidator } from '#staff/validators/user_validator'
 import { QuestionIcon } from '~/components/icons'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { Button } from '~/components/ui/button'
 import { DeleteRoleDialog } from './delete_role_dialog'
 import { RoleModal } from './role_modal'
 
@@ -18,16 +19,16 @@ export const columns: ColumnDef<Role>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-2">
-          <Avatar.Root className="size-8">
-            <Avatar.Image
+          <Avatar className="rounded-lg size-8 items-center justify-center">
+            <AvatarImage
               src={`https://image.palaguidebot.fr/flags/${row.original.name.toLowerCase()}.webp`}
               alt={row.original.label}
-              className="rounded-lg size-4 object-contain"
+              className="size-4 object-contain"
             />
-            <Avatar.Fallback className="dark:bg-inherit bg-inherit">
+            <AvatarFallback className="bg-inherit">
               <QuestionIcon className="size-4" />
-            </Avatar.Fallback>
-          </Avatar.Root>
+            </AvatarFallback>
+          </Avatar>
           <span>{row.original.name}</span>
         </div>
       )
@@ -57,16 +58,16 @@ export const columns: ColumnDef<Role>[] = [
       return (
         <div className="flex justify-end">
           <RoleModal role={row.original}>
-            <Button variant="transparent" size="sm" isIconOnly>
-              <EditIcon className="size-4" />
+            <Button variant="ghost" size="icon">
+              <EditIcon />
             </Button>
           </RoleModal>
           <DeleteRoleDialog
             role={row.original}
             onSuccess={() => toast.success('Rôle supprimé avec succès')}
           >
-            <Button variant="transparent" size="sm" isIconOnly>
-              <Trash2Icon className="size-4" />
+            <Button variant="ghost" size="icon">
+              <Trash2Icon />
             </Button>
           </DeleteRoleDialog>
         </div>

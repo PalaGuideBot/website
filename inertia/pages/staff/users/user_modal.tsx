@@ -1,10 +1,10 @@
 import { useForm } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { userValidator } from '#staff/validators/user_validator'
+import { Button } from '~/components/ui/button'
 import {
   Dialog,
   DialogContentWithoutOverlay,
@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { MultiSelect } from '~/components/ui/multi_select'
 import { usePageSettings } from './page_settings'
 

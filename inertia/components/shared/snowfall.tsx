@@ -1,4 +1,4 @@
-import ReactSnowfall, { type SnowfallProps } from 'react-snowfall'
+/* import ReactSnowfall, { type SnowfallProps } from 'react-snowfall'
 
 function getImages() {
   if (typeof window === 'undefined') {
@@ -27,3 +27,4 @@ const Snowfall = ({ style, ...props }: SnowfallProps) => {
 }
 
 export { Snowfall }
+ */

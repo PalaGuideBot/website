@@ -1,18 +1,11 @@
 import { Link, useForm } from '@inertiajs/react'
 import {
-  Alert,
-  Avatar,
-  Badge,
-  Button,
-  ProgressBar,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  ToggleGroup,
-} from '@lemonsqueezy/wedges'
-import { ChevronDown, FilterIcon, MousePointerClickIcon, PauseIcon, PlayIcon } from 'lucide-react'
+  ChevronDownIcon,
+  FilterIcon,
+  MousePointerClickIcon,
+  PauseIcon,
+  PlayIcon,
+} from 'lucide-react'
 import * as React from 'react'
 import {
   Area,
@@ -29,7 +22,7 @@ import {
 import { toast } from 'sonner'
 
 import { GlowText } from '~/components/glow_text'
-import { ArrowRightIcon, MarketMoneyIcon, MarketPbIcon, QuestionIcon } from '~/components/icons'
+import { MarketMoneyIcon, MarketPbIcon, QuestionIcon } from '~/components/icons'
 import { HiddenInformationController } from '~/components/shared/hidden_information_controller'
 import LinearGradient from '~/components/shared/linear_gradient'
 import PaladiumJob from '~/components/shared/paladium_job'
@@ -38,12 +31,25 @@ import { PlayerBadge } from '~/components/shared/player_badge'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import { FormLabel } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
+import { Progress } from '~/components/ui/progress'
 import { ScrollArea } from '~/components/ui/scroll_area'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select'
 import {
   Table,
   TableBody,
@@ -52,7 +58,8 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
+import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle_group'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { smallIcons as smallJobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { sortOptions } from '~/content/market'
@@ -68,7 +75,7 @@ import type { Job } from '~/types'
 import { InformationLine } from '../../components/information_line'
 import type { PlayerShowProps } from '../show'
 
-type PlayerDetailsProps = {
+interface PlayerDetailsProps {
   player: NonNullable<PlayerShowProps['player']>
 }
 
@@ -78,7 +85,9 @@ export const PlayerDetails = ({ player }: PlayerDetailsProps) => {
   return (
     <div className="flex flex-col gap-4">
       {!lastPlayerDataExists && (
-        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+        <Alert variant="warning">
+          <AlertDescription>Aucune donnée trouvée pour la période sélectionnée.</AlertDescription>
+        </Alert>
       )}
       {lastPlayerDataExists && (
         <>
@@ -114,10 +123,12 @@ interface SkinSectionProps extends React.ComponentProps<typeof Card> {
 
 const SkinSection = ({ player, className, ...props }: SkinSectionProps) => {
   return (
-    <Card className={cn('flex flex-col lg:row-span-2', className)} {...props}>
-      <CardHeader className="py-2.5 border-b space-y-0 flex-row gap-2 items-center justify-center">
-        <CardTitle className="font-pixel">{player.username}</CardTitle>
-        <PlayerBadge player={player} />
+    <Card className={cn('lg:row-span-2 pt-2', className)} {...props}>
+      <CardHeader className="border-b justify-center pb-2!">
+        <div className="inline-flex items-center gap-2">
+          <CardTitle className="block">{player.username}</CardTitle>
+          <PlayerBadge player={player} />
+        </div>
       </CardHeader>
       <CardContent className="pt-4 flex-1 flex justify-center">
         <ReactSkinview3d
@@ -139,11 +150,11 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
   const lastPlayerData = player.data.at(-1)
 
   return (
-    <Card id="informations" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="informations" className={cn('lg:col-span-2 pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#informations">Informations</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 pt-4">
+      <CardContent className="pt-4 flex-1">
         <ul className="h-full flex flex-col gap-2">
           <li>
             <InformationLine
@@ -228,11 +239,11 @@ const JobsSection = ({ player, className, ...props }: JobsSectionProps) => {
   }
 
   return (
-    <Card id="metiers" className={cn('flex flex-col lg:col-span-2', className)} {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="metiers" className={cn('lg:col-span-2 pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#metiers">Métiers</CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1 pt-4">
+      <CardContent className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center flex-1">
         {Object.entries(lastPlayerData.data.jobs).map(([job, info]) => (
           <PaladiumJob key={job} job={job} info={info} />
         ))}
@@ -254,16 +265,16 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
   }
 
   return (
-    <Card className={cn('flex flex-col', className)} id="monture" {...props}>
-      <CardHeader className="border-b py-2 space-y-0 flex flex-row items-center justify-between">
+    <Card id="monture" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b pr-2 pb-2!">
         <CardTitle href="#monture">Monture</CardTitle>
         {mount && (
-          <Button variant="outline" isIconOnly onClick={toggleLoop}>
-            {isLooping ? <PauseIcon className="size-4" /> : <PlayIcon className="size-4" />}
+          <Button variant="outline" size="icon" className="rounded-sm" onClick={toggleLoop}>
+            {isLooping ? <PauseIcon /> : <PlayIcon />}
           </Button>
         )}
       </CardHeader>
-      <CardContent className="pt-4 flex flex-1 flex-col justify-center">
+      <CardContent className="pt-4 flex-1 flex flex-col justify-center">
         {mount && (
           <>
             <MountViewer
@@ -279,17 +290,14 @@ const MountSection = ({ mount, className, ...props }: MountSectionProps) => {
                 <InformationLine label="Niveau" value={mount.level} />
               </li>
               <li>
-                <ProgressBar
-                  max={100}
-                  indicator={foodPercent.toFixed(2) + '%'}
-                  label={
-                    <div className="flex gap-2 items-center">
-                      <span className="font-pixel text-pretty">Food</span>
-                      <ArrowRightIcon className="w-2 invert dark:invert-0" />
+                <InformationLine
+                  label="Food"
+                  value={
+                    <div className="flex items-center gap-2 w-full">
+                      <Progress max={100} value={foodPercent} className="grow" />
+                      <span className="text-sm">{foodPercent.toFixed(2) + '%'}</span>
                     </div>
                   }
-                  value={foodPercent}
-                  variant="inline"
                 />
               </li>
             </ul>
@@ -314,16 +322,16 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
   }
 
   return (
-    <Card className={cn('flex flex-col', className)} id="familier" {...props}>
-      <CardHeader className="border-b py-2 space-y-0 flex flex-row items-center justify-between">
+    <Card className={cn('pt-2', className)} id="familier" {...props}>
+      <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
         <CardTitle href="#familier">Familier</CardTitle>
         {pet && (
-          <Button variant="outline" isIconOnly onClick={toggleLoop}>
-            {isLooping ? <PauseIcon className="size-4" /> : <PlayIcon className="size-4" />}
+          <Button variant="outline" size="icon" className="rounded-sm" onClick={toggleLoop}>
+            {isLooping ? <PauseIcon /> : <PlayIcon />}
           </Button>
         )}
       </CardHeader>
-      <CardContent className="pt-4 flex flex-1 flex-col">
+      <CardContent className="pt-4 flex-1 flex flex-col justify-center">
         {pet && (
           <>
             <PetViewer
@@ -339,17 +347,14 @@ const PetSection = ({ pet, className, ...props }: PetSectionProps) => {
                 <InformationLine label="Niveau" value={pet.level} />
               </li>
               <li>
-                <ProgressBar
-                  max={100}
-                  indicator={happinessPercent.toFixed(2) + '%'}
-                  label={
-                    <div className="flex gap-2 items-center">
-                      <span className="font-pixel text-pretty">Happiness</span>
-                      <ArrowRightIcon className="w-2 invert dark:invert-0" />
+                <InformationLine
+                  label="Happiness"
+                  value={
+                    <div className="flex items-center gap-2 w-full">
+                      <Progress max={100} value={happinessPercent} className="grow" />
+                      <span className="text-sm">{happinessPercent.toFixed(2) + '%'}</span>
                     </div>
                   }
-                  value={happinessPercent}
-                  variant="inline"
                 />
               </li>
             </ul>
@@ -365,12 +370,12 @@ interface AchievementsSectionProps extends React.ComponentProps<typeof Card> {
   achievements: PlayerDetailsProps['player']['achievements']
 }
 
-const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProps) => {
+const AchievementsSection = ({ achievements, className, ...props }: AchievementsSectionProps) => {
   const completionPercentage = (achievements.completed / achievements.total) * 100
 
   return (
-    <Card id="succes" {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="succes" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#succes">Succès</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
@@ -380,13 +385,14 @@ const AchievementsSection = ({ achievements, ...props }: AchievementsSectionProp
           side="right"
           align="center"
           fallback={
-            <ProgressBar
-              max={100}
-              value={completionPercentage}
-              label="Progression"
-              indicator={completionPercentage.toFixed(2) + '%'}
-              helperText={`${achievements.completed} / ${achievements.total} succès`}
-            />
+            <div className="flex flex-col gap-2">
+              <div className="inline-flex items-center justify-between gap-2">
+                <span className="text-sm">Progression</span>
+                <span className="text-sm">{completionPercentage.toFixed(2) + '%'}</span>
+              </div>
+              <Progress max={100} value={completionPercentage} />
+              <span className="text-sm text-muted-foreground">{`${achievements.completed} / ${achievements.total} succès`}</span>
+            </div>
           }
         />
       </CardContent>
@@ -398,29 +404,24 @@ interface FriendsSectionProps extends React.ComponentProps<typeof Card> {
   friends: PlayerDetailsProps['player']['friends']
 }
 
-const FriendsSection = ({ friends, ...props }: FriendsSectionProps) => {
+const FriendsSection = ({ friends, className, ...props }: FriendsSectionProps) => {
   const [open, setOpen] = React.useState(false)
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <Card id="amis" {...props}>
-        <CardHeader
-          className={cn(
-            'space-y-0 flex flex-row justify-between items-center py-2',
-            open && 'border-b'
-          )}
-        >
+      <Card id="amis" className={cn('p-0 pt-2', className)} {...props}>
+        <CardHeader className={cn('justify-between items-center pr-2 pb-2!', open && 'border-b')}>
           <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" isIconOnly>
-              <ChevronDown className={cn('size-4 transition-transform', open && 'rotate-180')} />
+            <Button variant="outline" size="icon" className="rounded-sm">
+              <ChevronDownIcon className={cn('transition-transform', open && 'rotate-180')} />
             </Button>
           </CollapsibleTrigger>
         </CardHeader>
         <CollapsibleContent>
           <CardContent
             className={cn(
-              'pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4',
+              'grid grid-cols-1 sm:grid-cols-2 gap-4 py-4',
               friends.length === 0 && 'sm:grid-cols-1'
             )}
           >
@@ -456,7 +457,7 @@ interface JobsEvolutionSectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) => {
+const JobsEvolutionSection = ({ player, className, ...props }: JobsEvolutionSectionProps) => {
   const [graphType, setGraphType] = React.useState<'level' | 'xp'>('level')
 
   const sortedUserData = (player?.data || []).toSorted(
@@ -464,10 +465,11 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
   )
 
   return (
-    <Card id="evolution-des-metiers" {...props}>
-      <CardHeader className="space-y-0 border-b flex flex-row items-center justify-between py-2">
+    <Card id="evolution-des-metiers" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
         <CardTitle href="#evolution-des-metiers">&Eacute;volution des métiers</CardTitle>
         <ToggleGroup
+          variant="outline"
           type="single"
           value={graphType}
           onValueChange={(value) => {
@@ -477,8 +479,8 @@ const JobsEvolutionSection = ({ player, ...props }: JobsEvolutionSectionProps) =
           }}
           size="sm"
         >
-          <ToggleGroup.Item value="level">Level</ToggleGroup.Item>
-          <ToggleGroup.Item value="xp">XP</ToggleGroup.Item>
+          <ToggleGroupItem value="level">Level</ToggleGroupItem>
+          <ToggleGroupItem value="xp">XP</ToggleGroupItem>
         </ToggleGroup>
       </CardHeader>
       <CardContent className="p-0 h-64">
@@ -556,14 +558,14 @@ interface MoneyEvolutionSectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const MoneyEvolutionSection = ({ player, ...props }: MoneyEvolutionSectionProps) => {
+const MoneyEvolutionSection = ({ player, className, ...props }: MoneyEvolutionSectionProps) => {
   const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
   return (
-    <Card id="evolution-de-l-argent" {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="evolution-de-l-argent" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#evolution-de-l-argent">&Eacute;volution de l'argent</CardTitle>
       </CardHeader>
       <CardContent className="p-0 h-64">
@@ -622,7 +624,7 @@ interface ClickerEvolutionSectionProps extends React.ComponentProps<typeof Card>
   player: PlayerDetailsProps['player']
 }
 
-const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionProps) => {
+const ClickerEvolutionSection = ({ player, className, ...props }: ClickerEvolutionSectionProps) => {
   const [graphType, setGraphType] = React.useState<'rps' | 'production'>('rps')
 
   const playerDataFiltered = player.data.filter(
@@ -634,17 +636,18 @@ const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionPr
   )
 
   return (
-    <Card id="evolution-du-clicker" {...props}>
-      <CardHeader className="space-y-0 border-b flex flex-row flex-wrap items-center justify-between py-2">
+    <Card id="evolution-du-clicker" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b flex-wrap items-center justify-between pr-2 pb-2!">
         <CardTitle href="#evolution-du-clicker">Évolution du clicker</CardTitle>
         <div className="flex flex-row gap-2">
-          <Button variant="outline" className="min-w-[34px]" isIconOnly asChild>
+          <Button variant="outline" size="icon" asChild>
             <Link href={`/tools/clicker/${player.username}`}>
-              <MousePointerClickIcon className="size-4" />
+              <MousePointerClickIcon />
             </Link>
           </Button>
           <ToggleGroup
             type="single"
+            variant="outline"
             value={graphType}
             onValueChange={(value) => {
               if (value.length) {
@@ -653,8 +656,8 @@ const ClickerEvolutionSection = ({ player, ...props }: ClickerEvolutionSectionPr
             }}
             size="sm"
           >
-            <ToggleGroup.Item value="rps">RPS</ToggleGroup.Item>
-            <ToggleGroup.Item value="production">Production</ToggleGroup.Item>
+            <ToggleGroupItem value="rps">RPS</ToggleGroupItem>
+            <ToggleGroupItem value="production">Production</ToggleGroupItem>
           </ToggleGroup>
         </div>
       </CardHeader>
@@ -716,10 +719,10 @@ interface ClassementsSectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const ClassementsSection = ({ player, ...props }: ClassementsSectionProps) => {
+const ClassementsSection = ({ player, className, ...props }: ClassementsSectionProps) => {
   return (
-    <Card id="classements" {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="classements" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#classements">Classements</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -754,7 +757,7 @@ interface FactionHistorySectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const FactionHistorySection = ({ player, ...props }: FactionHistorySectionProps) => {
+const FactionHistorySection = ({ player, className, ...props }: FactionHistorySectionProps) => {
   const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
@@ -783,8 +786,8 @@ const FactionHistorySection = ({ player, ...props }: FactionHistorySectionProps)
   )
 
   return (
-    <Card id="historique-des-factions" {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="historique-des-factions" className={cn('p-0 pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#historique-des-factions">Historique des factions</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
@@ -817,7 +820,7 @@ interface RanksHistorySectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const RanksHistorySection = ({ player, ...props }: RanksHistorySectionProps) => {
+const RanksHistorySection = ({ player, className, ...props }: RanksHistorySectionProps) => {
   const sortedUserData = (player?.data || []).toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
@@ -843,8 +846,8 @@ const RanksHistorySection = ({ player, ...props }: RanksHistorySectionProps) => 
   }, [])
 
   return (
-    <Card id="historique-des-rangs" {...props}>
-      <CardHeader className="border-b py-2.5">
+    <Card id="historique-des-rangs" className={cn('p-0 pt-2', className)} {...props}>
+      <CardHeader className="border-b pb-2!">
         <CardTitle href="#historique-des-rangs">Historique des rangs</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
@@ -875,7 +878,7 @@ interface MarketSectionProps extends React.ComponentProps<typeof Card> {
   player: PlayerDetailsProps['player']
 }
 
-const MarketSection = ({ player, ...props }: MarketSectionProps) => {
+const MarketSection = ({ player, className, ...props }: MarketSectionProps) => {
   const [, copy] = useCopyToClipboard()
 
   const form = useForm({
@@ -920,8 +923,8 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
   }, [form.data.search, form.data.sort, player.market.data])
 
   return (
-    <Card id="market" {...props}>
-      <CardHeader className="border-b py-2 space-y-0 flex-row items-center justify-between">
+    <Card id="market" className={cn('pt-2', className)} {...props}>
+      <CardHeader className="border-b pr-2 pb-2! items-center justify-between">
         <CardTitle href="#market">Market</CardTitle>
         <div className="flex flex-row gap-2 items-center">
           <p className="text-xs">
@@ -929,8 +932,8 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
           </p>
           <Popover>
             <PopoverTrigger asChild>
-              <Button size="sm" variant="outline" isIconOnly>
-                <FilterIcon className="size-4" />
+              <Button variant="outline" size="icon">
+                <FilterIcon />
               </Button>
             </PopoverTrigger>
             <PopoverContent align="start" side="right">
@@ -952,11 +955,12 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
                   <div className="grid grid-cols-3 items-center gap-4">
                     <FormLabel htmlFor="sort">Trier par</FormLabel>
                     <Select
-                      className="col-span-2"
                       value={form.data.sort}
                       onValueChange={(value) => form.setData('sort', value)}
                     >
-                      <SelectTrigger id="sort" className="h-8" />
+                      <SelectTrigger id="sort" className="h-8 w-full col-span-2">
+                        <SelectValue />
+                      </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           {sortOptions.map((option) => (
@@ -998,17 +1002,17 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
                 {data.map((entry) => (
                   <TableRow key={entry.createdAt}>
                     <TableCell className="flex items-center gap-2">
-                      <Avatar.Root>
-                        <Avatar.Image
+                      <Avatar>
+                        <AvatarImage
                           src={getMinecraftItemUrl(`${entry.item.name}:${entry.item.meta}`)}
                           alt={entry.name}
                           style={{ imageRendering: 'pixelated' }}
                           className="rounded-[inherit] h-8 w-auto object-contain"
                         />
-                        <Avatar.Fallback className="dark:bg-inherit bg-inherit">
+                        <AvatarFallback className="dark:bg-inherit bg-inherit">
                           <QuestionIcon className="size-4" />
-                        </Avatar.Fallback>
-                      </Avatar.Root>
+                        </AvatarFallback>
+                      </Avatar>
                       <div className="space-y-1.5">
                         <p className="text-xs font-pixel truncate">
                           {removeColorCodes(entry.name)}
@@ -1028,37 +1032,29 @@ const MarketSection = ({ player, ...props }: MarketSectionProps) => {
                     <TableCell>
                       <div className="flex flex-row flex-wrap justify-end gap-1">
                         {entry.pricePb !== 0 && (
-                          <TooltipProvider delayDuration={0}>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Badge
-                                  className="text-xs font-pixel min-w-20 justify-between"
-                                  before={<MarketPbIcon className="w-4" />}
-                                >
-                                  {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
-                                </Badge>
-                              </TooltipTrigger>
-                              <TooltipContent side="bottom">
-                                {formatNumber(entry.pricePb, { notation: 'standard' })} PB
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        )}
-                        <TooltipProvider delayDuration={0}>
-                          <Tooltip>
+                          <Tooltip delayDuration={0}>
                             <TooltipTrigger asChild>
-                              <Badge
-                                className="text-xs font-pixel min-w-20 justify-between"
-                                before={<MarketMoneyIcon className="w-4" />}
-                              >
-                                {formatNumber(entry.price, { roundingMode: 'floor' })}
+                              <Badge className="text-xs font-pixel min-w-20 justify-between">
+                                <MarketPbIcon className="w-4" />
+                                {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
                               </Badge>
                             </TooltipTrigger>
                             <TooltipContent side="bottom">
-                              {formatPrice(entry.price, { notation: 'standard' })}
+                              {formatNumber(entry.pricePb, { notation: 'standard' })} PB
                             </TooltipContent>
                           </Tooltip>
-                        </TooltipProvider>
+                        )}
+                        <Tooltip delayDuration={0}>
+                          <TooltipTrigger asChild>
+                            <Badge className="text-xs font-pixel min-w-20 justify-between">
+                              <MarketMoneyIcon className="w-4" />
+                              {formatNumber(entry.price, { roundingMode: 'floor' })}
+                            </Badge>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom">
+                            {formatPrice(entry.price, { notation: 'standard' })}
+                          </TooltipContent>
+                        </Tooltip>
                       </div>
                     </TableCell>
                   </TableRow>

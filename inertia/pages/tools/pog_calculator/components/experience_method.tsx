@@ -13,12 +13,12 @@ interface ExperienceMethodProps {
   target?: boolean
 }
 
-const ExperienceMethod = ({ item, os, target = false }: ExperienceMethodProps) => {
+export function ExperienceMethod({ item, os, target = false }: ExperienceMethodProps) {
   const unlocked = item.os[os].current
 
   return (
     <Card
-      className="bg-transparent data-[target=true]:border-0 data-[target=true]:outline data-[target=true]:outline-2 data-[target=true]:outline-primary"
+      className="bg-transparent data-[target=true]:border-0 data-[target=true]:outline-2 data-[target=true]:outline-primary"
       data-target={target}
     >
       <CardContent className="p-2 relative flex flex-row items-center gap-2">
@@ -36,7 +36,7 @@ const ExperienceMethod = ({ item, os, target = false }: ExperienceMethodProps) =
           )}
         </div>
         <div>
-          <p className="uppercase text-surface-400 text-xxs text-right">
+          <p className="uppercase text-muted-foreground text-xxs text-right">
             Break - {formatNumber(item.xp, { notation: 'standard' })} xp
           </p>
           <div className="flex items-center gap-1 justify-end text-xxs">
@@ -44,7 +44,7 @@ const ExperienceMethod = ({ item, os, target = false }: ExperienceMethodProps) =
             <span
               className={cn(
                 'uppercase font-bold text-right',
-                unlocked ? 'text-wg-green' : 'text-destructive'
+                unlocked ? 'text-emerald-500' : 'text-destructive'
               )}
             >
               {unlocked ? `Niveau ${item.os[os].from}` : `A partir du niveau ${item.os[os].from}`}
@@ -55,5 +55,3 @@ const ExperienceMethod = ({ item, os, target = false }: ExperienceMethodProps) =
     </Card>
   )
 }
-
-export { ExperienceMethod }

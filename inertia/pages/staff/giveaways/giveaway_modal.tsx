@@ -1,10 +1,10 @@
 import { useForm } from '@inertiajs/react'
-import { Button, Checkbox } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
+import { Button } from '~/components/ui/button'
 import { DateTimeInput } from '~/components/ui/datetime_input'
 import {
   Dialog,
@@ -13,9 +13,10 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { TagsInput } from '~/components/ui/tags_input'
 import { DateTime } from '~/lib/luxon'
+import { Checkbox } from '~/components/ui/checkbox'
 
 type Giveaway = Infer<typeof giveawayValidator>
 
@@ -127,15 +128,14 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
             </FormItem>
             {giveaway && (
               <FormItem>
-                <Checkbox.Root className="items-center text-sm" asChild>
-                  <label>
-                    <Checkbox.Item
-                      onCheckedChange={(checked) => form.setData('active', Boolean(checked))}
-                      checked={form.data.active}
-                    />
-                    <span>Définir comme giveaway actif</span>
-                  </label>
-                </Checkbox.Root>
+                <div className="inline-flex items-center gap-2">
+                  <Checkbox
+                    id="active"
+                    onCheckedChange={(checked) => form.setData('active', Boolean(checked))}
+                    checked={form.data.active}
+                  />
+                  <label htmlFor="active">Définir comme giveaway actif</label>
+                </div>
                 <FormMessage message={form.errors.active} />
               </FormItem>
             )}

@@ -1,5 +1,4 @@
 import { Link } from '@inertiajs/react'
-import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import {
   ArrowDownAZ,
   ArrowDownUpIcon,
@@ -11,7 +10,14 @@ import {
 import { useMemo, useState } from 'react'
 
 import FactionAlliance from '~/components/shared/faction_alliance'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '~/components/ui/dropdown_menu'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { getHeadUrl } from '~/lib/minecraft'
@@ -23,7 +29,7 @@ type FactionDetailsProps = {
   faction: NonNullable<FactionShowProps['faction']>
 }
 
-export const FactionDetails = ({ faction }: FactionDetailsProps) => {
+export function FactionDetails({ faction }: FactionDetailsProps) {
   const [sort, setSort] = useState<'alpha' | 'desc' | 'asc' | 'rang'>('asc')
 
   const sortOptions = [
@@ -60,12 +66,13 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
       }
     })
   }, [sort, faction.players])
+
   return (
     <div className="flex flex-col gap-4">
       <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
-        <Card className="flex flex-col lg:row-span-2">
-          <CardHeader className="border-b">
-            <CardTitle className="text-center font-pixel">{faction.name}</CardTitle>
+        <Card className="pt-2 lg:row-span-2">
+          <CardHeader className="border-b justify-center pb-2!">
+            <CardTitle>{faction.bgName}</CardTitle>
           </CardHeader>
           <CardContent className="pt-4 flex-1 flex justify-center">
             <img
@@ -75,8 +82,8 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             />
           </CardContent>
         </Card>
-        <Card id="informations" className="flex flex-col lg:col-span-2">
-          <CardHeader className="border-b">
+        <Card id="informations" className="pt-2 lg:col-span-2">
+          <CardHeader className="border-b pb-2!">
             <CardTitle href="#informations">Informations</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pt-4">
@@ -101,8 +108,8 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
             </ul>
           </CardContent>
         </Card>
-        <Card id="description" className="flex flex-col lg:col-span-2">
-          <CardHeader className="border-b">
+        <Card id="description" className="pt-2 lg:col-span-2">
+          <CardHeader className="border-b pb-2!">
             <CardTitle href="#description">Description</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pt-4">
@@ -110,31 +117,29 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
           </CardContent>
         </Card>
       </div>
-      <Card id="membres">
-        <CardHeader className="border-b flex flex-row items-center justify-between py-2">
+      <Card id="membres" className="pt-2">
+        <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
           <CardTitle href="#membres">Membres</CardTitle>
           <DropdownMenu>
-            <DropdownMenu.Trigger asChild>
+            <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="m-0! w-50 flex items-center justify-between group"
+                className="w-50 flex items-center justify-between group"
                 size="sm"
-                before={<ArrowDownUpIcon className="size-4" />}
-                after={
-                  <ChevronDown className="size-4 transition-transform group-data-[state=open]:rotate-180" />
-                }
               >
+                <ArrowDownUpIcon />
                 <span>{sortOptions.find((option) => option.value === sort)?.label}</span>
+                <ChevronDown className="transition-transform group-data-[state=open]:rotate-180" />
               </Button>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content align="start">
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-(--radix-dropdown-menu-trigger-width)">
               {unselectedSortOptions.map((option) => (
-                <DropdownMenu.Item key={option.value} onClick={() => setSort(option.value)}>
-                  <option.icon className="size-4 mr-2" />
+                <DropdownMenuItem key={option.value} onClick={() => setSort(option.value)}>
+                  <option.icon />
                   {option.label}
-                </DropdownMenu.Item>
+                </DropdownMenuItem>
               ))}
-            </DropdownMenu.Content>
+            </DropdownMenuContent>
           </DropdownMenu>
         </CardHeader>
         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
@@ -147,7 +152,7 @@ export const FactionDetails = ({ faction }: FactionDetailsProps) => {
   )
 }
 
-const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['players'][number] }) => {
+function MemberCard({ player }: { player: FactionDetailsProps['faction']['players'][number] }) {
   const isLeader = player.group.toLowerCase().includes('leader')
   return (
     <Link href={`/players/${player.username}`}>
@@ -158,17 +163,17 @@ const MemberCard = ({ player }: { player: FactionDetailsProps['faction']['player
           className="object-contain h-full w-auto"
         />
         <div className="flex flex-col justify-between gap-2">
-          <p className="font-pixel text-sm">{player.username}</p>
+          <p className="font-bold">{player.username}</p>
           <p className={cn('font-mc-dungueons text-xs', isLeader && 'text-primary')}>
             {player.group}
           </p>
           {!isLeader ? (
-            <p className="dark:text-surface-200 text-md">
+            <p className="text-muted-foreground text-md">
               Membre depuis: {formatDate(new Date(player.joinedAt), DateTime.DATE_MED)}
             </p>
           ) : (
             <p>
-              <span className="dark:text-surface-200 text-md">Membre depuis la création</span>
+              <span className="text-muted-foreground text-md">Membre depuis la création</span>
             </p>
           )}
         </div>

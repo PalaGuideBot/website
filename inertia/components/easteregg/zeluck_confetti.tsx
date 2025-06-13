@@ -1,5 +1,6 @@
 import confetti from 'canvas-confetti'
-import { Button } from '@lemonsqueezy/wedges'
+
+import { Button } from '~/components/ui/button'
 
 export function ZeluckConfetti() {
   const CanonConfetti = () => {
@@ -36,7 +37,7 @@ export function ZeluckConfetti() {
     <Button
       variant="link"
       size="sm"
-      className="text-xs text-primary no-underline cursor-default [&>span]:p-0"
+      className="h-auto p-0 text-xs text-primary hover:no-underline cursor-default"
       onClick={CanonConfetti}
     >
       Zeluck

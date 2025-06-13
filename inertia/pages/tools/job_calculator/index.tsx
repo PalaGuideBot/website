@@ -1,16 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { useForm, usePage } from '@inertiajs/react'
-import {
-  Button,
-  Loading,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectIcon,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
@@ -25,7 +14,7 @@ import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { smallIcons } from '~/content/jobs'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { client } from '~/lib/client'
@@ -33,6 +22,16 @@ import { trackEvent } from '~/lib/umami'
 import { cn } from '~/lib/utils'
 import { CalculatorResult } from './components/calculator_result'
 import { JobLevelControls } from './components/job_level_controls'
+import { Button } from '~/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select'
+import { Spinner } from '~/components/ui/spinner'
 
 const jobs = [
   {
@@ -144,28 +143,24 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
             <Button
               className={cn('opacity-0', form.isDirty && 'opacity-100')}
               variant="outline"
-              size="sm"
-              isIconOnly
+              size="icon"
               onClick={() => form.reset()}
             >
-              <Trash2Icon className="size-4" />
+              <Trash2Icon />
             </Button>
           </div>
-          <Card>
-            <CardContent className="pt-4">
+          <Card className="gap-4">
+            <CardContent>
               <form id="fill-job" onSubmit={onSubmitFillJob} />
-              <form id="calculator" className="space-y-1.5" onSubmit={onSubmit}>
+              <form id="calculator" className="space-y-4" onSubmit={onSubmit}>
                 <FormItem>
                   <FormLabel htmlFor="job">Métier</FormLabel>
                   <Select
-                    id="job"
-                    name="job"
                     value={form.data.job}
                     onValueChange={(value) => form.setData('job', value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full" id="job" name="job">
                       <SelectValue placeholder="Choissisez un métier" />
-                      <SelectIcon />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -189,7 +184,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                         initial={{ y: -10, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -10, opacity: 0 }}
-                        className="space-y-1.5"
+                        className="space-y-4"
                       >
                         <FormItem>
                           <FormLabel>
@@ -209,7 +204,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             </Button>
                           </div>
                         </FormItem>
-                        <div className="flex flex-col xs:flex-row items-center justify-evenly gap-4">
+                        <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
                           <FormItem className="items-center">
                             <FormLabel>Niveau actuel</FormLabel>
                             <JobLevelControls
@@ -224,7 +219,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             />
                             <FormMessage message={errors?.['current-level']} />
                           </FormItem>
-                          <ArrowRightIcon className="rotate-90 xs:rotate-0 xs:mt-[32px] size-4" />
+                          <ArrowRightIcon className="rotate-90 sm:rotate-0 sm:mt-[32px] size-4" />
                           <FormItem className="items-center">
                             <FormLabel>Niveau cible</FormLabel>
                             <JobLevelControls
@@ -240,7 +235,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             <FormMessage message={errors?.['target-level']} />
                           </FormItem>
                         </div>
-                        <div className="grid xs:grid-cols-2 gap-4">
+                        <div className="grid sm:grid-cols-2 gap-4">
                           <FormItem>
                             <FormLabel>XP bonus</FormLabel>
                             <Input
@@ -258,7 +253,8 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                             <FormMessage message={errors?.['bonus-xp']} />
                           </FormItem>
                           <FormItem>
-                            <FormLabel tooltip="La valeur qui s'affiche lorsque vous passez votre souris sur un métier">
+                            <FormLabel /* tooltip="La valeur qui s'affiche lorsque vous passez votre souris sur un métier" */
+                            >
                               XP actuelle (facultatif)
                             </FormLabel>
                             <Input
@@ -285,16 +281,10 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
               <Button
                 form="calculator"
                 disabled={Boolean(form.processing)}
-                before={
-                  form.processing ? (
-                    <Loading className="size-4" />
-                  ) : (
-                    <CalculatorIcon className="size-4" />
-                  )
-                }
                 type="submit"
                 variant="secondary"
               >
+                {form.processing ? <Spinner className="size-4" /> : <CalculatorIcon />}
                 Calculer
               </Button>
             </CardFooter>

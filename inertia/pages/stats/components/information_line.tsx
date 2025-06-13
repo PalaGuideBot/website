@@ -1,17 +1,17 @@
-import { ArrowRightIcon } from '~/components/icons'
 import React from 'react'
+import { ChevronsRightIcon } from 'lucide-react'
 
-const InformationLine = ({
+export function InformationLine({
   label,
   value,
 }: {
   label: string
   value: string | number | React.ReactNode
-}) => {
+}) {
   return (
     <div className="flex gap-2 items-center">
-      <span className="font-pixel text-pretty">{label}</span>
-      <ArrowRightIcon className="w-2 invert dark:invert-0" />
+      <span className="dark:text-shadow-[0px_1px_2px_black] font-pixel text-pretty">{label}</span>
+      <ChevronsRightIcon className="h-4" />
       {typeof value === 'string' || typeof value === 'number' ? (
         <span className="text-xs sm:text-sm font-mc-dungueons">{value}</span>
       ) : (
@@ -20,5 +20,3 @@ const InformationLine = ({
     </div>
   )
 }
-
-export { InformationLine }

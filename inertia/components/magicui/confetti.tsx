@@ -1,4 +1,3 @@
-import { Button, ButtonProps } from '@lemonsqueezy/wedges'
 import type {
   GlobalOptions as ConfettiGlobalOptions,
   CreateTypes as ConfettiInstance,
@@ -15,6 +14,8 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
+
+import { Button } from '~/components/ui/button'
 
 type Api = {
   fire: (options?: ConfettiOptions) => void
@@ -89,7 +90,7 @@ const Confetti = forwardRef<ConfettiRef, Props>((props, ref) => {
   )
 })
 
-interface ConfettiButtonProps extends ButtonProps {
+interface ConfettiButtonProps extends React.ComponentProps<typeof Button> {
   options?: ConfettiOptions & ConfettiGlobalOptions & { canvas?: HTMLCanvasElement }
   children?: React.ReactNode
 }

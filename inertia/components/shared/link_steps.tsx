@@ -1,9 +1,10 @@
 import { router } from '@inertiajs/react'
-import { Badge, Button } from '@lemonsqueezy/wedges'
 
 import Step1Image from '~/assets/images/link-steps/step-1.png'
 import Step2Image from '~/assets/images/link-steps/step-2.png'
 import Step3Image from '~/assets/images/link-steps/step-3.png'
+import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 
@@ -20,7 +21,7 @@ const Step1 = () => {
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
         <p className="text-sm">Rejoignez notre serveur (+1.8):</p>
         <p>
-          <Badge className="w-fit px-1.5" stroke>
+          <Badge stroke className="w-fit px-1.5">
             {SERVER_IP}
           </Badge>
           <Button variant="link" onClick={() => copy(SERVER_IP)}>
@@ -46,7 +47,7 @@ const Step2 = () => {
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
         <p className="text-sm">
           Tapez la commande{' '}
-          <Badge className="w-fit px-1.5" stroke>
+          <Badge stroke className="w-fit px-1.5">
             /link
           </Badge>{' '}
           avec votre code.
@@ -84,7 +85,7 @@ const Step3 = () => {
   )
 }
 
-const LinkSteps = () => {
+export function LinkSteps() {
   const steps = [Step1, Step2, Step3]
 
   return (
@@ -95,5 +96,3 @@ const LinkSteps = () => {
     </div>
   )
 }
-
-export { LinkSteps }

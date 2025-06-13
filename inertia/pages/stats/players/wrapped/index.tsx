@@ -1,6 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
 import { useState } from 'react'
@@ -16,6 +15,7 @@ import ThemeToggler from '~/components/shared/theme_toggler'
 import ReactSkinview3d from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { icons as jobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
@@ -96,7 +96,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         />
       </motion.div>
       <motion.p
-        className="text-surface-300"
+        className="text-muted-foreground"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -510,15 +510,15 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2 }}
       >
-        <Button
-          variant="tertiary"
-          before={<RefreshCcwIcon className="size-4" />}
-          onClick={replaySlide}
-        >
+        <Button variant="tertiary" onClick={replaySlide}>
+          <RefreshCcwIcon />
           Recommencer
         </Button>
-        <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
-          <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
+        <Button variant="tertiary" asChild>
+          <Link href={`/wrapped/${player.username}/end`}>
+            <PlayCircleIcon />
+            Continuer
+          </Link>
         </Button>
       </motion.div>
     </motion.div>,

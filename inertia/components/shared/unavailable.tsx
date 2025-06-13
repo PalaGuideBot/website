@@ -1,12 +1,12 @@
-import { Alert } from '@lemonsqueezy/wedges'
+import { Alert, AlertDescription } from '~/components/ui/alert'
 
-const Unavailable = () => {
+export function Unavailable() {
   return (
-    <Alert color="error" variant="expanded" closable>
-      L'information est actuellement indisponible via l'API de Paladium. Si vous avez des questions,
-      n'hésitez pas à nous les poser sur Discord.
+    <Alert variant="destructive">
+      <AlertDescription>
+        L'information est actuellement indisponible via l'API de Paladium. Si vous avez des
+        questions, n'hésitez pas à nous les poser sur Discord.
+      </AlertDescription>
     </Alert>
   )
 }
-
-export { Unavailable }

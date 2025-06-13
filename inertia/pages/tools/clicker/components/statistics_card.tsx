@@ -14,8 +14,8 @@ const StatisticsCard = ({}: StatisticsCardProps) => {
   const totalSpent = playerClickerStore.getTotalSpent(calculator)
 
   return (
-    <Card>
-      <CardHeader className="border-b p-2.5">
+    <Card className="pb-0">
+      <CardHeader className="border-b">
         <CardTitle>Statistiques</CardTitle>
       </CardHeader>
       <CardContent className="text-sm p-2 space-y-4">

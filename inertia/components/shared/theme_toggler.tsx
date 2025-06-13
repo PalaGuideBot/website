@@ -1,6 +1,7 @@
-import { Button } from '@lemonsqueezy/wedges'
-import { useTheme } from '~/components/theme_provider'
 import { MoonIcon, SunIcon } from 'lucide-react'
+
+import { useTheme } from '~/components/theme_provider'
+import { Button } from '~/components/ui/button'
 
 const ThemeToggler = (
   props: Omit<React.ComponentPropsWithoutRef<typeof Button>, 'onClick' | 'children'>
@@ -9,14 +10,14 @@ const ThemeToggler = (
 
   return (
     <Button
-      variant="transparent"
-      isIconOnly
+      variant="ghost"
+      size="icon"
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       type="button"
       aria-label="Toggle theme"
       {...props}
     >
-      {theme === 'light' ? <SunIcon className="size-4" /> : <MoonIcon className="size-4" />}
+      {theme === 'light' ? <SunIcon /> : <MoonIcon />}
     </Button>
   )
 }

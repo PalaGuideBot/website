@@ -1,13 +1,4 @@
 import { useForm } from '@inertiajs/react'
-import {
-  Alert,
-  Button,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-} from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
 import { SearchIcon, Trash2Icon } from 'lucide-react'
 import { useMemo } from 'react'
@@ -16,8 +7,17 @@ import type {
   calculatorOptionsValidator,
   calculatorResultValidator,
 } from '#tools/validators/pog_validator'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+} from '~/components/ui/select'
 import { getMinecraftItemUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
 import { ExperienceMethod } from './experience_method'
@@ -27,7 +27,7 @@ interface CalculatorResultProps {
   result: Infer<typeof calculatorResultValidator>
 }
 
-const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
+export function CalculatorResult({ options, result }: CalculatorResultProps) {
   const form = useForm({
     search: '',
     selectedMethod: 'default',
@@ -109,7 +109,9 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
           .
         </p>
         {options.currentLevel >= result.item.os[form.data.selectedMethod as 'default'].from && (
-          <Alert color="success">Vous pouvez déjà one-shot ce bloc.</Alert>
+          <Alert variant="success">
+            <AlertDescription>Vous pouvez déjà one-shot ce bloc.</AlertDescription>
+          </Alert>
         )}
         <h3 className="text-center text-2xl uppercase font-bold py-4">Aperçu</h3>
         <div className="flex flex-row items-center justify-evenly gap-2 pb-2">
@@ -136,7 +138,7 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
           <div className="relative col-span-1 sm:col-span-2">
-            <SearchIcon className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 text-surface-400" />
+            <SearchIcon className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               placeholder="Recherche..."
               className="pl-[28px] bg-transparent w-full h-10"
@@ -147,11 +149,10 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
           <div className="col-span-1 sm:col-span-2">
             <div className="flex flex-row gap-2">
               <Select
-                className="w-full"
                 value={form.data.selectedMethod}
                 onValueChange={(value) => form.setData('selectedMethod', value)}
               >
-                <SelectTrigger />
+                <SelectTrigger className="w-full" />
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="default">Par défaut</SelectItem>
@@ -167,9 +168,9 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
                 disabled={!form.isDirty}
                 onClick={() => form.reset()}
                 variant="outline"
-                isIconOnly
+                size="icon"
               >
-                <Trash2Icon className="size-4" />
+                <Trash2Icon />
               </Button>
             </div>
           </div>
@@ -185,7 +186,7 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
               />
             ))}
           {items.length === 0 && (
-            <p className="col-span-2 text-center text-surface-400">
+            <p className="col-span-2 text-center text-muted-foreground">
               Aucun résultat trouvé pour la recherche{' '}
               <span className="font-bold">{form.data.search}</span>.
             </p>
@@ -199,5 +200,3 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
 function getPogTierUrl(tier: number) {
   return `https://image.palaguidebot.fr/pog/${tier}.webp`
 }
-
-export { CalculatorResult }

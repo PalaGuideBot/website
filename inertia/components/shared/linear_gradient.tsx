@@ -4,7 +4,7 @@ type LinearGradientProps = {
   to?: string
 }
 
-const LinearGradient = ({ id, from, to = 'hsl(var(--wg-background))' }: LinearGradientProps) => {
+const LinearGradient = ({ id, from, to = 'var(--background)' }: LinearGradientProps) => {
   return (
     <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
       <stop offset="20%" stopColor={from} stopOpacity={0.5} />

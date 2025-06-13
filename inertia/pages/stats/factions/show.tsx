@@ -36,7 +36,7 @@ export default function FactionShow(props: FactionShowProps) {
           <PageTitle>Statistiques faction</PageTitle>
           <SearchFactionForm defaultValue={faction?.bgName ?? faction?.name} />
           {!error && !faction && (
-            <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
+            <div className="flex flex-col gap-2 [&>p]:text-sm sm:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>
               <p>
                 Pour commencer à voir les statistiques, tapez le nom d'une faction sur la barre de

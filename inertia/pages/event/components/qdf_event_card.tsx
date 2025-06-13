@@ -13,27 +13,27 @@ import {
   CardTitle,
 } from '~/components/ui/card'
 import { useDateCountdown } from '~/hooks/use_date_countdown'
-import { formatNumber, formatPrice } from '~/lib/utils'
+import { cn, formatNumber, formatPrice } from '~/lib/utils'
 
 interface QDFEventCardProps extends React.ComponentProps<typeof Card> {
   event: Infer<typeof eventFactionQuestValidator>
 }
 
-const QDFEventCard = ({ event, ...props }: QDFEventCardProps) => {
+const QDFEventCard = ({ event, className, ...props }: QDFEventCardProps) => {
   const [countdown] = useDateCountdown({
     countStart: event.start * 1000,
     countStop: event.end * 1000,
   })
 
   return (
-    <Card {...props}>
-      <CardHeader className="border-b">
+    <Card className={cn('gap-4', className)} {...props}>
+      <CardHeader className="flex-col border-b">
         <CardTitle>Quête de faction</CardTitle>
         <CardDescription>
           Effectuez la quête en jeu pour que votre faction reçoive les récompenses ci-dessous.
         </CardDescription>
       </CardHeader>
-      <CardContent className="pt-4 flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
+      <CardContent className="flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex items-center justify-center size-24 rounded-full bg-primary-500/20">
             {!event.image && <QuestionIcon className="size-6 invert dark:invert-0" />}
@@ -50,14 +50,14 @@ const QDFEventCard = ({ event, ...props }: QDFEventCardProps) => {
         </div>
         <div className="flex items-center space-x-2">
           <HourglassIcon className="size-6 text-primary-300" />
-          <span className="text-lg xs:text-2xl font-bold tabular-nums" suppressHydrationWarning>
+          <span className="text-lg sm:text-2xl font-bold tabular-nums" suppressHydrationWarning>
             {countdown}
           </span>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-evenly items-center gap-4 pt-4 border-t">
+      <CardFooter className="flex justify-evenly items-center gap-4 border-t">
         <div className="flex items-center space-x-2">
-          <MoneyIcon className="size-6 text-wg-green" />
+          <MoneyIcon className="size-6 text-emerald-500" />
           <span className="text-sm font-mc-dungueons">
             +{formatPrice(event.earningMoney, { notation: 'compact' })}
           </span>

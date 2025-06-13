@@ -1,9 +1,9 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import shibaImage from '~/assets/images/shiba.png'
+import { Button } from '~/components/ui/button'
 
 interface ShibaProps {
   id: number
@@ -11,7 +11,7 @@ interface ShibaProps {
   direction: 'top' | 'right' | 'bottom' | 'left'
 }
 
-const Shiba = ({ id, position, direction }: ShibaProps) => {
+function Shiba({ id, position, direction }: ShibaProps) {
   const getRotation = () => {
     switch (direction) {
       case 'top':
@@ -71,7 +71,7 @@ const Shiba = ({ id, position, direction }: ShibaProps) => {
   )
 }
 
-const ShibaInfestation = () => {
+export function ShibaInfestation() {
   const [shiba, setShiba] = useState<ShibaProps | null>(null)
   const timerRef = useRef<number | null>(null)
 
@@ -119,7 +119,7 @@ const ShibaInfestation = () => {
       <Button
         variant="link"
         size="sm"
-        className="text-xs text-primary no-underline cursor-default [&>span]:p-0"
+        className="h-auto p-0 text-xs text-primary hover:no-underline cursor-default"
         onClick={createShiba}
       >
         Tonykun
@@ -132,5 +132,3 @@ const ShibaInfestation = () => {
     </>
   )
 }
-
-export { ShibaInfestation }

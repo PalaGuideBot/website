@@ -1,10 +1,10 @@
 import { useForm } from '@inertiajs/react'
-import { Button, Textarea } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { userRoleValidator } from '#staff/validators/user_validator'
+import { Button } from '~/components/ui/button'
 import {
   Dialog,
   DialogContentWithoutOverlay,
@@ -12,7 +12,8 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
+import { Textarea } from '~/components/ui/textarea'
 
 type Role = Infer<typeof userRoleValidator>
 
@@ -21,7 +22,7 @@ interface RoleModalProps {
   role?: Role
 }
 
-const RoleModal = ({ children, role }: RoleModalProps) => {
+export function RoleModal({ children, role }: RoleModalProps) {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const form = useForm(
@@ -131,5 +132,3 @@ const RoleModal = ({ children, role }: RoleModalProps) => {
     </Dialog>
   )
 }
-
-export { RoleModal }

@@ -1,14 +1,14 @@
 import { router } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
-import { SearchIcon } from 'lucide-react'
+import { ArrowRightIcon, SearchIcon } from 'lucide-react'
 import { FormEvent, useState } from 'react'
-import Input from '~/components/ui/input'
+
+import { Input } from '~/components/ui/input'
 
 type SearchFactionFormProps = {
   defaultValue?: string
 }
 
-const SearchFactionForm = ({ defaultValue }: SearchFactionFormProps) => {
+export function SearchFactionForm({ defaultValue }: SearchFactionFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -23,20 +23,25 @@ const SearchFactionForm = ({ defaultValue }: SearchFactionFormProps) => {
   }
   return (
     <form onSubmit={onSubmit}>
-      <div className="flex">
+      <div className="relative">
         <Input
-          className="rounded-r-none w-full"
+          className="peer ps-9 pe-9"
           placeholder="Nom"
           name="name"
           defaultValue={defaultValue}
           disabled={isLoading}
         />
-        <Button variant="tertiary" className="rounded-l-none w-12" disabled={isLoading} isIconOnly>
-          <SearchIcon className="size-4" />
-        </Button>
+        <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+          <SearchIcon size={16} />
+        </div>
+        <button
+          className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label="Submit search"
+          type="submit"
+        >
+          <ArrowRightIcon size={16} aria-hidden="true" />
+        </button>
       </div>
     </form>
   )
 }
-
-export { SearchFactionForm }

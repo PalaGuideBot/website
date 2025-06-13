@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react'
-import { Alert, Button } from '@lemonsqueezy/wedges'
 
 import { DiscordIcon } from '~/components/icons'
 import { Head } from '~/components/shared/head'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { useSearchParams } from '~/hooks/use_search_params'
 
@@ -20,7 +21,11 @@ export default function LoginPage() {
           <span className="text-xl font-bold">PalaGuideBot</span>
         </div>
         <div className="flex flex-col gap-2 max-w-96">
-          {code && <Alert color="error">{translateCode(code)}</Alert>}
+          {code && (
+            <Alert variant="destructive">
+              <AlertDescription>{translateCode(code)}</AlertDescription>
+            </Alert>
+          )}
           <Card className="bg-background">
             <CardHeader className="border-b">
               <CardTitle>Connexion</CardTitle>
@@ -38,13 +43,11 @@ export default function LoginPage() {
                 .
               </p>
               <div className="flex flex-col gap-2 justify-center">
-                <Button
-                  before={<DiscordIcon className="mr-1 size-5" />}
-                  className="p-2"
-                  variant="outline"
-                  asChild
-                >
-                  <a href="/auth/redirect">Se connecter</a>
+                <Button className="p-2" variant="outline" asChild>
+                  <a href="/auth/redirect">
+                    <DiscordIcon className="mr-1 size-5" />
+                    Se connecter
+                  </a>
                 </Button>
                 <Button variant="link" asChild>
                   <Link href="/">Retour à l'accueil</Link>

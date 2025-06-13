@@ -1,5 +1,4 @@
 import { Link, router } from '@inertiajs/react'
-import { Avatar, DropdownMenu } from '@lemonsqueezy/wedges'
 import {
   ChevronsUpDownIcon,
   HomeIcon,
@@ -11,15 +10,27 @@ import {
 } from 'lucide-react'
 
 import { useTheme } from '~/components/theme_provider'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import {
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '~/components/ui/dropdown_menu'
 import { useAuth } from '~/hooks/use_auth'
 
-const UserDropdownTrigger = ({ user }: { user: NonNullable<ReturnType<typeof useAuth>> }) => {
+interface UserDropdownTriggerProps {
+  user: NonNullable<ReturnType<typeof useAuth>>
+}
+
+export function UserDropdownTrigger({ user }: UserDropdownTriggerProps) {
   return (
     <>
-      <Avatar.Root className="h-6 md:h-8 min-w-6 md:min-w-8">
-        <Avatar.Image className="rounded-lg" src={user.avatarUrl} alt={user.globalName} />
-        <Avatar.Fallback className="rounded-lg">UN</Avatar.Fallback>
-      </Avatar.Root>
+      <Avatar className="h-6 md:h-8 min-w-6 md:min-w-8 rounded-lg">
+        <AvatarImage src={user.avatarUrl} alt={user.globalName} />
+        <AvatarFallback>UN</AvatarFallback>
+      </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
         <span className="truncate font-semibold">{user.globalName}</span>
       </div>
@@ -28,60 +39,63 @@ const UserDropdownTrigger = ({ user }: { user: NonNullable<ReturnType<typeof use
   )
 }
 
-const UserDropdownContent = ({
-  user,
-  side,
-  align = 'end',
-}: {
+interface UserDropdownContentProps {
   user: NonNullable<ReturnType<typeof useAuth>>
-  side?: React.ComponentProps<typeof DropdownMenu.Content>['side']
-  align?: React.ComponentProps<typeof DropdownMenu.Content>['align']
-}) => {
+  side?: React.ComponentProps<typeof DropdownMenuContent>['side']
+  align?: React.ComponentProps<typeof DropdownMenuContent>['align']
+}
+
+export function UserDropdownContent({ user, side, align = 'end' }: UserDropdownContentProps) {
   const { theme, setTheme } = useTheme()
   return (
-    <DropdownMenu.Content align={align} side={side} className="min-w-[200px] z-1">
-      <DropdownMenu.Label className="normal-case text-normal font-normal">
+    <DropdownMenuContent
+      align={align}
+      side={side}
+      className="min-w-[200px] w-(--radix-popper-anchor-width)"
+    >
+      <DropdownMenuLabel className="text-normal font-normal">
         <div className="flex flex-col space-y-1">
           <p className="text-md font-bold leading-none">{user.globalName}</p>
           <p className="text-xs font-light">{user.nickName}</p>
         </div>
-      </DropdownMenu.Label>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Group>
-        <DropdownMenu.Item asChild>
+      </DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuGroup>
+        <DropdownMenuItem asChild>
           <Link href="/">
             <HomeIcon className="size-4" />
             <span>Retour à l'accueil</span>
           </Link>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item asChild>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href="/profile">
             <UserIcon className="size-4" />
             <span>Profil</span>
           </Link>
-        </DropdownMenu.Item>
+        </DropdownMenuItem>
         {user.staff === true && (
-          <DropdownMenu.Item asChild>
+          <DropdownMenuItem asChild>
             <Link href="/staff">
               <LockKeyholeIcon className="size-4" />
               <span>Staff</span>
             </Link>
-          </DropdownMenu.Item>
+          </DropdownMenuItem>
         )}
-        <DropdownMenu.Item onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        <DropdownMenuItem
+          onSelect={(event) => event.preventDefault()}
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
           {theme === 'light' ? <SunIcon className="size-4" /> : <MoonIcon className="size-4" />}
           <span>Thème: {theme === 'light' ? 'Clair' : 'Sombre'}</span>
-        </DropdownMenu.Item>
-      </DropdownMenu.Group>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Group>
-        <DropdownMenu.Item onClick={() => router.visit('/logout')}>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
+      <DropdownMenuSeparator />
+      <DropdownMenuGroup>
+        <DropdownMenuItem onClick={() => router.visit('/logout')}>
           <LogOutIcon className="size-4" />
           <span>Se déconnecter</span>
-        </DropdownMenu.Item>
-      </DropdownMenu.Group>
-    </DropdownMenu.Content>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
+    </DropdownMenuContent>
   )
 }
-
-export { UserDropdownContent, UserDropdownTrigger }

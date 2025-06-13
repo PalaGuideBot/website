@@ -1,17 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { useForm, usePage } from '@inertiajs/react'
-import {
-  Button,
-  Checkbox,
-  Loading,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectIcon,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@lemonsqueezy/wedges'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
 import { FormEvent, useRef } from 'react'
 
@@ -19,16 +7,27 @@ import type PogCalculatorController from '#tools/controller/pog_calculator_contr
 import DefaultLayout from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Checkbox } from '~/components/ui/checkbox'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select'
+import { Spinner } from '~/components/ui/spinner'
 import { useSearchParams } from '~/hooks/use_search_params'
 import { getMinecraftItemUrl } from '~/lib/minecraft'
+import { trackEvent } from '~/lib/umami'
 import { cn } from '~/lib/utils'
 import { BetaAlert } from './components/beta_alert'
 import { CalculatorResult } from './components/calculator_result'
 import { PogLevelControls } from './components/pog_level_controls'
-import { trackEvent } from '~/lib/umami'
 
 type PogCalculatorIndexProps = InferPageProps<PogCalculatorController, 'index'>
 
@@ -105,25 +104,23 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
             <Button
               className={cn('opacity-0', form.isDirty && 'opacity-100')}
               variant="outline"
-              size="sm"
-              isIconOnly
+              size="icon"
               onClick={() => form.reset()}
             >
-              <Trash2Icon className="size-4" />
+              <Trash2Icon />
             </Button>
           </div>
-          <Card>
-            <CardContent className="pt-4">
-              <form id="calculator" className="space-y-2" onSubmit={onSubmit}>
+          <Card className="gap-4">
+            <CardContent>
+              <form id="calculator" className="space-y-4" onSubmit={onSubmit}>
                 <FormItem>
-                  <FormLabel tooltip="Le bloc que vous voulez one-shot">Bloc</FormLabel>
+                  <FormLabel /* tooltip="Le bloc que vous voulez one-shot" */>Bloc</FormLabel>
                   <Select
                     value={form.data.block}
                     onValueChange={(value) => form.setData('block', value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Choissisez un bloc" />
-                      <SelectIcon />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -143,21 +140,22 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                   </Select>
                   <FormMessage message={errors?.block} />
                 </FormItem>
-                <Checkbox.Root className="items-center" asChild>
-                  <label>
-                    <Checkbox.Item
-                      onCheckedChange={(checked) => {
-                        form.setData('use-good-pickaxe', Boolean(checked))
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="use-good-pickaxe"
+                    onCheckedChange={(checked) => {
+                      form.setData('use-good-pickaxe', Boolean(checked))
 
-                        if (!checked) {
-                          form.setData('good-pickaxe-percentage', 0)
-                        }
-                      }}
-                      checked={form.data['use-good-pickaxe']}
-                    />
-                    <span className="text-sm">Utiliser la compétence "Bonne pioche" du pet ?</span>
+                      if (!checked) {
+                        form.setData('good-pickaxe-percentage', 0)
+                      }
+                    }}
+                    checked={form.data['use-good-pickaxe']}
+                  />
+                  <label htmlFor="use-good-pickaxe" className="text-sm">
+                    Utiliser la compétence "Bonne pioche" du pet ?
                   </label>
-                </Checkbox.Root>
+                </div>
                 {form.data['use-good-pickaxe'] && (
                   <FormItem>
                     <FormLabel htmlFor="good-pickaxe-percentage">
@@ -176,23 +174,22 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                     <FormMessage message={errors?.['good-pickaxe-percentage']} />
                   </FormItem>
                 )}
-                <Checkbox.Root className="items-center" asChild>
-                  <label>
-                    <Checkbox.Item
-                      onCheckedChange={(checked) => {
-                        form.setData('use-experienced-pickaxe', Boolean(checked))
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="use-experienced-pickaxe"
+                    onCheckedChange={(checked) => {
+                      form.setData('use-experienced-pickaxe', Boolean(checked))
 
-                        if (!checked) {
-                          form.setData('experienced-pickaxe-percentage', 0)
-                        }
-                      }}
-                      checked={form.data['use-experienced-pickaxe']}
-                    />
-                    <span className="text-sm">
-                      Utiliser la compétence "Pioche expérimentée" du pet ?
-                    </span>
+                      if (!checked) {
+                        form.setData('experienced-pickaxe-percentage', 0)
+                      }
+                    }}
+                    checked={form.data['use-experienced-pickaxe']}
+                  />
+                  <label htmlFor="use-experienced-pickaxe" className="text-sm">
+                    Utiliser la compétence "Pioche expérimentée" du pet ?
                   </label>
-                </Checkbox.Root>
+                </div>
                 {form.data['use-experienced-pickaxe'] && (
                   <FormItem>
                     <FormLabel htmlFor="experienced-pickaxe-percentage">
@@ -229,7 +226,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                   <FormItem className="grow">
                     <FormLabel
                       id="current-xp"
-                      tooltip="La valeur qui s'affiche lorsque vous passez la souris sur la pioche"
+                      /* tooltip="La valeur qui s'affiche lorsque vous passez la souris sur la pioche" */
                     >
                       XP actuelle (facultatif)
                     </FormLabel>
@@ -250,16 +247,10 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
               <Button
                 form="calculator"
                 disabled={Boolean(form.processing)}
-                before={
-                  form.processing ? (
-                    <Loading className="size-4" />
-                  ) : (
-                    <CalculatorIcon className="size-4" />
-                  )
-                }
                 type="submit"
                 variant="secondary"
               >
+                {form.processing ? <Spinner className="size-4" /> : <CalculatorIcon />}
                 Calculer
               </Button>
             </CardFooter>

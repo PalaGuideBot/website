@@ -22,7 +22,7 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
           </p>
         </div>
         <div>
-          <p className="uppercase text-surface-400 text-xxs text-right">
+          <p className="uppercase text-muted-foreground text-xxs text-right">
             {item.item.action} - {formatNumber(item.item.xp, { notation: 'standard' })} xp
           </p>
           <div className="flex items-center gap-1 justify-end text-xxs">
@@ -30,7 +30,7 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
             <span
               className={cn(
                 'uppercase font-bold text-right',
-                unlocked ? 'text-wg-green' : 'text-destructive'
+                unlocked ? 'text-emerald-500' : 'text-destructive'
               )}
             >
               Niveau {item.item.from}
