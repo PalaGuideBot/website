@@ -57,13 +57,13 @@ const StaffSidebar = ({ className, ...props }: React.ComponentProps<typeof Sideb
             target="_blank"
             className={sidebarMenuButtonVariants()}
           >
-            <span>Portainer</span>
+            <span>Dokploy</span>
             <ExternalLinkIcon className="size-4" />
           </a>
         </SidebarMenuItem>
         <SidebarMenuItem>
           <a
-            href="https://analytics.palaguidebot.fr"
+            href="https://umami.palaguidebot.fr"
             target="_blank"
             className={sidebarMenuButtonVariants()}
           >
