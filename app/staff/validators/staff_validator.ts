@@ -46,12 +46,17 @@ export const usageStatisticsValidator = vine.compile(
 export const createUserValidator = vine.compile(
   vine.object({
     discordId: vine.string(),
+    username: vine.string(),
+    avatarUrl: vine.string(),
     roles: vine.array(vine.string()),
   })
 )
 
 export const updateUserValidator = vine.compile(
   vine.object({
+    discordId: vine.string().optional(),
+    username: vine.string().optional(),
+    avatarUrl: vine.string().optional(),
     roles: vine.array(vine.string()),
   })
 )

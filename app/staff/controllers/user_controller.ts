@@ -18,14 +18,14 @@ export default class UserController {
 
   async create({ request, response }: HttpContext) {
     const payload = await request.validateUsing(createUserValidator)
-    await this.api.createUser(payload.discordId, payload.roles)
+    await this.api.createUser(payload)
 
     return response.redirect().back()
   }
 
   async update({ request, response, params }: HttpContext) {
     const payload = await request.validateUsing(updateUserValidator)
-    await this.api.updateUser(params.id, payload.roles)
+    await this.api.updateUser(params.id, payload)
 
     return response.redirect().back()
   }

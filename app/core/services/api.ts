@@ -394,10 +394,15 @@ export class ApiService {
     }
   }
 
-  async createUser(discordId: string, roles: string[] = []) {
+  async createUser(payload: {
+    discordId: string
+    username: string
+    avatarUrl: string
+    roles?: string[]
+  }) {
     try {
       const response = await client.post('users', {
-        body: JSON.stringify({ discordId, roles }),
+        body: JSON.stringify({ ...payload, roles: payload.roles || [] }),
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.json()
@@ -410,10 +415,17 @@ export class ApiService {
     }
   }
 
-  async updateUser(discordId: string, roles: string[] = []) {
+  async updateUser(
+    discordId: string,
+    payload: {
+      username?: string
+      avatarUrl?: string
+      roles?: string[]
+    }
+  ) {
     try {
       const response = await client.put(`users/${discordId}`, {
-        body: JSON.stringify({ roles }),
+        body: JSON.stringify({ ...payload, roles: payload.roles || [] }),
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.json()
