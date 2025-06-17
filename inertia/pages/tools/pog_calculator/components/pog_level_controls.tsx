@@ -68,7 +68,7 @@ export function PogLevelControls({
         ref={ref}
         autoComplete="none"
         inputMode="numeric"
-        className="bg-transparent px-1 max-w-12 text-xl text-center font-bold"
+        className="bg-transparent px-1 max-w-12 text-center font-bold"
         onBlur={() => {
           if (!maskValue) {
             setMaskValue(String(level))

@@ -18,10 +18,10 @@ export function ExperienceMethod({ item, os, target = false }: ExperienceMethodP
 
   return (
     <Card
-      className="bg-transparent data-[target=true]:border-0 data-[target=true]:outline-2 data-[target=true]:outline-primary"
+      className="py-2 bg-transparent data-[target=true]:border-0 data-[target=true]:outline-2 data-[target=true]:outline-primary"
       data-target={target}
     >
-      <CardContent className="p-2 relative flex flex-row items-center gap-2">
+      <CardContent className="px-2 relative flex flex-row items-center gap-2">
         <img
           className="w-10 h-10 object-contain"
           style={{ imageRendering: 'pixelated' }}
@@ -36,15 +36,15 @@ export function ExperienceMethod({ item, os, target = false }: ExperienceMethodP
           )}
         </div>
         <div>
-          <p className="uppercase text-muted-foreground text-xxs text-right">
+          <p className="uppercase text-muted-foreground text-[10px] text-right">
             Break - {formatNumber(item.xp, { notation: 'standard' })} xp
           </p>
-          <div className="flex items-center gap-1 justify-end text-xxs">
+          <div className="flex items-center gap-1 justify-end text-[10px]">
             <span className="uppercase font-semibold">OS - </span>
             <span
               className={cn(
                 'uppercase font-bold text-right',
-                unlocked ? 'text-emerald-500' : 'text-destructive'
+                unlocked ? 'text-emerald-500' : 'text-red-500'
               )}
             >
               {unlocked ? `Niveau ${item.os[os].from}` : `A partir du niveau ${item.os[os].from}`}

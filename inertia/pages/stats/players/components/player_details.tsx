@@ -499,7 +499,7 @@ const JobsEvolutionSection = ({ player, className, ...props }: JobsEvolutionSect
                 if (active && payload && payload.length) {
                   return (
                     <Card className="bg-background">
-                      <CardContent className="p-4 space-y-2">
+                      <CardContent className="space-y-2">
                         <div className="font-pixel text-xs">
                           {formatDate(label, DateTime.DATE_MED)}
                         </div>
@@ -583,7 +583,7 @@ const MoneyEvolutionSection = ({ player, className, ...props }: MoneyEvolutionSe
                 if (active && payload && payload.length) {
                   return (
                     <Card className="bg-background">
-                      <CardContent className="p-4 space-y-2">
+                      <CardContent className="space-y-2">
                         <div className="font-pixel text-xs">
                           {formatDate(label, DateTime.DATE_MED)}
                         </div>
@@ -676,7 +676,7 @@ const ClickerEvolutionSection = ({ player, className, ...props }: ClickerEvoluti
                 if (active && payload && payload.length) {
                   return (
                     <Card className="bg-background">
-                      <CardContent className="p-4 space-y-2">
+                      <CardContent className="space-y-2">
                         <div className="font-pixel text-xs">
                           {formatDate(label, DateTime.DATE_MED)}
                         </div>
