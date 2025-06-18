@@ -11,7 +11,7 @@ function PathCard({ className, ...props }: React.ComponentProps<typeof Card>) {
   return (
     <Card
       className={cn(
-        'bg-background relative min-h-28 border-foreground transition-all duration-75 outline-primary outline-2 hover:outline hover:drop-shadow-glow hover:border-primary',
+        'bg-background relative min-h-28 border-foreground transition-all duration-75 outline-primary hover:outline-2 hover:drop-shadow-glow hover:border-primary',
         className
       )}
       {...props}
@@ -37,14 +37,9 @@ function PathCardTitle({
     </CardTitle>
   )
 }
-
-function PathCardContent({ className, ...props }: React.ComponentProps<typeof CardContent>) {
-  return <CardContent className={cn('p-4', className)} {...props} />
-}
-
 export {
   PathCard,
-  PathCardContent,
+  CardContent as PathCardContent,
   CardDescription as PathCardDescription,
   PathCardTitle,
   PathCardWrapper,
