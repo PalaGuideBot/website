@@ -17,6 +17,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '~/components/ui/select'
 import { formatNumber, formatPrice } from '~/lib/utils'
 import { ExperienceMethod } from './experience_method'
@@ -113,7 +114,9 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 value={form.data.selectedBonus}
                 onValueChange={(value) => form.setData('selectedBonus', value)}
               >
-                <SelectTrigger className="w-full" />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Bonus" />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="without">Sans bonus</SelectItem>

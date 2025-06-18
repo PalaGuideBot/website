@@ -17,6 +17,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '~/components/ui/select'
 import { getMinecraftItemUrl } from '~/lib/minecraft'
 import { formatNumber } from '~/lib/utils'
@@ -152,7 +153,9 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 value={form.data.selectedMethod}
                 onValueChange={(value) => form.setData('selectedMethod', value)}
               >
-                <SelectTrigger className="w-full" />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Méthode" />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="default">Par défaut</SelectItem>
