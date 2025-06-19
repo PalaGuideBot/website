@@ -1,10 +1,13 @@
-import { Alert } from '@lemonsqueezy/wedges'
+import { Alert, Button } from '@lemonsqueezy/wedges'
 
 const Unavailable = () => {
   return (
-    <Alert color="error" variant="expanded" closable>
-      L'information est actuellement indisponible via l'API de Paladium. Si vous avez des questions,
-      n'hésitez pas à nous les poser sur Discord.
+    <Alert color="error" variant="expanded" className="mb-4 rounded-none">
+      L'API de Paladium est actuellement indisponible, certaines fonctionnalités peuvent ne pas
+      fonctionner.
+      <Button variant="link" className="ml-2" asChild>
+        <a href="https://status.palaguidebot.fr/">Status</a>
+      </Button>
     </Alert>
   )
 }
