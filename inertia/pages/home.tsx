@@ -13,6 +13,7 @@ import { Head } from '~/components/shared/head'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
+import { Unavailable } from '~/components/shared/unavailable'
 
 const CAROUSEL_DELAY = 5000
 
@@ -25,6 +26,7 @@ export default function Home(props: HomePageProps) {
     <>
       <Head descriptors={[{ title: 'Accueil' }]} />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
+        <Unavailable />
         {isActiveGiveaway && <GiveawayBanner className="rounded-none min-h-[60px]" />}
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
