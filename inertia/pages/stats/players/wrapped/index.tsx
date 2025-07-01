@@ -227,12 +227,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       exit={{ opacity: 0 }}
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos compagnons</h2>
-      <div className="grid sm:grid-cols-2 w-fit gap-8 items-center justify-center mx-auto">
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">Monture</CardTitle>
+      <div className="grid sm:grid-cols-2 w-fit gap-8 justify-center mx-auto">
+        <Card className="gap-4 border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
+          <CardHeader className="justify-center">
+            <CardTitle className="text-2xl">Monture</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col justify-center">
+          <CardContent className="flex-1 flex flex-col justify-center">
             {player.mount && (
               <>
                 <MountViewer
@@ -259,11 +259,11 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             )}
           </CardContent>
         </Card>
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">Familier</CardTitle>
+        <Card className="gap-4 border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
+          <CardHeader className="justify-center">
+            <CardTitle className="text-2xl">Familier</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col justify-center">
+          <CardContent className="flex-1 flex flex-col justify-center">
             {player.pet && (
               <>
                 <PetViewer
@@ -311,13 +311,13 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           return (
             <motion.div
               key={jobName}
-              className="w-64 border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
+              className="p-4 gap-4 w-64 border-4 border-white/10 bg-emerald-700/10 flex flex-col py-4 rounded-md backdrop-blur-sm shadow-2xl"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index }}
             >
-              <CardHeader>
-                <CardTitle className="text-3xl text-center uppercase">{jobName}</CardTitle>
+              <CardHeader className="justify-center">
+                <CardTitle className="text-2xl uppercase">{jobName}</CardTitle>
               </CardHeader>
               <CardContent className="relative flex flex-col items-center justify-center">
                 <div className="relative">
@@ -367,12 +367,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Votre meilleur classement</h2>
       <motion.div
-        className="w-64 border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
+        className="w-64 border-4 border-white/10 bg-emerald-700/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <CardHeader>
-          <CardTitle className="text-3xl text-center uppercase">
+        <CardHeader className="justify-center">
+          <CardTitle className="text-2xl uppercase">
             {player.bestLeaderboard ? noCase(player.bestLeaderboard.name) : 'Inconnu'}
           </CardTitle>
         </CardHeader>

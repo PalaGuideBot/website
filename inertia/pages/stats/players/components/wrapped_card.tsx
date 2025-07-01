@@ -29,7 +29,7 @@ export function WrappedCard({ player, className, ...props }: WrappedCardProps) {
   return (
     <Card
       className={cn(
-        'min-w-[672px] h-fit rounded-none border-0 bg-[#f7f7f8] dark:bg-[#2a2a2f]',
+        'p-0 min-w-[672px] h-fit rounded-none border-0 bg-[#f7f7f8] dark:bg-[#2a2a2f]',
         className
       )}
       {...props}

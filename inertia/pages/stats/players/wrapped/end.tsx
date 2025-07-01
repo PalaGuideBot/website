@@ -51,21 +51,18 @@ export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
                 </div>
                 <h3 className="font-bold text-xl">Personnalisation</h3>
                 <WrappedPersonalization />
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row gap-2 items-center">
                   <Button
+                    size="sm"
                     variant="outline"
                     className="w-fit"
                     onClick={takeScreenshot}
                     disabled={isLoading}
                   >
-                    {isLoading ? (
-                      <Loader2Icon className="size-4 animate-spin" />
-                    ) : (
-                      <SaveIcon className="size-4" />
-                    )}
+                    {isLoading ? <Loader2Icon className="animate-spin" /> : <SaveIcon />}
                     Sauvegarder
                   </Button>
-                  <ThemeToggler variant="outline" className="aspect-square" />
+                  <ThemeToggler variant="outline" />
                 </div>
               </div>
               <WrappedCard ref={ref} player={player} />

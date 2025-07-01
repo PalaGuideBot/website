@@ -24,19 +24,16 @@ export function WrappedPersonalization() {
             .map(([key, value]) => (
               <Button
                 variant="outline"
-                className="size-16 overflow-hidden p-0 transition-all duration-75 focus:outline-2 hover:outline-2 hover:outline-offset-2 data-[selected=true]:outline-2 data-[selected=true]:outline-offset-2"
+                className="size-16 overflow-hidden p-0 transition-all border-2 hover:border-primary data-[selected=true]:border-primary"
                 data-selected={banner === key}
                 key={key}
                 onClick={() => changeBanner(key as 'none')}
-                asChild
               >
-                <button>
-                  {key === 'none' ? (
-                    <BanIcon className="size-8" />
-                  ) : (
-                    <img className="size-16 object-cover object-center" src={value} alt={key} />
-                  )}
-                </button>
+                {key === 'none' ? (
+                  <BanIcon className="size-8" />
+                ) : (
+                  <img className="size-16 object-cover object-center" src={value} alt={key} />
+                )}
               </Button>
             ))}
         </div>

@@ -54,7 +54,7 @@ function WrappedMetricCardDraggable({
       ref={setNodeRef}
       style={style}
       className={cn(
-        'hover:border-primary hover:animate-pulse transition-colors rounded-xl border-2 px-4 py-2 flex flex-col gap-2 justify-center',
+        'z-[2] hover:border-primary hover:animate-pulse transition-colors rounded-xl border-2 px-4 py-2 flex flex-col gap-2 justify-center',
         className
       )}
       {...listeners}
