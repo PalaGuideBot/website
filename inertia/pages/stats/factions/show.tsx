@@ -9,7 +9,6 @@ import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
 import { SearchFactionForm } from './components/search_faction_form'
-import { Unavailable } from '~/components/shared/unavailable'
 
 export type FactionShowProps = InferPageProps<FactionController, 'show'>
 
@@ -33,7 +32,6 @@ export default function FactionShow(props: FactionShowProps) {
         <Head descriptors={[{ title: 'Faction' }]} />
       )}
       <DefaultLayout>
-        <Unavailable />
         <Page>
           <PageTitle>Statistiques faction</PageTitle>
           <SearchFactionForm defaultValue={faction?.bgName ?? faction?.name} />

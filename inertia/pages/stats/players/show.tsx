@@ -13,7 +13,6 @@ import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
-import { Unavailable } from '~/components/shared/unavailable'
 
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
@@ -39,7 +38,6 @@ export default function PlayerShow(props: PlayerShowProps) {
         <Head descriptors={[{ title: 'Joueur' }]} />
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
-        <Unavailable />
         {auth && examplePlayer && (
           <Alert
             className="rounded-none min-h-[60px] border-b"
