@@ -200,6 +200,8 @@ export const playerWrappedValidator = vine.compile(
     friends: vine.number(),
     faction: vine.object({
       name: vine.string(),
+      alliance: vine.enum(['ORDER', 'CHAOS']).optional(),
+      emblemUrl: vine.string().optional(),
     }),
     factionsCount: vine.number(),
     timePlayed: vine.number(),
@@ -218,7 +220,20 @@ export const playerWrappedValidator = vine.compile(
       .nullable(),
     clicker: vine.object({
       production: vine.number(),
-      rps: vine.number(),
+      buildings: vine.object({
+        lastUnlocked: vine
+          .object({
+            name: vine.string(),
+            label: vine.string(),
+          })
+          .optional(),
+        unlocked: vine.number(),
+        total: vine.number(),
+      }),
+      upgrades: vine.object({
+        unlocked: vine.number(),
+        total: vine.number(),
+      }),
     }),
   })
 )

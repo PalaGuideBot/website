@@ -142,7 +142,6 @@ export class ApiService {
       const data = await response.json()
       return playerWrappedValidator.validate(data)
     } catch (error) {
-      console.log(await error.response.json())
       if (error instanceof HTTPError) {
         throw new Exception(`Player "${username}" not found`, {
           code: 'E_PLAYER_NOT_FOUND',

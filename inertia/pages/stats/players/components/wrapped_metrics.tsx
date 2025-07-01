@@ -76,17 +76,18 @@ export const metrics: Array<Metric> = [
     },
   },
   {
-    title: 'Clicker : Coins /sec.',
-    id: 'clicker-rps',
-    isVisible: (_) => true,
-    renderContent: (player) => {
-      return (
-        <p className="flex flex-row items-center justify-center gap-2">
-          <span>{formatNumber(player.clicker.rps)}</span>
-          <CoinIcon className="size-6" />
-        </p>
-      )
-    },
+    title: 'Clicker : Bâtiments',
+    id: 'clicker-buildings',
+    isVisible: (player) => player.clicker.buildings.unlocked > 0,
+    renderContent: (player) =>
+      `${player.clicker.buildings.unlocked} / ${player.clicker.buildings.total}`,
+  },
+  {
+    title: 'Clicker : Améliorations',
+    id: 'clicker-upgrades',
+    isVisible: (player) => player.clicker.upgrades.unlocked > 0,
+    renderContent: (player) =>
+      `${player.clicker.upgrades.unlocked} / ${player.clicker.upgrades.total}`,
   },
   {
     title: 'Métiers',
