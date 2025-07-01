@@ -51,7 +51,7 @@ export function WrappedCard({ player, className, ...props }: WrappedCardProps) {
             </div>
           </div>
           <p className="font-mc-dungueons text-center text-3xl drop-shadow-[0px_3px_0px_rgba(0,0,0,0.5)]">
-            <span className="text-destructive">{player.username}</span> sur la v10
+            <span className="text-primary">{player.username}</span> sur la v10.5
             <br /> de Paladium
           </p>
         </div>

@@ -83,12 +83,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v10</h1>
+      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v10.5</h1>
       <p className="text-xl">
         Hey {player.username} ! Prêt à revenir sur les statistiques de votre aventure ?
       </p>
       <motion.div
-        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-emerald-700/10 backdrop-blur-sm shadow-2xl mx-auto"
+        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-indigo-500/10 backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -242,7 +242,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos compagnons</h2>
       <div className="grid sm:grid-cols-2 w-fit gap-8 justify-center mx-auto">
-        <Card className="gap-4 border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
+        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
           <CardHeader className="justify-center">
             <CardTitle className="text-2xl">Monture</CardTitle>
           </CardHeader>
@@ -273,7 +273,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             )}
           </CardContent>
         </Card>
-        <Card className="gap-4 border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
+        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
           <CardHeader className="justify-center">
             <CardTitle className="text-2xl">Familier</CardTitle>
           </CardHeader>
@@ -325,7 +325,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           return (
             <motion.div
               key={jobName}
-              className="p-4 gap-4 w-64 border-4 border-white/10 bg-emerald-700/10 flex flex-col py-4 rounded-md backdrop-blur-sm shadow-2xl"
+              className="p-4 gap-4 w-64 border-4 border-white/10 bg-indigo-500/10 flex flex-col py-4 rounded-md backdrop-blur-sm shadow-2xl"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index }}
@@ -381,7 +381,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Votre meilleur classement</h2>
       <motion.div
-        className="w-64 border-4 border-white/10 bg-emerald-700/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
+        className="w-64 border-4 border-white/10 bg-indigo-500/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -465,7 +465,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             </p>
             {player.clicker.buildings.lastUnlocked && (
               <div className="flex flex-row items-end gap-2">
-                <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl p-2">
+                <Card className="border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl p-2">
                   <img
                     src={getClickerBuildingImage(player.clicker.buildings.lastUnlocked.name)}
                     alt={player.clicker.buildings.lastUnlocked.name}
@@ -506,6 +506,36 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           />
         </p>
       </motion.div>
+      <motion.div
+        className="flex flex-col gap-2"
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 3.4 }}
+      >
+        <p className="text-3xl font-bold pb-4 border-b">Click Coins par seconde</p>
+        {player.clicker.rps > 0 ? (
+          <p className="text-xl">
+            Vous produisiez un total de{' '}
+            <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary">
+              <NumberTicker
+                className="font-mc-dungueons text-primary text-2xl"
+                value={player.clicker.rps}
+              />
+              <CoinIcon className="size-6" />
+            </span>{' '}
+            par seconde
+          </p>
+        ) : (
+          <p className="text-xl">
+            Vous générez{' '}
+            <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary">
+              <span>aucun</span>
+              <CoinIcon className="size-6" />
+            </span>{' '}
+            par seconde
+          </p>
+        )}
+      </motion.div>
     </motion.div>,
 
     <motion.div
@@ -517,7 +547,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Fin</h2>
       <motion.div
-        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
+        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-indigo-500/10 rounded-md backdrop-blur-sm shadow-2xl"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >

@@ -220,6 +220,7 @@ export const playerWrappedValidator = vine.compile(
       .nullable(),
     clicker: vine.object({
       production: vine.number(),
+      rps: vine.number(),
       buildings: vine.object({
         lastUnlocked: vine
           .object({
