@@ -183,7 +183,7 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
         <button
           onClick={onClick}
           className={cn(
-            'p-2 rounded-md border bg-cardshadow transition-colors duration-100 hover:bg-black/15',
+            'p-2 rounded-md border bg-card shadow transition-colors duration-100 hover:bg-black/15',
             !unlocked &&
               unlockable &&
               'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
