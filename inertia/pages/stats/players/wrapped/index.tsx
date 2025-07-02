@@ -256,10 +256,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                   isLooping
                 />
                 <ul className="flex flex-col gap-2 items-center font-mc-dungueons text-nowrap">
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Nom : <span className="text-primary">{player.mount.name}</span>
                   </li>
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Niveau : <NumberTicker className="text-primary" value={player.mount.level} />
                   </li>
                 </ul>
@@ -268,7 +268,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.mount && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possédez aucune monture</p>
+                <p className="text-white">Vous ne possédez aucune monture</p>
               </div>
             )}
           </CardContent>
@@ -288,13 +288,13 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                   isLooping
                 />
                 <ul className="flex flex-col gap-2 items-center font-mc-dungueons">
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Skin :{' '}
                     <span className="text-primary">
                       {translatePet(getPet(player.pet.currentSkin))}
                     </span>
                   </li>
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Niveau : <NumberTicker className="text-primary" value={player.pet.level} />
                   </li>
                 </ul>
@@ -303,7 +303,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.pet && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possédez aucun familier</p>
+                <p className="text-white">Vous ne possédez aucun familier</p>
               </div>
             )}
           </CardContent>

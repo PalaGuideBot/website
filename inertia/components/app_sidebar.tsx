@@ -39,6 +39,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { useAuth } from '~/hooks/use_auth'
 import { useSidebarStateStore } from '~/stores/sidebar_state_store'
+import { PaladiumWrappedBanner } from './shared/paladium_wrapped_banner'
 
 type LinkProps = {
   title: string
@@ -299,6 +300,9 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <div className="p-1">
+            <PaladiumWrappedBanner />
+          </div>
           <SidebarMenuItem>
             {user ? (
               <DropdownMenu>
