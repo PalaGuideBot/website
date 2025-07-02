@@ -15,6 +15,7 @@ export type Rank =
   | 'youtuber'
   | 'streamer'
   | 'helper'
+  | 'supportconfirmé'
   | 'moderateurchat'
   | 'moderateur'
   | 'moderateursenior'
