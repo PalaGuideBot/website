@@ -46,6 +46,14 @@ export function NumberTicker({
     [springValue, decimalPlaces]
   )
 
+  if (value === 0) {
+    return (
+      <span className={cn('inline-block tabular-nums tracking-wider', className)} {...props}>
+        {value}
+      </span>
+    )
+  }
+
   return (
     <span
       ref={ref}

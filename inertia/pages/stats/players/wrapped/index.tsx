@@ -136,8 +136,8 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           </p>
         ) : (
           <p className="text-xl">
-            Vous avez <span className="font-mc-dungueons text-primary">masqué</span> cette
-            information
+            Information <span className="font-mc-dungueons text-primary">masquée</span> par le
+            joueur
           </p>
         )}
       </motion.div>
@@ -216,20 +216,27 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         transition={{ delay: 3.4 }}
       >
         <p className="text-3xl font-bold pb-4 border-b">Succès</p>
-        <p className="text-xl">
-          Vous avez débloqué{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.achievements.completed}
-            delay={3.6}
-          />{' '}
-          succès pour un total de{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.achievements.total}
-            delay={3.6}
-          />
-        </p>
+        {player.achievements.total > 0 ? (
+          <p className="text-xl">
+            Vous avez débloqué{' '}
+            <NumberTicker
+              className="font-mc-dungueons text-primary text-2xl"
+              value={player.achievements.completed}
+              delay={3.6}
+            />{' '}
+            succès pour un total de{' '}
+            <NumberTicker
+              className="font-mc-dungueons text-primary text-2xl"
+              value={player.achievements.total}
+              delay={3.6}
+            />
+          </p>
+        ) : (
+          <p className="text-xl">
+            Information <span className="font-mc-dungueons text-primary">masquée</span> par le
+            joueur
+          </p>
+        )}
       </motion.div>
     </motion.div>,
 
