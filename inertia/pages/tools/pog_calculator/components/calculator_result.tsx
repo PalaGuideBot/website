@@ -135,7 +135,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
         </div>
         <p>
           Ci-dessous vous retrouverez les différents blocs à casser pour atteintre le niveau que
-          vous avez choisi:
+          vous avez choisi :
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
           <div className="relative col-span-1 sm:col-span-2">

@@ -35,7 +35,7 @@ const OnYourMarksEventCard = ({ event, ...props }: OnYourMarksEventCardProps) =>
         <div className="flex flex-col space-y-1.5">
           <CardTitle>&Agrave; vos marques</CardTitle>
           <CardDescription>
-            Remplissez l'objectif en jeu pour faire gagner de l'ELO à votre faction.
+            Remplissez l'objectif "À vos marques" en jeu pour faire gagner de l'ELO à votre faction.
           </CardDescription>
         </div>
         <p className="font-mc-dungueons text-sm">

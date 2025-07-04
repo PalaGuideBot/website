@@ -30,7 +30,8 @@ const QDFEventCard = ({ event, className, ...props }: QDFEventCardProps) => {
       <CardHeader className="flex-col border-b">
         <CardTitle>Quête de faction</CardTitle>
         <CardDescription>
-          Effectuez la quête en jeu pour que votre faction reçoive les récompenses ci-dessous.
+          Effectuez la quête de faction en jeu pour que votre faction reçoive les récompenses
+          ci-dessous.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col sm:flex-row sm:justify-between items-center space-y-4 sm:space-y-0">
