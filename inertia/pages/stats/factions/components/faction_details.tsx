@@ -103,7 +103,12 @@ export function FactionDetails({ faction }: FactionDetailsProps) {
                 />
               </li>
               <li>
-                <InformationLine label="Effectif" value={`${faction.players.length} joueurs`} />
+                <InformationLine
+                  label="Effectif"
+                  value={`${faction.players.length} ${
+                    faction.players.length === 1 ? 'joueur' : 'joueurs'
+                  }`}
+                />
               </li>
             </ul>
           </CardContent>
@@ -119,7 +124,9 @@ export function FactionDetails({ faction }: FactionDetailsProps) {
       </div>
       <Card id="membres" className="pt-2">
         <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
-          <CardTitle href="#membres">Membres</CardTitle>
+          <CardTitle href="#membres">
+            {faction.players.length === 1 ? 'Membre' : 'Membres'}
+          </CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button

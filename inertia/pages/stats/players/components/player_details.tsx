@@ -411,7 +411,9 @@ const FriendsSection = ({ friends, className, ...props }: FriendsSectionProps) =
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card id="amis" className={cn('p-0 pt-2', className)} {...props}>
         <CardHeader className={cn('justify-between items-center pr-2 pb-2!', open && 'border-b')}>
-          <CardTitle href="#amis">Amis [{friends.length}]</CardTitle>
+          <CardTitle href="#amis">
+            {friends.length === 1 ? 'Ami' : 'Amis'} [{friends.length}]
+          </CardTitle>
           <CollapsibleTrigger asChild>
             <Button variant="outline" size="icon" className="rounded-sm">
               <ChevronDownIcon className={cn('transition-transform', open && 'rotate-180')} />
