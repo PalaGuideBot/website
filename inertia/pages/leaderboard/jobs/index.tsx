@@ -1,6 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Alert, Tabs } from '@lemonsqueezy/wedges'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
@@ -14,11 +13,13 @@ import {
 } from 'recharts'
 
 import type JobsController from '#leaderboard/controllers/jobs_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'
+import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { smallIcons } from '~/content/jobs'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
@@ -66,14 +67,19 @@ export default function JobsIndex(props: JobsPageProps) {
             <PageTitle>Classement: Métiers</PageTitle>
             <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
-          <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
-            <Tabs.List>
+          <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab}>
+            <TabsList className="bg-card text-card-foreground">
               {jobs.map(({ value, label, Icon }) => (
-                <Tabs.Trigger key={value} before={<Icon className="size-4" />} value={value}>
+                <TabsTrigger
+                  key={value}
+                  value={value}
+                  className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
+                >
+                  <Icon className="size-4" />
                   {label}
-                </Tabs.Trigger>
+                </TabsTrigger>
               ))}
-            </Tabs.List>
+            </TabsList>
           </Tabs>
           <JobTab data={leaderboard} />
         </Page>
@@ -124,7 +130,9 @@ const JobTab = ({ data: leaderboard }: { data: JobsPageProps['leaderboard'] }) =
   return (
     <div className="flex flex-col gap-4">
       {!lastLeaderboard && (
-        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+        <Alert variant="warning">
+          <AlertDescription>Aucune donnée trouvée pour la période sélectionnée.</AlertDescription>
+        </Alert>
       )}
       {lastLeaderboard && (
         <>
@@ -135,8 +143,8 @@ const JobTab = ({ data: leaderboard }: { data: JobsPageProps['leaderboard'] }) =
             <Podium data={third} position="third" compare={first.value} />
           </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
-          <Card>
-            <CardContent className="p-4 h-[500px]">
+          <Card className="pb-2">
+            <CardContent className="h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -179,7 +187,7 @@ const JobTab = ({ data: leaderboard }: { data: JobsPageProps['leaderboard'] }) =
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
-            <CardFooter className="flex justify-center border-t p-2">
+            <CardFooter className="justify-center border-t pt-2!">
               <Pagination
                 page={page}
                 limit={limit}

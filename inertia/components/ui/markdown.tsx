@@ -30,7 +30,7 @@ export const implementedComponents = {
     )
   },
   code({ node, className, ...props }) {
-    return <code className={cn('bg-surface-100 px-1 rounded-sm', className)} {...props} />
+    return <code className={cn('bg-muted px-1 rounded-sm', className)} {...props} />
   },
 } satisfies Components
 

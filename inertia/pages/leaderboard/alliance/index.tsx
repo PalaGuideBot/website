@@ -1,26 +1,30 @@
-import type AllianceController from '#leaderboard/controllers/alliance_controller'
-import { LeaderboardAllianceIcon } from '~/components/icons'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Alert } from '@lemonsqueezy/wedges'
+import { Link } from '@inertiajs/react'
 import { useMemo } from 'react'
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip as RechartsTooltip,
+  ResponsiveContainer,
   XAxis,
   YAxis,
 } from 'recharts'
+import { LeaderboardAllianceIcon } from '~/components/icons'
 
-import DefaultLayout from '~/components/layouts/default'
+import type AllianceController from '#leaderboard/controllers/alliance_controller'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'
+import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
+import { getHeadUrl } from '~/lib/minecraft'
+import { formatNumber } from '~/lib/utils'
 import { usePuzzleStore } from '~/pages/leaderboard/stores/use_puzzle_store'
 import { GraphTooltip } from '../components/graph_tooltip'
 import { Pagination } from '../components/pagination'
@@ -34,10 +38,6 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
-import { Link } from '@inertiajs/react'
-import { getHeadUrl } from '~/lib/minecraft'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
-import { formatNumber } from '~/lib/utils'
 
 type AllianceIndexProps = InferPageProps<AllianceController, 'index'>
 
@@ -91,7 +91,11 @@ export default function AllianceIndex(props: AllianceIndexProps) {
             <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
           {!lastLeaderboard && (
-            <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+            <Alert variant="warning">
+              <AlertDescription>
+                Aucune donnée trouvée pour la période sélectionnée.
+              </AlertDescription>
+            </Alert>
           )}
           {lastLeaderboard && (
             <>
@@ -102,8 +106,8 @@ export default function AllianceIndex(props: AllianceIndexProps) {
                 <Podium data={third} position="third" compare={first.value} />
               </PodiumCardWrapper>
               <PageSubTitle>Historique</PageSubTitle>
-              <Card>
-                <CardContent className="p-4 h-[500px]">
+              <Card className="pb-2">
+                <CardContent className="h-[500px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={graphData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -131,7 +135,7 @@ export default function AllianceIndex(props: AllianceIndexProps) {
                     </LineChart>
                   </ResponsiveContainer>
                 </CardContent>
-                <CardFooter className="flex justify-center border-t p-2">
+                <CardFooter className="justify-center border-t pt-2!">
                   <Pagination
                     page={page}
                     limit={limit}
@@ -169,21 +173,19 @@ const Podium = ({
         <PodiumCardDescription href={`/players/${data.username}`}>
           {data.username}
         </PodiumCardDescription>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger className="z-[2]">
-              <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
-                after={<LeaderboardAllianceIcon />}
-              >
-                {formatNumber(data.value)}
-              </PodiumCardValue>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              {formatNumber(data.value, { notation: 'standard' })} <span>Chunks</span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger className="z-2">
+            <PodiumCardValue
+              className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
+              after={<LeaderboardAllianceIcon />}
+            >
+              {formatNumber(data.value)}
+            </PodiumCardValue>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {formatNumber(data.value, { notation: 'standard' })} <span>Chunks</span>
+          </TooltipContent>
+        </Tooltip>
         {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>

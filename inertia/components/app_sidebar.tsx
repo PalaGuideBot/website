@@ -1,5 +1,4 @@
 import { Link, usePage } from '@inertiajs/react'
-import { Button, DropdownMenu } from '@lemonsqueezy/wedges'
 import {
   AwardIcon,
   CableIcon,
@@ -10,7 +9,6 @@ import {
   FileEditIcon,
   LogInIcon,
   MessageCircleQuestionIcon,
-  NewspaperIcon,
   ShieldQuestionIcon,
   ShovelIcon,
   TrophyIcon,
@@ -18,7 +16,10 @@ import {
 } from 'lucide-react'
 import { useIsClient } from 'usehooks-ts'
 
+import { UserDropdownContent, UserDropdownTrigger } from '~/components/shared/user_dropdown'
+import { Button } from '~/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
+import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown_menu'
 import {
   Sidebar,
   SidebarContent,
@@ -29,16 +30,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
 } from '~/components/ui/sidebar'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { useAuth } from '~/hooks/use_auth'
 import { useSidebarStateStore } from '~/stores/sidebar_state_store'
-import { UserDropdownContent, UserDropdownTrigger } from './shared/user_dropdown'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
+import { PaladiumWrappedBanner } from './shared/paladium_wrapped_banner'
 
 type LinkProps = {
   title: string
@@ -152,9 +152,19 @@ const generalLinks: LinkProps[] = [
 
 const informationLinks: LinkProps[] = [
   {
+    title: 'Changelog',
+    url: '/changelog',
+    icon: FileEditIcon,
+  },
+  {
     title: 'Giveaway',
     url: '/giveaway',
     icon: AwardIcon,
+  },
+  {
+    title: 'F.A.Q',
+    url: '/faq',
+    icon: MessageCircleQuestionIcon,
   },
   {
     title: 'Politique de confidentialité',
@@ -166,24 +176,9 @@ const informationLinks: LinkProps[] = [
     url: '/terms',
     icon: UserCogIcon,
   },
-  {
-    title: 'F.A.Q',
-    url: '/faq',
-    icon: MessageCircleQuestionIcon,
-  },
-  {
-    title: 'Changelog',
-    url: '/changelog',
-    icon: FileEditIcon,
-  },
-  {
-    title: 'Tout savoir',
-    url: '/know-everything',
-    icon: NewspaperIcon,
-  },
 ]
 
-const Item = ({ item }: { item: LinkProps }) => {
+function Item({ item }: { item: LinkProps }) {
   const { url } = usePage()
   const sidebarState = useSidebarStateStore()
 
@@ -254,7 +249,7 @@ const Item = ({ item }: { item: LinkProps }) => {
   )
 }
 
-const AppSidebar = () => {
+export function AppSidebar() {
   const user = useAuth()
   const isClient = useIsClient()
 
@@ -286,8 +281,6 @@ const AppSidebar = () => {
           <SidebarGroupLabel>Général</SidebarGroupLabel>
           <SidebarMenu>
             {isClient && generalLinks.map((item) => <Item key={item.title} item={item} />)}
-            {!isClient &&
-              generalLinks.map((_, index) => <SidebarMenuSkeleton key={index} showIcon />)}
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
@@ -301,37 +294,38 @@ const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <div className="p-1">
+            <PaladiumWrappedBanner />
+          </div>
           <SidebarMenuItem>
             {user ? (
               <DropdownMenu>
-                <DropdownMenu.Trigger asChild>
+                <DropdownMenuTrigger asChild>
                   <SidebarMenuButton
                     size="lg"
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
                     <UserDropdownTrigger user={user} />
                   </SidebarMenuButton>
-                </DropdownMenu.Trigger>
+                </DropdownMenuTrigger>
                 <UserDropdownContent user={user} />
               </DropdownMenu>
             ) : (
               <div className="flex flex-row justify-between items-center">
-                <p className="text-xs text-surface-500">Non connecté</p>
-                <TooltipProvider>
-                  <Tooltip delayDuration={200}>
-                    <TooltipTrigger asChild>
-                      <Button variant="outline" className="p-2 aspect-square" asChild>
-                        <Link href="/login">
-                          <span className="sr-only">Se connecter</span>
-                          <LogInIcon className="size-4" />
-                        </Link>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="right">
-                      <span>Se connecter</span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <p className="text-xs text-muted-foreground">Non connecté</p>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" className="p-2 aspect-square" asChild>
+                      <Link href="/login">
+                        <span className="sr-only">Se connecter</span>
+                        <LogInIcon className="size-4" />
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    <span>Se connecter</span>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             )}
           </SidebarMenuItem>
@@ -341,5 +335,3 @@ const AppSidebar = () => {
     </Sidebar>
   )
 }
-
-export { AppSidebar }

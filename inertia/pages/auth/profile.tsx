@@ -1,18 +1,19 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { router } from '@inertiajs/react'
-import { Alert, Button } from '@lemonsqueezy/wedges'
 import * as Tabs from '@radix-ui/react-tabs'
 import { CheckIcon, CopyIcon, UnlinkIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import type AuthController from '#controllers/auth_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 import { LinkSteps } from '~/components/shared/link_steps'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 import { client } from '~/lib/client'
 import { getHeadUrl } from '~/lib/minecraft'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
 
 type ProfilePageProps = InferPageProps<AuthController, 'profile'>
 
@@ -29,8 +30,8 @@ export default function ProfilePage(props: ProfilePageProps) {
   return (
     <>
       <Head descriptors={[{ title: 'Profil' }]} />
-      <DefaultLayout className="bg-secondary-50 flex-grow">
-        <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-col gap-4 p-4 md:gap-8 md:p-10">
+      <DefaultLayout className="bg-secondary-50 grow">
+        <div className="flex min-h-[calc(100vh-(--spacing(16)))] flex-col gap-4 p-4 md:gap-8 md:p-10">
           <div className="mx-auto grid w-full max-w-6xl gap-2">
             <h1 className="text-3xl font-semibold">Profil</h1>
           </div>
@@ -38,7 +39,7 @@ export default function ProfilePage(props: ProfilePageProps) {
             defaultValue="minecraft"
             className="mx-auto grid w-full max-w-6xl items-start gap-6 lg:grid-cols-[250px_1fr]"
           >
-            <Tabs.List className="grid gap-4 text-sm text-surface-400">
+            <Tabs.List className="grid gap-4 text-sm text-muted-foreground">
               {tabs.map((tab) => (
                 <Tabs.Trigger
                   key={tab.id}
@@ -61,7 +62,7 @@ export default function ProfilePage(props: ProfilePageProps) {
   )
 }
 
-const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccount'] }) => {
+function MinecraftTab({ account }: { account?: ProfilePageProps['minecraftAccount'] }) {
   const [token, setToken] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -86,8 +87,8 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
 
   return (
     <>
-      <Card className="bg-background">
-        <CardHeader>
+      <Card className="bg-background gap-4">
+        <CardHeader className="flex-col">
           <CardTitle>Lier mon compte Minecraft</CardTitle>
           <CardDescription>
             Enregistrez votre compte Minecraft pour bénéficier de fonctionnalités supplémentaires.
@@ -96,8 +97,10 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
         <CardContent className="space-y-2">
           {account && (
             <>
-              <Alert color="success">Votre compte est lié.</Alert>
-              <Card>
+              <Alert variant="success">
+                <AlertDescription>Votre compte est lié.</AlertDescription>
+              </Alert>
+              <Card className="p-0">
                 <CardContent className="p-2">
                   <div className="flex flex-row gap-2 items-center">
                     <img
@@ -111,12 +114,12 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
                         <p className="hidden sm:block text-sm">{account.uuid}</p>
                       </div>
                       <Button
-                        before={<UnlinkIcon />}
                         size="sm"
                         variant="link"
                         className="no-underline hover:underline"
                         onClick={unlinkAccount}
                       >
+                        <UnlinkIcon />
                         Dissocier
                       </Button>
                     </div>
@@ -131,16 +134,12 @@ const MinecraftTab = ({ account }: { account?: ProfilePageProps['minecraftAccoun
               <div className="flex items-center gap-2">
                 <p className="text-lg font-bold">{token}</p>
                 <Button
-                  isIconOnly
+                  size="icon"
                   variant="tertiary"
                   onClick={() => handleCopy(token)}
                   className="transition-all"
                 >
-                  {copied ? (
-                    <CheckIcon className="size-4 text-wg-green" />
-                  ) : (
-                    <CopyIcon className="size-4" />
-                  )}
+                  {copied ? <CheckIcon className="text-emerald-500" /> : <CopyIcon />}
                 </Button>
               </div>
               <p className="text-sm pt-4">Comment lier son compte ?</p>

@@ -1,4 +1,3 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
   Area,
@@ -11,16 +10,19 @@ import {
   YAxis,
 } from 'recharts'
 
-import LinearGradient from '~/components/shared/linear_gradient'
+import { LinearGradient } from '~/components/shared/linear_gradient'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { graphColors } from '~/content/leaderboards'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { cn, formatNumber } from '~/lib/utils'
 
-export type ApiDatabaseEvolutionCardProps = { data: Array<Record<string, string | number>> }
+export interface ApiDatabaseEvolutionCardProps {
+  data: Array<Record<string, string | number>>
+}
 
-const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
+export function ApiDatabaseEvolutionCard({ data }: ApiDatabaseEvolutionCardProps) {
   const translations = {
     'Joueurs uniques': 'playerCount',
     'Factions uniques': 'factionCount',
@@ -39,7 +41,7 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
   }
 
   return (
-    <Card className="bg-backgroud">
+    <Card className="pb-0 bg-backgroud">
       <CardHeader className="border-b">
         <CardTitle>&Eacute;volution</CardTitle>
       </CardHeader>
@@ -57,7 +59,7 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <Card className="bg-background/95">
+                    <Card className="p-0 bg-background/95">
                       <CardContent className="p-4 space-y-2">
                         <div className="font-pixel text-xs">
                           {formatDate(label, DateTime.DATE_MED)}
@@ -90,7 +92,7 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
               formatter={(value) => (
                 <Button
                   type="button"
-                  variant="transparent"
+                  variant="ghost"
                   size="sm"
                   className={cn(
                     'text-inherit p-0.5',
@@ -133,5 +135,3 @@ const ApiDatabaseEvolutionCard = ({ data }: ApiDatabaseEvolutionCardProps) => {
     </Card>
   )
 }
-
-export { ApiDatabaseEvolutionCard }

@@ -1,14 +1,15 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link, usePage } from '@inertiajs/react'
-import { Alert, Button } from '@lemonsqueezy/wedges'
 
 import type { PageError } from '#app/types'
 import type PlayerController from '#stats/controllers/player_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
 import { PlayerDetails } from './components/player_details'
@@ -39,16 +40,13 @@ export default function PlayerShow(props: PlayerShowProps) {
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
         {auth && examplePlayer && (
-          <Alert
-            className="rounded-none min-h-[60px] border-b"
-            closable
-            after={
-              <Button variant="tertiary" className="px-4 text-nowrap" size="sm" asChild>
-                <Link href="/profile">Associer un compte</Link>
-              </Button>
-            }
-          >
-            Associez votre compte Minecraft pour afficher vos statistiques par défaut.
+          <Alert className="rounded-none min-h-[60px] border-b">
+            <AlertDescription>
+              Associez votre compte Minecraft pour afficher vos statistiques par défaut.
+            </AlertDescription>
+            <Button variant="tertiary" className="px-4 text-nowrap" size="sm" asChild>
+              <Link href="/profile">Associer un compte</Link>
+            </Button>
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
@@ -63,7 +61,7 @@ export default function PlayerShow(props: PlayerShowProps) {
             path={(username) => `/players/${username}`}
           />
           {!error && !player && (
-            <div className="flex flex-col gap-2 [&>p]:text-sm xs:[&>p]:text-base">
+            <div className="flex flex-col gap-2 [&>p]:text-sm sm:[&>p]:text-base">
               <PageSubTitle>Informations</PageSubTitle>
               <p>
                 Pour commencer à voir les statistiques, tapez le pseudo d'un joueur sur la barre de

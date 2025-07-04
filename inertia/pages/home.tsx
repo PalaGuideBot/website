@@ -1,15 +1,15 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
 import Autoplay from 'embla-carousel-autoplay'
 import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
 
 import type PageController from '#controllers/page_controller'
 import { DiscordIcon } from '~/components/icons'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
 import { GiveawayBanner } from '~/components/shared/giveaway_banner'
 import { Head } from '~/components/shared/head'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
@@ -40,21 +40,15 @@ export default function Home(props: HomePageProps) {
                 vos adversaires.
               </p>
               <div className="grid grid-cols-2 gap-4 w-full">
-                <Button
-                  variant="secondary"
-                  className="xl:text-lg p-2 group"
-                  after={<ArrowRightIcon className="transition-all h-6 w-0 group-hover:w-6" />}
-                  asChild
-                >
-                  <Link href="/players">Voir les statistiques</Link>
+                <Button variant="secondary" className="xl:text-lg p-2 group" asChild>
+                  <Link href="/players">
+                    Voir les statistiques
+                    <ArrowRightIcon className="transition-all size-6 w-0! group-hover:w-6!" />
+                  </Link>
                 </Button>
-                <Button
-                  variant="outline"
-                  className="xl:text-lg p-2 group"
-                  before={<DiscordIcon className="mr-2" />}
-                  asChild
-                >
+                <Button variant="outline" className="xl:text-lg p-2 group" asChild>
                   <a target="_blank" href="/discord">
+                    <DiscordIcon />
                     Rejoindre
                   </a>
                 </Button>
@@ -129,34 +123,30 @@ export default function Home(props: HomePageProps) {
                 jeu en temps réel avec nos outils.
               </p>
               <div className="flex flex-col md:flex-row gap-2 items-center justify-center w-full">
-                <Card className="w-56">
+                <Card className="p-0 w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
                     <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
                       {formatNumber(discordStats.guildsCount)}
                     </p>
-                    <p className="text-surface-300 text-center">Serveurs</p>
+                    <p className="text-muted-foreground text-center">Serveurs</p>
                   </CardContent>
                 </Card>
-                <Card className="w-56">
+                <Card className="p-0 w-56">
                   <CardContent className="p-4 flex flex-col gap-1 items-center justify-center">
                     <p className="font-black text-lg font-mc-dungueons tracking-[0.15rem]">
                       {formatNumber(discordStats.usersCount)}
                     </p>
-                    <p className="text-surface-300 text-center">Utilisateurs uniques</p>
+                    <p className="text-muted-foreground text-center">Utilisateurs uniques</p>
                   </CardContent>
                 </Card>
               </div>
               <div className="grid items-center justify-center w-full">
-                <Button
-                  variant="outline"
-                  className="xl:text-lg py-2 px-8 group"
-                  before={<ExternalLinkIcon className="mr-2" />}
-                  asChild
-                >
+                <Button variant="outline" className="xl:text-lg py-2 px-8 group" asChild>
                   <a
                     target="_blank"
                     href="https://discord.com/application-directory/1182646034661392394"
                   >
+                    <ExternalLinkIcon />
                     En savoir plus
                   </a>
                 </Button>

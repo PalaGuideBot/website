@@ -12,7 +12,7 @@ interface MountProps {
   rotation?: [number, number, number]
 }
 
-const Mount = ({ model, isLooping, rotation = [0, Math.PI / 0.8, 0] }: MountProps) => {
+function Mount({ model, isLooping, rotation = [0, Math.PI / 0.8, 0] }: MountProps) {
   const { scene, animations } = useGLTF(`/mount-model/${model}.gltf`)
   const { actions } = useAnimations(animations, scene)
 
@@ -45,9 +45,16 @@ interface MountViewerProps extends Omit<React.ComponentProps<typeof Canvas>, 'ch
   rotation?: MountProps['rotation']
 }
 
-export const MountViewer = React.forwardRef<HTMLCanvasElement, MountViewerProps>(
-  ({ model, className, enableControls = true, rotation, isLooping, ...props }, ref) => (
-    <Canvas ref={ref} className={cn('!h-[200px]', className)} {...props}>
+export function MountViewer({
+  model,
+  className,
+  enableControls = true,
+  rotation,
+  isLooping,
+  ...props
+}: MountViewerProps) {
+  return (
+    <Canvas className={cn('h-[200px]!', className)} {...props}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <Mount model={model} isLooping={isLooping} rotation={rotation} />
@@ -62,4 +69,4 @@ export const MountViewer = React.forwardRef<HTMLCanvasElement, MountViewerProps>
       )}
     </Canvas>
   )
-)
+}

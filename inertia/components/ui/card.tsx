@@ -3,50 +3,71 @@ import * as React from 'react'
 import { cn } from '~/lib/utils'
 import { LinkTrigger } from '../shared/link_trigger'
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('rounded-md border bg-surface shadow', className)} {...props} />
+function Card({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="card"
+      className={cn(
+        'bg-card text-card-foreground flex flex-col rounded-md border py-4 shadow-sm',
+        className
+      )}
+      {...props}
+    />
   )
-)
-Card.displayName = 'Card'
+}
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-4', className)} {...props} />
+function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn(
+        '@container/card-header flex items-start gap-1.5 px-4 [.border-b]:pb-4',
+        className
+      )}
+      {...props}
+    />
   )
-)
-CardHeader.displayName = 'CardHeader'
+}
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement> & { href?: string }
->(({ className, children, href, ...props }, ref) => (
-  <h3 ref={ref} className={cn('font-semibold leading-none tracking-tight', className)} {...props}>
-    {href ? <LinkTrigger href={href}>{children}</LinkTrigger> : children}
-  </h3>
-))
-CardTitle.displayName = 'CardTitle'
-
-const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm text-surface-500', className)} {...props} />
-))
-CardDescription.displayName = 'CardDescription'
-
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-4 pt-0', className)} {...props} />
+function CardTitle({
+  href,
+  className,
+  children,
+  ...props
+}: React.ComponentProps<'div'> & { href?: string }) {
+  return (
+    <div
+      data-slot="card-title"
+      className={cn('leading-none font-semibold tracking-tighter', className)}
+      {...props}
+    >
+      {href ? <LinkTrigger href={href}>{children}</LinkTrigger> : children}
+    </div>
   )
-)
-CardContent.displayName = 'CardContent'
+}
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center p-4 pt-0', className)} {...props} />
+function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="card-description"
+      className={cn('text-muted-foreground text-sm', className)}
+      {...props}
+    />
   )
-)
-CardFooter.displayName = 'CardFooter'
+}
 
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
+function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="card-content" className={cn('px-4', className)} {...props} />
+}
+
+function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="card-footer"
+      className={cn('flex items-center px-4 [.border-t]:pt-4', className)}
+      {...props}
+    />
+  )
+}
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

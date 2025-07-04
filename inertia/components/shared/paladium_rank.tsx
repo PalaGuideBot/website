@@ -2,12 +2,12 @@ import { rankToIcon, translateRank } from '~/content/ranks'
 import { cn } from '~/lib/utils'
 import type { Rank } from '~/types'
 
-type PaladiumRankProps = {
+interface PaladiumRankProps {
   rank: string
   className?: string
 }
 
-const PaladiumRank = ({ rank, className }: PaladiumRankProps) => {
+export function PaladiumRank({ rank, className }: PaladiumRankProps) {
   const rankIcon = rankToIcon(rank as Rank)
   const translatedRank = translateRank(rank as Rank)
 
@@ -20,5 +20,3 @@ const PaladiumRank = ({ rank, className }: PaladiumRankProps) => {
     </div>
   )
 }
-
-export default PaladiumRank

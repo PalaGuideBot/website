@@ -1,4 +1,4 @@
-import { useInView, useMotionValue, useSpring } from 'framer-motion'
+import { useInView, useMotionValue, useSpring } from 'motion/react'
 import { ComponentPropsWithoutRef, useEffect, useRef } from 'react'
 
 import { cn } from '~/lib/utils'
@@ -45,6 +45,14 @@ export function NumberTicker({
       }),
     [springValue, decimalPlaces]
   )
+
+  if (value === 0) {
+    return (
+      <span className={cn('inline-block tabular-nums tracking-wider', className)} {...props}>
+        {value}
+      </span>
+    )
+  }
 
   return (
     <span

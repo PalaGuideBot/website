@@ -1,10 +1,10 @@
-import { Badge } from '@lemonsqueezy/wedges'
 import { BadgeInfoIcon } from 'lucide-react'
 
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { LinkTrigger } from '~/components/shared/link_trigger'
+import { Badge } from '~/components/ui/badge'
 import { Markdown, implementedComponents } from '~/components/ui/markdown'
 
 type ChangelogPageProps = {
@@ -26,7 +26,7 @@ export default function ChangelogPage(props: ChangelogPageProps) {
 
                 if (title) {
                   return (
-                    <LinkTrigger href={`#${title}`} className="text-primary">
+                    <LinkTrigger href={`#${title}`}>
                       {implementedComponents.h2({
                         node,
                         id: title,
@@ -44,7 +44,8 @@ export default function ChangelogPage(props: ChangelogPageProps) {
                 if (match?.groups) {
                   return (
                     <h3 className="mb-2">
-                      <Badge className="py-0.5" stroke before={<BadgeInfoIcon />}>
+                      <Badge variant="secondary" className="py-0.5" stroke>
+                        <BadgeInfoIcon />
                         {match.groups.type}
                       </Badge>
                     </h3>

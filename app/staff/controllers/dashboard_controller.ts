@@ -8,8 +8,10 @@ export default class DashboardController {
   constructor(private api: ApiService) {}
 
   async index({ inertia }: HttpContext) {
-    let stats = await this.api.getUsageStatistics()
-    const latestPlayers = await this.api.getLatestPlayers()
+    const [stats, latestPlayers] = await Promise.all([
+      this.api.getUsageStatistics(),
+      this.api.getLatestPlayers(),
+    ])
 
     return inertia.render('staff/dashboard/index', { stats, latestPlayers })
   }

@@ -1,4 +1,3 @@
-import { Button } from '@lemonsqueezy/wedges'
 import * as React from 'react'
 
 import {
@@ -11,6 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '~/components/ui/alert_dialog'
+import { Button } from '~/components/ui/button'
 
 interface RemoveUserGiveawayDialogProps {
   children: React.ReactNode

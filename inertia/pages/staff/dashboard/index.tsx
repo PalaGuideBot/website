@@ -1,15 +1,16 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
-import { Avatar, Tabs } from '@lemonsqueezy/wedges'
 import { CodeXmlIcon, PointerIcon, ServerIcon, SwordsIcon, UsersIcon } from 'lucide-react'
 
 import type DashboardController from '#staff/controllers/dashboard_controller'
 import { DiscordIcon } from '~/components/icons'
-import StaffLayout from '~/components/layouts/staff'
+import { StaffLayout } from '~/components/layouts/staff'
 import { Page } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { Avatar, AvatarImage } from '~/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { Table, TableBody, TableCell, TableRow } from '~/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { formatNumber } from '~/lib/utils'
 import { ApiDatabaseEvolutionCard } from '../components/api_database_evolution_card'
 import { ApiLatestPlayersCard } from '../components/api_latest_players_card'
@@ -39,21 +40,23 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
       <Head descriptors={[{ title: 'Tableau de bord' }]} />
       <StaffLayout>
         <Page>
-          <Tabs defaultValue="discord" variant="fill">
-            <Tabs.List>
-              <Tabs.Trigger before={<DiscordIcon className="size-4" />} value="discord">
+          <Tabs defaultValue="discord">
+            <TabsList>
+              <TabsTrigger value="discord">
+                <DiscordIcon className="size-4" />
                 Discord
-              </Tabs.Trigger>
-              <Tabs.Trigger before={<CodeXmlIcon className="size-4" />} value="api">
+              </TabsTrigger>
+              <TabsTrigger value="api">
+                <CodeXmlIcon className="size-4" />
                 API
-              </Tabs.Trigger>
-            </Tabs.List>
-            <Tabs.Content value="discord">
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="discord">
               <DiscordTab data={stats} />
-            </Tabs.Content>
-            <Tabs.Content value="api">
+            </TabsContent>
+            <TabsContent value="api">
               <ApiTab data={{ stats, latestPlayers }} />
-            </Tabs.Content>
+            </TabsContent>
           </Tabs>
         </Page>
       </StaffLayout>
@@ -90,7 +93,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <StatCard>
           <StatCardHeader>
             <StatCardTitle>Serveurs</StatCardTitle>
@@ -143,7 +146,7 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
         icons={icons}
       />
       <DiscordInteractionsCard data={interactionsGraphData} interactions={interactions} />
-      <Card className="bg-background">
+      <Card className="pb-0 bg-background">
         <CardHeader className="border-b">
           <CardTitle>Serveurs</CardTitle>
         </CardHeader>
@@ -156,7 +159,9 @@ const DiscordTab = ({ data }: { data: DashboardIndexPageProps['stats'] }) => {
                   .map((guild) => (
                     <TableRow key={guild.id}>
                       <TableCell className="flex items-center gap-2">
-                        <Avatar src={guild.icon} alt={`Icône de ${guild.name}`} />
+                        <Avatar>
+                          <AvatarImage src={guild.icon} alt={`Icône de ${guild.name}`} />
+                        </Avatar>
                         <span>{guild.name}</span>
                       </TableCell>
                       <TableCell>
@@ -234,7 +239,7 @@ const ApiTab = ({ data }: { data: DashboardIndexPageProps }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <StatCard>
           <StatCardHeader>
             <StatCardTitle>Joueurs uniques</StatCardTitle>

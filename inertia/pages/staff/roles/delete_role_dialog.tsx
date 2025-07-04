@@ -1,5 +1,4 @@
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
@@ -14,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '~/components/ui/alert_dialog'
+import { Button } from '~/components/ui/button'
 
 interface DeleteRoleDialogProps {
   children: React.ReactNode

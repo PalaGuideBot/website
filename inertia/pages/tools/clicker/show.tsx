@@ -1,13 +1,13 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Alert } from '@lemonsqueezy/wedges'
 import * as React from 'react'
 import { useIsClient } from 'usehooks-ts'
 
 import type ClickerController from '#tools/controller/clicker_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
-import PaladiumJob from '~/components/shared/paladium_job'
+import { PaladiumJob } from '~/components/shared/paladium_job'
+import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Card, CardContent } from '~/components/ui/card'
 import { ScrollArea } from '~/components/ui/scroll_area'
 import { getBustUrl } from '~/lib/minecraft'
@@ -61,7 +61,9 @@ export default function ClickerShow(props: ClickerShowProps) {
               seront mises en cache et sera acessible même si vous quittez la page.
             </p>
             <Alert>
-              Les informations seront réinitialisées dès lors que vous changez de joueur.
+              <AlertDescription>
+                Les informations seront réinitialisées dès lors que vous changez de joueur.
+              </AlertDescription>
             </Alert>
             <p className="text-sm">
               Une erreur peut survenir lorsque vous essayez de charger les informations d'un joueur.
@@ -116,8 +118,8 @@ export default function ClickerShow(props: ClickerShowProps) {
                 />
                 <div className="flex flex-col gap-2">
                   <PageSubTitle>Métiers</PageSubTitle>
-                  <Card>
-                    <CardContent className="pt-4 pb-0 grid grid-cols-3 gap-4 xl:gap-0 place-items-center xl:place-items-stretch">
+                  <Card className="p-0">
+                    <CardContent className="pt-4 grid grid-cols-3 gap-4 xl:gap-0 place-items-center xl:place-items-stretch">
                       <div className="col-span-3 xl:col-span-1 border-b xl:border-b-0">
                         <img
                           className="object-contain"
@@ -266,17 +268,17 @@ export default function ClickerShow(props: ClickerShowProps) {
   )
 }
 
-interface ClickerShowHeaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
+interface ClickerShowHeaderProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   defaultFormValue?: string
   onFormSuccess?: () => void
 }
 
-const ClickerShowHeader = ({
+function ClickerShowHeader({
   className,
   defaultFormValue,
   onFormSuccess,
   ...props
-}: ClickerShowHeaderProps) => {
+}: ClickerShowHeaderProps) {
   return (
     <div className={cn('flex flex-col gap-4', className)} {...props}>
       <PageTitle>Clicker</PageTitle>

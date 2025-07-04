@@ -21,7 +21,7 @@ Nous ne partageons aucune donnée collectée avec des tiers ou des fournisseurs.
 ## Cookies
 Nous utilisons des cookies pour l'authentification du personnel et des utilisateurs. Ces cookies sont exclusivement utilisés pour permettre aux membres du personnel et aux utilisateurs de se connecter. Ils ne sont pas utilisés pour collecter des données personnelles ou suivre les utilisateurs.
 
-## Durée de conservation des Données
+## Durée de conservation des données
 
 Toutes les données collectées dans le cadre de nos services sont conservées de manière indéfinie. Cela nous permet de maintenir un historique complet des statistiques et d'offrir des analyses comparatives entre les différentes versions de notre service. Ainsi, les utilisateurs peuvent consulter les données et statistiques des versions précédentes, même après le passage à une nouvelle version. Ces données sont conservées dans un objectif d'amélioration continue de nos services et pour offrir un suivi historique complet aux utilisateurs.
 

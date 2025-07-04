@@ -1,8 +1,8 @@
-import { Badge } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
 import type { dailyEventsValidator } from '#event/validators/event_validator'
+import { Badge } from '~/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import {
   Carousel,
@@ -21,7 +21,7 @@ interface EventCardProps extends React.ComponentProps<typeof Card> {
   event: Infer<typeof dailyEventsValidator>[number]['events'][number]
 }
 
-const EventCard = ({ event, className, style, ...props }: EventCardProps) => {
+function EventCard({ event, className, style, ...props }: EventCardProps) {
   return (
     <Card
       className={cn(
@@ -35,9 +35,10 @@ const EventCard = ({ event, className, style, ...props }: EventCardProps) => {
       {...props}
     >
       <Badge
+        variant="outline"
         shape="pill"
         stroke
-        className="absolute top-4 left-4 font-mc-dungueons tracking-wide text-xs dark:text-white dark:wg-bg-wg-black pointer-events-none"
+        className="absolute top-4 left-4 font-mc-dungueons tracking-wide text-xs dark:text-white dark:bg-black pointer-events-none"
       >
         {event.name}
       </Badge>
@@ -50,7 +51,7 @@ interface DailyEventsCardProps extends React.ComponentProps<typeof Card> {
   events: Infer<typeof dailyEventsValidator>
 }
 
-const DailyEventsCard = ({ events, ...props }: DailyEventsCardProps) => {
+export function DailyEventsCard({ events, ...props }: DailyEventsCardProps) {
   const [api, setApi] = React.useState<CarouselApi>()
 
   const today = DateTime.now().toFormat('cccc', { locale: 'en' }).toLowerCase()
@@ -111,5 +112,3 @@ const DailyEventsCard = ({ events, ...props }: DailyEventsCardProps) => {
     </Card>
   )
 }
-
-export { DailyEventsCard }

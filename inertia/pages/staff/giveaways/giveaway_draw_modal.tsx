@@ -1,5 +1,4 @@
 import { Link, router } from '@inertiajs/react'
-import { Button, Loading } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import { HTTPError } from 'ky'
 import { PartyPopperIcon } from 'lucide-react'
@@ -7,6 +6,7 @@ import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
+import { Button } from '~/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
+import { Spinner } from '~/components/ui/spinner'
 import { client } from '~/lib/client'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
@@ -28,7 +29,7 @@ interface GiveawayDrawModalProps {
   giveaway: Giveaway
 }
 
-const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
+export function GiveawayDrawModal({ children, giveaway }: GiveawayDrawModalProps) {
   const [drawStatus, setDrawStatus] = React.useState('pending')
   const [count, setCount] = React.useState(1)
 
@@ -116,14 +117,14 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
             </>
           )}
           <dt className="font-semibold">Actions</dt>
-          <dd className="flex items-center gap-2 flex-wrap">
+          <dd className="flex items-center gap-2 col-span-2 md:col-span-1">
             <Input
               autoComplete="none"
               inputMode="numeric"
               type="number"
               min={1}
               disabled={drawStatus === 'loading' || !giveawayIsOver}
-              className="bg-transparent h-8 px-1 max-w-16 text-center"
+              className="h-8 px-1 w-16 min-w-16 text-center"
               value={count}
               onChange={(event) => setCount(Number(event.target.value))}
             />
@@ -131,15 +132,9 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
               disabled={drawStatus === 'loading' || !giveawayIsOver}
               size="sm"
               variant="outline"
-              before={
-                drawStatus === 'loading' ? (
-                  <Loading size="sm" />
-                ) : (
-                  <PartyPopperIcon className="size-4" />
-                )
-              }
               onClick={onDraw}
             >
+              {drawStatus === 'loading' ? <Spinner className="size-4" /> : <PartyPopperIcon />}
               Tirer au sort
             </Button>
             <Button size="sm" variant="outline" asChild>
@@ -151,5 +146,3 @@ const GiveawayDrawModal = ({ children, giveaway }: GiveawayDrawModalProps) => {
     </Dialog>
   )
 }
-
-export { GiveawayDrawModal }

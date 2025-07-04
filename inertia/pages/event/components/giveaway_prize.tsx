@@ -8,14 +8,14 @@ interface GiveawayPrizeProps extends React.ComponentProps<typeof Card> {
   prize: string
 }
 
-const GiveawayPrize = ({ prize, className, ...props }: GiveawayPrizeProps) => {
+export function GiveawayPrize({ prize, className, ...props }: GiveawayPrizeProps) {
   return (
     <Card
-      className={cn('bg-transparent border-0 hover:bg-surface transition-colors', className)}
+      className={cn('p-0 bg-transparent border-0 hover:bg-card transition-colors', className)}
       {...props}
     >
       <CardContent className="p-2 flex items-center gap-2">
-        <div className="flex items-center justify-center size-8 rounded-full bg-primary-500/20">
+        <div className="flex items-center justify-center size-8 rounded-full bg-primary/20">
           <AwardIcon className="size-4" />
         </div>
         <span className="font-semibold text-sm">{prize}</span>
@@ -23,5 +23,3 @@ const GiveawayPrize = ({ prize, className, ...props }: GiveawayPrizeProps) => {
     </Card>
   )
 }
-
-export { GiveawayPrize }
