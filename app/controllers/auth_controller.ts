@@ -59,7 +59,11 @@ export default class AuthController {
     let user = await this.api.getUser(validatedDiscordUser.id)
 
     if (!user) {
-      user = await this.api.createUser(validatedDiscordUser.id)
+      user = await this.api.createUser({
+        discordId: validatedDiscordUser.id,
+        username: validatedDiscordUser.globalName,
+        avatarUrl: validatedDiscordUser.avatarUrl,
+      })
     }
 
     session.put('user', { ...validatedDiscordUser, roles: user.roles })

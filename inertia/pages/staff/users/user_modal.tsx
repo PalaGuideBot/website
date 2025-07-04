@@ -100,6 +100,26 @@ const UserModal = ({ children, user }: UserModalProps) => {
               <FormMessage message={form.errors.discordId} />
             </FormItem>
             <FormItem>
+              <FormLabel htmlFor="username">Nom d'utilisateur</FormLabel>
+              <Input
+                id="username"
+                name="username"
+                value={form.data.username}
+                onChange={(event) => form.setData('username', event.target.value)}
+              />
+              <FormMessage message={form.errors.username} />
+            </FormItem>
+            <FormItem>
+              <FormLabel htmlFor="avatar-url">Avatar</FormLabel>
+              <Input
+                id="avatar-url"
+                name="avatarUrl"
+                value={form.data.avatarUrl}
+                onChange={(event) => form.setData('avatarUrl', event.target.value)}
+              />
+              <FormMessage message={form.errors.avatarUrl} />
+            </FormItem>
+            <FormItem>
               <FormLabel htmlFor="roles">Rôles</FormLabel>
               <MultiSelect
                 commandProps={{
