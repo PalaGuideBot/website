@@ -1,5 +1,4 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Tabs, ToggleGroup } from '@lemonsqueezy/wedges'
 import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import {
   Area,
@@ -13,11 +12,13 @@ import {
 } from 'recharts'
 
 import type PaladiumController from '#status/controllers/paladium_controller'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
-import LinearGradient from '~/components/shared/linear_gradient'
+import { LinearGradient } from '~/components/shared/linear_gradient'
 import { Card, CardContent } from '~/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
+import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle_group'
 import { icons as factionIcons } from '~/content/factions'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
@@ -60,41 +61,52 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
           <p>
             Sur cette page, vous pourrez visualiser le statut des différents services de Paladium.
           </p>
-          <p className="text-surface-300 text-sm">
+          <p className="text-muted-foreground text-sm">
             <TriangleAlertIcon className="size-4 mr-2 inline-block" />
             Les données sont mises à jour toutes les 5 minutes, sous réserve de la disponibilité de
             l'API de Paladium.
           </p>
-          <Tabs defaultValue="global" variant="underlined">
-            <Tabs.List className="flex flex-col-reverse items-start justify-between gap-2 md:flex-wrap-reverse md:flex-row md:items-center">
-              <div>
-                <Tabs.Trigger before={<EarthIcon className="size-4" />} value="global">
-                  Global
-                </Tabs.Trigger>
-                <Tabs.Trigger before={<UsersIcon className="size-4" />} value="factions">
-                  Factions
-                </Tabs.Trigger>
-                <Tabs.Trigger before={<FileCogIcon className="size-4" />} value="launcher">
-                  Launcher
-                </Tabs.Trigger>
-              </div>
-              <div>
-                <ToggleGroup
-                  type="single"
-                  size="sm"
-                  value={dateInterval}
-                  onValueChange={(value) => {
-                    if (value.length) {
-                      setDateInterval(value as 'last-30-days' | 'today')
-                    }
-                  }}
+          <Tabs defaultValue="global">
+            <div className="flex flex-col-reverse items-start justify-between gap-2 md:flex-wrap-reverse md:flex-row md:items-center">
+              <TabsList className="bg-card text-card-foreground">
+                <TabsTrigger
+                  value="global"
+                  className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
                 >
-                  <ToggleGroup.Item value="last-30-days">30 derniers jours</ToggleGroup.Item>
-                  <ToggleGroup.Item value="today">Aujourd'hui</ToggleGroup.Item>
-                </ToggleGroup>
-              </div>
-            </Tabs.List>
-            <Tabs.Content value="global">
+                  <EarthIcon />
+                  Global
+                </TabsTrigger>
+                <TabsTrigger
+                  value="factions"
+                  className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
+                >
+                  <UsersIcon />
+                  Factions
+                </TabsTrigger>
+                <TabsTrigger
+                  value="launcher"
+                  className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
+                >
+                  <FileCogIcon />
+                  Launcher
+                </TabsTrigger>
+              </TabsList>
+              <ToggleGroup
+                type="single"
+                variant="outline"
+                size="sm"
+                value={dateInterval}
+                onValueChange={(value) => {
+                  if (value.length) {
+                    setDateInterval(value as 'last-30-days' | 'today')
+                  }
+                }}
+              >
+                <ToggleGroupItem value="last-30-days">30 derniers jours</ToggleGroupItem>
+                <ToggleGroupItem value="today">Aujourd'hui</ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+            <TabsContent value="global">
               <GlobalTab
                 data={status.map((s) => ({
                   date: s.date,
@@ -102,20 +114,20 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
                   global: s.data.java.global,
                 }))}
               />
-            </Tabs.Content>
-            <Tabs.Content value="factions">
+            </TabsContent>
+            <TabsContent value="factions">
               <FactionsTab
                 data={status.map((s) => ({
                   date: s.date,
                   factions: s.data.java.factions,
                 }))}
               />
-            </Tabs.Content>
-            <Tabs.Content value="launcher">
+            </TabsContent>
+            <TabsContent value="launcher">
               <LauncherTab
                 data={status.map((s) => ({ date: s.date, launcher: s.data.launcher }))}
               />
-            </Tabs.Content>
+            </TabsContent>
           </Tabs>
         </Page>
       </DefaultLayout>
@@ -154,12 +166,12 @@ const GlobalTab = ({
 
   return (
     <Card>
-      <CardContent className="pt-4 flex flex-col gap-4">
-        <div className="space-y-2">
+      <CardContent className="flex flex-col gap-4">
+        <div className="space-y-4">
           <PageSubTitle>Uptime</PageSubTitle>
           <UptimeIndicator data={globalStatus} />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-4">
           <PageSubTitle>Joueurs</PageSubTitle>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -192,7 +204,7 @@ const GlobalTab = ({
 
                       return (
                         <Card className="bg-background">
-                          <CardContent className="p-4 space-y-2">
+                          <CardContent className="space-y-2">
                             <div className="font-pixel text-xs">
                               {formatDate(
                                 DateTime.fromSQL(`${date} ${hour}:00:00`).toISO()!,
@@ -222,7 +234,7 @@ const GlobalTab = ({
                   type="monotone"
                   dataKey="global.players"
                   name="Joueurs"
-                  stroke="hsl(var(--wg-primary))"
+                  stroke="var(--primary)"
                   fill="url(#primary-gradient)"
                   strokeWidth={3}
                   dot={false}
@@ -231,14 +243,14 @@ const GlobalTab = ({
                   type="monotone"
                   dataKey="average"
                   name="Moyenne"
-                  stroke="hsl(var(--wg-secondary))"
+                  stroke="var(--foreground)"
                   fill="none"
                   strokeDasharray="5 5"
                   strokeWidth={2}
                   dot={false}
                 />
                 <defs>
-                  <LinearGradient id="primary-gradient" from="hsl(var(--wg-primary))" />
+                  <LinearGradient id="primary-gradient" from="var(--primary)" />
                 </defs>
                 <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '50px' }} />
               </AreaChart>
@@ -269,14 +281,14 @@ const FactionsTab = ({
   )
   return (
     <Card>
-      <CardContent className="pt-4 flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4">
         <div className="space-y-8">
           {Object.entries(groupedByFaction).map(([faction, status]) => {
             const Icon = factionIcons[faction as PaladiumFaction]
             return (
               <div key={faction} className="flex items-end justify-center gap-4 pb-2">
                 <Icon className="h-10 w-10" />
-                <div className="space-y-2 flex-grow">
+                <div className="space-y-2 grow">
                   <PageSubTitle>{faction}</PageSubTitle>
                   <UptimeIndicator data={status} />
                 </div>
@@ -296,7 +308,7 @@ const LauncherTab = ({
 }) => {
   return (
     <Card>
-      <CardContent className="pt-4 flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4">
         <div className="space-y-2">
           <PageSubTitle>Uptime</PageSubTitle>
           <UptimeIndicator data={data.map((s) => ({ date: s.date, status: s.launcher.status }))} />

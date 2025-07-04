@@ -1,5 +1,4 @@
 import { Head as InertiaHead } from '@inertiajs/react'
-import React from 'react'
 
 type MetaDescriptor =
   | { title: string }

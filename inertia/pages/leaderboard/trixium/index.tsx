@@ -1,6 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Alert, Tabs } from '@lemonsqueezy/wedges'
 import { ShieldIcon, UserIcon } from 'lucide-react'
 import { useMemo } from 'react'
 import {
@@ -16,12 +15,14 @@ import {
 
 import type TrixiumController from '#leaderboard/controllers/trixium_controller'
 import { LeaderboardTrixiumIcon } from '~/components/icons'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { DateRangeSelector } from '~/components/shared/date_range_selector'
 import { Head } from '~/components/shared/head'
+import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { graphColors } from '~/content/leaderboards'
 import { usePagination } from '~/hooks/use_pagination'
 import { useSearchParams } from '~/hooks/use_search_params'
@@ -61,21 +62,29 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
             <PageTitle>Classement: Trixium</PageTitle>
             <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
-          <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab} variant="underlined">
-            <Tabs.List>
-              <Tabs.Trigger before={<UserIcon className="size-4" />} value="player">
+          <Tabs value={searchParams.get('tab')!} onValueChange={onChangeTab}>
+            <TabsList className="bg-card text-card-foreground">
+              <TabsTrigger
+                value="player"
+                className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
+              >
+                <UserIcon className="size-4" />
                 Joueur
-              </Tabs.Trigger>
-              <Tabs.Trigger before={<ShieldIcon className="size-4" />} value="faction">
+              </TabsTrigger>
+              <TabsTrigger
+                value="faction"
+                className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
+              >
+                <ShieldIcon className="size-4" />
                 Faction
-              </Tabs.Trigger>
-            </Tabs.List>
-            <Tabs.Content value="player">
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="player">
               <PlayerTab data={leaderboardPlayer} />
-            </Tabs.Content>
-            <Tabs.Content value="faction">
+            </TabsContent>
+            <TabsContent value="faction">
               <FactionTab data={leaderboardFaction} />
-            </Tabs.Content>
+            </TabsContent>
           </Tabs>
         </Page>
       </DefaultLayout>
@@ -125,7 +134,9 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
   return (
     <div className="flex flex-col gap-4">
       {!lastLeaderboard && (
-        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+        <Alert variant="warning">
+          <AlertDescription>Aucune donnée trouvée pour la période sélectionnée.</AlertDescription>
+        </Alert>
       )}
       {lastLeaderboard && (
         <>
@@ -136,8 +147,8 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
             <PlayerPodium data={third} position="third" compare={first.value} />
           </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
-          <Card>
-            <CardContent className="p-4 h-[500px]">
+          <Card className="pb-2">
+            <CardContent className="h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -180,7 +191,7 @@ const PlayerTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboardP
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
-            <CardFooter className="flex justify-center border-t p-2">
+            <CardFooter className="justify-center border-t pt-2!">
               <Pagination
                 page={page}
                 limit={limit}
@@ -244,8 +255,8 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
             <FactionPodium data={third} position="third" compare={first.value} />
           </PodiumCardWrapper>
           <PageSubTitle>Historique</PageSubTitle>
-          <Card>
-            <CardContent className="p-4 h-[500px]">
+          <Card className="pb-2">
+            <CardContent className="h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -288,7 +299,7 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
-            <CardFooter className="flex justify-center border-t p-2">
+            <CardFooter className="justify-center border-t pt-2!">
               <Pagination
                 page={page}
                 limit={limit}
@@ -324,21 +335,19 @@ const PlayerPodium = ({
         <PodiumCardDescription href={`/players/${data.username}`}>
           {data.username}
         </PodiumCardDescription>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger className="z-[2]">
-              <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
-                after={<LeaderboardTrixiumIcon />}
-              >
-                {formatNumber(data.value)}
-              </PodiumCardValue>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger className="z-2">
+            <PodiumCardValue
+              className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
+              after={<LeaderboardTrixiumIcon />}
+            >
+              {formatNumber(data.value)}
+            </PodiumCardValue>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
+          </TooltipContent>
+        </Tooltip>
         {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>
@@ -359,21 +368,19 @@ const FactionPodium = ({
       <PodiumCardImage src={`${data.emblemUrl}`} alt={`${data.uuid}'s avatar`} />
       <PodiumCardPedestal>
         <PodiumCardDescription href={`/factions/${data.name}`}>{data.name}</PodiumCardDescription>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger className="z-[2]">
-              <PodiumCardValue
-                className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
-                after={<LeaderboardTrixiumIcon />}
-              >
-                {formatNumber(data.value)}
-              </PodiumCardValue>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger className="z-2">
+            <PodiumCardValue
+              className="border-b-2 border-dashed border-foreground hover:border-b-transparent"
+              after={<LeaderboardTrixiumIcon />}
+            >
+              {formatNumber(data.value)}
+            </PodiumCardValue>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {formatNumber(data.value, { compactDisplay: 'long' })} <span>Trixium</span>
+          </TooltipContent>
+        </Tooltip>
         {Number(compare) > 0 && <PodiumCardCompare value={data.value} compare={Number(compare)} />}
       </PodiumCardPedestal>
     </PodiumCard>

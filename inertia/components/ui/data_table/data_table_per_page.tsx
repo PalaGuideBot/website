@@ -1,19 +1,20 @@
+import type { RowData, Table } from '@tanstack/react-table'
+import { useId } from 'react'
+
+import { Label } from '~/components/ui/label'
 import {
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@lemonsqueezy/wedges'
-import type { RowData, Table } from '@tanstack/react-table'
-import { useId } from 'react'
+} from '~/components/ui/select'
 
 interface DataTablePerPageProps<TData extends RowData> {
   table: Table<TData>
 }
 
-function DataTablePerPage<TData extends RowData>({ table }: DataTablePerPageProps<TData>) {
+export function DataTablePerPage<TData extends RowData>({ table }: DataTablePerPageProps<TData>) {
   const id = useId()
 
   return (
@@ -41,5 +42,3 @@ function DataTablePerPage<TData extends RowData>({ table }: DataTablePerPageProp
     </div>
   )
 }
-
-export { DataTablePerPage }

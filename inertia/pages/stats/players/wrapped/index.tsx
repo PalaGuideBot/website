@@ -1,30 +1,36 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
-import { AnimatePresence, motion } from 'framer-motion'
+import type { Infer } from '@vinejs/vine/types'
 import { PlayCircleIcon, RefreshCcwIcon } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 
 import type PlayerController from '#stats/controllers/player_controller'
+import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { CoinIcon, QuestionIcon } from '~/components/icons'
 import { HyperText } from '~/components/magicui/hyper_text'
 import { NumberTicker } from '~/components/magicui/number_ticker'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
 import { JobProgress } from '~/components/shared/paladium_job'
-import ThemeToggler from '~/components/shared/theme_toggler'
-import ReactSkinview3d from '~/components/skin_viewer_3d'
+import { ThemeToggler } from '~/components/shared/theme_toggler'
+import { SkinViewer3d } from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
 import { PetViewer } from '~/components/three/pet'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { allianceToIcon } from '~/content/factions'
 import { icons as jobIcons } from '~/content/jobs'
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
+import { getClickerBuildingImage } from '~/lib/clicker'
 import { getFullBobyUrl, getSkinUrl } from '~/lib/minecraft'
 import { noCase } from '~/lib/string'
 import { cn } from '~/lib/utils'
 import { SearchPlayerForm } from '../components/search_player_form'
+
+type Player = Infer<typeof playerWrappedValidator>
 
 export type PlayerWrappedPageProps = InferPageProps<PlayerController, 'wrapped'>
 
@@ -77,18 +83,18 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v10</h1>
+      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v10.5</h1>
       <p className="text-xl">
         Hey {player.username} ! Prêt à revenir sur les statistiques de votre aventure ?
       </p>
       <motion.div
-        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-emerald-700/10 backdrop-blur-sm shadow-2xl mx-auto"
+        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-indigo-500/10 backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <ReactSkinview3d
-          className="!h-auto w-full !pointer-events-none"
+        <SkinViewer3d
+          className="h-auto! w-full pointer-events-none!"
           width="278"
           height="450"
           skinUrl={getSkinUrl(player.username)}
@@ -96,7 +102,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         />
       </motion.div>
       <motion.p
-        className="text-surface-300"
+        className="text-muted-foreground"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -130,8 +136,8 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           </p>
         ) : (
           <p className="text-xl">
-            Vous avez <span className="font-mc-dungueons text-primary">masqué</span> cette
-            information
+            Information <span className="font-mc-dungueons text-primary">masquée</span> par le
+            joueur
           </p>
         )}
       </motion.div>
@@ -143,10 +149,18 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       >
         <p className="text-3xl font-bold pb-4 border-b">Faction</p>
         <div className="flex flex-row gap-8 items-center">
+          {player.faction.emblemUrl && (
+            <img
+              src={player.faction.emblemUrl}
+              alt="Emblème de la faction"
+              className="w-24 h-24 rounded-lg"
+            />
+          )}
           <div className="space-y-1.5">
             <p className="text-xl">
               Vous êtes dans la faction{' '}
               <span className="inline-flex flex-row items-center gap-2 font-mc-dungueons text-primary text-2xl">
+                {player.faction.alliance && renderAllianceIcon(player.faction.alliance)}
                 <span>{player.faction.name || 'Wilderness'}</span>
               </span>
             </p>
@@ -202,20 +216,27 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         transition={{ delay: 3.4 }}
       >
         <p className="text-3xl font-bold pb-4 border-b">Succès</p>
-        <p className="text-xl">
-          Vous avez débloqué{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.achievements.completed}
-            delay={3.6}
-          />{' '}
-          succès pour un total de{' '}
-          <NumberTicker
-            className="font-mc-dungueons text-primary text-2xl"
-            value={player.achievements.total}
-            delay={3.6}
-          />
-        </p>
+        {player.achievements.total > 0 ? (
+          <p className="text-xl">
+            Vous avez débloqué{' '}
+            <NumberTicker
+              className="font-mc-dungueons text-primary text-2xl"
+              value={player.achievements.completed}
+              delay={3.6}
+            />{' '}
+            succès pour un total de{' '}
+            <NumberTicker
+              className="font-mc-dungueons text-primary text-2xl"
+              value={player.achievements.total}
+              delay={3.6}
+            />
+          </p>
+        ) : (
+          <p className="text-xl">
+            Information <span className="font-mc-dungueons text-primary">masquée</span> par le
+            joueur
+          </p>
+        )}
       </motion.div>
     </motion.div>,
 
@@ -227,12 +248,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       exit={{ opacity: 0 }}
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos compagnons</h2>
-      <div className="grid sm:grid-cols-2 w-fit gap-8 items-center justify-center mx-auto">
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">Monture</CardTitle>
+      <div className="grid sm:grid-cols-2 w-fit gap-8 justify-center mx-auto">
+        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
+          <CardHeader className="justify-center">
+            <CardTitle className="text-2xl">Monture</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col justify-center">
+          <CardContent className="flex-1 flex flex-col justify-center">
             {player.mount && (
               <>
                 <MountViewer
@@ -242,10 +263,10 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
                   isLooping
                 />
                 <ul className="flex flex-col gap-2 items-center font-mc-dungueons text-nowrap">
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Nom : <span className="text-primary">{player.mount.name}</span>
                   </li>
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Niveau : <NumberTicker className="text-primary" value={player.mount.level} />
                   </li>
                 </ul>
@@ -254,33 +275,33 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.mount && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possédez aucune monture</p>
+                <p className="text-white">Vous ne possédez aucune monture</p>
               </div>
             )}
           </CardContent>
         </Card>
-        <Card className="border-4 border-white/10 bg-emerald-700/10 backdrop-blur-sm shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">Familier</CardTitle>
+        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
+          <CardHeader className="justify-center">
+            <CardTitle className="text-2xl">Familier</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col justify-center">
+          <CardContent className="flex-1 flex flex-col justify-center">
             {player.pet && (
               <>
                 <PetViewer
-                  className="!pointer-events-none sm:!pointer-events-auto"
+                  className="pointer-events-none! sm:pointer-events-auto!"
                   model={getPet(player.pet.currentSkin)}
                   enableControls={false}
                   rotation={[0, Math.PI / -0.8, 0]}
                   isLooping
                 />
                 <ul className="flex flex-col gap-2 items-center font-mc-dungueons">
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Skin :{' '}
                     <span className="text-primary">
                       {translatePet(getPet(player.pet.currentSkin))}
                     </span>
                   </li>
-                  <li className="text-xl">
+                  <li className="text-white text-xl">
                     Niveau : <NumberTicker className="text-primary" value={player.pet.level} />
                   </li>
                 </ul>
@@ -289,7 +310,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             {!player.pet && (
               <div className="flex flex-col items-center justify-center gap-4 h-48">
                 <QuestionIcon className="size-16" />
-                <p>Vous ne possédez aucun familier</p>
+                <p className="text-white">Vous ne possédez aucun familier</p>
               </div>
             )}
           </CardContent>
@@ -311,13 +332,13 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           return (
             <motion.div
               key={jobName}
-              className="w-64 border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
+              className="p-4 gap-4 w-64 border-4 border-white/10 bg-indigo-500/10 flex flex-col py-4 rounded-md backdrop-blur-sm shadow-2xl"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index }}
             >
-              <CardHeader>
-                <CardTitle className="text-3xl text-center uppercase">{jobName}</CardTitle>
+              <CardHeader className="justify-center">
+                <CardTitle className="text-2xl uppercase">{jobName}</CardTitle>
               </CardHeader>
               <CardContent className="relative flex flex-col items-center justify-center">
                 <div className="relative">
@@ -367,12 +388,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Votre meilleur classement</h2>
       <motion.div
-        className="w-64 border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
+        className="w-64 border-4 border-white/10 bg-indigo-500/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <CardHeader>
-          <CardTitle className="text-3xl text-center uppercase">
+        <CardHeader className="justify-center">
+          <CardTitle className="text-2xl uppercase">
             {player.bestLeaderboard ? noCase(player.bestLeaderboard.name) : 'Inconnu'}
           </CardTitle>
         </CardHeader>
@@ -432,6 +453,72 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
       >
+        <p className="text-3xl font-bold pb-4 border-b">Bâtiments</p>
+        <div className="flex flex-row gap-8 items-center">
+          <div className="space-y-1.5">
+            <p className="text-xl">
+              Vous avez débloqué{' '}
+              <NumberTicker
+                className="font-mc-dungueons text-primary text-2xl"
+                value={player.clicker.buildings.unlocked}
+                delay={1.2}
+              />{' '}
+              bâtiments pour un total de{' '}
+              <NumberTicker
+                className="font-mc-dungueons text-primary text-2xl"
+                value={player.clicker.buildings.total}
+                delay={1.2}
+              />
+            </p>
+            {player.clicker.buildings.lastUnlocked && (
+              <div className="flex flex-row items-end gap-2">
+                <Card className="border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl p-2">
+                  <img
+                    src={getClickerBuildingImage(player.clicker.buildings.lastUnlocked.name)}
+                    alt={player.clicker.buildings.lastUnlocked.name}
+                    className="w-16 h-auto object-cover"
+                    style={{ imageRendering: 'pixelated' }}
+                  />
+                </Card>
+                <p className="text-xl">
+                  <span className="font-mc-dungueons text-primary">
+                    {player.clicker.buildings.lastUnlocked.label}
+                  </span>{' '}
+                  est le dernier bâtiment que vous avez débloqué
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+      <motion.div
+        className="flex flex-col gap-2"
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2 }}
+      >
+        <p className="text-3xl font-bold pb-4 border-b">Améliorations</p>
+        <p className="text-xl">
+          Vous avez débloqué{' '}
+          <NumberTicker
+            className="font-mc-dungueons text-primary text-2xl"
+            value={player.clicker.upgrades.unlocked}
+            delay={2.4}
+          />{' '}
+          améliorations pour un total de{' '}
+          <NumberTicker
+            className="font-mc-dungueons text-primary text-2xl"
+            value={player.clicker.upgrades.total}
+            delay={2.4}
+          />
+        </p>
+      </motion.div>
+      <motion.div
+        className="flex flex-col gap-2"
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 3.4 }}
+      >
         <p className="text-3xl font-bold pb-4 border-b">Click Coins par seconde</p>
         {player.clicker.rps > 0 ? (
           <p className="text-xl">
@@ -467,7 +554,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Fin</h2>
       <motion.div
-        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-emerald-700/10 rounded-md backdrop-blur-sm shadow-2xl"
+        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-indigo-500/10 rounded-md backdrop-blur-sm shadow-2xl"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -480,7 +567,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             />
           </div>
           <HyperText
-            className="flex-grow animate-glow text-xl sm:text-5xl text-center pb-4"
+            className="grow animate-glow text-xl sm:text-5xl text-center pb-4"
             charcacterClassName="font-mc-dungueons"
           >
             {player.username}
@@ -510,15 +597,15 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2 }}
       >
-        <Button
-          variant="tertiary"
-          before={<RefreshCcwIcon className="size-4" />}
-          onClick={replaySlide}
-        >
+        <Button variant="tertiary" onClick={replaySlide}>
+          <RefreshCcwIcon />
           Recommencer
         </Button>
-        <Button variant="tertiary" before={<PlayCircleIcon className="size-4" />} asChild>
-          <Link href={`/wrapped/${player.username}/end`}>Continuer</Link>
+        <Button variant="tertiary" asChild>
+          <Link href={`/wrapped/${player.username}/end`}>
+            <PlayCircleIcon />
+            Continuer
+          </Link>
         </Button>
       </motion.div>
     </motion.div>,
@@ -540,8 +627,8 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             backgroundImage: "url('/paladium-menu-background.jpg')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-black/80" />
-        <div className="relative max-w-5xl w-full flex-grow">
+        <div className="absolute inset-0 bg-linear-to-b from-black to-black/80" />
+        <div className="relative max-w-5xl w-full grow">
           <AnimatePresence mode="wait">{slides[currentSlide]}</AnimatePresence>
         </div>
         <div
@@ -570,6 +657,11 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       )}
     </>
   )
+}
+
+function renderAllianceIcon(alliance: Required<Player['faction']>['alliance']) {
+  const Icon = allianceToIcon(alliance)
+  return Icon && <Icon className="size-6" />
 }
 
 function renderLeaderboardIcon(leaderboard: string) {

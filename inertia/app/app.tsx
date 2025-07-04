@@ -9,7 +9,7 @@ import { ThemeProvider } from '~/components/theme_provider'
 const appName = import.meta.env.VITE_APP_NAME || 'PalaGuideBot'
 
 createInertiaApp({
-  progress: { color: 'hsl(var(--wg-primary))' },
+  progress: { color: 'var(--primary)' },
 
   title: (title) => `${title} - ${appName}`,
 

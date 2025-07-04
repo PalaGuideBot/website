@@ -1,12 +1,4 @@
 import { useForm } from '@inertiajs/react'
-import {
-  Button,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-} from '@lemonsqueezy/wedges'
 import type { Infer } from '@vinejs/vine/types'
 import { ChevronRightIcon, SearchIcon, Trash2Icon } from 'lucide-react'
 import { useMemo } from 'react'
@@ -15,9 +7,18 @@ import type {
   calculatorOptionsValidator,
   calculatorResultValidator,
 } from '#tools/validators/calculator_validator'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select'
 import { formatNumber, formatPrice } from '~/lib/utils'
 import { ExperienceMethod } from './experience_method'
 
@@ -26,7 +27,7 @@ interface CalculatorResultProps {
   result: Infer<typeof calculatorResultValidator>
 }
 
-const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
+export function CalculatorResult({ options, result }: CalculatorResultProps) {
   const form = useForm({
     search: '',
     selectedBonus: 'without',
@@ -68,14 +69,9 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
         </p>
         <Collapsible className="group/collapsible">
           <CollapsibleTrigger asChild>
-            <Button
-              variant="tertiary"
-              size="sm"
-              after={
-                <ChevronRightIcon className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-              }
-            >
+            <Button variant="tertiary" size="sm">
               Voir les récompenses
+              <ChevronRightIcon className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2">
@@ -104,7 +100,7 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <div className="relative col-span-1 sm:col-span-2">
-            <SearchIcon className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 text-surface-400" />
+            <SearchIcon className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               placeholder="Recherche..."
               className="pl-[28px] bg-transparent w-full h-10"
@@ -115,11 +111,12 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
           <div className="col-span-1">
             <div className="flex flex-row gap-2">
               <Select
-                className="w-full"
                 value={form.data.selectedBonus}
                 onValueChange={(value) => form.setData('selectedBonus', value)}
               >
-                <SelectTrigger />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Bonus" />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="without">Sans bonus</SelectItem>
@@ -133,9 +130,9 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
                 disabled={!form.isDirty}
                 onClick={() => form.reset()}
                 variant="outline"
-                isIconOnly
+                size="icon"
               >
-                <Trash2Icon className="size-4" />
+                <Trash2Icon />
               </Button>
             </div>
           </div>
@@ -150,7 +147,7 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
               />
             ))}
           {items.length === 0 && (
-            <p className="col-span-2 text-center text-surface-400">
+            <p className="col-span-2 text-center text-muted-foreground">
               Aucun résultat trouvé pour la recherche{' '}
               <span className="font-bold">{form.data.search}</span>.
             </p>
@@ -160,5 +157,3 @@ const CalculatorResult = ({ options, result }: CalculatorResultProps) => {
     </Card>
   )
 }
-
-export { CalculatorResult }

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Bienvenue sur **PalaGuideBot** En utilisant nos services, y compris notre application web et notre bot, vous acceptez les présentes conditions générales d'utilisation (CGU). Veuillez les lire attentivement.
+Bienvenue sur **PalaGuideBot**. En utilisant nos services, y compris notre application web et notre bot, vous acceptez les présentes conditions générales d'utilisation (CGU). Veuillez les lire attentivement.
 
 ## Utilisation des services
 

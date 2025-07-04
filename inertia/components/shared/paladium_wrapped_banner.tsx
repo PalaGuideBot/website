@@ -1,22 +1,33 @@
 import { Link } from '@inertiajs/react'
-import { Button } from '@lemonsqueezy/wedges'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
+import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Badge } from '../ui/badge'
 
-const PaladiumWrappedBanner = () => {
+export function PaladiumWrappedBanner() {
   return (
-    <Card className="border-4 border-white/10 bg-emerald-700/10 shadow-none">
-      <CardHeader className="p-4 pb-0">
+    <Card className="relative gap-4 border-4 border-white/10 bg-indigo-500/10 shadow-none">
+      <CardHeader className="flex-col">
         <CardTitle className="text-sm">Paladium Wrapped</CardTitle>
         <CardDescription>Redécouvrez votre aventure dès maintenant.</CardDescription>
       </CardHeader>
-      <CardContent className="p-4">
-        <Button variant="tertiary" className="w-full shadow-none" size="sm" asChild>
+      <CardContent>
+        <Button
+          variant="secondary"
+          className="w-full shadow-none bg-gradient-to-tr from-indigo-500/10 to-indigo-500/40"
+          size="sm"
+          asChild
+        >
           <Link href="/wrapped">C'est parti !</Link>
         </Button>
       </CardContent>
+      <Badge
+        variant="outline"
+        stroke
+        className="border-white/10 bg-indigo-500 absolute -top-2 -right-2 animate-bounce"
+      >
+        v10.5
+      </Badge>
     </Card>
   )
 }
-
-export { PaladiumWrappedBanner }

@@ -1,4 +1,3 @@
-import { Button } from '@lemonsqueezy/wedges'
 import {
   ColumnDef,
   flexRender,
@@ -9,10 +8,11 @@ import {
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
+import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { DataTablePagination } from '~/components/ui/data_table/data_table_pagination'
 import { DataTablePerPage } from '~/components/ui/data_table/data_table_per_page'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import {
   Table,
   TableBody,
@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState('')
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -63,7 +63,7 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
           </Button>
         </RoleModal>
       </div>
-      <Card>
+      <Card className="p-0">
         <CardContent className="p-0">
           <Table className="text-nowrap">
             <TableHeader>
@@ -110,5 +110,3 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
     </>
   )
 }
-
-export { DataTable }

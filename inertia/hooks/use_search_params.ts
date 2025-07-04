@@ -1,5 +1,5 @@
 import { router, usePage } from '@inertiajs/react'
-import React from 'react'
+import * as React from 'react'
 
 type URLSearchParamsInit =
   | string

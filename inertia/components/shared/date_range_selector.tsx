@@ -1,13 +1,3 @@
-import {
-  Button,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectIcon,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@lemonsqueezy/wedges'
 import { CalendarIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
@@ -20,13 +10,22 @@ import { useSearchParams } from '~/hooks/use_search_params'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { cn } from '~/lib/utils'
+import { Button } from '../ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
 
 interface DateRangeSelectorProps {
   seasons: ClientSeasonsFromProps
   defaultOptions?: DistanceFilter | null
 }
 
-const DateRangeSelector = ({ seasons, defaultOptions }: DateRangeSelectorProps) => {
+export function DateRangeSelector({ seasons, defaultOptions }: DateRangeSelectorProps) {
   const [searchParams, setSearchParams] = useSearchParams(defaultOptions || {})
 
   const [open, setOpen] = useState(false)
@@ -96,12 +95,12 @@ const DateRangeSelector = ({ seasons, defaultOptions }: DateRangeSelectorProps) 
         <Button
           id="date"
           variant="outline"
-          before={<CalendarIcon className="size-4" />}
           className={cn(
             'justify-start text-left font-normal',
-            !searchParams.has('from') && searchParams.has('to') && 'text-surface-400'
+            !searchParams.has('from') && searchParams.has('to') && 'text-muted-foreground'
           )}
         >
+          <CalendarIcon />
           {defaultSeason && defaultSeason.label}
           {!defaultSeason && date?.from && date?.to && (
             <>
@@ -114,9 +113,8 @@ const DateRangeSelector = ({ seasons, defaultOptions }: DateRangeSelectorProps) 
       <PopoverContent className="w-auto p-0 flex flex-col bg-background" align="end">
         <div className="p-2 pb-0">
           <Select defaultValue={defaultSeason?.value} onValueChange={onSelectChange}>
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Version" />
-              <SelectIcon />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -146,5 +144,3 @@ const DateRangeSelector = ({ seasons, defaultOptions }: DateRangeSelectorProps) 
     </Popover>
   )
 }
-
-export { DateRangeSelector }

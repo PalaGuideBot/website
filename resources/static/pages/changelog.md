@@ -1,5 +1,22 @@
 # Changelog
 
+## 04/07/2025
+
+### Website
+
+- Ajout du Wrapped de la saison `/wrapped`
+- Ajout de grades disponibles sur Paladium (Support Confirmé...)
+- Mise à jour de React `18.3.5 > 19.1.8`
+- Correction de ponctuations manquantes
+- Correction de singularité lorsqu'un joueur est seul dans sa faction ou n'a qu'un ami
+- Modification de la tournure de certaines phrases (Arthur0501)
+- Retrait de l'article "Tout savoir" dans la sidebar, toujours disponible via le lien `/know-everything`
+
+### Bot
+
+- Ajout de grades disponibles sur Paladium (Support Confirmé...)
+- Ajout d'un message de pub pour le wrapped lors d'une commande [Temporaire]
+
 ## 30/05/2025
 
 ### Website

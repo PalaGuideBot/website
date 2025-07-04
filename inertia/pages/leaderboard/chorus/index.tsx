@@ -1,6 +1,6 @@
 import type ChorusController from '#leaderboard/controllers/chorus_controller'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import DefaultLayout from '~/components/layouts/default'
+import { DefaultLayout } from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 
 export default function ChorusIndex(props: InferPageProps<ChorusController, 'index'>) {

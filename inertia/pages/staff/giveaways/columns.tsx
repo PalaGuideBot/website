@@ -1,10 +1,10 @@
-import { Button } from '@lemonsqueezy/wedges'
 import { ColumnDef } from '@tanstack/react-table'
 import { Infer } from '@vinejs/vine/types'
 import { EditIcon, Trash2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
+import { Button } from '~/components/ui/button'
 import { formatDate } from '~/lib/date'
 import { DeleteGiveawayDialog } from './delete_giveaway_dialog'
 import { GiveawayDrawModal } from './giveaway_draw_modal'
@@ -60,16 +60,16 @@ export const columns: ColumnDef<Giveaway>[] = [
       return (
         <div className="flex justify-end">
           <GiveawayModal giveaway={row.original}>
-            <Button variant="transparent" size="sm" isIconOnly>
-              <EditIcon className="size-4" />
+            <Button variant="ghost" size="icon">
+              <EditIcon />
             </Button>
           </GiveawayModal>
           <DeleteGiveawayDialog
             giveaway={row.original}
             onSuccess={() => toast.success('Giveaway supprimé avec succès')}
           >
-            <Button variant="transparent" size="sm" isIconOnly>
-              <Trash2Icon className="size-4" />
+            <Button variant="ghost" size="icon">
+              <Trash2Icon />
             </Button>
           </DeleteGiveawayDialog>
         </div>

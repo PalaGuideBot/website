@@ -1,19 +1,21 @@
 import { useForm } from '@inertiajs/react'
-import { Button, Checkbox } from '@lemonsqueezy/wedges'
 import { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 import { toast } from 'sonner'
 
 import type { giveawayValidator } from '#event/validators/giveaway_validator'
+import { Button } from '~/components/ui/button'
+import { Checkbox } from '~/components/ui/checkbox'
 import { DateTimeInput } from '~/components/ui/datetime_input'
 import {
   Dialog,
-  DialogContentWithoutOverlay,
+  DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import Input from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { TagsInput } from '~/components/ui/tags_input'
 import { DateTime } from '~/lib/luxon'
 
@@ -84,7 +86,8 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContentWithoutOverlay
+      <DialogContent
+        transparentOverlay
         onOpenAutoFocus={(event) => event.preventDefault()}
         aria-describedby="modal-description"
         animation="right-to-left"
@@ -93,6 +96,7 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
         <DialogTitle>
           {giveaway ? `Modifier le giveaway ${giveaway.title}` : 'Ajouter un giveaway'}
         </DialogTitle>
+        <DialogDescription className="sr-only">Modification d'un giveaway</DialogDescription>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <FormItem>
@@ -127,15 +131,14 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
             </FormItem>
             {giveaway && (
               <FormItem>
-                <Checkbox.Root className="items-center text-sm" asChild>
-                  <label>
-                    <Checkbox.Item
-                      onCheckedChange={(checked) => form.setData('active', Boolean(checked))}
-                      checked={form.data.active}
-                    />
-                    <span>Définir comme giveaway actif</span>
-                  </label>
-                </Checkbox.Root>
+                <div className="inline-flex items-center gap-2">
+                  <Checkbox
+                    id="active"
+                    onCheckedChange={(checked) => form.setData('active', Boolean(checked))}
+                    checked={form.data.active}
+                  />
+                  <label htmlFor="active">Définir comme giveaway actif</label>
+                </div>
                 <FormMessage message={form.errors.active} />
               </FormItem>
             )}
@@ -158,7 +161,7 @@ const GiveawayModal = ({ children, giveaway }: GiveawayModalProps) => {
             </div>
           </div>
         </form>
-      </DialogContentWithoutOverlay>
+      </DialogContent>
     </Dialog>
   )
 }

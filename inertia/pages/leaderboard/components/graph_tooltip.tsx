@@ -17,7 +17,7 @@ export const GraphTooltip = <TValue extends ValueType, TName extends NameType>({
 }) => {
   if (active && payload && payload.length) {
     return (
-      <Card className="bg-background">
+      <Card className="p-0 bg-background">
         <CardContent className="p-4 space-y-2 min-w-52">
           <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
           {payload

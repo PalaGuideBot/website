@@ -12,7 +12,7 @@ interface PetProps {
   rotation?: [number, number, number]
 }
 
-const PetModel = ({ model, isLooping, rotation = [0, Math.PI / 0.8, 0] }: PetProps) => {
+function PetModel({ model, isLooping, rotation = [0, Math.PI / 0.8, 0] }: PetProps) {
   const { scene, animations } = useGLTF(`/pet-model/${model}.gltf`)
   const { actions } = useAnimations(animations, scene)
 
@@ -44,9 +44,16 @@ interface PetViewerProps extends Omit<React.ComponentProps<typeof Canvas>, 'chil
   rotation?: PetProps['rotation']
 }
 
-export const PetViewer = React.forwardRef<HTMLCanvasElement, PetViewerProps>(
-  ({ model, className, enableControls = true, rotation, isLooping, ...props }, ref) => (
-    <Canvas ref={ref} className={cn('!h-[200px]', className)} {...props}>
+export function PetViewer({
+  model,
+  className,
+  enableControls = true,
+  rotation,
+  isLooping,
+  ...props
+}: PetViewerProps) {
+  return (
+    <Canvas className={cn('h-[200px]!', className)} {...props}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <PetModel model={model} isLooping={isLooping} rotation={rotation} />
@@ -61,4 +68,4 @@ export const PetViewer = React.forwardRef<HTMLCanvasElement, PetViewerProps>(
       )}
     </Canvas>
   )
-)
+}

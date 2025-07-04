@@ -1,4 +1,3 @@
-import { ToggleGroup } from '@lemonsqueezy/wedges'
 import { useState } from 'react'
 import {
   CartesianGrid,
@@ -13,11 +12,12 @@ import {
 import { ChartContainer, useChart } from '~/components/shared/chart_container'
 import { ChartControls } from '~/components/shared/chart_controls'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle_group'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { formatNumber } from '~/lib/utils'
 
-export type ApiStatsEndpointsCardProps = {
+export interface ApiStatsEndpointsCardProps {
   data: Array<
     Record<
       string,
@@ -27,7 +27,7 @@ export type ApiStatsEndpointsCardProps = {
   endpoints: string[]
 }
 
-const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) => {
+export function ApiStatsEndpointsCard({ data, endpoints }: ApiStatsEndpointsCardProps) {
   const [graphType, setGraphType] = useState<'count' | 'averageTime'>('count')
 
   const colors = [
@@ -80,17 +80,18 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
   const initialSeries = endpoints.map((endpoint, index) => ({
     id: endpoint,
     name: endpoint,
-    color: colors[index] ?? 'hsl(var(--wg-primary))',
+    color: colors[index] ?? 'var(--primary)',
   }))
 
   return (
     <ChartContainer initialSeries={initialSeries}>
-      <Card className="bg-backgroud">
-        <CardHeader className="space-y-0 border-b flex flex-wrap flex-row items-center justify-between gap-4 py-2">
+      <Card className="p-0 pt-2 bg-backgroud">
+        <CardHeader className="border-b items-center justify-between pr-2 pb-2!">
           <CardTitle>Statistiques: Endpoints</CardTitle>
           <div className="flex flex-row items-center gap-2">
             <ToggleGroup
               type="single"
+              variant="outline"
               value={graphType}
               onValueChange={(value) => {
                 if (value.length) {
@@ -99,8 +100,8 @@ const ApiStatsEndpointsCard = ({ data, endpoints }: ApiStatsEndpointsCardProps) 
               }}
               size="sm"
             >
-              <ToggleGroup.Item value="count">Count</ToggleGroup.Item>
-              <ToggleGroup.Item value="averageTime">AVG Time</ToggleGroup.Item>
+              <ToggleGroupItem value="count">Count</ToggleGroupItem>
+              <ToggleGroupItem value="averageTime">AVG Time</ToggleGroupItem>
             </ToggleGroup>
             <ChartControls />
           </div>
@@ -129,7 +130,7 @@ const Chart = ({ data, graphType }: { data: any[]; graphType: 'count' | 'average
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <Card className="bg-background/95">
+                <Card className="p-0 bg-background/95">
                   <CardContent className="p-4 space-y-2">
                     <div className="font-pixel text-xs">{formatDate(label, DateTime.DATE_MED)}</div>
                     <div className="flex flex-col gap-2">
@@ -205,5 +206,3 @@ const Chart = ({ data, graphType }: { data: any[]; graphType: 'count' | 'average
     </ResponsiveContainer>
   )
 }
-
-export { ApiStatsEndpointsCard }

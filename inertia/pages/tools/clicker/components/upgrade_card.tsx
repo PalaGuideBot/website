@@ -1,13 +1,13 @@
 import { TrendingUpIcon } from 'lucide-react'
 
 import type { ClickerAnyUpgrade } from '#tools/types'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { getClickerUpgradeImage } from '~/lib/clicker'
+import { ucFirst } from '~/lib/string'
 import { cn, formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
 import { AccentText } from './accent_text'
 import { useClickerSettings } from './clicker_settings'
-import { ucFirst } from '~/lib/string'
 
 interface UpgradeConditionsProps {
   upgrade: ClickerAnyUpgrade
@@ -178,44 +178,42 @@ const UpgradeCard = ({ upgrade, unlocked = false, onClick }: UpgradeCardProps) =
   const unlockable = playerClickerStore.isUpgradeUnlockable(upgrade, calculator)
 
   return (
-    <TooltipProvider delayDuration={100}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            onClick={onClick}
-            className={cn(
-              'p-2 rounded-md border bg-surface shadow transition-colors duration-100 hover:bg-black/15',
-              !unlocked &&
-                unlockable &&
-                'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
-              !unlockable &&
-                playerClickerStore.options.markOutLockedUpgrades &&
-                'opacity-50 hover:bg-surface',
-              unlocked &&
-                'opacity-100 bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
-            )}
-          >
-            <img className="w-10 h-auto object-cover" src={getClickerUpgradeImage(upgrade)} />
-          </button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom" align="center" className="p-0">
-          <div className="border-b p-2">
-            <p className="font-bold">{upgrade.data.label}</p>
-          </div>
-          <div className="p-4 space-y-1.5">
-            <p>
-              Prix:{' '}
-              <AccentText>{formatNumber(upgrade.data.price, { notation: 'standard' })}</AccentText>{' '}
-              coins
-            </p>
-            {playerClickerStore.options.showUpgradeAdvantages && (
-              <UpgradeAdvantage upgrade={upgrade} />
-            )}
-            <UpgradeConditions upgrade={upgrade} />
-          </div>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip delayDuration={100}>
+      <TooltipTrigger asChild>
+        <button
+          onClick={onClick}
+          className={cn(
+            'p-2 rounded-md border bg-card shadow transition-colors duration-100 hover:bg-black/15',
+            !unlocked &&
+              unlockable &&
+              'bg-primary border-primary shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]',
+            !unlockable &&
+              playerClickerStore.options.markOutLockedUpgrades &&
+              'opacity-50 hover:bg-muted',
+            unlocked &&
+              'opacity-100 bg-clicker-unlocked border-clicker-unlocked shadow-[inset_0px_-7px_0px_-2px_rgba(0,0,0,0.3)]'
+          )}
+        >
+          <img className="w-10 h-auto object-cover" src={getClickerUpgradeImage(upgrade)} />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" align="center" className="p-0">
+        <div className="border-b p-2">
+          <p className="font-bold">{upgrade.data.label}</p>
+        </div>
+        <div className="p-4 space-y-1.5">
+          <p>
+            Prix:{' '}
+            <AccentText>{formatNumber(upgrade.data.price, { notation: 'standard' })}</AccentText>{' '}
+            coins
+          </p>
+          {playerClickerStore.options.showUpgradeAdvantages && (
+            <UpgradeAdvantage upgrade={upgrade} />
+          )}
+          <UpgradeConditions upgrade={upgrade} />
+        </div>
+      </TooltipContent>
+    </Tooltip>
   )
 }
 

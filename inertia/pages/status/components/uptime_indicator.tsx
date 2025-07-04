@@ -1,4 +1,3 @@
-import { Badge, Loading } from '@lemonsqueezy/wedges'
 import {
   CirclePlayIcon,
   CirclePowerIcon,
@@ -8,52 +7,51 @@ import {
   TriangleAlertIcon,
 } from 'lucide-react'
 
+import { Badge } from '~/components/ui/badge'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
+import { Spinner } from '~/components/ui/spinner'
 import { eachDayOfInterval, eachHourOfDate, formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { cn } from '~/lib/utils'
 import { PaladiumStatus } from '~/types'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
-type UptimeIndicatorProps = {
-  data: Array<{ date: string; status: Array<{ from: string; to: string; status: PaladiumStatus }> }>
-}
-
 const TIME_INTERVAL_IN_MINUTES = 10
 
-const UptimeIndicatorStatus = ({ status }: { status: PaladiumStatus }) => {
+function UptimeIndicatorStatus({ status }: { status: PaladiumStatus }) {
   const icon = {
     online: (
-      <span className="flex h-4 w-4 items-center justify-center rounded-full before:flex before:aspect-square before:w-[6px] before:rounded-full before:bg-wg-green before:content-['']" />
+      <span className="flex h-4 w-4 items-center justify-center rounded-full before:flex before:aspect-square before:w-[6px] before:rounded-full before:bg-emerald-500 before:content-['']" />
     ),
     offline: (
       <span className="flex h-4 w-4 items-center justify-center rounded-full before:flex before:aspect-square before:w-[6px] before:rounded-full before:bg-destructive before:content-['']" />
     ),
     maintenance: <ConstructionIcon className="h-4 w-4" />,
     running: (
-      <span className="flex h-4 w-4 items-center justify-center rounded-full before:flex before:aspect-square before:w-[6px] before:rounded-full before:bg-wg-green before:content-['']" />
+      <span className="flex h-4 w-4 items-center justify-center rounded-full before:flex before:aspect-square before:w-[6px] before:rounded-full before:bg-emerald-500 before:content-['']" />
     ),
     starting: <CirclePlayIcon className="h-4 w-4" />,
-    restarting: <Loading size="xs" type="dots" color="primary" />,
+    restarting: <Spinner variant="ellipsis" className="text-primary" />,
     stopping: <CirclePowerIcon className="h-4 w-4 animate-blink" />,
     unknown: <ShieldQuestionIcon className="h-4 w-4" />,
     whitelist: <ListXIcon className="h-4 w-4" />,
   }[status]
 
   return (
-    <Badge before={icon} size="sm" shape="pill">
+    <Badge variant="outline" shape="pill">
+      {icon}
       {translateStatus(status)}
     </Badge>
   )
 }
 
-const UptimeIndicatorTick = ({
+function UptimeIndicatorTick({
   date,
   status,
 }: {
   date: string
   status: UptimeIndicatorProps['data'][number]['status']
-}) => {
+}) {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
   const isInactive = status.some((s) => !['online', 'running'].includes(s.status))
@@ -65,7 +63,7 @@ const UptimeIndicatorTick = ({
     }[dateInterval] ?? false
 
   if (isFutureDate) {
-    return <span className="h-full w-full rounded-sm bg-surface-200 dark:bg-surface-50" />
+    return <span className="h-full w-full rounded-xs bg-muted-foreground/40" />
   }
 
   return (
@@ -74,8 +72,8 @@ const UptimeIndicatorTick = ({
         <button
           type="button"
           className={cn(
-            'data-[state=open]:outline h-full w-full rounded-sm outline-1 hover:outline',
-            isInactive && !isFutureDate ? 'bg-destructive' : 'bg-wg-green',
+            'data-[state=open]:outline outline-foreground h-full w-full rounded-xs hover:outline',
+            isInactive && !isFutureDate ? 'bg-destructive' : 'bg-emerald-500',
             status.length === 0 && 'bg-primary',
             isSameInterval && 'outline'
           )}
@@ -92,23 +90,23 @@ const UptimeIndicatorTick = ({
   )
 }
 
-const UptimeIndicatorTickTooltipContent = ({
+function UptimeIndicatorTickTooltipContent({
   date,
   status,
 }: {
   date: string
   status: UptimeIndicatorProps['data'][number]['status']
-}) => {
+}) {
   return (
     <>
-      <h4 className="font-pixel text-xs">{formatDate(date, DateTime.DATE_FULL)}</h4>
-      <ul className="p-2 text-sm space-y-2">
+      <h4 className="font-pixel text-xs pb-2">{formatDate(date, DateTime.DATE_FULL)}</h4>
+      <ul className="text-sm space-y-2">
         {status.toReversed().map((s, index) => {
           const { from, to } = s
           return (
             <li key={[from, to].join('') + index} className="flex gap-2 items-center">
               <UptimeIndicatorStatus status={s.status} />
-              <span>{from === to ? from : `de ${from} à ${to}`}</span>
+              <span className="text-nowrap">{from === to ? from : `de ${from} à ${to}`}</span>
             </li>
           )
         })}
@@ -117,7 +115,7 @@ const UptimeIndicatorTickTooltipContent = ({
   )
 }
 
-const UptimeIndicatorTickTooltipEmptyContent = ({ date }: { date: string }) => {
+function UptimeIndicatorTickTooltipEmptyContent({ date }: { date: string }) {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
   const endDate =
@@ -148,7 +146,11 @@ const UptimeIndicatorTickTooltipEmptyContent = ({ date }: { date: string }) => {
   )
 }
 
-const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
+type UptimeIndicatorProps = {
+  data: Array<{ date: string; status: Array<{ from: string; to: string; status: PaladiumStatus }> }>
+}
+
+export function UptimeIndicator({ data }: UptimeIndicatorProps) {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
   const firstDate = data.at(0)?.date ?? DateTime.now().toSQLDate()
@@ -185,7 +187,7 @@ const UptimeIndicator = ({ data }: UptimeIndicatorProps) => {
   }
 
   return (
-    <div className="h-5 bg-surface rounded-md w-full flex flex-row gap-0.5">
+    <div className="h-5 bg-cardrounded-md w-full flex flex-row gap-0.5">
       {result.map(({ date, status }, index) => (
         <UptimeIndicatorTick key={date + index} date={date} status={status} />
       ))}
@@ -208,5 +210,3 @@ function translateStatus(status: PaladiumStatus) {
 
   return translations[status] ?? 'Inconnu'
 }
-
-export { UptimeIndicator }
