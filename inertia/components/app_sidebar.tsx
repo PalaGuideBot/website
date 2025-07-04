@@ -9,7 +9,6 @@ import {
   FileEditIcon,
   LogInIcon,
   MessageCircleQuestionIcon,
-  NewspaperIcon,
   ShieldQuestionIcon,
   ShovelIcon,
   TrophyIcon,
@@ -153,9 +152,19 @@ const generalLinks: LinkProps[] = [
 
 const informationLinks: LinkProps[] = [
   {
+    title: 'Changelog',
+    url: '/changelog',
+    icon: FileEditIcon,
+  },
+  {
     title: 'Giveaway',
     url: '/giveaway',
     icon: AwardIcon,
+  },
+  {
+    title: 'F.A.Q',
+    url: '/faq',
+    icon: MessageCircleQuestionIcon,
   },
   {
     title: 'Politique de confidentialité',
@@ -166,21 +175,6 @@ const informationLinks: LinkProps[] = [
     title: "Conditions d'utilisation",
     url: '/terms',
     icon: UserCogIcon,
-  },
-  {
-    title: 'F.A.Q',
-    url: '/faq',
-    icon: MessageCircleQuestionIcon,
-  },
-  {
-    title: 'Changelog',
-    url: '/changelog',
-    icon: FileEditIcon,
-  },
-  {
-    title: 'Tout savoir',
-    url: '/know-everything',
-    icon: NewspaperIcon,
   },
 ]
 
