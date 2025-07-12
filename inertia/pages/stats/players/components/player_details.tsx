@@ -191,7 +191,14 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
                 />
               </li>
               <li>
-                <InformationLine label="Money" value={formatPrice(lastPlayerData.data.money)} />
+                <InformationLine
+                  label="Money"
+                  value={
+                    lastPlayerData.data.money === -1
+                      ? 'Indisponible'
+                      : formatPrice(lastPlayerData.data.money)
+                  }
+                />
               </li>
               <li>
                 <InformationLine
