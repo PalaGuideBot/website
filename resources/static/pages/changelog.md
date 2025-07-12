@@ -1,5 +1,19 @@
 # Changelog
 
+## 12/07/2025
+
+*La monnaie et les grades sont actuellement indisponibles.*
+
+### Website
+
+- Ajout de la possibilité de rechercher des joueurs "cracks"
+- Ajout de la saison Summer Smash
+
+### Bot
+
+- Ajout de la possibilité de rechercher des joueurs "cracks"
+- Ajout d'UTM permettant d'analyser la source du trafic
+
 ## 04/07/2025
 
 ### Website

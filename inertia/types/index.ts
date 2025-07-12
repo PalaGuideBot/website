@@ -1,6 +1,7 @@
 export type Job = 'alchemist' | 'farmer' | 'hunter' | 'miner'
 
 export type Rank =
+  | 'SHOULD_BE_REMOVED_UNAVAILABLE'
   | 'default'
   | 'titan'
   | 'paladin'

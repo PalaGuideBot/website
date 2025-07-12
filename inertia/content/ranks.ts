@@ -20,6 +20,7 @@ import adminIcon from '~/assets/rank-icons/admin.png'
 import type { Rank } from '~/types'
 
 const icons: Record<Rank, string | null> = {
+  'SHOULD_BE_REMOVED_UNAVAILABLE': null,
   'default': null,
   'titan': titanIcon,
   'paladin': paladinIcon,
@@ -58,6 +59,7 @@ const icons: Record<Rank, string | null> = {
 }
 
 const translations: Record<Rank, string> = {
+  'SHOULD_BE_REMOVED_UNAVAILABLE': 'Indisponible',
   'default': 'Joueur',
   'titan': 'Titan',
   'paladin': 'Paladin',
