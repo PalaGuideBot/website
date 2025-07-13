@@ -13,7 +13,7 @@ const messages = {
   'target-level.greaterThan': 'Le niveau cible doit être supérieur au niveau actuel',
   'bonus-xp.number': 'Le bonus XP doit être un nombre',
   'bonus-xp.min': "L'XP bonus doit être supérieur à 0",
-  'bonus-xp.max': "L'XP bonus doit être inférieur ou égale à 150",
+  'bonus-xp.max': "L'XP bonus doit être inférieur ou égale à 500",
   'current-xp.number': "L'XP actuel doit être un nombre",
   'current-xp.positive': "L'XP actuel doit être supérieur ou égal à 0",
 }
@@ -29,7 +29,7 @@ export const calculatorOptionsValidator = vine.compile(
         .min(1)
         .max(100)
         .use(greaterThanRule({ otherField: 'current-level' })),
-      'bonus-xp': vine.number().min(0).max(150),
+      'bonus-xp': vine.number().min(0).max(500),
       'current-xp': vine
         .number()
         .positive()
