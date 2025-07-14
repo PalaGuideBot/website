@@ -13,6 +13,7 @@ export type Rank =
   | 'trixium'
   | 'trixium+'
   | 'premium'
+  | 'rusher'
   | 'youtuber'
   | 'streamer'
   | 'helper'
