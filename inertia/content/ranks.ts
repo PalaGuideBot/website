@@ -15,6 +15,7 @@ import titanIcon from '~/assets/rank-icons/titan.png'
 import trixiumPlusIcon from '~/assets/rank-icons/trixium-plus.png'
 import trixiumIcon from '~/assets/rank-icons/trixium.png'
 import premiumIcon from '~/assets/rank-icons/premium.png'
+import rusherIcon from '~/assets/rank-icons/rusher.png'
 import youtuberIcon from '~/assets/rank-icons/youtuber.png'
 import adminIcon from '~/assets/rank-icons/admin.png'
 import type { Rank } from '~/types'
@@ -32,6 +33,7 @@ const icons: Record<Rank, string | null> = {
   'trixium': trixiumIcon,
   'trixium+': trixiumPlusIcon,
   'premium': premiumIcon,
+  'rusher': rusherIcon,
   'youtuber': youtuberIcon,
   'streamer': streamerIcon,
   'helper': ingameIcon,
@@ -71,6 +73,7 @@ const translations: Record<Rank, string> = {
   'trixium': 'Trixium',
   'trixium+': 'Trixium+',
   'premium': 'Premium',
+  'rusher': 'Rusher',
   'youtuber': 'Youtuber',
   'streamer': 'Streamer',
   'helper': 'Helper',
