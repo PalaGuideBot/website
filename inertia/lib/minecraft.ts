@@ -1,5 +1,5 @@
 export function getSkinUrl(username: string) {
-  return `https://api.paladium.games/v1/global/launcher/session/minecraft/skin/${username}`
+  return `https://mineskin.eu/skin/${username}`
 }
 
 export function getHeadUrl(username: string) {
