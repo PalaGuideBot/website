@@ -74,7 +74,7 @@ export class ApiService {
         searchParams: parsedOptions,
       })
       const data = (await response.json()) as Record<string, unknown>
-      return playerInfoValidator.validate({ ...data, username })
+      return playerInfoValidator.validate(data)
     } catch (error) {
       if (error instanceof HTTPError) {
         throw new Exception(`Player "${username}" not found`, {
