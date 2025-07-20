@@ -294,7 +294,9 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <div className="p-1">{/*<PaladiumWrappedBanner /> */}</div>
+          {/*           <div className="p-1">
+            <PaladiumWrappedBanner />
+          </div> */}
           <SidebarMenuItem>
             {user ? (
               <DropdownMenu>
