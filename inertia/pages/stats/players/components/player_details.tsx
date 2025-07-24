@@ -932,7 +932,7 @@ const MarketSection = ({ player, className, ...props }: MarketSectionProps) => {
   }, [form.data.search, form.data.sort, player.market.data])
 
   return (
-    <Card id="market" className={cn('pt-2', className)} {...props}>
+    <Card id="market" className={cn('pt-2 pb-0', className)} {...props}>
       <CardHeader className="border-b pr-2 pb-2! items-center justify-between">
         <CardTitle href="#market">Market</CardTitle>
         <div className="flex flex-row gap-2 items-center">
@@ -1043,7 +1043,10 @@ const MarketSection = ({ player, className, ...props }: MarketSectionProps) => {
                         {entry.pricePb !== 0 && (
                           <Tooltip delayDuration={0}>
                             <TooltipTrigger asChild>
-                              <Badge className="text-xs font-pixel min-w-20 justify-between">
+                              <Badge
+                                className="text-xs font-pixel min-w-20 justify-between rounded"
+                                variant="outline"
+                              >
                                 <MarketPbIcon className="w-4" />
                                 {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
                               </Badge>
@@ -1055,7 +1058,10 @@ const MarketSection = ({ player, className, ...props }: MarketSectionProps) => {
                         )}
                         <Tooltip delayDuration={0}>
                           <TooltipTrigger asChild>
-                            <Badge className="text-xs font-pixel min-w-20 justify-between">
+                            <Badge
+                              className="text-xs font-pixel min-w-20 justify-between rounded"
+                              variant="outline"
+                            >
                               <MarketMoneyIcon className="w-4" />
                               {formatNumber(entry.price, { roundingMode: 'floor' })}
                             </Badge>
