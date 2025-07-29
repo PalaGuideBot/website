@@ -1,5 +1,17 @@
 # Changelog
 
+## 29/07/2025
+
+### Website
+
+- Ajout d'un easter egg
+- Modification de l'agenda
+- Retrait du serveur Event sur la page status `/status/paladium`
+
+### Bot
+
+- Correction d'un bug sur la commande `/carte` qui ne permettait pas d'afficher les comptes crack (Le skin est Steve pour les comptes crack)
+
 ## 12/07/2025
 
 *La monnaie et les grades sont actuellement indisponibles.*
