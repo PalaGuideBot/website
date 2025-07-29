@@ -2,10 +2,10 @@ import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 
+import { ClientSeasonsFromProps } from '#app/types'
 import { createPageErrorFromException } from '#core/helpers/error'
 import { ApiService } from '#core/services/api'
 import { distanceValidator } from '#core/validators/filter_validator'
-import { ClientSeasonsFromProps } from '#app/types'
 
 @inject()
 export default class PlayerController {
@@ -45,11 +45,15 @@ export default class PlayerController {
         })
       }
     }
+
+    const aureliancnx = params.username?.toLowerCase() === 'aureliancnx'
+
     return inertia.render('stats/players/show', {
       player,
       examplePlayer,
       options,
       seasons: seasons.seasons as unknown as ClientSeasonsFromProps,
+      aureliancnx,
     })
   }
 
