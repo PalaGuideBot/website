@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Button } from '~/components/ui/button'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
-import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_page'
+import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_player_details'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
 
