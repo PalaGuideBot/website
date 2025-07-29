@@ -25,7 +25,6 @@ import LeaderboardAlliance from '~/assets/leaderboard-icons/alliance.png'
 
 import FactionAeloria from '~/assets/faction-icons/aeloria.png'
 import FactionEgopolis from '~/assets/faction-icons/egopolis.png'
-import FactionEvent from '~/assets/faction-icons/event.png'
 import FactionKilmordra from '~/assets/faction-icons/kilmordra.png'
 import FactionRunegard from '~/assets/faction-icons/runegard.png'
 import FactionXanoth from '~/assets/faction-icons/xanoth.png'
@@ -77,7 +76,6 @@ export const LeaderboardAllianceIcon = iconFactory(LeaderboardAlliance)
 
 export const FactionAeloriaIcon = iconFactory(FactionAeloria)
 export const FactionEgopolisIcon = iconFactory(FactionEgopolis)
-export const FactionEventIcon = iconFactory(FactionEvent)
 export const FactionKilmordraIcon = iconFactory(FactionKilmordra)
 export const FactionRunegardIcon = iconFactory(FactionRunegard)
 export const FactionXanothIcon = iconFactory(FactionXanoth)

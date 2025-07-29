@@ -12,13 +12,14 @@ import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Button } from '~/components/ui/button'
 import { useAuth } from '~/hooks/use_auth'
 import { getHeadUrl } from '~/lib/minecraft'
+import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_player_details'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
 
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
 export default function PlayerShow(props: PlayerShowProps) {
-  const { player, examplePlayer, options, seasons } = props
+  const { player, examplePlayer, options, seasons, aureliancnx } = props
 
   const {
     props: { error },
@@ -100,7 +101,12 @@ export default function PlayerShow(props: PlayerShowProps) {
               </div>
             </DisplayError>
           )}
-          {player && <PlayerDetails player={player} />}
+          {player &&
+            (aureliancnx ? (
+              <AurelianPlayerDetails player={player} />
+            ) : (
+              <PlayerDetails player={player} />
+            ))}
         </Page>
       </DefaultLayout>
     </>
