@@ -35,7 +35,6 @@ const statsValidator = vine.object({
       Egopolis: factionStatus.clone(),
       Kilmordra: factionStatus.clone(),
       Aeloria: factionStatus.clone(),
-      Event: factionStatus.clone(),
     }),
   }),
   launcher: vine.object({

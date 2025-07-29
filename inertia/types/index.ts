@@ -50,7 +50,7 @@ export type PaladiumStatus =
   | 'unknown'
   | 'whitelist'
 
-export type PaladiumFaction = 'Runegard' | 'Xanoth' | 'Egopolis' | 'Kilmordra' | 'Aeloria' | 'Event'
+export type PaladiumFaction = 'Runegard' | 'Xanoth' | 'Egopolis' | 'Kilmordra' | 'Aeloria'
 
 export type ProfileBanner =
   | 'build'
