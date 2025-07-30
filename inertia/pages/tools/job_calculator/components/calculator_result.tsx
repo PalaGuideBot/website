@@ -19,8 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select'
-import { formatNumber, formatPrice } from '~/lib/utils'
+import { cn, formatNumber, formatPrice } from '~/lib/utils'
 import { ExperienceMethod } from './experience_method'
+import { SummerRushIcon } from '~/components/icons'
 
 interface CalculatorResultProps {
   options: Infer<typeof calculatorOptionsValidator>
@@ -58,7 +59,19 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
           Pour atteindre le niveau{' '}
           <span className="font-bold text-primary">{options.targetLevel}</span> à partir du niveau{' '}
           <span className="font-bold text-primary">{options.currentLevel}</span> avec un bonus
-          d'expérience de <span className="font-bold text-primary">{options.bonusXp}%</span>.
+          d'expérience de{' '}
+          <span
+            className={cn('font-bold text-primary', options.bonusXp >= 300 && 'text-[#26b9ef]')}
+          >
+            {options.bonusXp}%
+          </span>
+          {options.bonusXp >= 300 && (
+            <>
+              {' '}
+              <SummerRushIcon />
+            </>
+          )}
+          .
         </p>
         <p>
           La quantité d'expérience nécessaire est de{' '}
@@ -69,7 +82,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
         </p>
         <Collapsible className="group/collapsible">
           <CollapsibleTrigger asChild>
-            <Button variant="tertiary" size="sm">
+            <Button variant="ghost" size="sm">
               Voir les récompenses
               <ChevronRightIcon className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
             </Button>
