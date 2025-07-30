@@ -27,7 +27,7 @@ interface UserDropdownTriggerProps {
 export function UserDropdownTrigger({ user }: UserDropdownTriggerProps) {
   return (
     <>
-      <Avatar className="h-6 md:h-8 min-w-6 md:min-w-8 rounded-lg">
+      <Avatar className="size-6 md:size-8 rounded-lg">
         <AvatarImage src={user.avatarUrl} alt={user.globalName} />
         <AvatarFallback>UN</AvatarFallback>
       </Avatar>

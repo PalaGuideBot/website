@@ -18,7 +18,7 @@ export function ExperienceMethod({ item, os, target = false }: ExperienceMethodP
 
   return (
     <Card
-      className="py-2 bg-transparent data-[target=true]:border-0 data-[target=true]:outline-2 data-[target=true]:outline-primary"
+      className="py-2 bg-transparent shadow-none data-[target=true]:border-0 data-[target=true]:outline-2 data-[target=true]:outline-primary"
       data-target={target}
     >
       <CardContent className="px-2 relative flex flex-row items-center gap-2">

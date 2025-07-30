@@ -53,7 +53,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
 
   return (
     <Card>
-      <CardContent className="pt-4 text-sm space-y-1.5">
+      <CardContent className="text-sm space-y-1.5">
         <p>
           Pour atteindre le niveau{' '}
           <span className="font-bold text-primary">{options.targetLevel}</span> à partir du niveau{' '}
@@ -114,7 +114,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 value={form.data.selectedBonus}
                 onValueChange={(value) => form.setData('selectedBonus', value)}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full data-[size=default]:h-10">
                   <SelectValue placeholder="Bonus" />
                 </SelectTrigger>
                 <SelectContent>
@@ -126,7 +126,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 </SelectContent>
               </Select>
               <Button
-                className="disabled:hidden w-10 aspect-square"
+                className="disabled:hidden size-10"
                 disabled={!form.isDirty}
                 onClick={() => form.reset()}
                 variant="outline"

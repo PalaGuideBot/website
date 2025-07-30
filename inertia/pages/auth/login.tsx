@@ -26,7 +26,7 @@ export default function LoginPage() {
               <AlertDescription>{translateCode(code)}</AlertDescription>
             </Alert>
           )}
-          <Card className="bg-background">
+          <Card className="bg-background pb-0">
             <CardHeader className="border-b">
               <CardTitle>Connexion</CardTitle>
             </CardHeader>

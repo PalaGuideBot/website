@@ -309,7 +309,7 @@ const LauncherTab = ({
   return (
     <Card>
       <CardContent className="flex flex-col gap-4">
-        <div className="space-y-2">
+        <div className="space-y-4">
           <PageSubTitle>Uptime</PageSubTitle>
           <UptimeIndicator data={data.map((s) => ({ date: s.date, status: s.launcher.status }))} />
         </div>
