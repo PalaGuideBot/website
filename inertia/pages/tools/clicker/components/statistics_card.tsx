@@ -1,3 +1,4 @@
+import { SummerBoostButton } from '~/components/shared/summer_boost_button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { formatNumber } from '~/lib/utils'
 import { usePlayerClickerStore } from '../stores/player_clicker_store'
@@ -31,6 +32,15 @@ const StatisticsCard = ({}: StatisticsCardProps) => {
             {formatNumber(totalSpent, { notation: 'standard', maximumFractionDigits: 0 })}
           </CoinWrapper>
         </div>
+        <SummerBoostButton
+          tooltip={{
+            children: (
+              <span>
+                <span className="text-primary">+300%</span> sur les améliorations de clics.
+              </span>
+            ),
+          }}
+        />
       </CardContent>
     </Card>
   )

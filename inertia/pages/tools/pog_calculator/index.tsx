@@ -7,6 +7,7 @@ import type PogCalculatorController from '#tools/controller/pog_calculator_contr
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { SummerBoostButton } from '~/components/shared/summer_boost_button'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { Checkbox } from '~/components/ui/checkbox'
@@ -243,7 +244,16 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
                 </div>
               </form>
             </CardContent>
-            <CardFooter className="justify-end">
+            <CardFooter className="justify-between">
+              <SummerBoostButton
+                tooltip={{
+                  children: (
+                    <span>
+                      <span className="text-primary">+300%</span> XP obtenues sur les POG.
+                    </span>
+                  ),
+                }}
+              />
               <Button
                 form="calculator"
                 disabled={Boolean(form.processing)}

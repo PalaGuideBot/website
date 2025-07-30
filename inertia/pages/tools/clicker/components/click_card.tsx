@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import type { ClickerClickUpgrade } from '#tools/types'
+import { SummerRushIcon } from '~/components/icons'
 import { ConfettiButton, safeShapeFromText } from '~/components/magicui/confetti'
 import {
   AlertDialog,
@@ -22,7 +23,8 @@ const DEFAULT_CLICK: ClickerClickUpgrade = {
   name: 'click_0',
   label: 'Base Clic',
   price: 0,
-  rate: 1,
+  // SUMMER RUSH BOOST
+  rate: 1 * (300 / 100),
   conditions: [],
 }
 
@@ -104,9 +106,12 @@ export function ClickCard() {
           <p>
             Nom: <AccentText>{click.label}</AccentText>
           </p>
-          <p>
-            Taux: <AccentText>{click.rate}</AccentText> par clic
-          </p>
+          <div className="flex gap-2 items-center">
+            <p>
+              Taux: <AccentText className="text-[#26b9ef]">{click.rate}</AccentText> par clic
+            </p>
+            <SummerRushIcon />
+          </div>
           <p>
             Prix: <AccentText>{formatNumber(click.price, { notation: 'standard' })}</AccentText>{' '}
             coins
