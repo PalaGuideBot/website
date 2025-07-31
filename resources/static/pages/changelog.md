@@ -1,5 +1,18 @@
 # Changelog
 
+## 31/07/2025
+
+### Website
+
+- Ajout d'un message d'alerte sur la page `/profile` pour prévenir que cette fonctionnalité est indisponible pour les comptes crack
+- Ajout d'indications sur les outils (Clicker, Job, POG)
+- Correction de la top bar invitant un utilisateur à se lier à son compte Minecraft
+- Corrections diverses
+
+### Bot
+
+- Correction de la détection de l'erreur lorsqu'un joueur n'existe pas sur Paladium
+
 ## 29/07/2025
 
 ### Website
