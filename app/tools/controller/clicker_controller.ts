@@ -22,7 +22,7 @@ export default class ClickerController {
         // SUMMER RUSH BOOST
         clicks: upgrades.clicks.map((click) => ({
           ...click,
-          rate: click.rate + (click.rate * 300) / 100,
+          rate: click.rate * (300 / 100),
         })),
       },
     })
