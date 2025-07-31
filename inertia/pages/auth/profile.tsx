@@ -93,6 +93,14 @@ function MinecraftTab({ account }: { account?: ProfilePageProps['minecraftAccoun
           <CardDescription>
             Enregistrez votre compte Minecraft pour bénéficier de fonctionnalités supplémentaires.
           </CardDescription>
+          {!account && (
+            <Alert variant="destructive">
+              <AlertDescription>
+                Pour les comptes Paladium Crack, cette fonctionnalité n'est pas disponible. Vous
+                pouvez tout de même demander à être link via le support Discord.
+              </AlertDescription>
+            </Alert>
+          )}
         </CardHeader>
         <CardContent className="space-y-2">
           {account && (
