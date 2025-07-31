@@ -48,7 +48,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
 
   return (
     <Card>
-      <CardContent className="pt-4 text-sm space-y-1.5">
+      <CardContent className="text-sm space-y-1.5">
         <p>
           Pour one-shot le bloc de{' '}
           <img
@@ -153,7 +153,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 value={form.data.selectedMethod}
                 onValueChange={(value) => form.setData('selectedMethod', value)}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full data-[size=default]:h-10">
                   <SelectValue placeholder="Méthode" />
                 </SelectTrigger>
                 <SelectContent>
@@ -167,7 +167,7 @@ export function CalculatorResult({ options, result }: CalculatorResultProps) {
                 </SelectContent>
               </Select>
               <Button
-                className="disabled:hidden w-10 aspect-square"
+                className="disabled:hidden size-10"
                 disabled={!form.isDirty}
                 onClick={() => form.reset()}
                 variant="outline"

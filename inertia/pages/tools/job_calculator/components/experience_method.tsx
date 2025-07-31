@@ -12,9 +12,13 @@ interface ExperienceMethodProps {
 
 const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
   return (
-    <Card className="py-2 bg-transparent">
+    <Card className="py-2 bg-transparent shadow-none">
       <CardContent className="px-2 relative flex flex-row items-center gap-2">
-        <img className="w-10 h-10 object-contain" src={getItemIconUrl(item.item.id)} />
+        <img
+          className="w-10 h-10 object-contain"
+          style={{ imageRendering: 'pixelated' }}
+          src={getItemIconUrl(item.item.id)}
+        />
         <div className="grow">
           <h4>{item.item.type}</h4>
           <p className="text-xs text-primary font-bold">

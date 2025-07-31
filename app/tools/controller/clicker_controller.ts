@@ -15,6 +15,16 @@ export default class ClickerController {
 
     const upgrades = await this.api.getClickerUpgrades()
 
-    return inertia.render('tools/clicker/show', { clicker, upgrades })
+    return inertia.render('tools/clicker/show', {
+      clicker,
+      upgrades: {
+        ...upgrades,
+        // SUMMER RUSH BOOST
+        clicks: upgrades.clicks.map((click) => ({
+          ...click,
+          rate: click.rate * (300 / 100),
+        })),
+      },
+    })
   }
 }

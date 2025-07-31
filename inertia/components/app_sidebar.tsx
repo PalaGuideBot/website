@@ -315,10 +315,10 @@ export function AppSidebar() {
                 <p className="text-xs text-muted-foreground">Non connecté</p>
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" className="p-2 aspect-square" asChild>
+                    <Button variant="outline" size="icon" asChild>
                       <Link href="/login">
                         <span className="sr-only">Se connecter</span>
-                        <LogInIcon className="size-4" />
+                        <LogInIcon />
                       </Link>
                     </Button>
                   </TooltipTrigger>

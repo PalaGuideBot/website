@@ -17,7 +17,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { FormLabel } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import { ScrollArea } from '~/components/ui/scroll_area'
 import {
   Select,
   SelectContent,
@@ -229,9 +228,7 @@ const JobsSection = ({
   player,
   className,
   ...props
-}: { player: AurelianPlayerDetailsProps['player']; className?: string } & React.ComponentProps<
-  typeof Card
->) => {
+}: { player: AurelianPlayerDetailsProps['player'] } & React.ComponentProps<typeof Card>) => {
   const lastPlayerData = player.data.at(-1)
 
   if (!lastPlayerData) {
@@ -260,9 +257,7 @@ const MarketSection = ({
   player,
   className,
   ...props
-}: { player: AurelianPlayerDetailsProps['player']; className?: string } & React.ComponentProps<
-  typeof Card
->) => {
+}: { player: AurelianPlayerDetailsProps['player'] } & React.ComponentProps<typeof Card>) => {
   const [, copy] = useCopyToClipboard()
 
   const form = useForm({
@@ -378,80 +373,76 @@ const MarketSection = ({
           </Popover>
         </div>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="p-0 overflow-hidden">
         {data.length !== 0 ? (
-          <ScrollArea className="h-[256px]">
-            <Table>
-              <TableBody>
-                {data.map((entry) => (
-                  <TableRow key={entry.createdAt}>
-                    <TableCell className="flex items-center gap-2">
-                      <Avatar>
-                        <AvatarImage
-                          src={getMinecraftItemUrl(`${entry.item.name}:${entry.item.meta}`)}
-                          alt={entry.name}
-                          style={{ imageRendering: 'pixelated' }}
-                          className="rounded-[inherit] h-8 w-auto object-contain"
-                        />
-                        <AvatarFallback className="dark:bg-inherit bg-inherit">
-                          <QuestionIcon className="size-4" />
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="space-y-1.5">
-                        <p className="text-xs font-pixel truncate">
-                          {removeColorCodes(entry.name)}
-                        </p>
-                        <p className="text-xs">
-                          {formatDate(
-                            DateTime.fromMillis(entry.createdAt).toISO()!,
-                            DateTime.DATE_SHORT
-                          )}{' '}
-                          · Expire {DateTime.fromMillis(entry.expireAt).toRelative()}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-pixel text-xs">
-                      <span>{entry.type !== 'LUCKY_DRAWER' && `x${entry.item.quantity}`}</span>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-row flex-wrap justify-end gap-1">
-                        {entry.pricePb !== 0 && (
-                          <Tooltip delayDuration={0}>
-                            <TooltipTrigger asChild>
-                              <Badge
-                                className="text-xs font-pixel min-w-20 justify-between rounded"
-                                variant="outline"
-                              >
-                                <MarketPbIcon className="w-4" />
-                                {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
-                              </Badge>
-                            </TooltipTrigger>
-                            <TooltipContent side="bottom">
-                              {formatNumber(entry.pricePb, { notation: 'standard' })} PB
-                            </TooltipContent>
-                          </Tooltip>
-                        )}
+          <Table>
+            <TableBody>
+              {data.map((entry) => (
+                <TableRow key={entry.createdAt}>
+                  <TableCell className="flex items-center gap-2">
+                    <Avatar>
+                      <AvatarImage
+                        src={getMinecraftItemUrl(`${entry.item.name}:${entry.item.meta}`)}
+                        alt={entry.name}
+                        style={{ imageRendering: 'pixelated' }}
+                        className="rounded-[inherit] h-8 w-auto object-contain"
+                      />
+                      <AvatarFallback className="dark:bg-inherit bg-inherit">
+                        <QuestionIcon className="size-4" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-pixel truncate">{removeColorCodes(entry.name)}</p>
+                      <p className="text-xs">
+                        {formatDate(
+                          DateTime.fromMillis(entry.createdAt).toISO()!,
+                          DateTime.DATE_SHORT
+                        )}{' '}
+                        · Expire {DateTime.fromMillis(entry.expireAt).toRelative()}
+                      </p>
+                    </div>
+                  </TableCell>
+                  <TableCell className="font-pixel text-xs">
+                    <span>{entry.type !== 'LUCKY_DRAWER' && `x${entry.item.quantity}`}</span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-row flex-wrap justify-end gap-1">
+                      {entry.pricePb !== 0 && (
                         <Tooltip delayDuration={0}>
                           <TooltipTrigger asChild>
                             <Badge
                               className="text-xs font-pixel min-w-20 justify-between rounded"
                               variant="outline"
                             >
-                              <MarketMoneyIcon className="w-4" />
-                              {formatNumber(entry.price, { roundingMode: 'floor' })}
+                              <MarketPbIcon className="w-4" />
+                              {formatNumber(entry.pricePb, { roundingMode: 'floor' })}
                             </Badge>
                           </TooltipTrigger>
                           <TooltipContent side="bottom">
-                            {formatPrice(entry.price, { notation: 'standard' })}
+                            {formatNumber(entry.pricePb, { notation: 'standard' })} PB
                           </TooltipContent>
                         </Tooltip>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </ScrollArea>
+                      )}
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger asChild>
+                          <Badge
+                            className="text-xs font-pixel min-w-20 justify-between rounded"
+                            variant="outline"
+                          >
+                            <MarketMoneyIcon className="w-4" />
+                            {formatNumber(entry.price, { roundingMode: 'floor' })}
+                          </Badge>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom">
+                          {formatPrice(entry.price, { notation: 'standard' })}
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         ) : (
           <p className="text-center p-4">Aucun élément trouvé</p>
         )}

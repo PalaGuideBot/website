@@ -12,6 +12,7 @@ import { ArrowRightIcon } from '~/components/icons'
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
+import { SummerBoostButton } from '~/components/shared/summer_boost_button'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
@@ -277,7 +278,17 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
                 </AnimatePresence>
               </form>
             </CardContent>
-            <CardFooter className="justify-end">
+            <CardFooter className="justify-between">
+              <SummerBoostButton
+                tooltip={{
+                  children: (
+                    <span>
+                      <span className="text-primary">+300%</span> XP sur les métiers. Appliquez le
+                      sur le champ "XP bonus" pour le calcul.
+                    </span>
+                  ),
+                }}
+              />
               <Button
                 form="calculator"
                 disabled={Boolean(form.processing)}
