@@ -5,7 +5,7 @@
 ### Website
 
 - Ajout d'un message d'alerte sur la page `/profile` pour prévenir que cette fonctionnalité est indisponible pour les comptes crack
-- Ajout d'indications sur les outils (Clicker, Job, POG)
+- Ajout d'indications du Summer Rush sur les outils (Clicker, Job, POG)
 - Correction de la top bar invitant un utilisateur à se lier à son compte Minecraft
 - Corrections diverses
 
