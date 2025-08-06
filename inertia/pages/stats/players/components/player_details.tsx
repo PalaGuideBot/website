@@ -1011,7 +1011,7 @@ const MarketSection = ({ player, className, ...props }: MarketSectionProps) => {
                 {data.map((entry) => (
                   <TableRow key={entry.createdAt}>
                     <TableCell className="flex items-center gap-2">
-                      <Avatar>
+                      <Avatar className="rounded-none">
                         <AvatarImage
                           src={getMinecraftItemUrl(`${entry.item.name}:${entry.item.meta}`)}
                           alt={entry.name}
