@@ -1,5 +1,19 @@
 # Changelog
 
+## 18/08/2025
+
+### Website
+
+- Ajout de la possibilité d'utiliser l'outil XP Calculator au-dessus du niveau 100
+- Correction de la duplication des joueurs
+- Correction de l'affichage des niveaux de jobs supérieurs à 100
+
+### Bot
+
+- Ajout de la possibilité d'utiliser la commande `/calculator` au-dessus du niveau 100
+- Correction d'une erreur lors de la récupération d'un flag pour un joueur crack
+- Correction de l'affichage des niveaux de jobs supérieurs à 100
+
 ## 31/07/2025
 
 ### Website

@@ -30,13 +30,16 @@ export function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
     setValue: setMaskValue,
     value: maskValue,
   } = useIMask(
-    { mask: Number, min: PALADIUM_OPTIONS.MIN_JOB_LEVEL, max: PALADIUM_OPTIONS.MAX_JOB_LEVEL },
+    {
+      mask: Number,
+      min: PALADIUM_OPTIONS.MIN_JOB_LEVEL /* , max: PALADIUM_OPTIONS.MAX_JOB_LEVEL */,
+    },
     {
       defaultValue: String(info.level),
       onAccept: (value) => {
         if (
-          Number(value) >= PALADIUM_OPTIONS.MIN_JOB_LEVEL &&
-          Number(value) <= PALADIUM_OPTIONS.MAX_JOB_LEVEL
+          Number(value) >= PALADIUM_OPTIONS.MIN_JOB_LEVEL /* &&
+          Number(value) <= PALADIUM_OPTIONS.MAX_JOB_LEVEL */
         ) {
           onLevelChange?.(Number(value))
         }
@@ -104,7 +107,9 @@ export function JobProgress({ job, info, ...props }: JobProgressProps) {
         stroke={`var(--job-${job})`}
         strokeWidth="60"
         strokeDasharray="2150"
-        strokeDashoffset={2150 - (2150 * info.level) / 100}
+        strokeDashoffset={
+          2150 - (2150 * Math.min(info.level, PALADIUM_OPTIONS.MAX_JOB_LEVEL)) / 100
+        }
         strokeLinecap="round"
         strokeLinejoin="round"
       />

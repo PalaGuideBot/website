@@ -22,12 +22,11 @@ export const calculatorOptionsValidator = vine.compile(
   vine
     .object({
       'job': vine.enum(['miner', 'farmer', 'hunter', 'alchemist']),
-      'current-level': vine.number().withoutDecimals().min(1).max(100),
+      'current-level': vine.number().withoutDecimals().min(1),
       'target-level': vine
         .number()
         .withoutDecimals()
         .min(1)
-        .max(100)
         .use(greaterThanRule({ otherField: 'current-level' })),
       'bonus-xp': vine.number().min(0).max(500),
       'current-xp': vine
