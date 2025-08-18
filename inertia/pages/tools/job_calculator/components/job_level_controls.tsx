@@ -30,14 +30,14 @@ export function JobLevelControls({
     {
       mask: Number,
       min: PALADIUM_OPTIONS.MIN_JOB_LEVEL,
-      max: PALADIUM_OPTIONS.MAX_JOB_LEVEL,
+      // max: PALADIUM_OPTIONS.MAX_JOB_LEVEL,
     },
     {
       defaultValue: String(level),
       onAccept: (value) => {
         if (
-          Number(value) >= PALADIUM_OPTIONS.MIN_JOB_LEVEL &&
-          Number(value) <= PALADIUM_OPTIONS.MAX_JOB_LEVEL
+          Number(value) >= PALADIUM_OPTIONS.MIN_JOB_LEVEL /* &&
+          Number(value) <= PALADIUM_OPTIONS.MAX_JOB_LEVEL */
         ) {
           onLevelChange?.(Number(value))
         }
@@ -81,7 +81,7 @@ export function JobLevelControls({
         size="icon"
         className="rounded-full"
         onClick={onIncreaseLevel}
-        disabled={Number(isClient ? maskValue : level) >= PALADIUM_OPTIONS.MAX_JOB_LEVEL}
+        // disabled={Number(isClient ? maskValue : level) >= PALADIUM_OPTIONS.MAX_JOB_LEVEL}
       >
         <PlusIcon />
       </Button>
