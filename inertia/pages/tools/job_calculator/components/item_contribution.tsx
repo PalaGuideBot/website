@@ -6,15 +6,15 @@ import { Card, CardContent } from '~/components/ui/card'
 import { cn, formatNumber } from '~/lib/utils'
 import { getItemIconUrl } from '~/pages/tools/job_calculator/contents/item'
 
-interface ExperienceMethodProps {
+interface ItemContributionProps {
   item: Extract<
     Infer<typeof calculatorResultValidator>,
-    { mode: 'standard' }
-  >['result']['items']['without'][number]
+    { mode: 'reverse' }
+  >['result']['without']['items'][number]
   unlocked?: boolean
 }
 
-const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
+export function ItemContribution({ item, unlocked = true }: ItemContributionProps) {
   return (
     <Card className="py-2 bg-transparent shadow-none">
       <CardContent className="px-2 relative flex flex-row items-center gap-2">
@@ -26,7 +26,7 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
         <div className="grow">
           <h4>{item.item.type}</h4>
           <p className="text-xs text-primary font-bold">
-            {formatNumber(item.amount, { notation: 'standard' })}
+            {formatNumber(item.xp, { notation: 'standard' })} XP
           </p>
         </div>
         <div>
@@ -49,5 +49,3 @@ const ExperienceMethod = ({ item, unlocked = true }: ExperienceMethodProps) => {
     </Card>
   )
 }
-
-export { ExperienceMethod }

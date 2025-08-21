@@ -1,6 +1,7 @@
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 import { greaterThanRule } from '#core/validators/rules/greater_than'
+import { parseItems } from '#tools/helpers/item'
 
 const messages = {
   'job.enum': 'Métier invalide',
@@ -21,52 +22,107 @@ const messages = {
 export const calculatorOptionsValidator = vine.compile(
   vine
     .object({
+      'mode': vine.enum(['standard', 'reverse']),
       'job': vine.enum(['miner', 'farmer', 'hunter', 'alchemist']),
       'current-level': vine.number().withoutDecimals().min(1),
-      'target-level': vine
-        .number()
-        .withoutDecimals()
-        .min(1)
-        .use(greaterThanRule({ otherField: 'current-level' })),
       'bonus-xp': vine.number().min(0).max(500),
       'current-xp': vine
         .number()
         .positive()
         .parse((value) => value || 0),
     })
+    .merge(
+      vine.group([
+        vine.group.if((data) => data.mode === 'standard', {
+          'mode': vine.literal('standard'),
+          'target-level': vine
+            .number()
+            .withoutDecimals()
+            .min(1)
+            .use(greaterThanRule({ otherField: 'current-level' })),
+        }),
+        vine.group.if((data) => data.mode === 'reverse', {
+          mode: vine.literal('reverse'),
+          items: vine.string().transform((value) => parseItems(value)),
+        }),
+      ])
+    )
     .toCamelCase()
 )
 
 calculatorOptionsValidator.messagesProvider = new SimpleMessagesProvider(messages)
 
+export const calculatorJobItemsValidator = vine.compile(
+  vine.array(
+    vine.object({
+      type: vine.string(),
+      id: vine.string(),
+      action: vine.string(),
+      from: vine.number(),
+      xp: vine.number().parse((value) => value || 0),
+      job: vine.enum(['miner', 'farmer', 'hunter', 'alchemist']),
+    })
+  )
+)
+
 const itemValidator = vine.object({
+  type: vine.string(),
+  id: vine.string(),
+  action: vine.string(),
   xp: vine.number(),
-  amount: vine.number(),
-  item: vine.object({
-    type: vine.string(),
-    id: vine.string(),
-    action: vine.string(),
+  from: vine.number(),
+  to: vine.number(),
+})
+
+const rewardValidator = vine.object({
+  id: vine.string(),
+  label: vine.string(),
+  type: vine.string(),
+  quantity: vine.number().optional(),
+})
+
+const standardItemsValidator = vine.array(
+  vine.object({
     xp: vine.number(),
-    from: vine.number(),
-    to: vine.number(),
-  }),
+    amount: vine.number(),
+    item: itemValidator.clone(),
+  })
+)
+
+const reverseItemsValidator = vine.object({
+  items: vine.array(vine.object({ item: itemValidator.clone(), xp: vine.number() })),
+  totalXp: vine.number(),
+  reachedLevel: vine.number(),
+  rewards: vine.array(rewardValidator.clone()),
 })
 
 export const calculatorResultValidator = vine.compile(
-  vine.object({
-    xpTotal: vine.number(),
-    items: vine.object({
-      without: vine.array(itemValidator.clone()),
-      x2: vine.array(itemValidator.clone()),
-      x10: vine.array(itemValidator.clone()),
-    }),
-    rewards: vine.array(
-      vine.object({
-        id: vine.string(),
-        label: vine.string(),
-        type: vine.string(),
-        quantity: vine.number().optional(),
-      })
-    ),
-  })
+  vine
+    .object({
+      mode: vine.enum(['standard', 'reverse']),
+    })
+    .merge(
+      vine.group([
+        vine.group.if((data) => data.mode === 'standard', {
+          mode: vine.literal('standard'),
+          result: vine.object({
+            xpTotal: vine.number(),
+            items: vine.object({
+              without: standardItemsValidator.clone(),
+              x2: standardItemsValidator.clone(),
+              x10: standardItemsValidator.clone(),
+            }),
+            rewards: vine.array(rewardValidator.clone()),
+          }),
+        }),
+        vine.group.if((data) => data.mode === 'reverse', {
+          mode: vine.literal('reverse'),
+          result: vine.object({
+            without: reverseItemsValidator.clone(),
+            x2: reverseItemsValidator.clone(),
+            x10: reverseItemsValidator.clone(),
+          }),
+        }),
+      ])
+    )
 )
