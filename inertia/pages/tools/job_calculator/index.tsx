@@ -8,6 +8,7 @@ import { useSearchParams } from '~/hooks/use_search_params'
 import { trackEvent } from '~/lib/umami'
 import { CalculatorForm } from './components/calculator_form'
 import { CalculatorResult } from './components/calculator_result'
+import { JobCalculatorInstructions } from './components/job_calculator_instructions'
 import { JobCalculatorModeSelector } from './components/job_calculator_mode_selector'
 import { JobCalculatorWrapper } from './components/job_calculator_wrapper'
 
@@ -50,6 +51,7 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
               <div className="flex flex-row items-center gap-1">
                 <span className="text-sm">Mode :</span>
                 <JobCalculatorModeSelector />
+                <JobCalculatorInstructions />
               </div>
             </div>
             <CalculatorForm

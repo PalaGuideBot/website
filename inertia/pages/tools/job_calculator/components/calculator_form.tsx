@@ -258,6 +258,11 @@ function ReverseCalculatorForm({ onSuccess }: ReverseCalculatorFormProps) {
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    if (form.data.items.length === 0) {
+      toast.error('Ajoutez au moins un item.')
+      return
+    }
+
     form.transform((data) =>
       Object.fromEntries(
         Object.entries(data).map(([key, value]) => {
