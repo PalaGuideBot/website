@@ -267,8 +267,17 @@ function ReverseCalculatorResult({ options, result: { result } }: ReverseCalcula
         </FormItem>
         <p>
           En partant du niveau{' '}
-          <span className="font-bold text-primary">{options.currentLevel}</span>, avec un bonus
-          d'expérience de{' '}
+          <span className="font-bold text-primary">{options.currentLevel}</span>
+          {options.currentXp !== 0 && (
+            <>
+              , tout en ayant déjà{' '}
+              <span className="font-bold text-primary">
+                {formatNumber(options.currentXp, { notation: 'standard' })}
+              </span>{' '}
+              XP
+            </>
+          )}
+          , avec un bonus d'expérience de{' '}
           <span
             className={cn('font-bold text-primary', options.bonusXp >= 300 && 'text-[#26b9ef]')}
           >
