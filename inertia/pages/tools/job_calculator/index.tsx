@@ -1,119 +1,22 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { useForm, usePage } from '@inertiajs/react'
-import type { Infer } from '@vinejs/vine/types'
-import { CalculatorIcon, Trash2Icon } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
-import { FormEvent, useRef } from 'react'
-import { toast } from 'sonner'
 
-import type { playerJobsValidator } from '#stats/validators/player_validator'
 import type JobCalculatorController from '#tools/controller/job_calculator_controller'
-import { ArrowRightIcon } from '~/components/icons'
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
-import { SummerBoostButton } from '~/components/shared/summer_boost_button'
-import { Button } from '~/components/ui/button'
-import { Card, CardContent, CardFooter } from '~/components/ui/card'
-import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
-import { Input } from '~/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '~/components/ui/select'
-import { Spinner } from '~/components/ui/spinner'
-import { smallIcons } from '~/content/jobs'
 import { useSearchParams } from '~/hooks/use_search_params'
-import { client } from '~/lib/client'
 import { trackEvent } from '~/lib/umami'
-import { cn } from '~/lib/utils'
+import { CalculatorForm } from './components/calculator_form'
 import { CalculatorResult } from './components/calculator_result'
-import { JobLevelControls } from './components/job_level_controls'
+import { JobCalculatorInstructions } from './components/job_calculator_instructions'
+import { JobCalculatorModeSelector } from './components/job_calculator_mode_selector'
+import { JobCalculatorWrapper } from './components/job_calculator_wrapper'
 
-const jobs = [
-  {
-    label: 'Miner',
-    value: 'miner',
-    icon: smallIcons.miner,
-  },
-
-  {
-    label: 'Farmer',
-    value: 'farmer',
-    icon: smallIcons.farmer,
-  },
-  {
-    label: 'Hunter',
-    value: 'hunter',
-    icon: smallIcons.hunter,
-  },
-  {
-    label: 'Alchimiste',
-    value: 'alchemist',
-    icon: smallIcons.alchemist,
-  },
-]
-
-type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
+export type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
 
 export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
-  const { options, result } = props
-
-  const { errors = {} } = usePage().props
-  const resultSubTitleRef = useRef<HTMLHeadingElement>(null)
+  const { items, result } = props
   const [searchParams] = useSearchParams()
-
-  const form = useForm({
-    'job': searchParams.get('job') || '',
-    'current-level': Number(searchParams.get('current-level')),
-    'target-level': Number(searchParams.get('target-level')),
-    'bonus-xp': Number(searchParams.get('bonus-xp')),
-    'current-xp': Number(searchParams.get('current-xp')),
-    'pseudo': searchParams.get('pseudo') || '',
-  })
-
-  const onSubmit = (event: FormEvent) => {
-    event.preventDefault()
-
-    form.transform((data) =>
-      Object.fromEntries(Object.entries(data).map(([key, value]) => [key, String(value)]))
-    )
-    form.get('/tools/job-calculator', {
-      onSuccess: () => {
-        resultSubTitleRef.current?.scrollIntoView({ behavior: 'smooth' })
-        trackEvent('job-calculator', { job: form.data.job })
-      },
-    })
-  }
-
-  const onSubmitFillJob = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const formData = new FormData(event.currentTarget)
-
-    toast.promise(
-      async () => {
-        const response = await client.post(`players/${formData.get('pseudo')}/jobs`)
-        const data = await response.json<Infer<typeof playerJobsValidator>>()
-
-        const target = data[form.data.job as keyof typeof data]
-
-        if (target) {
-          form.setData('current-level', target.level)
-          form.setData('current-xp', target.xp)
-        }
-      },
-      {
-        loading: 'Chargement...',
-        success: 'Informations récupérées',
-        error: 'Impossible de récupérer les informations',
-      }
-    )
-  }
 
   return (
     <>
@@ -133,180 +36,38 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
         ]}
       />
       <DefaultLayout>
-        <Page>
-          <PageTitle>Calculateur de métiers</PageTitle>
-          <p>
-            Calculez l'xp et visualisez les éléments dont vous avez besoin pour progresser dans vos
-            métiers.
-          </p>
-          <div className="flex flex-row items-center justify-between gap-2">
-            <PageSubTitle>Paramètres</PageSubTitle>
-            <Button
-              className={cn('opacity-0', form.isDirty && 'opacity-100')}
-              variant="outline"
-              size="icon"
-              onClick={() => form.reset()}
-            >
-              <Trash2Icon />
-            </Button>
-          </div>
-          <Card className="gap-4">
-            <CardContent>
-              <form id="fill-job" onSubmit={onSubmitFillJob} />
-              <form id="calculator" className="space-y-4" onSubmit={onSubmit}>
-                <FormItem>
-                  <FormLabel htmlFor="job">Métier</FormLabel>
-                  <Select
-                    value={form.data.job}
-                    onValueChange={(value) => form.setData('job', value)}
-                  >
-                    <SelectTrigger className="w-full" id="job" name="job">
-                      <SelectValue placeholder="Choissisez un métier" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {jobs.map((job) => (
-                          <SelectItem key={job.value} value={job.value}>
-                            <div className="flex items-center gap-1">
-                              <job.icon />
-                              <span>{job.label}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage message={errors?.['job']} />
-                </FormItem>
-                <AnimatePresence>
-                  {form.data.job.length !== 0 && (
-                    <>
-                      <motion.div
-                        initial={{ y: -10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        className="space-y-4"
-                      >
-                        <FormItem>
-                          <FormLabel>
-                            Entrez votre pseudo pour pré-remplir les informations
-                          </FormLabel>
-                          <div className="flex flex-row gap-2">
-                            <Input
-                              name="pseudo"
-                              form="fill-job"
-                              placeholder="Pseudo"
-                              className="min-w-0 grow bg-transparent"
-                              value={form.data.pseudo}
-                              onChange={(event) => form.setData('pseudo', event.target.value)}
-                            />
-                            <Button type="submit" form="fill-job" variant="outline">
-                              Remplir
-                            </Button>
-                          </div>
-                        </FormItem>
-                        <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
-                          <FormItem className="items-center">
-                            <FormLabel>Niveau actuel</FormLabel>
-                            <JobLevelControls
-                              level={form.data['current-level']}
-                              onLevelChange={(level) => form.setData('current-level', level)}
-                              onDecreaseLevel={() =>
-                                form.setData('current-level', form.data['current-level'] - 1)
-                              }
-                              onIncreaseLevel={() =>
-                                form.setData('current-level', form.data['current-level'] + 1)
-                              }
-                            />
-                            <FormMessage message={errors?.['current-level']} />
-                          </FormItem>
-                          <ArrowRightIcon className="rotate-90 sm:rotate-0 sm:mt-[32px] size-4" />
-                          <FormItem className="items-center">
-                            <FormLabel>Niveau cible</FormLabel>
-                            <JobLevelControls
-                              level={form.data['target-level']}
-                              onLevelChange={(level) => form.setData('target-level', level)}
-                              onDecreaseLevel={() =>
-                                form.setData('target-level', form.data['target-level'] - 1)
-                              }
-                              onIncreaseLevel={() =>
-                                form.setData('target-level', form.data['target-level'] + 1)
-                              }
-                            />
-                            <FormMessage message={errors?.['target-level']} />
-                          </FormItem>
-                        </div>
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <FormItem>
-                            <FormLabel>XP bonus</FormLabel>
-                            <Input
-                              type="number"
-                              name="bonus-xp"
-                              className="bg-transparent"
-                              placeholder="0"
-                              min={0}
-                              max={500}
-                              value={form.data['bonus-xp']}
-                              onChange={(event) =>
-                                form.setData('bonus-xp', Number(event.target.value))
-                              }
-                            />
-                            <FormMessage message={errors?.['bonus-xp']} />
-                          </FormItem>
-                          <FormItem>
-                            <FormLabel /* tooltip="La valeur qui s'affiche lorsque vous passez votre souris sur un métier" */
-                            >
-                              XP actuelle (facultatif)
-                            </FormLabel>
-                            <Input
-                              type="number"
-                              name="current-xp"
-                              className="bg-transparent"
-                              placeholder="0"
-                              min={0}
-                              value={form.data['current-xp']}
-                              onChange={(event) =>
-                                form.setData('current-xp', Number(event.target.value))
-                              }
-                            />
-                            <FormMessage message={errors?.['current-xp']} />
-                          </FormItem>
-                        </div>
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
-              </form>
-            </CardContent>
-            <CardFooter className="justify-between">
-              <SummerBoostButton
-                tooltip={{
-                  children: (
-                    <span>
-                      <span className="text-primary">+300%</span> XP sur les métiers. Appliquez le
-                      sur le champ "XP bonus" pour le calcul.
-                    </span>
-                  ),
-                }}
-              />
-              <Button
-                form="calculator"
-                disabled={Boolean(form.processing)}
-                type="submit"
-                variant="secondary"
-              >
-                {form.processing ? <Spinner className="size-4" /> : <CalculatorIcon />}
-                Calculer
-              </Button>
-            </CardFooter>
-          </Card>
-          {result && options && (
-            <>
-              <PageSubTitle ref={resultSubTitleRef}>Résultats</PageSubTitle>
-              <CalculatorResult options={options} result={result} />
-            </>
-          )}
-        </Page>
+        <JobCalculatorWrapper
+          mode={(searchParams.get('mode') ?? undefined) as 'standard' | 'reverse' | undefined}
+          items={items}
+        >
+          <Page>
+            <PageTitle>Calculateur de métiers</PageTitle>
+            <p>
+              Calculez l'xp et visualisez les éléments dont vous avez besoin pour progresser dans
+              vos métiers.
+            </p>
+            <div className="flex flex-row items-center justify-between gap-2">
+              <PageSubTitle>Paramètres</PageSubTitle>
+              <div className="flex flex-row items-center gap-1">
+                <span className="text-sm">Mode :</span>
+                <JobCalculatorModeSelector />
+                <JobCalculatorInstructions />
+              </div>
+            </div>
+            <CalculatorForm
+              onSuccess={() => {
+                if (result.state === 'STANDARD_SUBMITTED' && result.options.mode === 'standard') {
+                  trackEvent('job-calculator', { mode: 'standard', job: result.options.job })
+                }
+
+                if (result.state === 'REVERSE_SUBMITTED' && result.options.mode === 'reverse') {
+                  trackEvent('job-calculator', { mode: 'reverse', job: result.options.job })
+                }
+              }}
+            />
+            <CalculatorResult result={result} />
+          </Page>
+        </JobCalculatorWrapper>
       </DefaultLayout>
     </>
   )

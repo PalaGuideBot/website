@@ -1,10 +1,16 @@
 # Changelog
 
+## 24/08/2025
+
+### Website
+
+- Ajout de la fonction "Inversée" sur le Job Calculator permettant de calculer l'XP gagnée avec les objets que vous possédez
+
 ## 18/08/2025
 
 ### Website
 
-- Ajout de la possibilité d'utiliser l'outil XP Calculator au-dessus du niveau 100
+- Ajout de la possibilité d'utiliser l'outil Job Calculator au-dessus du niveau 100
 - Correction de la duplication des joueurs
 - Correction de l'affichage des niveaux de jobs supérieurs à 100
 

@@ -2,8 +2,8 @@ import { MinusIcon, PlusIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { useIsClient } from 'usehooks-ts'
-import { Button } from '~/components/ui/button'
 
+import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { PALADIUM_OPTIONS } from '~/lib/paladium'
 
@@ -52,7 +52,7 @@ export function JobLevelControls({
   }, [level])
 
   return (
-    <div className="flex items-center justify-center space-x-2">
+    <div className="flex items-center space-x-2">
       <Button
         type="button"
         variant="outline"

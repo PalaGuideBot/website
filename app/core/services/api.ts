@@ -8,6 +8,7 @@ import {
   minecraftAccountLinkValidator,
   minecraftTokenLinkValidator,
 } from '#core/validators/minecraft_valiadator'
+import { paladiumSeasonValidator } from '#core/validators/paladium_validator'
 import {
   dailyEventsValidator,
   eventFactionOnYourMarksValidator,
@@ -49,6 +50,7 @@ import {
 } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
 import {
+  calculatorJobItemsValidator,
   calculatorOptionsValidator as calculatorJobOptionsValidator,
   calculatorResultValidator as calculatorJobResultValidator,
 } from '#tools/validators/calculator_validator'
@@ -58,7 +60,6 @@ import {
   calculatorResultValidator as calculatorPogResultValidator,
 } from '#tools/validators/pog_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
-import { paladiumSeasonValidator } from '#core/validators/paladium_validator'
 
 const client = ky.create({
   prefixUrl: env.get('API_URL'),
@@ -548,8 +549,22 @@ export class ApiService {
       const data = await response.json()
       return calculatorJobResultValidator.validate(data)
     } catch (error: unknown) {
+      console.log(error)
       throw new Exception('Invalid job calculation data', {
         code: 'E_JOB_CALCULATION_INVALID',
+        status: 500,
+      })
+    }
+  }
+
+  async getJobItems() {
+    try {
+      const response = await client.get('utils/jobs/items')
+      const data = await response.json()
+      return calculatorJobItemsValidator.validate(data)
+    } catch (error: unknown) {
+      throw new Exception('Invalid job items data', {
+        code: 'E_JOB_ITEMS_INVALID',
         status: 500,
       })
     }
