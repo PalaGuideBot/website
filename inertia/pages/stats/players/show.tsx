@@ -42,14 +42,14 @@ export default function PlayerShow(props: PlayerShowProps) {
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
         {auth && examplePlayer && (
           <Alert className="rounded-none min-h-[60px] border-x-0 border-t-0">
-            <AlertDescription>
-              Associez votre compte Minecraft pour afficher vos statistiques par défaut.
-            </AlertDescription>
-            <div>
+            <AlertDescription className="flex flex-row items-center justify-between gap-2">
+              <span>
+                Associez votre compte Minecraft pour afficher vos statistiques par défaut.
+              </span>
               <Button variant="tertiary" className="px-4 text-nowrap" size="sm" asChild>
                 <Link href="/profile">Associer un compte</Link>
               </Button>
-            </div>
+            </AlertDescription>
           </Alert>
         )}
         <Page className="p-4 lg:p-6">
