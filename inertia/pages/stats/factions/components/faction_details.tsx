@@ -174,15 +174,9 @@ function MemberCard({ player }: { player: FactionDetailsProps['faction']['player
           <p className={cn('font-mc-dungueons text-xs', isLeader && 'text-primary')}>
             {player.group}
           </p>
-          {!isLeader ? (
-            <p className="text-muted-foreground text-md">
-              Membre depuis: {formatDate(new Date(player.joinedAt), DateTime.DATE_MED)}
-            </p>
-          ) : (
-            <p>
-              <span className="text-muted-foreground text-md">Membre depuis la création</span>
-            </p>
-          )}
+          <p className="text-muted-foreground text-md">
+            Membre depuis: {formatDate(new Date(player.joinedAt), DateTime.DATE_MED)}
+          </p>
         </div>
       </div>
     </Link>
