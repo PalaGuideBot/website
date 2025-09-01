@@ -119,6 +119,7 @@ function Head({
 
         return <meta key={JSON.stringify(metaProps)} {...metaProps} />
       })}
+      {defaultOgUrl && <meta name="twitter:card" content="summary_large_image" />}
       {defaultOgUrl && <meta property="og:image" content={defaultOgUrl} />}
       {defaultOgUrl && <meta property="twitter:image" content={defaultOgUrl} />}
       {children}
