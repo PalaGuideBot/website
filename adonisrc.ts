@@ -98,7 +98,7 @@ export default defineConfig({
       reloadServer: false,
     },
     {
-      pattern: 'og/fonts/**/*.woff',
+      pattern: 'app/og/fonts/**',
       reloadServer: false,
     },
     {
