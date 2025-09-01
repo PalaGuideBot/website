@@ -78,19 +78,9 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
   return (
     <>
       <Head
-        descriptors={[
-          { title: 'Calculateur de la Pickaxe Of the Gods' },
-          {
-            name: 'description',
-            content:
-              "Calculez l'expérience et visualisez les éléments dont vous avez besoin pour améliorer votre pioche.",
-          },
-          {
-            name: 'og:description',
-            content:
-              "Calculez l'expérience et visualisez les éléments dont vous avez besoin pour améliorer votre pioche.",
-          },
-        ]}
+        title="Calculateur de la Pickaxe Of the Gods"
+        description="Calculez l'expérience et visualisez les éléments dont vous avez besoin pour améliorer votre pioche."
+        defaultOg
       />
       <DefaultLayout>
         <Page>

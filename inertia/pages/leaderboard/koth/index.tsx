@@ -82,7 +82,11 @@ export default function KothIndex(props: KothIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Koth' }]} />
+      <Head
+        title="Classement: Koth"
+        description="Consultez le classement des joueurs qui ont gagnés le King Of The Hill (KOTH)."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

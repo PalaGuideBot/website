@@ -54,7 +54,11 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Statut: Paladium' }]} />
+      <Head
+        title="Statut: Paladium"
+        description="Consultez l'état des serveurs de Paladium."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>Statut: Paladium</PageTitle>

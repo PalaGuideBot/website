@@ -52,17 +52,9 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     return (
       <>
         <Head
-          descriptors={[
-            { title: 'Wrapped' },
-            {
-              name: 'description',
-              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
-            },
-            {
-              name: 'og:description',
-              content: 'Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !',
-            },
-          ]}
+          title="Wrapped"
+          description="Redécouvrez votre aventure sur Paladium au travers de ce Wrapped !"
+          defaultOg
         />
         <main className="flex w-full flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <Page>
@@ -613,7 +605,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: `${player.username} : Wrapped` }]} />
+      <Head title={`${player.username} : Wrapped`} />
       <main
         className="relative min-h-screen p-8 text-white flex flex-col gap-4 items-center justify-start"
         onClick={currentSlide + 1 !== totalSlides ? nextSlide : undefined}

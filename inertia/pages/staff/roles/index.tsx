@@ -14,7 +14,7 @@ export default function RoleIndexPage(props: RoleIndexPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Rôles' }]} />
+      <Head title="Rôles" />
       <StaffLayout>
         <Page className="mx-0 max-w-none">
           <DataTable columns={columns} data={roles} />

@@ -12,7 +12,7 @@ export default function ServerError(props: ServerErrorProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Erreur' }]} />
+      <Head title="Erreur serveur" />
       <main className="min-h-dvh flex w-full flex-col justify-center">
         <Page>
           <DisplayError error={error}>

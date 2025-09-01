@@ -22,14 +22,14 @@ export default function FactionShow(props: FactionShowProps) {
     <>
       {faction ? (
         <Head
+          title={faction.bgName}
           descriptors={[
-            { title: faction.bgName },
             { name: 'og:image', content: faction.emblemUrl },
             { name: 'twitter:image', content: faction.emblemUrl },
           ]}
         />
       ) : (
-        <Head descriptors={[{ title: 'Faction' }]} />
+        <Head title="Faction" />
       )}
       <DefaultLayout>
         <Page>

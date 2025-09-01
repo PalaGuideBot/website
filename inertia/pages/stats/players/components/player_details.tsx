@@ -159,11 +159,7 @@ const InformationsSection = ({ player, className, ...props }: InformationsSectio
           <li>
             <InformationLine
               label="Première connexion"
-              value={
-                player.firstSeen === 3600000
-                  ? 'Inconnu'
-                  : formatDate(new Date(player.firstSeen), DateTime.DATE_MED)
-              }
+              value={formatDate(new Date(player.firstSeen), DateTime.DATE_MED)}
             />
           </li>
           {lastPlayerData && (

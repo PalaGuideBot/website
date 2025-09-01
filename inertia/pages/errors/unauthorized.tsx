@@ -12,7 +12,7 @@ export default function UnauthorizedError(props: UnauthorizedErrorProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Erreur' }]} />
+      <Head title="Non autorisé" />
       <main className="min-h-dvh flex w-full flex-col justify-center">
         <Page>
           <DisplayError error={error}>

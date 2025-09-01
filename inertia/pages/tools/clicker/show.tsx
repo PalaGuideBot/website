@@ -47,7 +47,11 @@ export default function ClickerShow(props: ClickerShowProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Clicker' }]} />
+      <Head
+        title="Clicker"
+        description="Progressez rapidement dans le clicker en vous aidant de cet outil."
+        defaultOg
+      />
       <DefaultLayout className="grid grid-cols-12 p-0 lg:p-0 gap-0 lg:gap-0">
         {isClient && !clicker && !playerClickerStore.data && (
           <div className="flex flex-col gap-4 py-4 px-3 col-span-12 xl:col-start-4 xl:col-end-10">

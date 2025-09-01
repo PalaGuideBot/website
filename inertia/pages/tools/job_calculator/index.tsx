@@ -21,19 +21,9 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
   return (
     <>
       <Head
-        descriptors={[
-          { title: 'Calculateur de métiers' },
-          {
-            name: 'description',
-            content:
-              "Calculez l'expérience et visualisez les éléments dont vous avez besoin pour progresser dans vos métiers.",
-          },
-          {
-            name: 'og:description',
-            content:
-              "Calculez l'expérience et visualisez les éléments dont vous avez besoin pour progresser dans vos métiers.",
-          },
-        ]}
+        title="Calculateur de métiers"
+        description="Calculez l'expérience et visualisez les éléments dont vous avez besoin pour progresser dans vos métiers."
+        defaultOg
       />
       <DefaultLayout>
         <JobCalculatorWrapper

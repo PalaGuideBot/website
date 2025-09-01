@@ -1,9 +1,12 @@
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
+import { container, text } from '@takumi-rs/helpers'
 import { readFile } from 'node:fs/promises'
 
+import { baseAppContainer, MUTED_COLOR } from '#core/content/og'
 import { ApiService } from '#core/services/api'
+import { ImageRenderer } from '#og/services/image_renderer'
 import env from '#start/env'
 
 @inject()
@@ -68,5 +71,39 @@ export default class PageController {
 
   async faq({ inertia }: HttpContext) {
     return inertia.render('faq')
+  }
+
+  async openGraph({ response, request }: HttpContext) {
+    const qs = request.qs()
+
+    const title = qs.title || 'PalaGuideBot'
+    const description = qs.description || 'Comment ça marche ce truc ?'
+
+    const renderer = new ImageRenderer(
+      await baseAppContainer([
+        container({
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          },
+          children: [
+            text(title, {
+              fontSize: 64,
+            }),
+            text(description, {
+              fontSize: 42,
+              color: MUTED_COLOR,
+            }),
+          ],
+        }),
+      ])
+    )
+
+    await renderer.registerFont(app.makePath('app/og/fonts/inter-400-normal.woff'))
+
+    const output = await renderer.render()
+
+    return response.header('Content-Type', 'image/png').stream(output)
   }
 }

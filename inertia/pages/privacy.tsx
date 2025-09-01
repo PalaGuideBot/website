@@ -12,7 +12,11 @@ export default function PrivacyPage(props: PrivacyPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Politique de confidentialité' }]} />
+      <Head
+        title="Politique de confidentialité"
+        description="Consultez notre politique de confidentialité."
+        defaultOg
+      />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown>{content}</Markdown>

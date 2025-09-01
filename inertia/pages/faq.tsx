@@ -51,7 +51,11 @@ const questions: Question[] = [
 export default function FaqPage() {
   return (
     <>
-      <Head descriptors={[{ title: 'Foire aux questions' }]} />
+      <Head
+        title="Foire aux questions"
+        description="Vous trouverez ici les questions les plus fréquemment posées par nos utilisateurs."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>Foire aux questions</PageTitle>

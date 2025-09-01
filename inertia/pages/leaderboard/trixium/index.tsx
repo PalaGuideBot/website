@@ -55,7 +55,11 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Trixium' }]} />
+      <Head
+        title="Classement: Trixium"
+        description="Consultez le classement des joueurs et factions les plus hauts dans le trixium."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

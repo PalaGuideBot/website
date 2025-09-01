@@ -14,7 +14,7 @@ export default function GiveawayIndexPage(props: GiveawayIndexPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Giveaways' }]} />
+      <Head title="Giveaways" />
       <StaffLayout>
         <Page className="mx-0 max-w-none">
           <DataTable columns={columns} data={giveaways} />

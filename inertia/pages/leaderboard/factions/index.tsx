@@ -70,7 +70,11 @@ export default function FactionsIndex(props: FactionsIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Factions' }]} />
+      <Head
+        title="Classement: Factions"
+        description="Consultez le classement des factions les mieux classées."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

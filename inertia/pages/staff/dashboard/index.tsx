@@ -37,7 +37,7 @@ export default function DashboardIndexPage(props: DashboardIndexPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Tableau de bord' }]} />
+      <Head title="Tableau de bord" />
       <StaffLayout>
         <Page>
           <Tabs defaultValue="discord">

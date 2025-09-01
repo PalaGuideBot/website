@@ -16,7 +16,11 @@ export default function ChangelogPage(props: ChangelogPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Changelog' }]} />
+      <Head
+        title="Changelog"
+        description="Consultez les dernières mises à jour et améliorations de PalaGuideBot."
+        defaultOg
+      />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown

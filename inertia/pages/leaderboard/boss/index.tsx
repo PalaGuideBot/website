@@ -81,7 +81,11 @@ export default function BossIndex(props: BossIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Boss' }]} />
+      <Head
+        title="Classement: Boss"
+        description="Consultez le classement des joueurs qui tuent le plus de boss."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

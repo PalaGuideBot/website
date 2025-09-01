@@ -82,7 +82,11 @@ export default function MoneyIndex(props: MoneyIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Money' }]} />
+      <Head
+        title="Classement: Money"
+        description="Consultez le classement des joueurs les plus riches."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

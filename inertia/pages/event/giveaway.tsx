@@ -10,8 +10,6 @@ import { Card, CardContent, CardHeader } from '~/components/ui/card'
 import { Toaster } from '~/components/ui/toast'
 import { GiveawayCardContent } from './components/giveaway_card_content'
 
-const description = 'Un giveaway est en cours ! Participez pour tenter de gagner des récompenses'
-
 export type GiveawayPageProps = InferPageProps<GiveawayController, 'index'>
 
 export default function GiveawayPage(props: GiveawayPageProps) {
@@ -20,17 +18,13 @@ export default function GiveawayPage(props: GiveawayPageProps) {
   return (
     <>
       <Head
-        descriptors={[
-          { title: 'Giveaway' },
-          {
-            name: 'description',
-            content: giveaway ? description : 'Aucun giveaway actif',
-          },
-          {
-            name: 'og:description',
-            content: giveaway ? description : 'Aucun giveaway actif',
-          },
-        ]}
+        title="Giveaway"
+        description={
+          giveaway
+            ? 'Un giveaway est en cours ! Participez pour tenter de gagner des récompenses'
+            : 'Aucun giveaway actif'
+        }
+        defaultOg
       />
       <main className="min-h-dvh w-full flex items-center justify-center bg-muted">
         <div className="max-w-2xl w-full flex flex-col gap-2 px-2">

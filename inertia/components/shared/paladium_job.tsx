@@ -84,7 +84,7 @@ export function PaladiumJob({ job, info, onLevelChange }: PaladiumJobProps) {
         ) : (
           <div
             className={cn(
-              'absolute bottom-0 p-1 w-8 lg:w-12 text-white text-center text-xs lg:text-base font-bold border-b-4 border-black/50',
+              'absolute bottom-0 p-1 min-w-8 w-fit text-white text-center text-xs lg:text-base font-bold border-b-4 border-black/50',
               jobColor
             )}
           >

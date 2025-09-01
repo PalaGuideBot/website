@@ -33,7 +33,11 @@ export default function ToolsIndexPage() {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Outils' }]} />
+      <Head
+        title="Outils"
+        description="Consultez les différents outils qu'on vous met à disposition."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>Outils</PageTitle>

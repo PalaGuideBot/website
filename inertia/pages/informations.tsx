@@ -36,7 +36,11 @@ export default function InformationsPage() {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Informations' }]} />
+      <Head
+        title="Informations"
+        description="Retrouvez ici toutes les informations concernant PalaGuideBot."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>Informations</PageTitle>

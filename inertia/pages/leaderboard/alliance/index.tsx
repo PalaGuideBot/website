@@ -83,7 +83,11 @@ export default function AllianceIndex(props: AllianceIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Alignement' }]} />
+      <Head
+        title="Classement: Alignement"
+        description="Découvrez le classement des alliances sur Paladium en fonction du nombre de chunks contrôlés."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

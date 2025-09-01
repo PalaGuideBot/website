@@ -12,7 +12,11 @@ export default function NotFound(props: NotFoundProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Page introuvable' }]} />
+      <Head
+        title="Page introuvable"
+        description="La page que vous avez demandée est introuvable"
+        defaultOg
+      />
       <main className="min-h-dvh flex w-full flex-col justify-center">
         <Page>
           <DisplayError error={error}>

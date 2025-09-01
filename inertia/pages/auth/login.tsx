@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Connexion' }]} />
+      <Head title="Connexion" defaultOg />
       <main className="h-dvh ww-full flex flex-col items-center justify-center px-4 gap-4">
         <div className="flex gap-4 items-center justify-center">
           <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
