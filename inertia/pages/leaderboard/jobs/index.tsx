@@ -60,7 +60,11 @@ export default function JobsIndex(props: JobsPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Métiers' }]} />
+      <Head
+        title="Classement: Métiers"
+        description="Consultez le classement des joueurs qui ont le plus de niveau dans un métier."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

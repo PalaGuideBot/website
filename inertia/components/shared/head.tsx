@@ -1,7 +1,6 @@
 import { Head as InertiaHead } from '@inertiajs/react'
 
 type MetaDescriptor =
-  | { title: string }
   | { name: string; content: string }
   | { property: string; content: string }
   | { httpEquiv: string; content: string }
@@ -32,18 +31,26 @@ const keywords = [
   'fuzeiii',
 ]
 
-const Head = ({
+interface HeadProps extends React.ComponentProps<typeof InertiaHead> {
+  description?: string
+  descriptors?: MetaDescriptor[]
+  defaultOg?: boolean
+}
+
+function Head({
   children,
+  title: titleFromProps,
+  description: descriptionFromProps,
   descriptors = [],
-}: React.ComponentProps<typeof InertiaHead> & { descriptors?: MetaDescriptor[] }) => {
+  defaultOg = false,
+}: HeadProps) {
   const description =
+    descriptionFromProps ??
     'PalaGuideBot vous met à disposition des outils qui vous accompagnent dans votre aventure sur Paladium.'
 
-  const titleMeta = descriptors.find((d) => 'title' in d) as { title: string } | undefined
-  const title = titleMeta ? `${titleMeta.title} - PalaGuideBot` : 'PalaGuideBot'
+  const title = titleFromProps ? `${titleFromProps} - PalaGuideBot` : 'PalaGuideBot'
 
   const defaultDescriptors: MetaDescriptor[] = [
-    { title: title },
     { name: 'subject', content: 'Guide pour le serveur Minecraft Paladium' },
     { name: 'url', content: 'https://palaguidebot.fr' },
     { name: 'description', content: description },
@@ -62,13 +69,13 @@ const Head = ({
       return !descriptors.some((d) => 'name' in d && d.name === descriptor.name)
     }
 
-    if ('property' in descriptor) {
+    /* if ('property' in descriptor) {
       return !descriptors.some((d) => 'property' in d && d.property === descriptor.property)
     }
 
     if ('httpEquiv' in descriptor) {
       return !descriptors.some((d) => 'httpEquiv' in d && d.httpEquiv === descriptor.httpEquiv)
-    }
+    } */
 
     return true
   })
@@ -77,6 +84,7 @@ const Head = ({
 
   return (
     <InertiaHead>
+      <title>{title}</title>
       {descriptors.map((metaProps) => {
         if (!metaProps) {
           return null
@@ -94,10 +102,6 @@ const Head = ({
           return <Comp key={JSON.stringify(rest)} {...rest} />
         }
 
-        if ('title' in metaProps) {
-          return <title key="title">{String(metaProps.title)}</title>
-        }
-
         if ('charset' in metaProps) {
           metaProps.charSet ??= metaProps.charset
           delete metaProps.charset
@@ -111,6 +115,17 @@ const Head = ({
 
         return <meta key={JSON.stringify(metaProps)} {...metaProps} />
       })}
+      {defaultOg &&
+        (() => {
+          const url = `https://palaguidebot.fr/og?title=${encodeURIComponent(titleFromProps || title)}&description=${encodeURIComponent(description)}`
+
+          return (
+            <>
+              <meta property="og:image" content={url} />
+              <meta property="twitter:image" content={url} />
+            </>
+          )
+        })()}
       {children}
     </InertiaHead>
   )

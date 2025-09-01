@@ -98,6 +98,10 @@ export default defineConfig({
       reloadServer: false,
     },
     {
+      pattern: 'og/fonts/**/*.woff',
+      reloadServer: false,
+    },
+    {
       pattern: 'public/**',
       reloadServer: false,
     },

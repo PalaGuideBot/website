@@ -28,8 +28,8 @@ export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
   return (
     <>
       <Head
+        title={player.username}
         descriptors={[
-          { title: player.username },
           { name: 'og:image', content: getHeadUrl(player.username) },
           { name: 'twitter:image', content: getHeadUrl(player.username) },
         ]}

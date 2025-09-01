@@ -12,7 +12,11 @@ export default function TermsPage(props: TermsPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: "Conditions d'utilisation" }]} />
+      <Head
+        title="Conditions d'utilisation"
+        description="Consultez nos conditions d'utilisation."
+        defaultOg
+      />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown>{content}</Markdown>

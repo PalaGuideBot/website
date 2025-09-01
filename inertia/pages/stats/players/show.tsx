@@ -30,14 +30,14 @@ export default function PlayerShow(props: PlayerShowProps) {
     <>
       {player ? (
         <Head
+          title={player.username}
           descriptors={[
-            { title: player.username },
             { name: 'og:image', content: getHeadUrl(player.username) },
             { name: 'twitter:image', content: getHeadUrl(player.username) },
           ]}
         />
       ) : (
-        <Head descriptors={[{ title: 'Joueur' }]} />
+        <Head title="Joueur" />
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
         {auth && examplePlayer && (

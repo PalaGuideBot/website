@@ -81,7 +81,11 @@ export default function EgghuntIndex(props: EgghuntIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: EggHunt' }]} />
+      <Head
+        title="Classement: EggHunt"
+        description="Consultez le classement des joueurs qui ont tenu plus longtemps lors de l'event EggHunt."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

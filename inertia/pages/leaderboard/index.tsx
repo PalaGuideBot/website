@@ -64,7 +64,11 @@ export default function LeaderboardIndexPage() {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classements' }]} />
+      <Head
+        title="Classements"
+        description="Consultez les classements des meilleurs joueurs et factions sur Paladium."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>Classements</PageTitle>

@@ -12,7 +12,11 @@ export default function KnowEverythingPage(props: KnowEverythingPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Article tout savoir sur PalaGuideBot' }]} />
+      <Head
+        title="Article tout savoir sur PalaGuideBot"
+        description="Tout ce qui à savoir sur l'existence du bot."
+        defaultOg
+      />
       <DefaultLayout>
         <Page className="gap-0">
           <Markdown>{content}</Markdown>

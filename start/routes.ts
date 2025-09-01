@@ -31,4 +31,5 @@ router.group(() => {
   router.get('/changelog', [PageController, 'changelog']).as('changelog')
   router.get('/know-everything', [PageController, 'know_everything']).as('know_everything')
   router.get('/faq', [PageController, 'faq']).as('faq')
+  router.get('/og', [PageController, 'openGraph']).as('og')
 })

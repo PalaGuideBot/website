@@ -15,7 +15,11 @@ export default function EventIndexPage(props: EventIndexPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Événements' }]} />
+      <Head
+        title="Événements"
+        description="Suivez les événements en cours et à venir sur Paladium."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <PageTitle>&Eacute;vénements</PageTitle>

@@ -82,7 +82,11 @@ export default function ClickerIndex(props: ClickerIndexProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Classement: Clicker' }]} />
+      <Head
+        title="Classement: Clicker"
+        description="Consultez le classement des joueurs qui cliquent le plus."
+        defaultOg
+      />
       <DefaultLayout>
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">

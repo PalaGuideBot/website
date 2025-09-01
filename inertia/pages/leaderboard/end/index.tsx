@@ -7,7 +7,7 @@ export default function EndIndex(props: InferPageProps<EndController, 'index'>) 
   const { leaderboard } = props
   return (
     <>
-      <Head descriptors={[{ title: 'Leaderboard: End' }]} />
+      <Head title="Leaderboard: End" />
       <DefaultLayout>
         <pre>{JSON.stringify(leaderboard, null, 1)}</pre>
       </DefaultLayout>

@@ -15,7 +15,7 @@ export default function UserIndexPage(props: UserIndexPageProps) {
 
   return (
     <>
-      <Head descriptors={[{ title: 'Utilisateurs' }]} />
+      <Head title="Utilisateurs" />
       <StaffLayout>
         <PageSettings value={{ roles }}>
           <Page className="mx-0 max-w-none">
