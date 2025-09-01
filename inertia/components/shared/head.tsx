@@ -50,6 +50,10 @@ function Head({
 
   const title = titleFromProps ? `${titleFromProps} - PalaGuideBot` : 'PalaGuideBot'
 
+  const defaultOgUrl = defaultOg
+    ? `https://palaguidebot.fr/og?title=${encodeURIComponent(titleFromProps || title)}&description=${encodeURIComponent(description)}`
+    : undefined
+
   const defaultDescriptors: MetaDescriptor[] = [
     { name: 'subject', content: 'Guide pour le serveur Minecraft Paladium' },
     { name: 'url', content: 'https://palaguidebot.fr' },
@@ -115,17 +119,8 @@ function Head({
 
         return <meta key={JSON.stringify(metaProps)} {...metaProps} />
       })}
-      {defaultOg &&
-        (() => {
-          const url = `https://palaguidebot.fr/og?title=${encodeURIComponent(titleFromProps || title)}&description=${encodeURIComponent(description)}`
-
-          return (
-            <>
-              <meta property="og:image" content={url} />
-              <meta property="twitter:image" content={url} />
-            </>
-          )
-        })()}
+      {defaultOgUrl && <meta property="og:image" content={defaultOgUrl} />}
+      {defaultOgUrl && <meta property="twitter:image" content={defaultOgUrl} />}
       {children}
     </InertiaHead>
   )
