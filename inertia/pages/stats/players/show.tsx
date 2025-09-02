@@ -11,7 +11,6 @@ import { Head } from '~/components/shared/head'
 import { Alert, AlertDescription } from '~/components/ui/alert'
 import { Button } from '~/components/ui/button'
 import { useAuth } from '~/hooks/use_auth'
-import { getHeadUrl } from '~/lib/minecraft'
 import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_player_details'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
@@ -32,12 +31,20 @@ export default function PlayerShow(props: PlayerShowProps) {
         <Head
           title={player.username}
           descriptors={[
-            { name: 'og:image', content: getHeadUrl(player.username) },
-            { name: 'twitter:image', content: getHeadUrl(player.username) },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { name: 'og:image', content: `https://palaguidebot.fr/players/${player.username}/og` },
+            {
+              name: 'twitter:image',
+              content: `https://palaguidebot.fr/players/${player.username}/og`,
+            },
           ]}
         />
       ) : (
-        <Head title="Joueur" />
+        <Head
+          title="Statistiques joueur"
+          description="Consultez les informations et statistiques d'un joueur."
+          defaultOg
+        />
       )}
       <DefaultLayout className="p-0 gap-0 lg:p-0 lg:gap-0">
         {auth && examplePlayer && (

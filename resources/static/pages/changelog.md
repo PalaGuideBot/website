@@ -1,5 +1,13 @@
 # Changelog
 
+# 02/09/2025
+
+### Website
+
+- Ajout d'images OG (Open Graph) sur la plupart des pages
+- Correction d'interface sur l'arrière-plan des niveaux de métiers
+- Autres corrections mineures
+
 ## 24/08/2025
 
 ### Website

@@ -1,0 +1,45 @@
+import type { Rank } from '#app/types'
+
+const translations: Record<Rank, string> = {
+  'SHOULD_BE_REMOVED_UNAVAILABLE': 'Indisponible',
+  'default': 'Joueur',
+  'titan': 'Titan',
+  'paladin': 'Paladin',
+  'endium': 'Endium',
+  'divinity': 'Divinité',
+  'legend': 'Légende',
+  'heros': 'Héros',
+  'legende': 'Légende',
+  'trixium': 'Trixium',
+  'trixium+': 'Trixium+',
+  'premium': 'Premium',
+  'rusher': 'Rusher',
+  'youtuber': 'Youtuber',
+  'streamer': 'Streamer',
+  'helper': 'Helper',
+  'supportconfirmé': 'Support Confirmé',
+  'moderateurchat': 'Modérateur Chat',
+  'moderateur': 'Modérateur',
+  'moderateursenior': 'Modérateur Senior',
+  'operateur': 'Opérateur',
+  'operateurcertif': 'Opérateur Certifié',
+  'operateursenior': 'Opérateur Senior',
+  'paladium-staff': 'Staff Paladium',
+  'discord': 'Discord',
+  'discord+': 'Discord+',
+  'graphistejunior': 'Graphiste Junior',
+  'graphiste': 'Graphiste',
+  'création': 'Création',
+  'redacteur': 'Rédacteur',
+  'gamedesigner': 'Game Designer',
+  'developpeurjunior': 'Développeur Junior',
+  'developpeur': 'Développeur',
+  'developpeursenior': 'Développeur Senior',
+  'graphistesenior': 'Graphiste Senior',
+  'responsable': 'Responsable',
+  'administrateur': 'Administrateur',
+}
+
+export function translateRank(rank: Rank) {
+  return translations[rank] ?? 'Joueur'
+}
