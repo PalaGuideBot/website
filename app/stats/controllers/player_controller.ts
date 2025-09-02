@@ -1,11 +1,14 @@
 import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
+import app from '@adonisjs/core/services/app'
 
 import { ClientSeasonsFromProps } from '#app/types'
 import { createPageErrorFromException } from '#core/helpers/error'
 import { ApiService } from '#core/services/api'
 import { distanceValidator } from '#core/validators/filter_validator'
+import { ImageRenderer } from '#og/services/image_renderer'
+import { createOgPlayerContainer } from '#stats/content/og'
 
 @inject()
 export default class PlayerController {
@@ -77,5 +80,14 @@ export default class PlayerController {
     const player = await this.api.getPlayerWrapped(params.username)
 
     return inertia.render('stats/players/wrapped/end', { player })
+  }
+
+  async openGraph({ response, params }: HttpContext) {
+    const player = await this.api.getPlayer(params.username)
+    const renderer = new ImageRenderer(await createOgPlayerContainer(player))
+
+    await renderer.registerFont(app.makePath('app/og/fonts/inter-400-normal.woff'))
+
+    return response.header('Content-Type', 'image/png').stream(await renderer.render())
   }
 }

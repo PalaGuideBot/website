@@ -1,6 +1,7 @@
-import { rankToIcon, translateRank } from '~/content/ranks'
+import type { Rank } from '#app/types'
+import { translateRank } from '#stats/content/rank'
+import { rankToIcon } from '~/content/ranks'
 import { cn } from '~/lib/utils'
-import type { Rank } from '~/types'
 
 interface PaladiumRankProps {
   rank: string
