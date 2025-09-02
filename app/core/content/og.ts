@@ -6,6 +6,7 @@ export const PRIMARY_COLOR = '#ffb702'
 export const BACKGROUND_COLOR = '#121217'
 export const FOREGROUND_COLOR = '#fafafa'
 export const MUTED_COLOR = '#a1a1a1'
+export const SURFACE_COLOR = '#2a2a2f'
 
 export async function baseAppContainer(children: ContainerNode['children']) {
   return container({
@@ -14,10 +15,6 @@ export async function baseAppContainer(children: ContainerNode['children']) {
       height: percentage(100),
       display: 'flex',
       flexDirection: 'column',
-      gap: 64,
-      padding: 32,
-      backgroundImage:
-        'linear-gradient(0deg,rgba(18, 18, 23, 1) 60%, rgba(255, 166, 2, 0.42) 89%, rgba(255, 183, 2, 0.30) 100%)',
       backgroundColor: BACKGROUND_COLOR,
       color: FOREGROUND_COLOR,
     },
@@ -28,6 +25,10 @@ export async function baseAppContainer(children: ContainerNode['children']) {
           flexDirection: 'row',
           alignItems: 'center',
           gap: 24,
+          padding: 32,
+          borderBottomWidth: 4,
+          borderColor: PRIMARY_COLOR,
+          backgroundColor: SURFACE_COLOR,
         },
         children: [
           image({
@@ -61,6 +62,7 @@ export async function baseAppContainer(children: ContainerNode['children']) {
         style: {
           display: 'flex',
           flexGrow: 1,
+          padding: 32,
         },
         children: children,
       }),
