@@ -1,5 +1,5 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
-import { EarthIcon, FileCogIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
+import { EarthIcon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import {
   Area,
   AreaChart,
@@ -87,13 +87,13 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
                   <UsersIcon />
                   Factions
                 </TabsTrigger>
-                <TabsTrigger
+                {/*                 <TabsTrigger
                   value="launcher"
                   className="dark:data-[state=active]:text-primary data-[state=active]:text-primary"
                 >
                   <FileCogIcon />
                   Launcher
-                </TabsTrigger>
+                </TabsTrigger> */}
               </TabsList>
               <ToggleGroup
                 type="single"
@@ -127,11 +127,11 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
                 }))}
               />
             </TabsContent>
-            <TabsContent value="launcher">
+            {/*             <TabsContent value="launcher">
               <LauncherTab
                 data={status.map((s) => ({ date: s.date, launcher: s.data.launcher }))}
               />
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </Page>
       </DefaultLayout>
@@ -150,10 +150,10 @@ const GlobalTab = ({
 }) => {
   const dateInterval = useDateIntervalStore((state) => state.dateInterval)
 
-  const globalStatus = data.map((s) => ({
+  /*   const globalStatus = data.map((s) => ({
     date: s.date,
     status: s.global.status,
-  }))
+  })) */
 
   const averagePlayers = data.reduce((sum, entry) => sum + entry.global.players, 0) / data.length
 
@@ -171,10 +171,10 @@ const GlobalTab = ({
   return (
     <Card>
       <CardContent className="flex flex-col gap-4">
-        <div className="space-y-4">
+        {/*         <div className="space-y-4">
           <PageSubTitle>Uptime</PageSubTitle>
           <UptimeIndicator data={globalStatus} />
-        </div>
+        </div> */}
         <div className="space-y-4">
           <PageSubTitle>Joueurs</PageSubTitle>
           <div className="h-64">
@@ -305,7 +305,7 @@ const FactionsTab = ({
   )
 }
 
-const LauncherTab = ({
+/* const LauncherTab = ({
   data,
 }: {
   data: Array<{ date: string; launcher: { status: Array<Status> } }>
@@ -320,4 +320,4 @@ const LauncherTab = ({
       </CardContent>
     </Card>
   )
-}
+} */
