@@ -1,5 +1,12 @@
 # Changelog
 
+## 15/09/2025
+
+### Website
+
+- Modification des récompenses obtenus
+- Retrait du statut launcher et de l'état "Global"
+
 ## 02/09/2025
 
 ### Website
