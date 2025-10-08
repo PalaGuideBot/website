@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import Autoplay from 'embla-carousel-autoplay'
@@ -13,6 +14,7 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
+import { Eye } from '~/components/ui/eye'
 
 const CAROUSEL_DELAY = 5000
 
@@ -20,6 +22,28 @@ type HomePageProps = InferPageProps<PageController, 'home'>
 
 export default function Home(props: HomePageProps) {
   const { discordStats, isActiveGiveaway } = props
+  const [eyes, setEyes] = useState<
+    Array<{
+      top: number
+      left: number
+      rotation: number
+      width: number
+    }>
+  >([])
+
+  useEffect(() => {
+    const randomBetween = (min: number, max: number) => Math.random() * (max - min) + min
+
+    const count = Math.floor(randomBetween(3, 6))
+    const generatedEyes = Array.from({ length: count }, () => ({
+      top: randomBetween(15, 80),
+      left: randomBetween(10, 90),
+      rotation: randomBetween(-25, 25),
+      width: randomBetween(35, 70),
+    }))
+
+    setEyes(generatedEyes)
+  }, [])
 
   return (
     <>
@@ -155,6 +179,22 @@ export default function Home(props: HomePageProps) {
           </div>
         </section>
       </DefaultLayout>
+      {eyes.length > 0 &&
+        eyes.map((eye, index) => (
+          <div
+            key={`floating-eye-${index}`}
+            aria-hidden
+            className="pointer-events-none fixed z-50 hidden md:block"
+            style={{
+              top: `${eye.top}vh`,
+              left: `${eye.left}vw`,
+              transform: `translate(-50%, -50%) rotate(${eye.rotation}deg)`,
+              filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.45))',
+            }}
+          >
+            <Eye width={eye.width} />
+          </div>
+        ))}
       <CreditCard className="fixed bottom-0 right-0 rounded-tr-none rounded-b-none border-b-0 border-r-0" />
     </>
   )
