@@ -80,10 +80,10 @@ const generalLinks: LinkProps[] = [
         title: 'Money',
         url: '/leaderboard/money',
       },
-      {
+/*       {
         title: 'Trixium',
-        url: '/leaderboard/trixium',
-      },
+        url: '/leaderboard/trixium',      // Currently disabled because the PalaGuideBot API doesn't support it \\
+      }, */
       {
         title: 'Clicker',
         url: '/leaderboard/clicker',
