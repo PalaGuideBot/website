@@ -248,7 +248,9 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   return (
     <div className="flex flex-col gap-4">
       {!lastLeaderboard && (
-        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+        <Alert variant="warning">
+          <AlertDescription>Aucune donnée trouvée pour la période sélectionnée.</AlertDescription>
+        </Alert>
       )}
       {lastLeaderboard && (
         <>
