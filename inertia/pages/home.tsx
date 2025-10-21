@@ -8,7 +8,9 @@ import { DiscordIcon } from '~/components/icons'
 import { DefaultLayout } from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
 import { GiveawayBanner } from '~/components/shared/giveaway_banner'
+import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
+import SpiderWeb from '~/components/shared/spider_web'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
@@ -54,6 +56,7 @@ export default function Home(props: HomePageProps) {
                 </Button>
               </div>
             </div>
+            <SpiderWeb /> {/* Halloween decoration */}
             <Carousel
               plugins={[
                 Autoplay({
@@ -155,6 +158,7 @@ export default function Home(props: HomePageProps) {
           </div>
         </section>
       </DefaultLayout>
+      <HalloweenEyes /> {/* Halloween decoration */}
       <CreditCard className="fixed bottom-0 right-0 rounded-tr-none rounded-b-none border-b-0 border-r-0" />
     </>
   )

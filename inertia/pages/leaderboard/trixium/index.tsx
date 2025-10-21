@@ -41,6 +41,8 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
+import SpiderWeb from '~/components/shared/spider_web'
+import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type TrixiumPageProps = InferPageProps<TrixiumController, 'index'>
 
@@ -61,6 +63,7 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
         defaultOg
       />
       <DefaultLayout>
+        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Trixium</PageTitle>
@@ -92,6 +95,7 @@ export default function TrixiumIndex(props: TrixiumPageProps) {
           </Tabs>
         </Page>
       </DefaultLayout>
+      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }
@@ -248,7 +252,9 @@ const FactionTab = ({ data: leaderboard }: { data: TrixiumPageProps['leaderboard
   return (
     <div className="flex flex-col gap-4">
       {!lastLeaderboard && (
-        <Alert color="warning">Aucune donnée trouvée pour la période sélectionnée</Alert>
+        <Alert variant="warning">
+          <AlertDescription>Aucune donnée trouvée pour la période sélectionnée.</AlertDescription>
+        </Alert>
       )}
       {lastLeaderboard && (
         <>
