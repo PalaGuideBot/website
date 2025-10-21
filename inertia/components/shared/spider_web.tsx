@@ -1,4 +1,4 @@
-export default function SpiderWeb() {
+export function SpiderWeb() {
   return (
     <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none select-none opacity-70">
       <svg viewBox="0 0 100 100" className="w-full h-full">

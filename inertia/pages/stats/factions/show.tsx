@@ -10,7 +10,7 @@ import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
 import { SearchFactionForm } from './components/search_faction_form'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 
 export type FactionShowProps = InferPageProps<FactionController, 'show'>
 

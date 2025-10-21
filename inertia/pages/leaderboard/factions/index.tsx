@@ -32,7 +32,7 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type FactionsIndexProps = InferPageProps<FactionsController, 'index'>

@@ -39,7 +39,7 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type JobsPageProps = InferPageProps<JobsController, 'index'>

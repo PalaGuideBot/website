@@ -2,7 +2,7 @@ import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import {
   Accordion,
   AccordionContent,

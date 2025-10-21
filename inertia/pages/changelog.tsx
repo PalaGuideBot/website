@@ -5,7 +5,7 @@ import { Page } from '~/components/page'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
 import { LinkTrigger } from '~/components/shared/link_trigger'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import { Badge } from '~/components/ui/badge'
 import { Markdown, implementedComponents } from '~/components/ui/markdown'
 

@@ -38,7 +38,7 @@ import {
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 
 type MoneyIndexProps = InferPageProps<MoneyController, 'index'>
 
