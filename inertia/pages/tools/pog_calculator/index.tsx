@@ -29,7 +29,7 @@ import { cn } from '~/lib/utils'
 import { BetaAlert } from './components/beta_alert'
 import { CalculatorResult } from './components/calculator_result'
 import { PogLevelControls } from './components/pog_level_controls'
-import SpiderWeb from '~/components/shared/spider_web'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type PogCalculatorIndexProps = InferPageProps<PogCalculatorController, 'index'>
