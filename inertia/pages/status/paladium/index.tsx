@@ -14,8 +14,10 @@ import {
 import type PaladiumController from '#status/controllers/paladium_controller'
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageSubTitle, PageTitle } from '~/components/page'
+import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
 import { LinearGradient } from '~/components/shared/linear_gradient'
+import { SpiderWeb } from '~/components/shared/spider_web'
 import { Card, CardContent } from '~/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle_group'
@@ -62,6 +64,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
       <DefaultLayout>
         <Page>
           <PageTitle>Statut: Paladium</PageTitle>
+          <SpiderWeb />
           <p>
             Sur cette page, vous pourrez visualiser le statut des différents services de Paladium.
           </p>
@@ -135,6 +138,7 @@ export default function PaladiumStatusPage(props: PaladiumStatusPageProps) {
           </Tabs>
         </Page>
       </DefaultLayout>
+      <HalloweenEyes />
     </>
   )
 }

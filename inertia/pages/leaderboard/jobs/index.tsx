@@ -39,6 +39,8 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
+import { SpiderWeb } from '~/components/shared/spider_web'
+import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type JobsPageProps = InferPageProps<JobsController, 'index'>
 
@@ -66,6 +68,7 @@ export default function JobsIndex(props: JobsPageProps) {
         defaultOg
       />
       <DefaultLayout>
+        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Métiers</PageTitle>
@@ -88,6 +91,7 @@ export default function JobsIndex(props: JobsPageProps) {
           <JobTab data={leaderboard} />
         </Page>
       </DefaultLayout>
+      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

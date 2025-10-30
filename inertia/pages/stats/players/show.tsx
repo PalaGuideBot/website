@@ -14,6 +14,8 @@ import { useAuth } from '~/hooks/use_auth'
 import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_player_details'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
+import { SpiderWeb } from '~/components/shared/spider_web'
+import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
@@ -66,6 +68,7 @@ export default function PlayerShow(props: PlayerShowProps) {
               <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
+          <SpiderWeb /> {/* Halloween decoration */}
           <SearchPlayerForm
             defaultValue={player?.username}
             path={(username) => `/players/${username}`}
@@ -118,6 +121,7 @@ export default function PlayerShow(props: PlayerShowProps) {
             ))}
         </Page>
       </DefaultLayout>
+      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }
