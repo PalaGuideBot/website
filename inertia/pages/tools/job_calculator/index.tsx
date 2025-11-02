@@ -11,8 +11,11 @@ import { CalculatorResult } from './components/calculator_result'
 import { JobCalculatorInstructions } from './components/job_calculator_instructions'
 import { JobCalculatorModeSelector } from './components/job_calculator_mode_selector'
 import { JobCalculatorWrapper } from './components/job_calculator_wrapper'
+<<<<<<< HEAD
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { SpiderWeb } from '~/components/shared/spider_web'
+=======
+>>>>>>> dev
 
 export type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
 
@@ -33,7 +36,6 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
           items={items}
         >
           <Page>
-            <SpiderWeb /> {/* Halloween decoration */}
             <PageTitle>Calculateur de métiers</PageTitle>
             <p>
               Calculez l'xp et visualisez les éléments dont vous avez besoin pour progresser dans
@@ -62,7 +64,6 @@ export default function JobCalculatorIndex(props: JobCalculatorIndexProps) {
           </Page>
         </JobCalculatorWrapper>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

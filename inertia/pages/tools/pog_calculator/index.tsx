@@ -29,8 +29,11 @@ import { cn } from '~/lib/utils'
 import { BetaAlert } from './components/beta_alert'
 import { CalculatorResult } from './components/calculator_result'
 import { PogLevelControls } from './components/pog_level_controls'
+<<<<<<< HEAD
 import { SpiderWeb } from '~/components/shared/spider_web'
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
+=======
+>>>>>>> dev
 
 type PogCalculatorIndexProps = InferPageProps<PogCalculatorController, 'index'>
 
@@ -86,7 +89,6 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
       />
       <DefaultLayout>
         <Page>
-          <SpiderWeb /> {/* Halloween decoration */}
           <PageTitle>Calculateur de la Pickaxe Of the Gods</PageTitle>
           <p>
             Calculez l'expérience et visualisez les éléments dont vous avez besoin pour améliorer
@@ -266,7 +268,6 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
           )}
         </Page>
       </DefaultLayout>
-    <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

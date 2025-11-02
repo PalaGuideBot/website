@@ -2,10 +2,8 @@ import { BadgeInfoIcon } from 'lucide-react'
 
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page } from '~/components/page'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
 import { LinkTrigger } from '~/components/shared/link_trigger'
-import { SpiderWeb } from '~/components/shared/spider_web'
 import { Badge } from '~/components/ui/badge'
 import { Markdown, implementedComponents } from '~/components/ui/markdown'
 
@@ -25,7 +23,6 @@ export default function ChangelogPage(props: ChangelogPageProps) {
       />
       <DefaultLayout>
         <Page className="gap-0">
-          <SpiderWeb /> {/* Halloween decoration */}
           <Markdown
             components={{
               h2({ node, ...h2Props }) {
@@ -70,7 +67,6 @@ export default function ChangelogPage(props: ChangelogPageProps) {
           </Markdown>
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

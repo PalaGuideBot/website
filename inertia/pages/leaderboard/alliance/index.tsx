@@ -38,8 +38,11 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
+<<<<<<< HEAD
 import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { SpiderWeb } from '~/components/shared/spider_web'
+=======
+>>>>>>> dev
 
 type AllianceIndexProps = InferPageProps<AllianceController, 'index'>
 
@@ -91,7 +94,6 @@ export default function AllianceIndex(props: AllianceIndexProps) {
         defaultOg
       />
       <DefaultLayout>
-        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Alignement</PageTitle>
@@ -155,7 +157,6 @@ export default function AllianceIndex(props: AllianceIndexProps) {
           )}
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }
