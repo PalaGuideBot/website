@@ -27,11 +27,6 @@ import {
 } from './components/upgrade_wrapper'
 import { useSyncLocalStore } from './hooks/use_sync_local_store'
 import { usePlayerClickerStore } from './stores/player_clicker_store'
-<<<<<<< HEAD
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import { SpiderWeb } from '~/components/shared/spider_web'
-=======
->>>>>>> dev
 
 type ClickerShowProps = InferPageProps<ClickerController, 'show'>
 

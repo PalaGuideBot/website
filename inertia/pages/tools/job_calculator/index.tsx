@@ -11,11 +11,6 @@ import { CalculatorResult } from './components/calculator_result'
 import { JobCalculatorInstructions } from './components/job_calculator_instructions'
 import { JobCalculatorModeSelector } from './components/job_calculator_mode_selector'
 import { JobCalculatorWrapper } from './components/job_calculator_wrapper'
-<<<<<<< HEAD
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import { SpiderWeb } from '~/components/shared/spider_web'
-=======
->>>>>>> dev
 
 export type JobCalculatorIndexProps = InferPageProps<JobCalculatorController, 'index'>
 

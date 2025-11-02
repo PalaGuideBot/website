@@ -36,11 +36,6 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
-<<<<<<< HEAD
-import { SpiderWeb } from '~/components/shared/spider_web'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-=======
->>>>>>> dev
 
 type BossIndexProps = InferPageProps<BossController, 'index'>
 

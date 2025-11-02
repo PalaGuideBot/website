@@ -38,11 +38,6 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
-<<<<<<< HEAD
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import { SpiderWeb } from '~/components/shared/spider_web'
-=======
->>>>>>> dev
 
 type AllianceIndexProps = InferPageProps<AllianceController, 'index'>
 
