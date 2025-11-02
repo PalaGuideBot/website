@@ -36,8 +36,6 @@ import {
   PodiumCardWrapper,
 } from '../components/podium_card'
 import { usePuzzleStore } from '../stores/use_puzzle_store'
-import { SpiderWeb } from '~/components/shared/spider_web'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type KothIndexProps = InferPageProps<KothController, 'index'>
 
@@ -90,7 +88,6 @@ export default function KothIndex(props: KothIndexProps) {
         defaultOg
       />
       <DefaultLayout>
-        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Koth</PageTitle>
@@ -154,7 +151,6 @@ export default function KothIndex(props: KothIndexProps) {
           )}
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

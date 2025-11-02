@@ -9,8 +9,6 @@ import { DisplayError } from '~/components/shared/display_error'
 import { Head } from '~/components/shared/head'
 import { FactionDetails } from './components/faction_details'
 import { SearchFactionForm } from './components/search_faction_form'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import { SpiderWeb } from '~/components/shared/spider_web'
 
 export type FactionShowProps = InferPageProps<FactionController, 'show'>
 
@@ -34,7 +32,6 @@ export default function FactionShow(props: FactionShowProps) {
         <Head title="Faction" />
       )}
       <DefaultLayout>
-        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <PageTitle>Statistiques faction</PageTitle>
           <SearchFactionForm defaultValue={faction?.bgName ?? faction?.name} />
@@ -72,7 +69,6 @@ export default function FactionShow(props: FactionShowProps) {
           {faction && <FactionDetails faction={faction} />}
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

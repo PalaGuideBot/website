@@ -1,8 +1,6 @@
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 import { Head } from '~/components/shared/head'
-import { SpiderWeb } from '~/components/shared/spider_web'
 import {
   Accordion,
   AccordionContent,
@@ -61,7 +59,6 @@ export default function FaqPage() {
       <DefaultLayout>
         <Page>
           <PageTitle>Foire aux questions</PageTitle>
-          <SpiderWeb /> {/* Halloween decoration */}
           <p>Vous trouverez ici les questions les plus fréquemment posées par nos utilisateurs.</p>
           <Accordion type="multiple">
             {questions.map((question) => (
@@ -73,7 +70,6 @@ export default function FaqPage() {
           </Accordion>
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

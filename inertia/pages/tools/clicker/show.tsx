@@ -27,8 +27,6 @@ import {
 } from './components/upgrade_wrapper'
 import { useSyncLocalStore } from './hooks/use_sync_local_store'
 import { usePlayerClickerStore } from './stores/player_clicker_store'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
-import SpiderWeb from '~/components/shared/spider_web'
 
 type ClickerShowProps = InferPageProps<ClickerController, 'show'>
 
@@ -54,7 +52,6 @@ export default function ClickerShow(props: ClickerShowProps) {
         description="Progressez rapidement dans le clicker en vous aidant de cet outil."
         defaultOg
       />
-      <SpiderWeb /> {/* Halloween decoration */}
       <DefaultLayout className="grid grid-cols-12 p-0 lg:p-0 gap-0 lg:gap-0">
         {isClient && !clicker && !playerClickerStore.data && (
           <div className="flex flex-col gap-4 py-4 px-3 col-span-12 xl:col-start-4 xl:col-end-10">
@@ -271,7 +268,6 @@ export default function ClickerShow(props: ClickerShowProps) {
           </ClickerSettings>
         )}
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }

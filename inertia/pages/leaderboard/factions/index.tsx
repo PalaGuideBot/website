@@ -32,8 +32,6 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
-import { SpiderWeb } from '~/components/shared/spider_web'
-import { HalloweenEyes } from '~/components/shared/halloween_decorations'
 
 type FactionsIndexProps = InferPageProps<FactionsController, 'index'>
 
@@ -78,7 +76,6 @@ export default function FactionsIndex(props: FactionsIndexProps) {
         defaultOg
       />
       <DefaultLayout>
-        <SpiderWeb /> {/* Halloween decoration */}
         <Page>
           <div className="flex flex-row flex-wrap gap-2 justify-between items-center">
             <PageTitle>Classement: Factions</PageTitle>
@@ -142,7 +139,6 @@ export default function FactionsIndex(props: FactionsIndexProps) {
           )}
         </Page>
       </DefaultLayout>
-      <HalloweenEyes /> {/* Halloween decoration */}
     </>
   )
 }
