@@ -4,10 +4,6 @@ import type EventController from '#event/controllers/event_controller'
 import { DefaultLayout } from '~/components/layouts/default'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
-<<<<<<< HEAD
-import { SpiderWeb } from '~/components/shared/spider_web'
-=======
->>>>>>> dev
 import { DailyEventsCard } from './components/daily_events_card'
 import { OnYourMarksEventCard } from './components/on_your_marks_event_card'
 import { QDFEventCard } from './components/qdf_event_card'
