@@ -84,10 +84,15 @@ export default class PlayerController {
 
   async openGraph({ response, params }: HttpContext) {
     const player = await this.api.getPlayer(params.username)
-    const renderer = new ImageRenderer(await createOgPlayerContainer(player))
 
-    await renderer.registerFont(app.makePath('app/og/fonts/inter-400-normal.woff'))
+    try {
+      const renderer = new ImageRenderer(await createOgPlayerContainer(player))
 
-    return response.header('Content-Type', 'image/png').stream(await renderer.render())
+      await renderer.registerFont(app.makePath('app/og/fonts/inter-400-normal.woff'))
+
+      return response.header('Content-Type', 'image/png').stream(await renderer.render())
+    } catch {
+      return response.notFound()
+    }
   }
 }
