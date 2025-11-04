@@ -1,4 +1,4 @@
-import { DialogTrigger } from '@radix-ui/react-dialog'
+import { Dialog as DialogPrimitive } from 'radix-ui'
 
 import { AnimatedSpan, Terminal, TypingAnimation } from '~/components/magicui/terminal'
 import { Button } from '~/components/ui/button'
@@ -57,7 +57,7 @@ function TerminalRiveur() {
 export function RiveurPopup() {
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogPrimitive.Trigger asChild>
         <Button
           variant="link"
           size="sm"
@@ -65,7 +65,7 @@ export function RiveurPopup() {
         >
           Riveur
         </Button>
-      </DialogTrigger>
+      </DialogPrimitive.Trigger>
       <DialogContent showCloseButton={false} className="bg-transparent border-transparent">
         <DialogTitle className="sr-only">Riveur EasterEgg</DialogTitle>
         <DialogDescription className="sr-only">EasterEgg</DialogDescription>
