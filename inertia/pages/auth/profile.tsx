@@ -1,19 +1,19 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { router } from '@inertiajs/react'
-import * as Tabs from '@radix-ui/react-tabs'
 import { CheckIcon, CopyIcon, UnlinkIcon } from 'lucide-react'
+import { Tabs } from 'radix-ui'
 import { useState } from 'react'
 
 import type AuthController from '#controllers/auth_controller'
 import { DefaultLayout } from '~/components/layouts/default'
 import { Head } from '~/components/shared/head'
 import { LinkSteps } from '~/components/shared/link_steps'
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useCopyToClipboard } from '~/hooks/use_copy_clipboard'
 import { client } from '~/lib/client'
 import { getHeadUrl } from '~/lib/minecraft'
-import { Alert, AlertDescription } from '~/components/ui/alert'
-import { Button } from '~/components/ui/button'
 
 type ProfilePageProps = InferPageProps<AuthController, 'profile'>
 
