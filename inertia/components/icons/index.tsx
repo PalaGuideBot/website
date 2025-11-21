@@ -35,8 +35,6 @@ import AllianceOrder from '~/assets/icons/alliance-order.png'
 import MarketMoney from '~/assets/icons/market-money.png'
 import MarketPb from '~/assets/icons/market-pb.png'
 
-import SummerRush from '~/assets/icons/summer-rush.png'
-
 export interface IconProps extends React.ComponentProps<'img'> {}
 
 const iconFactory =
@@ -87,8 +85,6 @@ export const AllianceOrderIcon = iconFactory(AllianceOrder)
 
 export const MarketMoneyIcon = iconFactory(MarketMoney)
 export const MarketPbIcon = iconFactory(MarketPb)
-
-export const SummerRushIcon = iconFactory(SummerRush)
 
 export const DiscordIcon = ({
   fill = 'currentColor',

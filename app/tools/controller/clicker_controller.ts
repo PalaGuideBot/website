@@ -9,22 +9,15 @@ export default class ClickerController {
 
   async show({ params, inertia }: HttpContext) {
     let clicker = null
+
     if (params.username) {
-      clicker = await this.api.getPlayerClickerData(params.username)
+      try {
+        clicker = await this.api.getPlayerClickerData(params.username)
+      } catch {}
     }
 
     const upgrades = await this.api.getClickerUpgrades()
 
-    return inertia.render('tools/clicker/show', {
-      clicker,
-      upgrades: {
-        ...upgrades,
-        // SUMMER RUSH BOOST
-        clicks: upgrades.clicks.map((click) => ({
-          ...click,
-          rate: click.rate * (300 / 100),
-        })),
-      },
-    })
+    return inertia.render('tools/clicker/show', { clicker, upgrades })
   }
 }

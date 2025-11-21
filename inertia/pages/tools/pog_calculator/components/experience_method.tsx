@@ -4,7 +4,6 @@ import type { calculatorResultValidator } from '#tools/validators/pog_validator'
 import { Card, CardContent } from '~/components/ui/card'
 import { getMinecraftItemUrl } from '~/lib/minecraft'
 import { cn, formatNumber } from '~/lib/utils'
-import { SummerRushIcon } from '~/components/icons'
 
 type Item = Infer<typeof calculatorResultValidator>['items'][number]
 
@@ -37,15 +36,9 @@ export function ExperienceMethod({ item, os, target = false }: ExperienceMethodP
           )}
         </div>
         <div>
-          <div className="flex gap-2 items-center justify-end">
-            <p className="uppercase text-muted-foreground text-[10px] text-right">
-              Break -{' '}
-              <span className="text-[#26b9ef]">
-                {formatNumber(item.xp, { notation: 'standard' })} xp
-              </span>
-            </p>
-            <SummerRushIcon />
-          </div>
+          <p className="uppercase text-muted-foreground text-[10px] text-right">
+            Break - {formatNumber(item.xp, { notation: 'standard' })} xp
+          </p>
           <div className="flex items-center gap-1 justify-end text-[10px]">
             <span className="uppercase font-semibold">OS - </span>
             <span

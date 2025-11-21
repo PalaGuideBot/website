@@ -88,14 +88,14 @@ export function FactionDetails({ faction }: FactionDetailsProps) {
           </CardHeader>
           <CardContent className="flex-1 pt-4">
             <ul className="h-full flex flex-col gap-2 justify-around">
-              <li>
-                <InformationLine
-                  label="Alliance"
-                  value={
-                    <FactionAlliance alliance={faction.alliance ? faction.alliance : 'NULL'} />
-                  }
-                />
-              </li>
+              {faction.alliance && (
+                <li>
+                  <InformationLine
+                    label="Alliance"
+                    value={<FactionAlliance alliance={faction.alliance} />}
+                  />
+                </li>
+              )}
               <li>
                 <InformationLine
                   label="Date de création"

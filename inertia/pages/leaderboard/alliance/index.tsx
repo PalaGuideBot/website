@@ -38,11 +38,12 @@ import {
   PodiumCardValue,
   PodiumCardWrapper,
 } from '../components/podium_card'
+import { DateTime } from 'luxon'
 
 type AllianceIndexProps = InferPageProps<AllianceController, 'index'>
 
 export default function AllianceIndex(props: AllianceIndexProps) {
-  const { leaderboard, options, seasons } = props
+  const { leaderboard, options, seasons, allianceEndDate } = props
   const {
     pagination: { page, limit },
     pageOffset,
@@ -94,6 +95,13 @@ export default function AllianceIndex(props: AllianceIndexProps) {
             <PageTitle>Classement: Alignement</PageTitle>
             <DateRangeSelector seasons={seasons} defaultOptions={options} />
           </div>
+          {allianceEndDate &&
+            DateTime.fromSQL(allianceEndDate).diff(DateTime.fromSQL(options.from), 'days').days <
+              0 && (
+              <Alert variant="info">
+                <AlertDescription>L'alignement a pris fin à partir de la v11.</AlertDescription>
+              </Alert>
+            )}
           {!lastLeaderboard && (
             <Alert variant="warning">
               <AlertDescription>
