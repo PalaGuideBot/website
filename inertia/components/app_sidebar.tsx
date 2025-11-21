@@ -101,10 +101,6 @@ const generalLinks: LinkProps[] = [
         url: '/leaderboard/koth',
       },
       {
-        title: 'Alignement',
-        url: '/leaderboard/alignement',
-      },
-      {
         title: 'Métiers',
         url: '/leaderboard/jobs',
       },

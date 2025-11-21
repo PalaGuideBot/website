@@ -9,7 +9,6 @@ import { toast } from 'sonner'
 import type { playerJobsValidator } from '#stats/validators/player_validator'
 import { parseItems, stringifyItems } from '#tools/helpers/item'
 import { ArrowRightIcon } from '~/components/icons'
-import { SummerBoostButton } from '~/components/shared/summer_boost_button'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { FormItem, FormLabel, FormMessage } from '~/components/ui/form'
@@ -212,17 +211,7 @@ function StandardCalculatorForm({ onSuccess }: StandardCalculatorFormProps) {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="justify-between">
-        <SummerBoostButton
-          tooltip={{
-            children: (
-              <span>
-                <span className="text-primary">+300%</span> XP sur les métiers. Appliquez le sur le
-                champ "XP bonus" pour le calcul.
-              </span>
-            ),
-          }}
-        />
+      <CardFooter className="justify-end">
         <Button
           form="calculator"
           disabled={Boolean(form.processing)}
@@ -467,17 +456,7 @@ function ReverseCalculatorForm({ onSuccess }: ReverseCalculatorFormProps) {
           </FormItem>
         </form>
       </CardContent>
-      <CardFooter className="justify-between">
-        <SummerBoostButton
-          tooltip={{
-            children: (
-              <span>
-                <span className="text-primary">+300%</span> XP sur les métiers. Appliquez le sur le
-                champ "XP bonus" pour le calcul.
-              </span>
-            ),
-          }}
-        />
+      <CardFooter className="justify-end">
         <Button
           form="calculator"
           disabled={Boolean(form.processing)}
