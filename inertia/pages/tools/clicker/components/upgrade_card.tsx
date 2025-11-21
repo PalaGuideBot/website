@@ -1,7 +1,6 @@
 import { TrendingUpIcon } from 'lucide-react'
 
 import type { ClickerAnyUpgrade } from '#tools/types'
-import { SummerRushIcon } from '~/components/icons'
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { getClickerUpgradeImage } from '~/lib/clicker'
 import { ucFirst } from '~/lib/string'
@@ -102,16 +101,11 @@ const UpgradeAdvantage = ({ upgrade }: UpgradeAdvantageProps) => {
     <div className="flex flex-row gap-2 items-center">
       <TrendingUpIcon className="size-4" />
       {upgrade.type === 'click' && (
-        <div className="flex gap-2 items-center">
-          <p>
-            <AccentText>Double</AccentText> votre production par clic (
-            <AccentText className="text-[#26b9ef]">
-              {formatNumber(upgrade.data.rate, { notation: 'standard' })}
-            </AccentText>
-            /clic)
-          </p>
-          <SummerRushIcon />
-        </div>
+        <p>
+          <AccentText>Double</AccentText> votre production par clic (
+          <AccentText>{formatNumber(upgrade.data.rate, { notation: 'standard' })}</AccentText>
+          /clic)
+        </p>
       )}
       {upgrade.type === 'global' && (
         <p>

@@ -20,11 +20,14 @@ export default class AllianceController {
       },
     })
 
+    const allianceEndDate = seasons.seasons['Summer Rush | Apocalypse']?.end.toSQLDate()
+
     const leaderboard = await this.api.getLeaderboard('alliance', options)
     return inertia.render('leaderboard/alliance/index', {
       leaderboard,
       options,
       seasons: seasons.seasons as unknown as ClientSeasonsFromProps,
+      allianceEndDate: allianceEndDate as string | undefined,
     })
   }
 }

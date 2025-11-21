@@ -7,7 +7,6 @@ import type {
   calculatorOptionsValidator,
   calculatorResultValidator,
 } from '#tools/validators/calculator_validator'
-import { SummerRushIcon } from '~/components/icons'
 import { PageSubTitle } from '~/components/page'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
@@ -22,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select'
-import { cn, formatNumber, formatPrice } from '~/lib/utils'
+import { formatNumber, formatPrice } from '~/lib/utils'
 import type { JobCalculatorIndexProps } from '~/pages/tools/job_calculator/index'
 import { ExperienceMethod } from './experience_method'
 import { ItemContribution } from './item_contribution'
@@ -101,19 +100,7 @@ function StandardCalculatorResult({ options, result: { result } }: StandardCalcu
           Pour atteindre le niveau{' '}
           <span className="font-bold text-primary">{options.targetLevel}</span> à partir du niveau{' '}
           <span className="font-bold text-primary">{options.currentLevel}</span> avec un bonus
-          d'expérience de{' '}
-          <span
-            className={cn('font-bold text-primary', options.bonusXp >= 300 && 'text-[#26b9ef]')}
-          >
-            {options.bonusXp}%
-          </span>
-          {options.bonusXp >= 300 && (
-            <>
-              {' '}
-              <SummerRushIcon />
-            </>
-          )}
-          .
+          d'expérience de <span className="font-bold text-primary">{options.bonusXp}%</span>.
         </p>
         <p>
           La quantité d'expérience nécessaire est de{' '}
@@ -278,18 +265,8 @@ function ReverseCalculatorResult({ options, result: { result } }: ReverseCalcula
             </>
           )}
           , avec un bonus d'expérience de{' '}
-          <span
-            className={cn('font-bold text-primary', options.bonusXp >= 300 && 'text-[#26b9ef]')}
-          >
-            {options.bonusXp}%
-          </span>
-          {options.bonusXp >= 300 && (
-            <>
-              {' '}
-              <SummerRushIcon />
-            </>
-          )}{' '}
-          et avec les items que vous possèdez.
+          <span className="font-bold text-primary">{options.bonusXp}%</span> et avec les items que
+          vous possèdez.
         </p>
         <p>
           Vous pouvez atteindre le niveau{' '}

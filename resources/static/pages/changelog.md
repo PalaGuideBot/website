@@ -1,5 +1,18 @@
 # Changelog
 
+## 21/11/2025
+
+### Website
+
+- Modifications des levels et xp dans le calculator
+- Retrait des alliances sur les factions
+- Retrait des effets du Summer Rush
+
+### Bot
+
+- Modifications des levels et xp dans le calculator
+- Réactivation de la vérification par Mojang
+
 ## 15/09/2025
 
 ### Website
