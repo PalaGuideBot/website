@@ -3,7 +3,7 @@ export function getSkinUrl(username: string) {
 }
 
 export function getHeadUrl(username: string) {
-  return `https://api.paladium.games/v1/global/launcher/session/minecraft/skin/${username}/avatar/100`
+  return `https://mc-heads.net/avatar/${username}/100`
 }
 
 export function getBustUrl(uuid: string) {

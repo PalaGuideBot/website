@@ -46,6 +46,7 @@ import {
   playerClickerDataValidator,
   playerInfoValidator,
   playerJobsValidator,
+  playerSearchResultValidator,
   playerWrappedValidator,
 } from '#stats/validators/player_validator'
 import { paladiumStatusValidator } from '#status/validators/status_validator'
@@ -164,6 +165,16 @@ export class ApiService {
       const response = await client.get('players', { searchParams: { latest: 'true' } })
       const data = await response.json()
       return latestPlayerDataValidator.validate(data)
+    } catch (error: unknown) {
+      return []
+    }
+  }
+
+  async searchPlayers(query: string) {
+    try {
+      const response = await client.post('players', { json: { q: query } })
+      const data = await response.json()
+      return playerSearchResultValidator.validate(data)
     } catch (error: unknown) {
       return []
     }
