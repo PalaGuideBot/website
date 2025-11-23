@@ -8,5 +8,5 @@ export const PALADIUM_OPTIONS = {
 }
 
 export function getSeasonStart() {
-  return DateTime.fromMillis(1752336000000)
+  return DateTime.fromMillis(1763751600000)
 }
