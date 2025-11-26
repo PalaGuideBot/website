@@ -238,3 +238,12 @@ export const playerWrappedValidator = vine.compile(
     }),
   })
 )
+
+export const playerSearchResultValidator = vine.compile(
+  vine.array(
+    vine.object({
+      uuid: vine.string().uuid(),
+      username: vine.string(),
+    })
+  )
+)

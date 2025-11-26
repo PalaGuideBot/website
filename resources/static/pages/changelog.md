@@ -1,5 +1,17 @@
 # Changelog
 
+## 26/11/2025
+
+### Website
+
+- Ajout de l'auto complete
+- Correction de début de la saison sur le clicker
+
+### Bot
+
+- Retrait des alliances sur la commande `/faction`
+- Correction des levels dans la commande `/lookup`
+
 ## 21/11/2025
 
 ### Website

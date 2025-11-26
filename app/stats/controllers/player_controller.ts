@@ -2,6 +2,7 @@ import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
+import vine from '@vinejs/vine'
 
 import { ClientSeasonsFromProps } from '#app/types'
 import { createPageErrorFromException } from '#core/helpers/error'
@@ -94,5 +95,15 @@ export default class PlayerController {
     } catch {
       return response.notFound()
     }
+  }
+
+  async search({ response, request }: HttpContext) {
+    const { q: query } = await request.validateUsing(
+      vine.compile(vine.object({ q: vine.string() }))
+    )
+
+    const results = await this.api.searchPlayers(query)
+
+    return response.ok(results)
   }
 }
