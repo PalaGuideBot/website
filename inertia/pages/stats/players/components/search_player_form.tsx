@@ -169,7 +169,23 @@ function SearchPlayerFormAutoComplete({
               {!isLoading && data && (
                 <CommandGroup>
                   {data.length === 0 ? (
-                    <CommandItem disabled>Aucun joueur trouvé</CommandItem>
+                    <CommandItem
+                      value={query}
+                      onSelect={(value) => {
+                        onSelect?.(value)
+                        setOpen?.(false)
+                      }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="bg-muted flex size-8 items-center justify-center rounded">
+                          <SearchIcon size={16} className="text-muted-foreground" />
+                        </div>
+                        <span>
+                          Rechercher <span className="font-bold text-primary">{query}</span> sur
+                          Paladium
+                        </span>
+                      </div>
+                    </CommandItem>
                   ) : (
                     data.map((player) => (
                       <CommandItem
