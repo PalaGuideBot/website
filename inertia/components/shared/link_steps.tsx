@@ -19,7 +19,7 @@ const Step1 = () => {
         <CardTitle>Etape 1</CardTitle>
       </CardHeader>
       <CardContent className="pt-4 flex flex-1 flex-col justify-between gap-2">
-        <p className="text-sm">Rejoignez notre serveur (+1.8):</p>
+        <p className="text-sm">Rejoignez notre serveur (Version 1.8):</p>
         <p>
           <Badge variant="secondary" stroke className="px-1.5">
             {SERVER_IP}
