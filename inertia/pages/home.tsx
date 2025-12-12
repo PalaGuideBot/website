@@ -82,7 +82,7 @@ export default function Home(props: HomePageProps) {
             </Carousel>
           </div>
         </section>
-        <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center">
+        <section className="p-4 lg:p-6 pb-14 max-w-7xl mx-auto min-h-dvh grid items-center">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
             <div className="flex items-center justify-center h-full">
               <Carousel
