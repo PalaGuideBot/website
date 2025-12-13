@@ -1,5 +1,12 @@
 # Changelog
 
+## 12/12/2025
+
+### Bot
+
+- Refonte graphique de la commande `/carte`
+- Correction des crashs récurrents du bot
+
 ## 26/11/2025
 
 ### Website
