@@ -1,19 +1,28 @@
 import { InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import Autoplay from 'embla-carousel-autoplay'
-import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
+import {
+  ArrowRightIcon,
+  BellIcon,
+  ExternalLinkIcon,
+  FileTextIcon,
+  LayersPlus,
+  ShieldCheckIcon,
+  UserPlus2Icon,
+} from 'lucide-react'
 
 import type PageController from '#controllers/page_controller'
+import Snowfall from 'react-snowfall'
 import { DiscordIcon } from '~/components/icons'
 import { DefaultLayout } from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
 import { GiveawayBanner } from '~/components/shared/giveaway_banner'
 import { Head } from '~/components/shared/head'
+import { ModuleCarouselCard } from '~/components/shared/module_carousel_card'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '~/components/ui/carousel'
 import { formatNumber } from '~/lib/utils'
-import Snowfall from 'react-snowfall'
 
 const CAROUSEL_DELAY = 5000
 
@@ -84,7 +93,7 @@ export default function Home(props: HomePageProps) {
             </Carousel>
           </div>
         </section>
-        <section className="p-4 lg:p-6 pb-14 max-w-7xl mx-auto min-h-dvh grid items-center">
+        <section className="p-4 lg:p-6 pb-14 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
             <div className="flex items-center justify-center h-full">
               <Carousel
@@ -152,6 +161,169 @@ export default function Home(props: HomePageProps) {
                     En savoir plus
                   </a>
                 </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="p-4 lg:p-6 pb-14 max-w-7xl mx-auto min-h-dvh grid items-center">
+          <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
+            <div className="space-y-6 order-last lg:order-first">
+              <h1 className="text-3xl text-center font-black md:text-4xl lg:text-left xl:text-6xl">
+                <span className="text-orange-400">Reverant</span>
+              </h1>
+              <p className="leading-6 text-center lg:text-left xl:text-lg">
+                L'allié de votre faction, bot de gestion Discord. Gérez votre discord de faction
+                avec <span className="text-orange-400 font-bold">Reverant</span> et ses divers
+                modules,{' '}
+                <span className="text-orange-400">
+                  Check de base claim, recrutement, notification programmée
+                </span>{' '}
+                et bien plus encore.
+              </p>
+
+              <div className="grid items-center justify-center w-full md:grid-cols-2 gap-4">
+                <Button
+                  variant="secondary"
+                  className="xl:text-lg py-2 px-8 group bg-white/80 text-black hover:bg-white/50"
+                  asChild
+                >
+                  <a href="https://discord.gg/8XB69sm5vJ" target="_blank">
+                    Discord
+                  </a>
+                </Button>
+                <Button variant="outline" className="xl:text-lg py-2 px-8 group" asChild>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://beta.reverant.fr/?utm_source=palaguidebot"
+                  >
+                    <ExternalLinkIcon />
+                    Découvrir Reverant
+                  </a>
+                </Button>
+              </div>
+            </div>
+            <div className="flex items-center justify-center h-full order-first lg:order-last">
+              <Carousel
+                plugins={[
+                  Autoplay({
+                    delay: CAROUSEL_DELAY,
+                  }),
+                ]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {[
+                    {
+                      icon: ShieldCheckIcon,
+                      name: 'Alertes Base Claim',
+                      description: "Suivez l'avancée et la gestion de votre base claim.",
+                    },
+                    {
+                      icon: FileTextIcon,
+                      name: 'Logs Discord',
+                      description: 'Surveillez les activités de votre serveur Discord.',
+                    },
+                    {
+                      icon: UserPlus2Icon,
+                      name: 'Recrutement',
+                      description: 'Recrutez de nouveaux membres pour votre serveur Discord.',
+                    },
+                    {
+                      icon: BellIcon,
+                      name: 'Rappel Notifications',
+                      description: 'Créer et envoyez des rappels pour les événements importants.',
+                    },
+                  ].map((card) => (
+                    <CarouselItem key={card.name}>
+                      <div className="flex items-center justify-center h-full">
+                        <ModuleCarouselCard
+                          className="w-full max-w-md h-full"
+                          icon={card.icon}
+                          name={card.name}
+                          description={card.description}
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+          </div>
+          <div className="pt-12 mt-12">
+            <div className="space-y-8">
+              <div className="space-y-3 text-center">
+                <h2 className="text-3xl font-black md:text-4xl xl:text-5xl">
+                  Des modules conçus pour <span className="text-orange-400">votre faction</span>
+                </h2>
+                <p className="leading-6 text-muted-foreground max-w-2xl mx-auto xl:text-lg">
+                  Découvrez une séléction de modules disponibles sur Reverant pour améliorer la
+                  gestion de votre faction et de votre serveur Discord.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-4 gap-4 w-full">
+                <Card className="group hover:shadow-lg transition-all border">
+                  <CardContent className="p-6 flex flex-col gap-4 h-full">
+                    <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                      <span className="text-2xl">
+                        <ShieldCheckIcon />
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg">Alertes Base Claim</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Facilitez la gestions de votre base claim avec des alertes en temps réel,
+                        historiques...
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="group hover:shadow-lg transition-all duration-300 border">
+                  <CardContent className="p-6 flex flex-col gap-4 h-full">
+                    <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                      <span className="text-2xl">
+                        <UserPlus2Icon />
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg">Recrutement</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Alternative aux formulaires classiques, recevez des notifications sur votre
+                        discord
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="group hover:shadow-lg transition-all duration-300 border">
+                  <CardContent className="p-6 flex flex-col gap-4 h-full">
+                    <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                      <span className="text-2xl">
+                        <BellIcon />
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg">Rappel Notifications</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Plannifier vos notifications et rappel pour que vos membres ne manquent rien
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="group hover:shadow-lg transition-all duration-300 border">
+                  <CardContent className="p-6 flex flex-col gap-4 h-full">
+                    <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                      <span className="text-2xl">
+                        <LayersPlus />
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg">Développement</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Reverant est en constante évolution avec de nouveaux modules
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
