@@ -38,6 +38,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
 import { useAuth } from '~/hooks/use_auth'
 import { useSidebarStateStore } from '~/stores/sidebar_state_store'
+import { ReverantBanner } from './shared/reverant_banner'
 /* import { PaladiumWrappedBanner } from './shared/paladium_wrapped_banner' */
 
 type LinkProps = {
@@ -290,6 +291,9 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <div className="p-1">
+            <ReverantBanner />
+          </div>
           {/*           <div className="p-1">
             <PaladiumWrappedBanner />
           </div> */}
