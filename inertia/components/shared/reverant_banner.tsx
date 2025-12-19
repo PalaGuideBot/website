@@ -18,7 +18,7 @@ export function ReverantBanner() {
           size="sm"
           asChild
         >
-          <Link href="https://beta.reverant.fr" target="_blank">
+          <Link href="https://beta.reverant.fr/?utm_source=palaguidebot" target="_blank">
             Découvrir Reverant
           </Link>
         </Button>
