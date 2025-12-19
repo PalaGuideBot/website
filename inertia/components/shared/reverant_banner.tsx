@@ -1,5 +1,3 @@
-import { Link } from '@inertiajs/react'
-
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '../ui/badge'
@@ -18,9 +16,13 @@ export function ReverantBanner() {
           size="sm"
           asChild
         >
-          <Link href="https://beta.reverant.fr/?utm_source=palaguidebot" target="_blank">
+          <a
+            href="https://beta.reverant.fr/?utm_source=palaguidebot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Découvrir Reverant
-          </Link>
+          </a>
         </Button>
       </CardContent>
       <Badge
