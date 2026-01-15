@@ -28,7 +28,7 @@ export const calculatorOptionsValidator = vine.compile(
       'bonus-xp': vine.number().min(0).max(500),
       'current-xp': vine
         .number()
-        .positive()
+        .min(0)
         .parse((value) => value || 0),
     })
     .merge(
