@@ -494,7 +494,7 @@ const JobsEvolutionSection = ({ player, className, ...props }: JobsEvolutionSect
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis dataKey="date" className="text-xs" />
             <YAxis
-              domain={graphType === 'level' ? [0, 100] : undefined}
+              domain={graphType === 'level' ? [0, 20] : undefined}
               orientation="right"
               className="text-xs"
               tickFormatter={(value) => formatNumber(Number(value))}

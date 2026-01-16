@@ -60,7 +60,7 @@ export function ClickCard() {
         <CardContent className="pt-4 flex flex-1 items-center justify-center">
           <AlertDialog open={isWarningDialogOpen} onOpenChange={setIsWarningDialogOpen}>
             <ConfettiButton
-              className="rounded-full size-20 hover:bg-transparent"
+              className="group rounded-full size-20 hover:bg-transparent"
               variant="ghost"
               size="icon"
               onClick={onClick}

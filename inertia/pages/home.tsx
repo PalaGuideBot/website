@@ -12,7 +12,6 @@ import {
 } from 'lucide-react'
 
 import type PageController from '#controllers/page_controller'
-import Snowfall from 'react-snowfall'
 import { DiscordIcon } from '~/components/icons'
 import { DefaultLayout } from '~/components/layouts/default'
 import { CreditCard } from '~/components/shared/credit_card'
@@ -35,7 +34,6 @@ export default function Home(props: HomePageProps) {
     <>
       <Head title="Accueil" defaultOg />
       <DefaultLayout className="relative p-0 lg:p-0 gap-0 lg:gap-0">
-        <Snowfall snowflakeCount={350} />
         {isActiveGiveaway && <GiveawayBanner className="rounded-none min-h-[60px]" />}
         <section className="p-4 lg:p-6 max-w-7xl mx-auto min-h-dvh grid items-center border-b">
           <div className="grid lg:grid-cols-2 gap-8 items-center justify-center">
