@@ -1,5 +1,12 @@
 # Changelog
 
+## 16/02/2026
+
+### Bot
+
+- Ajout de la commande `/settings` permettant de modifier la photo de profil, bannière, nom du bot sur votre serveur
+- Correction divers
+
 ## 12/12/2025
 
 ### Bot
