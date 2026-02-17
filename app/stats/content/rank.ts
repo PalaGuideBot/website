@@ -16,6 +16,7 @@ const translations: Record<Rank, string> = {
   'rusher': 'Rusher',
   'youtuber': 'Youtuber',
   'streamer': 'Streamer',
+  'affiliate': 'Affilié',
   'helper': 'Helper',
   'supportconfirmé': 'Support Confirmé',
   'moderateurchat': 'Modérateur Chat',

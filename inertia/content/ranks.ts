@@ -19,6 +19,7 @@ import titanIcon from '~/assets/rank-icons/titan.png'
 import trixiumPlusIcon from '~/assets/rank-icons/trixium-plus.png'
 import trixiumIcon from '~/assets/rank-icons/trixium.png'
 import youtuberIcon from '~/assets/rank-icons/youtuber.png'
+import affiliateIcon from '~/assets/rank-icons/affiliate.png'
 
 const icons: Record<Rank, string | null> = {
   'SHOULD_BE_REMOVED_UNAVAILABLE': null,
@@ -36,6 +37,7 @@ const icons: Record<Rank, string | null> = {
   'rusher': rusherIcon,
   'youtuber': youtuberIcon,
   'streamer': streamerIcon,
+  'affiliate': affiliateIcon,
   'helper': ingameIcon,
   'supportconfirmé': ingameIcon,
   'moderateurchat': ingameIcon,

@@ -28,6 +28,7 @@ export type Rank =
   | 'rusher'
   | 'youtuber'
   | 'streamer'
+  | 'affiliate'
   | 'helper'
   | 'supportconfirmé'
   | 'moderateurchat'
