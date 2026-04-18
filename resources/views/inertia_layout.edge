@@ -10,7 +10,8 @@
   <title inertia>PalaGuideBot</title>
 
   @if(app.inProduction)
-    <script defer src="{{env.get('UMAMI_SCRIPT_URL')}}" data-website-id="{{env.get('UMAMI_WEBSITE_ID')}}"></script>
+    <script defer src="{{env.get('UMAMI_SCRIPT_URL')}}/script.js" data-website-id="{{env.get('UMAMI_WEBSITE_ID')}}"></script>
+    <script defer src="{{env.get('UMAMI_SCRIPT_URL')}}/recorder.js" data-website-id="{{env.get('UMAMI_WEBSITE_ID')}}" data-sample-rate="0.15" data-mask-level="moderate" data-max-duration="300000"></script>
   @end
 
   @viteReactRefresh()
