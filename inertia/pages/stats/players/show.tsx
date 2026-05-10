@@ -14,6 +14,7 @@ import { useAuth } from '~/hooks/use_auth'
 import { AurelianPlayerDetails } from '../../../components/easteregg/aurelian_player_details'
 import { PlayerDetails } from './components/player_details'
 import { SearchPlayerForm } from './components/search_player_form'
+import { PackageIcon } from 'lucide-react'
 
 export type PlayerShowProps = InferPageProps<PlayerController, 'show'>
 
@@ -63,6 +64,18 @@ export default function PlayerShow(props: PlayerShowProps) {
           <div className="flex flex-row flex-wrap gap-2 items-center justify-between">
             <PageTitle>Statistiques de joueur</PageTitle>
             <div className="flex items-center gap-2">
+              {player && (
+                <Button
+                  variant="tertiary"
+                  className="h-10 bg-green-500/10 border-4 border-white/10 hover:bg-green-300/20 focus-visible:bg-green-500/20 active:bg-green-500/30"
+                  asChild
+                >
+                  <Link href={`/wrapped/${player.username}`}>
+                    <PackageIcon />
+                    Wrapped
+                  </Link>
+                </Button>
+              )}
               <DateRangeSelector seasons={seasons} defaultOptions={options} />
             </div>
           </div>
