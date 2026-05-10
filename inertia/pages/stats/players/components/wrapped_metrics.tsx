@@ -2,7 +2,7 @@ import type { Infer } from '@vinejs/vine/types'
 
 import type { playerWrappedValidator } from '#stats/validators/player_validator'
 import { CoinIcon } from '~/components/icons'
-import { smallIcons as smallJobIcons } from '~/content/jobs'
+/* import { smallIcons as smallJobIcons } from '~/content/jobs' */
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getPet, translatePet } from '~/content/pets'
 import { cn, formatNumber, formatPrice } from '~/lib/utils'
@@ -102,7 +102,7 @@ export const metrics: Array<Metric> = [
     renderContent: (player) =>
       `${player.clicker.upgrades.unlocked} / ${player.clicker.upgrades.total}`,
   },
-  {
+  /* {
     title: 'Métiers',
     id: 'jobs',
     isVisible: (_) => true,
@@ -135,7 +135,7 @@ export const metrics: Array<Metric> = [
         </div>
       )
     },
-  },
+  }, */
   {
     title: 'Money max.',
     id: 'money-max',

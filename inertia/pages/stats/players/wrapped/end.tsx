@@ -43,7 +43,7 @@ export default function PlayerWrappedEndPage(props: PlayerWrappedEndPageProps) {
                   <PageTitle>Paladium Wrapped</PageTitle>
                   <p className="text-muted-foreground">
                     Sur la droite, vous trouverez un résumé des statistiques de votre aventure sur
-                    la v10.5 de Paladium.
+                    la v11 de Paladium.
                   </p>
                   <p className="text-muted-foreground">
                     Vous pouvez le personnaliser et l'envoyer à vos amis.

@@ -26,7 +26,7 @@ export function PaladiumWrappedBanner() {
         stroke
         className="border-white/10 bg-indigo-500 absolute -top-2 -right-2 animate-bounce"
       >
-        v10.5
+        v11
       </Badge>
     </Card>
   )
