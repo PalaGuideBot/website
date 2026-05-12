@@ -38,10 +38,9 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
   const { player } = props
 
   const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = 8
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
   }
 
   const replaySlide = () => {
@@ -608,7 +607,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       <Head title={`${player.username} : Wrapped`} />
       <main
         className="relative min-h-screen p-8 text-white flex flex-col gap-4 items-center justify-start"
-        onClick={currentSlide + 1 !== totalSlides ? nextSlide : undefined}
+        onClick={currentSlide + 1 !== slides.length ? nextSlide : undefined}
       >
         <motion.div
           initial={{ opacity: 0 }}
@@ -626,11 +625,11 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
         <div
           className={cn(
             'relative space-y-4',
-            currentSlide + 1 === totalSlides ? 'hidden' : 'block'
+            currentSlide + 1 === slides.length ? 'hidden' : 'block'
           )}
         >
           <div className="flex justify-center space-x-2">
-            {Array.from({ length: totalSlides }).map((_, index) => (
+            {Array.from({ length: slides.length }).map((_, index) => (
               <div
                 key={index}
                 className={cn(
