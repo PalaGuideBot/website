@@ -12,7 +12,7 @@ import { HyperText } from '~/components/magicui/hyper_text'
 import { NumberTicker } from '~/components/magicui/number_ticker'
 import { Page, PageTitle } from '~/components/page'
 import { Head } from '~/components/shared/head'
-import { JobProgress } from '~/components/shared/paladium_job'
+/* import { JobProgress } from '~/components/shared/paladium_job' */
 import { ThemeToggler } from '~/components/shared/theme_toggler'
 import { SkinViewer3d } from '~/components/skin_viewer_3d'
 import { MountViewer } from '~/components/three/mount'
@@ -20,7 +20,7 @@ import { PetViewer } from '~/components/three/pet'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { allianceToIcon } from '~/content/factions'
-import { icons as jobIcons } from '~/content/jobs'
+/* import { icons as jobIcons } from '~/content/jobs' */
 import { icons as leaderboardIcons } from '~/content/leaderboards'
 import { getMountNameByType } from '~/content/mounts'
 import { getPet, translatePet } from '~/content/pets'
@@ -38,10 +38,9 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
   const { player } = props
 
   const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = 8
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
   }
 
   const replaySlide = () => {
@@ -75,12 +74,12 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v10.5</h1>
+      <h1 className="text-4xl font-bold mb-8">Paladium Wrapped v11</h1>
       <p className="text-xl">
         Hey {player.username} ! Prêt à revenir sur les statistiques de votre aventure ?
       </p>
       <motion.div
-        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-indigo-500/10 backdrop-blur-sm shadow-2xl mx-auto"
+        className="border-4 border-white/10 rounded-md w-80 flex items-center justify-center bg-green-500/10 backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -241,7 +240,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Vos compagnons</h2>
       <div className="grid sm:grid-cols-2 w-fit gap-8 justify-center mx-auto">
-        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
+        <Card className="gap-4 border-4 border-white/10 bg-green-500/10 backdrop-blur-sm shadow-2xl">
           <CardHeader className="justify-center">
             <CardTitle className="text-2xl">Monture</CardTitle>
           </CardHeader>
@@ -272,7 +271,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             )}
           </CardContent>
         </Card>
-        <Card className="gap-4 border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl">
+        <Card className="gap-4 border-4 border-white/10 bg-green-500/10 backdrop-blur-sm shadow-2xl">
           <CardHeader className="justify-center">
             <CardTitle className="text-2xl">Familier</CardTitle>
           </CardHeader>
@@ -310,7 +309,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       </div>
     </motion.div>,
 
-    <motion.div
+    /*     <motion.div
       key="jobs"
       className="space-y-8"
       initial={{ opacity: 0 }}
@@ -353,7 +352,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
           )
         })}
       </div>
-    </motion.div>,
+    </motion.div>, */
 
     <motion.div
       key="wealth"
@@ -380,7 +379,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Votre meilleur classement</h2>
       <motion.div
-        className="w-64 border-4 border-white/10 bg-indigo-500/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
+        className="w-64 border-4 border-white/10 bg-green-500/10 flex flex-col gap-4 py-4 rounded-md backdrop-blur-sm shadow-2xl mx-auto"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -464,7 +463,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             </p>
             {player.clicker.buildings.lastUnlocked && (
               <div className="flex flex-row items-end gap-2">
-                <Card className="border-4 border-white/10 bg-indigo-500/10 backdrop-blur-sm shadow-2xl p-2">
+                <Card className="border-4 border-white/10 bg-green-500/10 backdrop-blur-sm shadow-2xl p-2">
                   <img
                     src={getClickerBuildingImage(player.clicker.buildings.lastUnlocked.name)}
                     alt={player.clicker.buildings.lastUnlocked.name}
@@ -546,7 +545,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Fin</h2>
       <motion.div
-        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-indigo-500/10 rounded-md backdrop-blur-sm shadow-2xl"
+        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-green-500/10 rounded-md backdrop-blur-sm shadow-2xl"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -608,7 +607,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
       <Head title={`${player.username} : Wrapped`} />
       <main
         className="relative min-h-screen p-8 text-white flex flex-col gap-4 items-center justify-start"
-        onClick={currentSlide + 1 !== totalSlides ? nextSlide : undefined}
+        onClick={currentSlide + 1 !== slides.length ? nextSlide : undefined}
       >
         <motion.div
           initial={{ opacity: 0 }}
@@ -619,18 +618,18 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
             backgroundImage: "url('/paladium-menu-background.jpg')",
           }}
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black to-black/80" />
+        <div className="absolute inset-0 bg-linear-to-b from-black to-black/50" />
         <div className="relative max-w-5xl w-full grow">
           <AnimatePresence mode="wait">{slides[currentSlide]}</AnimatePresence>
         </div>
         <div
           className={cn(
             'relative space-y-4',
-            currentSlide + 1 === totalSlides ? 'hidden' : 'block'
+            currentSlide + 1 === slides.length ? 'hidden' : 'block'
           )}
         >
           <div className="flex justify-center space-x-2">
-            {Array.from({ length: totalSlides }).map((_, index) => (
+            {Array.from({ length: slides.length }).map((_, index) => (
               <div
                 key={index}
                 className={cn(

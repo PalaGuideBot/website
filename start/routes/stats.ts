@@ -10,7 +10,7 @@ router
     router.get('/players/:username/og', [PlayerController, 'openGraph']).as('players.og')
     router.post('/players/search', [PlayerController, 'search']).as('players.search')
     router.get('/factions/:name?', [FactionController, 'show']).as('factions.show')
-    /*     router.get('/wrapped/:username?', [PlayerController, 'wrapped']).as('players.wrapped')
-    router.get('/wrapped/:username/end', [PlayerController, 'wrappedEnd']).as('players.wrapped.end') */
+    router.get('/wrapped/:username?', [PlayerController, 'wrapped']).as('players.wrapped')
+    router.get('/wrapped/:username/end', [PlayerController, 'wrappedEnd']).as('players.wrapped.end')
   })
   .as('stats')

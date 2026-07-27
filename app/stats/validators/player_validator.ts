@@ -205,12 +205,12 @@ export const playerWrappedValidator = vine.compile(
     }),
     factionsCount: vine.number(),
     timePlayed: vine.number(),
-    jobs: vine.object({
+    /* jobs: vine.object({
       miner: vine.number(),
       farmer: vine.number(),
       hunter: vine.number(),
       alchemist: vine.number(),
-    }),
+    }), */
     moneyMax: vine.number(),
     bestLeaderboard: vine
       .object({
