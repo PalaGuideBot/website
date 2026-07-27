@@ -1,6 +1,6 @@
 import { Exception } from '@adonisjs/core/exceptions'
 import { errors } from '@vinejs/vine'
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import ky, { HTTPError } from 'ky'
 
 import type { DistanceFilter } from '#core/validators/filter_validator'
@@ -15,11 +15,11 @@ import {
   eventFactionQuestValidator,
 } from '#event/validators/event_validator'
 import {
-  createGiveawayValidator,
+  type createGiveawayValidator,
   giveawayStateValidator,
   giveawaysValidator,
   giveawayValidator,
-  updateGiveawayValidator,
+  type updateGiveawayValidator,
 } from '#event/validators/giveaway_validator'
 import {
   categories as leaderboardCategories,
@@ -52,18 +52,18 @@ import {
 import { paladiumStatusValidator } from '#status/validators/status_validator'
 import {
   calculatorJobItemsValidator,
-  calculatorOptionsValidator as calculatorJobOptionsValidator,
+  type calculatorOptionsValidator as calculatorJobOptionsValidator,
   calculatorResultValidator as calculatorJobResultValidator,
 } from '#tools/validators/calculator_validator'
 import {
   calculatorItemsValidator,
-  calculatorOptionsValidator as calculatorPogOptionsValidator,
+  type calculatorOptionsValidator as calculatorPogOptionsValidator,
   calculatorResultValidator as calculatorPogResultValidator,
 } from '#tools/validators/pog_validator'
 import { upgradesValidator } from '#tools/validators/upgrade_validator'
 
 const client = ky.create({
-  prefixUrl: env.get('API_URL'),
+  prefix: env.get('API_URL'),
   headers: { Authorization: `Bearer ${env.get('API_KEY')}`, Accept: 'application/json' },
   timeout: 50000,
 })

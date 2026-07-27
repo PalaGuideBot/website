@@ -1,6 +1,6 @@
 import { useForm, usePage } from '@inertiajs/react'
 import { Select as SelectPrimitive } from 'radix-ui'
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import { CalculatorIcon, XIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'

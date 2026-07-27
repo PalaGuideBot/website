@@ -1,12 +1,14 @@
-import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
-const MinecraftController = () => import('#controllers/minecraft_controller')
+import { controllers } from '#generated/controllers'
+import { middleware } from '#start/kernel'
 
 router
   .group(() => {
-    router.post('/link/generate-token', [MinecraftController, 'generateToken']).as('generateToken')
-    router.delete('/unlink', [MinecraftController, 'unlinkAccount']).as('unlinkAccount')
+    router
+      .post('/link/generate-token', [controllers.Minecraft, 'generateToken'])
+      .as('generateToken')
+    router.delete('/unlink', [controllers.Minecraft, 'unlinkAccount']).as('unlinkAccount')
   })
   .prefix('minecraft')
   .as('minecraft')

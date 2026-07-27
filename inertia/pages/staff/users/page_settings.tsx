@@ -1,5 +1,5 @@
 import type { userRolesValidator } from '#staff/validators/user_validator'
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
 type PageSettingsContextValue = {

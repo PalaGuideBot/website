@@ -1,4 +1,4 @@
-import { InferPageProps } from '@adonisjs/inertia/types'
+import { type InferPageProps } from '@adonisjs/inertia/types'
 import { Link } from '@inertiajs/react'
 import { useMemo } from 'react'
 import {

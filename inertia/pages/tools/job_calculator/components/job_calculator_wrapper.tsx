@@ -1,4 +1,4 @@
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
 import type { calculatorJobItemsValidator } from '#tools/validators/calculator_validator'

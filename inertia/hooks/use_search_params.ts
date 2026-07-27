@@ -2,10 +2,7 @@ import { router, usePage } from '@inertiajs/react'
 import * as React from 'react'
 
 type URLSearchParamsInit =
-  | string
-  | [string, string][]
-  | Record<string, string | string[]>
-  | URLSearchParams
+  string | [string, string][] | Record<string, string | string[]> | URLSearchParams
 
 type SetURLSearchParams = (
   nextInit?: URLSearchParamsInit | ((prev: URLSearchParams) => URLSearchParamsInit),

@@ -9,9 +9,9 @@ import {
   FactionKilmordraIcon,
   FactionRunegardIcon,
   FactionXanothIcon,
-  IconProps,
+  type IconProps,
 } from '~/components/icons'
-import { PaladiumFaction } from '~/types'
+import { type PaladiumFaction } from '~/types'
 
 type FactionAlliance = Infer<typeof factionInfoValidator>['alliance']
 

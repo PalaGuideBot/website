@@ -7,13 +7,13 @@ export function SpiderWeb() {
             <circle key={r} cx="100" cy="0" r={r} />
           ))}
           {[...Array(8)].map((_, i) => {
-            const angle = (i * Math.PI) / 4;
-            const x = 100 + 50 * Math.cos(angle);
-            const y = 0 + 50 * Math.sin(angle);
-            return <line key={i} x1="100" y1="0" x2={x} y2={y} />;
+            const angle = (i * Math.PI) / 4
+            const x = 100 + 50 * Math.cos(angle)
+            const y = 0 + 50 * Math.sin(angle)
+            return <line key={i} x1="100" y1="0" x2={x} y2={y} />
           })}
         </g>
       </svg>
     </div>
-  );
+  )
 }

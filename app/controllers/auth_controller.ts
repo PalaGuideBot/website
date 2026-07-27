@@ -19,7 +19,7 @@ export default class AuthController {
   }
 
   login({ inertia }: HttpContext) {
-    return inertia.render('auth/login')
+    return inertia.render('auth/login', {})
   }
 
   logout({ session, response }: HttpContext) {

@@ -1,6 +1,6 @@
 import { Exception } from '@adonisjs/core/exceptions'
 import { base64 } from '@adonisjs/core/helpers'
-import { Renderer, RenderOptions } from '@takumi-rs/core'
+import { Renderer, type RenderOptions } from '@takumi-rs/core'
 import { promises as fs } from 'node:fs'
 import sharp from 'sharp'
 

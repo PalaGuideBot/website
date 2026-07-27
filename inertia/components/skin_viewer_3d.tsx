@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { SkinViewer, IdleAnimation, SkinViewerOptions } from 'skinview3d'
+import { SkinViewer, IdleAnimation, type SkinViewerOptions } from 'skinview3d'
 
 /**
  * This is the interface that describes the parameter in `onReady`

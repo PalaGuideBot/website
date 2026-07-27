@@ -1,7 +1,7 @@
 import type { InferPageProps } from '@adonisjs/inertia/types'
 import { useForm, usePage } from '@inertiajs/react'
 import { CalculatorIcon, Trash2Icon } from 'lucide-react'
-import { FormEvent, useRef } from 'react'
+import { type FormEvent, useRef } from 'react'
 
 import type PogCalculatorController from '#tools/controller/pog_calculator_controller'
 import { DefaultLayout } from '~/components/layouts/default'
@@ -48,7 +48,7 @@ export default function PogCalculatorIndex(props: PogCalculatorIndexProps) {
     'good-pickaxe-percentage': Number(searchParams.get('good-pickaxe-percentage') || 0),
     'use-experienced-pickaxe': Boolean(
       searchParams.get('use-experienced-pickaxe') ||
-        searchParams.get('experienced-pickaxe-percentage')
+      searchParams.get('experienced-pickaxe-percentage')
     ),
     'experienced-pickaxe-percentage': Number(
       searchParams.get('experienced-pickaxe-percentage') || 0

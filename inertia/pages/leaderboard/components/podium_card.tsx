@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { HTMLMotionProps, motion } from 'motion/react'
+import { type HTMLMotionProps, motion } from 'motion/react'
 import * as React from 'react'
 import { RunningAnimation } from 'skinview3d'
 

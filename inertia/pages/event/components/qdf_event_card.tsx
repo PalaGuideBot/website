@@ -1,4 +1,4 @@
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import { HourglassIcon } from 'lucide-react'
 import * as React from 'react'
 

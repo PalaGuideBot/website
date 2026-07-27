@@ -1,4 +1,4 @@
-import { InferPageProps } from '@adonisjs/inertia/types'
+import { type InferPageProps } from '@adonisjs/inertia/types'
 import { CodeXmlIcon, PointerIcon, ServerIcon, SwordsIcon, UsersIcon } from 'lucide-react'
 
 import type DashboardController from '#staff/controllers/dashboard_controller'

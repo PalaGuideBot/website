@@ -66,11 +66,11 @@ export default class PageController {
   }
 
   async informations({ inertia }: HttpContext) {
-    return inertia.render('informations')
+    return inertia.render('informations', {})
   }
 
   async faq({ inertia }: HttpContext) {
-    return inertia.render('faq')
+    return inertia.render('faq', {})
   }
 
   async openGraph({ response, request }: HttpContext) {

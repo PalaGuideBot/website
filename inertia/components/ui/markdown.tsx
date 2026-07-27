@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MarkdownPrimitive, { Components } from 'react-markdown'
+import MarkdownPrimitive, { type Components } from 'react-markdown'
 import { cn } from '~/lib/utils'
 
 export const implementedComponents = {

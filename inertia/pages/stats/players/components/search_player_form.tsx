@@ -2,7 +2,7 @@ import { router } from '@inertiajs/react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type { Infer } from '@vinejs/vine/types'
 import { ArrowRightIcon, SearchIcon } from 'lucide-react'
-import { FormEvent, useRef, useState } from 'react'
+import { type FormEvent, useRef, useState } from 'react'
 
 import type { playerSearchResultValidator } from '#stats/validators/player_validator'
 import { Command, CommandGroup, CommandItem, CommandList } from '~/components/ui/command'

@@ -1,4 +1,4 @@
-import { InferPageProps } from '@adonisjs/inertia/types'
+import { type InferPageProps } from '@adonisjs/inertia/types'
 
 import type GiveawayController from '#staff/controllers/giveaway_controller'
 import { StaffLayout } from '~/components/layouts/staff'

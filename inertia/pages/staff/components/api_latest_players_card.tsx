@@ -1,4 +1,4 @@
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import { CalendarIcon } from 'lucide-react'
 
 import type { latestPlayerDataValidator } from '#stats/validators/player_validator'

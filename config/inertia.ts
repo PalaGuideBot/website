@@ -7,11 +7,6 @@ export default defineConfig({
   rootView: 'inertia_layout',
 
   /**
-   * Data that should be shared with all rendered pages
-   */
-  sharedData: {},
-
-  /**
    * Options for the server-side rendering
    */
   ssr: {

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { ClickerAnyUpgrade, ClickerClickUpgrade, PlayerClickerData } from '#tools/types'
-import { CLICKER_OPTIONS, ClickerCalculator, getPlayerTotalProduction } from '~/lib/clicker'
+import { CLICKER_OPTIONS, type ClickerCalculator, getPlayerTotalProduction } from '~/lib/clicker'
 
 type State = {
   data: PlayerClickerData | null

@@ -1,42 +1,42 @@
 import router from '@adonisjs/core/services/router'
 
+import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
-
-const GiveawayController = () => import('#staff/controllers/giveaway_controller')
-const RoleController = () => import('#staff/controllers/role_controller')
-const UserController = () => import('#staff/controllers/user_controller')
-const DashboardController = () => import('#staff/controllers/dashboard_controller')
 
 router
   .group(() => {
     router
       .group(() => {
-        router.get('/', [DashboardController, 'index']).as('staff.dashboard')
+        router.get('/', [controllers.staff.Dashboard, 'index']).as('staff.dashboard')
         router
           .group(() => {
-            router.get('/', [UserController, 'index']).as('staff.users.index')
-            router.post('/', [UserController, 'create']).as('staff.users.create')
-            router.put('/:id', [UserController, 'update']).as('staff.users.update')
-            router.delete('/:id', [UserController, 'destroy']).as('staff.users.destroy')
+            router.get('/', [controllers.staff.User, 'index']).as('staff.users.index')
+            router.post('/', [controllers.staff.User, 'create']).as('staff.users.create')
+            router.put('/:id', [controllers.staff.User, 'update']).as('staff.users.update')
+            router.delete('/:id', [controllers.staff.User, 'destroy']).as('staff.users.destroy')
           })
           .prefix('/users')
         router
           .group(() => {
-            router.get('/', [RoleController, 'index']).as('staff.roles.index')
-            router.post('/', [RoleController, 'create']).as('staff.roles.create')
-            router.put('/:name', [RoleController, 'update']).as('staff.roles.update')
-            router.delete('/:name', [RoleController, 'destroy']).as('staff.roles.destroy')
+            router.get('/', [controllers.staff.Role, 'index']).as('staff.roles.index')
+            router.post('/', [controllers.staff.Role, 'create']).as('staff.roles.create')
+            router.put('/:name', [controllers.staff.Role, 'update']).as('staff.roles.update')
+            router.delete('/:name', [controllers.staff.Role, 'destroy']).as('staff.roles.destroy')
           })
           .prefix('/roles')
         router
           .group(() => {
-            router.get('/', [GiveawayController, 'index']).as('staff.giveaways.index')
-            router.post('/', [GiveawayController, 'create']).as('staff.giveaways.create')
-            router.put('/:id', [GiveawayController, 'update']).as('staff.giveaways.update')
-            router.delete('/:id', [GiveawayController, 'destroy']).as('staff.giveaways.destroy')
-            router.post('/:id/draw', [GiveawayController, 'draw']).as('staff.giveaways.draw')
+            router.get('/', [controllers.staff.Giveaway, 'index']).as('staff.giveaways.index')
+            router.post('/', [controllers.staff.Giveaway, 'create']).as('staff.giveaways.create')
+            router.put('/:id', [controllers.staff.Giveaway, 'update']).as('staff.giveaways.update')
+            router
+              .delete('/:id', [controllers.staff.Giveaway, 'destroy'])
+              .as('staff.giveaways.destroy')
+            router
+              .post('/:id/draw', [controllers.staff.Giveaway, 'draw'])
+              .as('staff.giveaways.draw')
             router.delete('/:id/participants/:participantId', [
-              GiveawayController,
+              controllers.staff.Giveaway,
               'deleteParticipant',
             ])
           })

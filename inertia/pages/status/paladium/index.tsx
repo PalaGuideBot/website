@@ -23,7 +23,7 @@ import { icons as factionIcons } from '~/content/factions'
 import { formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { formatNumber } from '~/lib/utils'
-import { PaladiumFaction, PaladiumStatus } from '~/types'
+import { type PaladiumFaction, type PaladiumStatus } from '~/types'
 import { UptimeIndicator } from '../components/uptime_indicator'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 

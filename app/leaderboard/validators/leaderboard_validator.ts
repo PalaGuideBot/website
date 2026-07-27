@@ -1,4 +1,4 @@
-import vine, { VineValidator } from '@vinejs/vine'
+import vine, { type VineValidator } from '@vinejs/vine'
 
 import type {
   LeaderboardCategory,

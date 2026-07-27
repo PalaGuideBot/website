@@ -1,4 +1,4 @@
-import { RowData, Table } from '@tanstack/react-table'
+import { type RowData, type Table } from '@tanstack/react-table'
 import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
 import { Button } from '~/components/ui/button'

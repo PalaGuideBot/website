@@ -18,7 +18,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '~/components/ui/dropdown_menu'
-import { useAuth } from '~/hooks/use_auth'
+import { type useAuth } from '~/hooks/use_auth'
 
 interface UserDropdownTriggerProps {
   user: NonNullable<ReturnType<typeof useAuth>>

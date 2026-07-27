@@ -1,4 +1,4 @@
-import { DiscordUser } from '#app/types'
+import { type DiscordUser } from '#app/types'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
 import { Exception } from '@adonisjs/core/exceptions'
 import type { HttpContext } from '@adonisjs/core/http'

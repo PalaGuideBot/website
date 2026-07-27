@@ -13,7 +13,7 @@ import { Spinner } from '~/components/ui/spinner'
 import { eachDayOfInterval, eachHourOfDate, formatDate } from '~/lib/date'
 import { DateTime } from '~/lib/luxon'
 import { cn } from '~/lib/utils'
-import { PaladiumStatus } from '~/types'
+import { type PaladiumStatus } from '~/types'
 import { useDateIntervalStore } from '../stores/use_date_interval_store'
 
 const TIME_INTERVAL_IN_MINUTES = 10

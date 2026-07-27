@@ -1,6 +1,6 @@
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 
-import { eventFactionOnYourMarksValidator } from '#event/validators/event_validator'
+import { type eventFactionOnYourMarksValidator } from '#event/validators/event_validator'
 
 type FactionEventOnYourMarks = Infer<typeof eventFactionOnYourMarksValidator>
 

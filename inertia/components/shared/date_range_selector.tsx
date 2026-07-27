@@ -1,6 +1,6 @@
 import { CalendarIcon } from 'lucide-react'
 import { useState } from 'react'
-import { DateRange } from 'react-day-picker'
+import { type DateRange } from 'react-day-picker'
 
 import type { ClientSeasonsFromProps } from '#app/types'
 import type { DistanceFilter } from '#core/validators/filter_validator'

@@ -1,4 +1,4 @@
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 
 import type { factionInfoValidator } from '#stats/validators/faction_validator'
 import { allianceToIcon } from '~/content/factions'

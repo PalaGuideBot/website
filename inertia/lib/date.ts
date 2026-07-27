@@ -1,4 +1,4 @@
-import { DateInput, DateTimeFormatOptions, Interval } from 'luxon'
+import { type DateInput, type DateTimeFormatOptions, Interval } from 'luxon'
 
 import { DateTime } from '~/lib/luxon'
 

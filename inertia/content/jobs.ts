@@ -3,7 +3,7 @@ import farmerIcon from '~/assets/job-icons/farmer.png'
 import hunterIcon from '~/assets/job-icons/hunter.png'
 import minerIcon from '~/assets/job-icons/miner.png'
 import {
-  IconProps,
+  type IconProps,
   SmallAlchemistJobIcon,
   SmallFarmerJobIcon,
   SmallHunterJobIcon,

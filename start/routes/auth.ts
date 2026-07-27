@@ -1,15 +1,18 @@
-import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
-const AuthController = () => import('#controllers/auth_controller')
+import { controllers } from '#generated/controllers'
+import { middleware } from '#start/kernel'
 
 router
   .group(() => {
-    router.get('/login', [AuthController, 'login']).as('auth.login')
-    router.get('/auth/redirect', [AuthController, 'redirect']).as('auth.redirect')
-    router.get('/auth/callback', [AuthController, 'callback']).as('auth.callback')
+    router.get('/login', [controllers.Auth, 'login']).as('auth.login')
+    router.get('/auth/redirect', [controllers.Auth, 'redirect']).as('auth.redirect')
+    router.get('/auth/callback', [controllers.Auth, 'callback']).as('auth.callback')
   })
   .middleware(middleware.guest())
 
-router.get('/profile', [AuthController, 'profile']).as('auth.profile').middleware(middleware.auth())
-router.get('/logout', [AuthController, 'logout']).as('auth.logout')
+router
+  .get('/profile', [controllers.Auth, 'profile'])
+  .as('auth.profile')
+  .middleware(middleware.auth())
+router.get('/logout', [controllers.Auth, 'logout']).as('auth.logout')

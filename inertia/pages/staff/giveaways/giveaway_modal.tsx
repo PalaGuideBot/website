@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react'
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 import { toast } from 'sonner'
 

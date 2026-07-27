@@ -215,14 +215,7 @@ const Infinite = ({ size = 24, ...props }: SpinnerVariantProps) => (
 
 export type SpinnerProps = LucideProps & {
   variant?:
-    | 'default'
-    | 'circle'
-    | 'pinwheel'
-    | 'circle-filled'
-    | 'ellipsis'
-    | 'ring'
-    | 'bars'
-    | 'infinite'
+    'default' | 'circle' | 'pinwheel' | 'circle-filled' | 'ellipsis' | 'ring' | 'bars' | 'infinite'
 }
 
 export const Spinner = ({ variant, ...props }: SpinnerProps) => {

@@ -1,9 +1,9 @@
-import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import { DndContext, type DragEndEvent } from '@dnd-kit/core'
 import type { Infer } from '@vinejs/vine/types'
 import * as React from 'react'
 
 import type { playerWrappedValidator } from '#stats/validators/player_validator'
-import { ProfileBanner } from '~/types'
+import { type ProfileBanner } from '~/types'
 import { getRandomMetricIds } from './wrapped_metrics'
 
 type WrappedSettingsContextValue = {

@@ -8,7 +8,7 @@ import {
   PathCardTitle,
   PathCardWrapper,
 } from '~/components/shared/path_card'
-import { Path } from '~/types'
+import { type Path } from '~/types'
 
 export default function InformationsPage() {
   const paths: Array<Path> = [

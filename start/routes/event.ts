@@ -1,15 +1,15 @@
 import router from '@adonisjs/core/services/router'
 
+import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 
-const GiveawayController = () => import('#event/controllers/giveaway_controller')
-const EventController = () => import('#event/controllers/event_controller')
-
-router.get('/events', [EventController, 'index'])
+router.get('/events', [controllers.event.Event, 'index'])
 
 router
   .group(() => {
-    router.get('/', [GiveawayController, 'index'])
-    router.post('/participate', [GiveawayController, 'participate']).middleware(middleware.auth())
+    router.get('/', [controllers.event.Giveaway, 'index'])
+    router
+      .post('/participate', [controllers.event.Giveaway, 'participate'])
+      .middleware(middleware.auth())
   })
   .prefix('/giveaway')

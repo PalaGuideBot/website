@@ -2,7 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 
 import StaffMiddleware from '#app/middleware/staff_middleware'
-import { DiscordUser } from '#app/types'
+import { type DiscordUser } from '#app/types'
 import { discordUserValidator } from '#staff/validators/discord_user_validator'
 
 /**

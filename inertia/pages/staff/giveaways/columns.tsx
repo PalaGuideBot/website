@@ -1,5 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table'
-import { Infer } from '@vinejs/vine/types'
+import { type ColumnDef } from '@tanstack/react-table'
+import { type Infer } from '@vinejs/vine/types'
 import { EditIcon, Trash2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 

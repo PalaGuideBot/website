@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import React, { useEffect } from 'react'
 import * as THREE from 'three'
 
-import { PetType } from '~/content/pets'
+import { type PetType } from '~/content/pets'
 import { cn } from '~/lib/utils'
 
 interface PetProps {

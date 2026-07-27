@@ -1,6 +1,6 @@
 import { router } from '@inertiajs/react'
 import { ArrowRightIcon, SearchIcon } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 import { Input } from '~/components/ui/input'
 

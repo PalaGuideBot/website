@@ -1,5 +1,5 @@
 import { Link, router } from '@inertiajs/react'
-import { Infer } from '@vinejs/vine/types'
+import { type Infer } from '@vinejs/vine/types'
 import { HTTPError } from 'ky'
 import { PartyPopperIcon } from 'lucide-react'
 import * as React from 'react'

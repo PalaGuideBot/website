@@ -1,4 +1,4 @@
-import { InferPageProps } from '@adonisjs/inertia/types'
+import { type InferPageProps } from '@adonisjs/inertia/types'
 
 import type EventController from '#event/controllers/event_controller'
 import { DefaultLayout } from '~/components/layouts/default'
