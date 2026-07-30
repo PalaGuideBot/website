@@ -545,7 +545,7 @@ export default function PlayerWrappedPage(props: PlayerWrappedPageProps) {
     >
       <h2 className="text-4xl font-bold text-center mb-12">Fin</h2>
       <motion.div
-        className="mx-auto min-w-2xl w-fit border-4 border-white/10 bg-green-500/10 rounded-md backdrop-blur-sm shadow-2xl"
+        className="mx-auto max-w-2xl w-full border-4 border-white/10 bg-green-500/10 rounded-md backdrop-blur-sm shadow-2xl"
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
       >
