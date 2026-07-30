@@ -1,6 +1,7 @@
 import { indexEntities } from '@adonisjs/core'
 import { defineConfig } from '@adonisjs/core/app'
 import { indexPages } from '@adonisjs/inertia'
+import { generateRegistry } from '@tuyau/core/hooks'
 
 export default defineConfig({
   /*
@@ -120,7 +121,9 @@ export default defineConfig({
           glob: ['**/*_controller.ts'],
           importAlias: '#app',
         },
+        transformers: { enabled: true, withSharedProps: true },
       }),
+      generateRegistry(),
     ],
     buildStarting: [() => import('@adonisjs/vite/build_hook')],
   },

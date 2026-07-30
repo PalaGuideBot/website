@@ -69,12 +69,12 @@ function MinecraftTab({ account }: { account?: ProfilePageProps['minecraftAccoun
   const [, copy] = useCopyToClipboard()
 
   const generateToken = async () => {
-    const response = await client.post('minecraft/link/generate-token').json<{ token: string }>()
+    const response = await client.post('/minecraft/link/generate-token', {})
     setToken(response.token)
   }
 
   const unlinkAccount = async () => {
-    await client.delete('minecraft/unlink')
+    await client.delete('/minecraft/unlink', {})
     router.reload()
   }
 

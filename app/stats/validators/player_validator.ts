@@ -239,6 +239,8 @@ export const playerWrappedValidator = vine.compile(
   })
 )
 
+export const playerSearchQueryValidator = vine.compile(vine.object({ q: vine.string() }))
+
 export const playerSearchResultValidator = vine.compile(
   vine.array(
     vine.object({

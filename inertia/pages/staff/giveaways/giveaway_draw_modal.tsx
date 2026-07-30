@@ -38,14 +38,10 @@ export function GiveawayDrawModal({ children, giveaway }: GiveawayDrawModalProps
   const onDraw = async () => {
     setDrawStatus('loading')
     try {
-      const response = await client
-        .post(`staff/giveaways/${giveaway._id}/draw`, {
-          body: JSON.stringify({ count }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .json<{ message: string }>()
+      const response = await client.post(`/staff/giveaways/:id/draw`, {
+        params: { id: giveaway._id },
+        body: { count },
+      })
       toast.success(response.message)
     } catch (error: unknown) {
       if (error instanceof HTTPError) {

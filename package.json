@@ -79,6 +79,7 @@
     "@takumi-rs/helpers": "^0.62.8",
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-table": "^8.21.3",
+    "@tuyau/core": "^1.2.2",
     "@vinejs/vine": "^4.4.0",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",

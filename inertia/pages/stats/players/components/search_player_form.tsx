@@ -134,11 +134,15 @@ function SearchPlayerFormAutoComplete({
   const { data, isLoading, isError, isEnabled } = useQuery({
     queryKey: ['players', 'search', query],
     queryFn: async () => {
-      const response = await client.post('players/search', { json: { q: query } })
-      if (response.ok) {
-        return response.json<Infer<typeof playerSearchResultValidator>>()
+      try {
+        const response = await client.post('/players/search', {
+          body: { q: query },
+        })
+
+        return response
+      } catch {
+        return []
       }
-      return []
     },
     enabled: query.length > 2,
   })

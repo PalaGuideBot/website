@@ -1,3 +1,7 @@
+import { type JSONDataTypes } from '@adonisjs/core/types/transformers'
+import { type Data } from '@generated/data'
+import { type PropsWithChildren } from 'react'
+
 export type Job = 'alchemist' | 'farmer' | 'hunter' | 'miner'
 
 export type PaladiumStatus =
@@ -46,3 +50,5 @@ export type ServerUsageInfo = {
   uptime: number
   date: string
 }
+
+export type InertiaProps<T extends JSONDataTypes = {}> = PropsWithChildren<Data.SharedProps & T>

@@ -2,7 +2,6 @@ import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
-import vine from '@vinejs/vine'
 
 import { ClientSeasonsFromProps } from '#app/types'
 import { createPageErrorFromException } from '#core/helpers/error'
@@ -10,6 +9,7 @@ import { ApiService } from '#core/services/api'
 import { distanceValidator } from '#core/validators/filter_validator'
 import { ImageRenderer } from '#og/services/image_renderer'
 import { createOgPlayerContainer } from '#stats/content/og'
+import { playerSearchQueryValidator } from '#stats/validators/player_validator'
 
 @inject()
 export default class PlayerController {
@@ -98,9 +98,7 @@ export default class PlayerController {
   }
 
   async search({ response, request }: HttpContext) {
-    const { q: query } = await request.validateUsing(
-      vine.compile(vine.object({ q: vine.string() }))
-    )
+    const { q: query } = await request.validateUsing(playerSearchQueryValidator)
 
     const results = await this.api.searchPlayers(query)
 

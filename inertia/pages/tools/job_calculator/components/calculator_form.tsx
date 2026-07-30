@@ -1,12 +1,10 @@
 import { useForm, usePage } from '@inertiajs/react'
-import { Select as SelectPrimitive } from 'radix-ui'
-import { type Infer } from '@vinejs/vine/types'
 import { CalculatorIcon, XIcon } from 'lucide-react'
+import { Select as SelectPrimitive } from 'radix-ui'
 import { useEffect } from 'react'
 import { useIMask } from 'react-imask'
 import { toast } from 'sonner'
 
-import type { playerJobsValidator } from '#stats/validators/player_validator'
 import { parseItems, stringifyItems } from '#tools/helpers/item'
 import { ArrowRightIcon } from '~/components/icons'
 import { Button } from '~/components/ui/button'
@@ -83,8 +81,9 @@ function StandardCalculatorForm({ onSuccess }: StandardCalculatorFormProps) {
 
     toast.promise(
       async () => {
-        const response = await client.post(`players/${formData.get('pseudo')}/jobs`)
-        const data = await response.json<Infer<typeof playerJobsValidator>>()
+        const data = await client.post(`/players/:username/jobs`, {
+          params: { username: String(formData.get('pseudo')) },
+        })
 
         const target = data[form.data.job as keyof typeof data]
 
@@ -274,8 +273,9 @@ function ReverseCalculatorForm({ onSuccess }: ReverseCalculatorFormProps) {
 
     toast.promise(
       async () => {
-        const response = await client.post(`players/${formData.get('pseudo')}/jobs`)
-        const data = await response.json<Infer<typeof playerJobsValidator>>()
+        const data = await client.post(`/players/:username/jobs`, {
+          params: { username: String(formData.get('pseudo')) },
+        })
 
         const target = data[form.data.job as keyof typeof data]
 
