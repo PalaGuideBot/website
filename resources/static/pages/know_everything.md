@@ -70,7 +70,12 @@ Deux contributeurs ont également apporté leur expertise au projet :
   - **Réalisations :**  
     - Développement initial des badges sur les profils.  
     - Suggestions et rapports de bugs.  
-    - Conseils et améliorations techniques.  
+    - Conseils et améliorations techniques.
+
+- **Arthur0501** (*Contributeur global*)  
+  - **Dernière contribution :** 06/08/2026
+  - **Aides :**
+    - Suggestions et rapports de bugs
 
 Toutes les personnes présentes sont bénévoles et contribuent sur leur temps libre.  
 
