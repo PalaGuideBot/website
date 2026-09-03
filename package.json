@@ -13,6 +13,9 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
+  "overrides": {
+    "nanoid": "^3.3.18"
+  },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#core/*": "./app/core/*.js",
